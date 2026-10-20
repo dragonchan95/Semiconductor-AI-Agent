@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fab Experiment Copilot</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header><div class="brand">FAB / EXPERIMENT COPILOT</div><span>G045 김용찬 · 과제 2</span></header>
+<main>
+<div class="intro"><p class="eyebrow">SEMICONDUCTOR ENGINEERING</p><h1>실험을 비교하고,<br>근거를 보고 결정하세요.</h1><p>공정 데이터와 검사 이미지의 학습 범위·전처리·불균형 대책을 비교합니다.<br>엔지니어가 계획을 승인하면 분석을 실행합니다.</p><div class="scope">SK AI Leader Academy 미니프로젝트 · 공정·장비 조작과 자동 운영 배포는 수행하지 않습니다.</div></div>
+<section><div class="section-title"><span>01</span><h2>분석할 데이터</h2></div><div class="toolbar"><button id="examples">공개 데이터·합성 데모 준비</button><label class="upload">CSV / 이미지 ZIP 등록<input id="upload" type="file" accept=".csv,.zip"></label><input id="token" type="password" placeholder="인증이 필요한 환경의 엔지니어 토큰" autocomplete="off"></div><p class="hint">CSV: label(정상 0, 불량 1), product, lot_id 또는 timestamp, 숫자 센서 열. 이미지 ZIP: manifest.csv와 이미지 경로.</p><div id="datasets" class="datasets"></div></section>
+<section id="plan-section"><div class="section-title"><span>02</span><h2>실험 목표와 검토 기준</h2></div><form id="proposal-form"><label>엔지니어 요청<textarea id="question">제품별 학습 데이터 조합과 불균형 대책을 비교하고, 불량 Recall을 높이면서 정상 오탐을 제한해줘.</textarea></label><div class="form-grid"><label>학습 제품 범위<select id="cohorts"><option value="subsets">전체 부분집합 비교 (A, B, AB, ABC, ABCD 등)</option><option value="all">전체 제품 통합 학습</option></select></label><label>평가할 제품<select id="target"><option value="all">전체 제품 (모든 후보에 동일)</option></select></label><label>정밀도 하한<input id="precision" type="number" min=".01" max="1" step=".01" value=".25"></label><label>정상 오탐률 상한<input id="fpr" type="number" min="0" max="1" step=".01" value=".15"></label><label>미탐 불량 1건 손실 가정 (원)<input id="miss-cost" type="number" min="1" value="100000"></label><label>정상 오탐 1건 손실 가정 (원)<input id="false-cost" type="number" min="0" value="1000"></label></div><p class="hint">비용은 사용자가 정하는 가정입니다. 아래 계산을 실제 수율 향상이나 영업이익 증가로 해석할 수 없습니다.</p><div id="model-hint" class="hint"></div><button class="primary" type="submit">근거와 실험 계획 제안받기</button></form></section>
+<section id="proposal-section" hidden><div class="section-title"><span>03</span><h2>실행 전 엔지니어 검토</h2></div><div id="proposal"></div><div class="approval"><label>승인자<input id="engineer" value="김용찬" maxlength="80"></label><button id="approve" class="primary">이 계획 승인 후 분석 실행</button><button id="reject">반려</button></div></section>
+<section id="result-section" hidden><div class="section-title"><span>04</span><h2>실측 결과와 다음 판단</h2></div><div id="progress" role="status"></div><div id="result"></div></section>
+<section><div class="section-title"><span>05</span><h2>이전 실행</h2></div><div id="history"></div></section>
+<div id="notice" role="alert"></div>
+<footer>선택 기준은 calibration·validation에 적용합니다. 최종 test는 후보 선택에 사용하지 않습니다.<br>합성 데모와 공개 공정 데이터는 구분해 표시합니다. <a href="/docs">API 문서</a></footer>
+</main><script src="/static/app.js"></script></body></html>

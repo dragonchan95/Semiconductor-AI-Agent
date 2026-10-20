@@ -1,0 +1,21 @@
+test_production_auth_does_not_block_health_or_ui (test_api.APITests.test_production_auth_does_not_block_health_or_ui) ... ok
+test_proposal_rejection_and_single_approval_http (test_api.APITests.test_proposal_rejection_and_single_approval_http) ... ok
+test_approval_hash_reject_and_single_use (test_core.CoreTests.test_approval_hash_reject_and_single_use) ... ok
+test_budget_and_unknown_product_guard (test_core.CoreTests.test_budget_and_unknown_product_guard) ... ok
+test_changed_data_invalidates_execution (test_core.CoreTests.test_changed_data_invalidates_execution) ... ok
+test_chronological_date_split (test_core.CoreTests.test_chronological_date_split) ... ok
+test_duplicate_features_rejected (test_core.CoreTests.test_duplicate_features_rejected) ... ok
+test_lot_disjoint_and_all_rows (test_core.CoreTests.test_lot_disjoint_and_all_rows) ... ok
+test_metrics_manual_confusion (test_core.CoreTests.test_metrics_manual_confusion) ... ok
+test_no_random_row_split_when_group_unknown (test_core.CoreTests.test_no_random_row_split_when_group_unknown) ... ok
+test_preserve_valid_zeros (test_core.CoreTests.test_preserve_valid_zeros) ... ok
+test_propose_does_not_train_and_restart_keeps_approval (test_core.CoreTests.test_propose_does_not_train_and_restart_keeps_approval) ... ok
+test_public_secom_label_and_quoted_timestamp (test_core.CoreTests.test_public_secom_label_and_quoted_timestamp) ... ok
+test_rejected_plan_cannot_run (test_core.CoreTests.test_rejected_plan_cannot_run) ... ok
+test_sparse_gate_never_auto_deploys (test_core.CoreTests.test_sparse_gate_never_auto_deploys) ... ok
+test_threshold_infeasibility_is_visible (test_core.CoreTests.test_threshold_infeasibility_is_visible) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 2.298s
+
+OK

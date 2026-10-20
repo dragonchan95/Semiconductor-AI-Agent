@@ -1,0 +1,64 @@
+{
+  "python": "3.11.15",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "datasets": [
+    {
+      "dataset": "synthetic_process",
+      "run_id": "run-2116a51b3379",
+      "trials": 60,
+      "winner": "extra_trees",
+      "baseline_recall": 0.6,
+      "test_recall": 1.0,
+      "test_precision": 0.5319148936170213,
+      "test_fpr": 0.1317365269461078,
+      "AP": 0.9033272343673138,
+      "gate": {
+        "passed": true,
+        "reasons": [],
+        "action": "엔지니어 파일럿 검토 가능",
+        "auto_deploy": false
+      },
+      "seconds": 24.8862266670003
+    },
+    {
+      "dataset": "secom",
+      "run_id": "run-bce88f65d549",
+      "trials": 12,
+      "winner": "logistic",
+      "baseline_recall": 0.06666666666666667,
+      "test_recall": 0.6,
+      "test_precision": 0.05232558139534884,
+      "test_fpr": 0.6546184738955824,
+      "AP": 0.06884953952043939,
+      "gate": {
+        "passed": false,
+        "reasons": [
+          "calibration·validation 기준을 함께 만족한 후보 없음"
+        ],
+        "action": "배포 보류·학습 데이터와 기준 재검토",
+        "auto_deploy": false
+      },
+      "seconds": 15.064106750000064
+    },
+    {
+      "dataset": "images",
+      "run_id": "run-22cfcaf15033",
+      "trials": 6,
+      "winner": "autoencoder",
+      "baseline_recall": 0.6428571428571429,
+      "test_recall": 1.0,
+      "test_precision": 1.0,
+      "test_fpr": 0.0,
+      "AP": 1.0,
+      "gate": {
+        "passed": false,
+        "reasons": [
+          "평가 불량 표본 20개 미만: 통계적 불확실성이 큼"
+        ],
+        "action": "배포 보류·표본 보강 및 재검토",
+        "auto_deploy": false
+      },
+      "seconds": 4.286398625001311
+    }
+  ]
+}

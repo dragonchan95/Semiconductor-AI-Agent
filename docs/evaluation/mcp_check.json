@@ -1,0 +1,12 @@
+{
+  "transport": "stdio",
+  "handshake": true,
+  "tools": [
+    "list_datasets",
+    "propose_experiment",
+    "get_experiment_result"
+  ],
+  "approval_or_execution_tool_exposed": false,
+  "dataset_tool_ok": true,
+  "knowledge_resource_ok": true
+}
