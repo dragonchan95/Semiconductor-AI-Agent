@@ -22,12 +22,12 @@ def main():
     for dataset in reversed(datasets):
         if "--images-only" in sys.argv and dataset["modality"] != "image":
             continue
+        if '--tabular-only' in sys.argv and dataset['modality'] == 'image':
+            continue
         image = dataset["modality"] == "image"
         request = {"dataset_id": dataset["id"], "cohort_mode": "all" if image else "subsets",
                    "question": "불량 재현율, 전처리, 제품 학습 범위와 불균형 대책을 비교",
                    "epochs": 6}
-        if not dataset["synthetic"]:
-            request["preprocessing"] = ["median", "scaled"]
         proposal = wb.propose(request)
         print(f"PROPOSED {dataset['name']}: {proposal['plan']['trial_budget']} trials", flush=True)
         run_id, result = wb.approve_and_run(proposal["id"], proposal["plan_hash"], "G045 자동 평가 시나리오(테스트 승인자)",
@@ -43,7 +43,7 @@ def main():
                          "test_recall": result["test"]["recall"], "test_precision": result["test"]["precision"],
                          "test_fpr": result["test"]["fpr"], "AP": result["test"]["average_precision"],
                          "gate": result["gate"], "seconds": result["elapsed_seconds"]})
-    if "--images-only" in sys.argv:
+    if "--images-only" in sys.argv or '--tabular-only' in sys.argv:
         receipts = []
         for name in ["synthetic_process", "secom", "images"]:
             saved = json.loads((ROOT / f"docs/evaluation/{name}.json").read_text())

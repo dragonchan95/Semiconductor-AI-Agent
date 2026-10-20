@@ -1,11 +1,13 @@
 """Build report and README from actual curriculum-aligned measured receipts."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
+from app.catalog import TABULAR, IMAGE
 ROOT=Path(__file__).resolve().parent.parent
 pct=lambda x:f'{100*x:.1f}%'
 num=lambda x:f'{x:,.1f}'
-NAMES={'logistic':'Logistic Regression','random_forest':'Random Forest','hist_gradient':'Hist Gradient Boosting',
-       'resnet_small':'ResNet 계열(교육용 축소)','vgg_small':'VGGNet 계열(교육용 축소)','autoencoder':'Autoencoder'}
+NAMES={k:v[0] for k,v in {**TABULAR,**IMAGE}.items()}
 
 def main():
     saved={n:json.loads((ROOT/f'docs/evaluation/{n}.json').read_text()) for n in ['synthetic_process','secom','images']}
@@ -27,25 +29,25 @@ def main():
 미검출1개10만원·정상 추가검사1개1천원 가정에서는 손실{b['assumed_loss']:,.0f}원에서{a['assumed_loss']:,.0f}원, 차이{delta['assumed_loss_reduction']:,.0f}원입니다. 재작업·설비·처리량·매출 효과를 제외하여 실제 영업이익으로 해석하지 않습니다.
 
 두 모델의 검출 불량 중20%를 재작업으로 정상화한다는 별도 가정에서는 양품{num(delta['additional_recovered'])}개를 추가 회수합니다. **재작업 후 양품 비율**은{pct(b['good_fraction_after_repair'])}에서{pct(a['good_fraction_after_repair'])}, 차이{delta['good_fraction_change']*100:.2f}%p입니다. 실제 결함의 재작업 가능성과 제조 수율 향상은 검증하지 않았습니다.'''
-    curriculum='''# 교육 자료와 모델 선택 근거
+    curriculum = '# 교육 자료와 모델 선택 근거\n\n'
+    curriculum += 'SKALA 머신러닝 및 딥러닝 이해 Day1 76쪽, Day2 74쪽, Day3 76쪽을 OCR로 검색하고 모델 소개 페이지를 직접 확인했습니다. 두 참고 사진 폴더 693장을 검색하고 주요 모델 표를 확인했습니다. 원본 교육자료는 재배포하지 않습니다. 페이지는 PDF 기준입니다.\n\n'
+    curriculum += '| 입력 | 실제 후보 | 전처리 | 자료 위치 | 비교 이유 |\n|---|---|---|---|---|\n'
+    for key, (title, prep, why, source) in TABULAR.items():
+        curriculum += f'| 숫자 센서 | {title} | {prep} | {source} | {why} |\n'
+    for key, (title, why, source) in IMAGE.items():
+        curriculum += f'| 검사 이미지 | {title} | gray / contrast, 32×32 | {source} | {why} |\n'
+    curriculum += '''
+자료명: `2) 데이터분석 및 AIOps_4.머신러닝 및 딥러닝 이해_Day1,2,3_박병선p.pdf` 각각의 파일, `DRAM, NAND 특성, 반도체 업에서 활용되는 AI, ML 기술 발표자료 (2).pdf`.
 
-| 입력·목적 | 실제 후보 | 제공 자료의 위치 | 이번 구현의 적용 |
-|---|---|---|---|
-| 공정 센서 | Random Forest | 스칼라 `생성형AI 기반 모델개발 실습.pptx.pdf` PDF4쪽(인쇄3쪽), 반도체 발표자료 PDF41~42쪽 | 같은 모델 계열의 분류기로 정상/불량 학습 |
-| 공정 센서 | Hist Gradient Boosting | 반도체 발표자료 PDF40쪽의 Hist Gradient Boost | 원자료의 연속 Response 회귀 소개를 이 과제에서는 정상/불량 분류로 적용 |
-| 비교 기준 | Logistic Regression | 스칼라 머신러닝 및 딥러닝 Day3 PDF68쪽의 이진 확률 예시 | 사전 정의한 기준 모델과 선형 후보 |
-| 검사 이미지 | ResNet·VGGNet 계열 | 스칼라 머신러닝 및 딥러닝 Day3 PDF74쪽 | residual block 및 VGG형 convolution의 자체 축소 구조를 scratch 학습 |
-| 검사 이미지 | Autoencoder | 사용자가 제공한 반도체 이미지 이상탐지 아이디어 | 정상 이미지로 학습하는 교육용 이상 탐지 구현. 위 Day3 PDF의 특정 페이지에서 소개했음을 확인한 것은 아님 |
+`반도체 ai agent 참고 사진/20261017_144839.jpg`에는 NN·KNN·SVM·Tree 기반 고장 분류가 나옵니다. `참고 사진 2/20261017_135247.jpg`에는 이미지 ResNet·VGGNet·GAN·Autoencoder, 자연어 LSTM·GPT·BERT, 시계열 LSTM·ARIMA·Autoencoder가 나옵니다. 원 자료의 회귀·수명 예측 사례와 이번 불량 이진 분류를 구분합니다. 이 구현의 평가는 Recall·Precision·FPR·AP입니다.
 
-반도체 자료: `DRAM, NAND 특성, 반도체 업에서 활용되는 AI, ML 기술 발표자료 (2).pdf`.
+기본 전처리는 학습 중앙값 결측 대체와 상수 특성 제거입니다. Logistic·KNN·SVM·MLP는 학습 평균·분산으로 표준화합니다. 트리는 크기 비교 분기이므로 기본적으로 표준화를 생략합니다. KNN·MLP의 weighted 정책은 train 안에서 소수 클래스 무작위 복제이며 나머지는 빈도 역수 가중치입니다. 평가 분포는 바꾸지 않습니다.
 
-원자료에는 회귀 성능 MSE/R²가 등장하지만 이 프로젝트 목표는 불량 이진 분류입니다. Recall·Precision·FPR·AP로 평가합니다. Random Forest가 항상 최고라고 가정하지 않고 동일 평가에서 비교합니다.
+센서 비교는 먼저 전체 제품에서 12종×불균형 2정책을 비교하고 validation 상위 서로 다른 두 모델의 최선 조건을 제품 15조합으로 확장합니다. 최대52조건이며 전 모델×전 제품×전 처리의 완전탐색은 아닙니다. 반복 validation 사용의 선택 편향과 작은 표본을 한계로 명시합니다. 각 실험은 실제 모델명·학습 데이터·적용 전처리·이유·출처를 저장합니다.
 
-이미지 구현은 표준 ResNet18/VGG16 사전학습 모델이 아닙니다. 화면에 교육용 축소를 표시하고 원본 코드명 ResNetSmall/VGGSmall은 코드·상세 결과에 유지합니다. XGBoost·LightGBM·GAN·LSTM·ARIMA·BERT·GPT 전체 실험은 구현하지 않았습니다. 텍스트·시계열·공정 조건별 수율 예측은 실제 데이터 확보 후 확장합니다.
+이미지 모델은 자체 축소 구조를 scratch 학습합니다. 표준 ResNet50/VGG19 사전학습 비교가 아닙니다. GAN 생성 학습, LSTM·ARIMA 시계열 예측, BERT·GPT 장비 로그 모델 학습은 입력과 별도 평가 설계가 없어 미구현입니다. 로컬 Qwen은 Agent 판단용이며 장비 로그 분류 모델의 성능 실험이 아닙니다.
 
-교육 PDF와 사진 원본은 공개 저장소에 재배포하지 않습니다.
-
-구현 API: [RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html), [HistGradientBoostingClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html).
+공식 구현 근거: [scikit-learn 전처리](https://scikit-learn.org/stable/modules/preprocessing.html), [트리](https://scikit-learn.org/stable/modules/tree.html), [신경망](https://scikit-learn.org/stable/modules/neural_networks_supervised.html), [XGBoost](https://xgboost.readthedocs.io/en/stable/), [LightGBM](https://lightgbm.readthedocs.io/en/stable/), [CatBoost](https://catboost.ai/docs/).
 '''
     (ROOT/'docs/CURRICULUM_MODELS.md').write_text(curriculum)
     cohort_rows=[]
@@ -81,7 +83,7 @@ G045 김용찬 / SK AI Leader Academy / 과제2 신규 프로젝트 / 2026-10-20
 
 ## 교육 자료에 맞춘 모델
 
-[교육 자료와 모델 선택 근거](CURRICULUM_MODELS.md)에 PDF명과 페이지를 정리했습니다. 공정 후보는 Random Forest, Logistic Regression, Hist Gradient Boosting이며 이미지 후보는 교육용 축소 ResNet·VGGNet 계열과 Autoencoder입니다. 입력 형식에 맞는 후보군 안에서 실제 결과로 선택합니다. NLP·시계열 모델 우월성을 검증한 기능은 없습니다.
+[교육 자료와 모델 선택 근거](CURRICULUM_MODELS.md)에 PDF명과 페이지를 정리했습니다. 공정 후보는 Decision Tree·Random Forest·Gradient Boosting·XGBoost·LightGBM·CatBoost·KNN·SVM·MLP·Logistic·AdaBoost·Hist Gradient Boosting 12종이며 이미지 후보는 교육용 축소 ResNet·VGGNet 계열과 Autoencoder입니다. 입력 형식에 맞는 후보군 안에서 실제 결과로 선택합니다. NLP·시계열 모델 우월성을 검증한 기능은 없습니다.
 
 ## 데이터와 분할
 
@@ -106,7 +108,7 @@ UCI SECOM은1,567행·불량104개·숫자 센서590열입니다. pass=-1을 정
 |---|---:|---:|---:|---:|---:|---:|
 '''+ '\n'.join(detail)+f'''
 
-합성 공정 선택은 **{NAMES[rr['winner']['model']]} / {'+'.join(rr['winner']['products'])} / {rr['winner']['preprocessing']} / {rr['winner']['balance']}**입니다. 공개 SECOM은 calibration·validation 기준을 동시에 만족한 후보가 없어 탐색 후보만 보고하고 보류합니다. 이미지 contrast 세 구조는 validation 주요 지표가 동률이어서 사전 정의한 trial ID로 Autoencoder를 선택했습니다. 구조 우월성의 증거가 아닙니다.
+합성 공정 선택은 **{NAMES[rr['winner']['model']]} / {'+'.join(rr['winner']['products'])} / {rr['winner']['preprocessing']} / {rr['winner']['balance']}**입니다. 합성 공정은 최종 FPR15.6%로 허용15%를 초과해 보류합니다. 공개 SECOM은 calibration·validation 기준을 동시에 만족한 후보가 없어 탐색 후보만 보고하고 보류합니다. 이미지 contrast 세 구조는 validation 주요 지표가 동률이어서 사전 정의한 trial ID로 Autoencoder를 선택했습니다. 구조 우월성의 증거가 아닙니다.
 
 AP는 sklearn non-interpolated Average Precision입니다. 단일 seed45·CPU·Python3.11.15,이미지6epoch 결과입니다. 합성의 높은 성능은 실제 현장 성능을 입증하지 않습니다. Wilson 구간도 분포 변화의 보장은 아닙니다. [AP 정의](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html), [PyTorch 재현성](https://docs.pytorch.org/docs/stable/notes/randomness.html)
 
@@ -140,9 +142,13 @@ FPR은 실제 정상 중 잘못 추가검사 대상으로 고른 비율입니다
 
 ## Agent 구조와 기술 평가
 
-LangGraph의 DataQualityAgent,KnowledgeAgent,ExperimentPlannerAgent는 결정적 Python 역할 노드입니다. 독립 LLM 추론 Multi-Agent는 구현하지 않았습니다. TF-IDF 문자2~4gram 검색으로8개 정책 문서의 근거를 계획에 결합합니다. 생성형 LLM 호출은0회이며 비용0원입니다. DI로 Store·Knowledge를 주입하고 API·MCP가 Workbench를 공유합니다.
+LangGraph의 검사·검색·실험 계획 그래프와 결과 검토 역할을 분리했습니다. DataQualityAgent·ExperimentPlannerAgent·ResultCriticAgent가 로컬 Qwen3.5:2b를 호출하여 관측 사실과 검색 문서에서 허용된 판단의 우선순위를 제안합니다. 모델 선택 수치·실험 예산·승인·최종 보류는 분석 엔진이 결정합니다. LLM의 코드·출처·주제 연결 검사를 통과하지 못하면 규칙 설명으로 대체하며 실패 상태를 숨기지 않습니다. 실제 통합 검증에서는 품질·계획 역할이 검사를 통과했고 결과 검토는 출처 검사 실패로 규칙 fallback을 사용했습니다. 자유 대화형 자율 Agent나 운영 자동 배포는 아닙니다.
 
-MCP는 list_datasets,propose_experiment,get_experiment_result와 정책 resource만 제공합니다. 승인·실행 도구는 노출하지 않습니다. 실제 stdio handshake·tools/list·tools/call·resources/read를 확인했습니다. SQLite는 승인 상태·hash·감사 이력을 저장하고 단일 worker가 학습합니다. LangSmith @traceable 계측은 구현했으며 원격 업로드는 미검증입니다.
+13개 요약 근거 문서를 qwen3-embedding:0.6b로 임베딩하고 cosine 검색한 뒤 역할별 생성 입력에 연결합니다. TF-IDF는 비교 기준과 연결 장애 시 fallback으로 유지합니다. 같은 13개 고정 질문에서 검색 Hit@3는 둘 다100%, MRR@3는0.9103에서0.9615였습니다. 자체 정답표의 작은 평가로 일반 검색 개선을 보장하지 않습니다. dense는 로컬 모델 호출 때문에 더 느립니다. 실제 질의·응답 시간과 역할별 성공/거부 상태는 [통합 검증 JSON](evaluation/agent_integration.json)에 기록합니다. 유료 LLM API 비용은0원이며 로컬 연산·전력 비용은 측정하지 않았습니다.
+
+MCP는 list_datasets,propose_experiment,get_experiment_result,explain_model_candidates와 지식 resource를 제공합니다. 실제 stdio handshake·tools/list·tools/call·resources/read 및 모델 설명 도구 호출을 검증했습니다. 승인·실행 도구는 노출하지 않습니다. DI로 Store·Knowledge·Advisor를 주입하고 API·MCP가 Workbench를 재사용합니다. SQLite에 hash·승인·이벤트·후보 이력을 저장하며 학습 worker는 단일 프로세스입니다.
+
+LangSmith @traceable 계측과 실제 전송을 시도했지만, 기존 자격 증명으로 원격 API가403 Forbidden을 반환했습니다. 따라서 원격 추적 성공을 주장하지 않습니다. 로컬 실험·통합 검증 기록은 저장했고 유효한 프로젝트 권한으로 원격 추적 재검증이 필요합니다. 비밀 값은 저장소에 넣지 않았습니다.
 
 | 평가항목 | 증빙 |
 |---|---|
@@ -152,7 +158,11 @@ MCP는 list_datasets,propose_experiment,get_experiment_result와 정책 resource
 | 발표20 | 쉬운 건수 비교,승인 시연,발표 대본과 코드 설명 |
 | Before/After bonus10 | 같은 입력·분할의 기본/선택 절차 실측 수치 |
 
-22개 테스트를 통과했습니다. 분할·누수·지표·승인·인증·API·SSE·CSV,가정 계산,재학습 계획 시 실행 없음,승인 후 후보 버전,validation만으로 전략 선택을 확인했습니다. [테스트 로그](evaluation/tests.txt),[MCP 실측](evaluation/mcp_check.json)
+26개 테스트를 통과했습니다. 분할·누수·지표·승인·인증·API·SSE·CSV,가정 계산,재학습 계획 시 실행 없음,승인 후 후보 버전,validation만으로 전략 선택을 확인했습니다. [테스트 로그](evaluation/tests.txt),[MCP 실측](evaluation/mcp_check.json)
+
+## 외부 모델 발굴과 목록 갱신 (확장 설계)
+
+외부 검색으로 새 모델을 찾고 모델 문서·과거 실험을 RAG로 참고한 뒤 적합성을 검토합니다. 엔지니어 승인 후 같은 분할에서 성능·검사 부담·자원 비용을 비교하고 검증 완료 후보 목록을 갱신하는 흐름입니다. [설계 문서](MODEL_DISCOVERY_DESIGN.md)에 상태와 승인·평가 조건을 정리했습니다. 현재 외부 모델 발굴·adapter 생성·자동 목록 갱신은 미구현입니다.
 
 ## 한계와 다음 단계
 
@@ -189,14 +199,14 @@ Python3.11 이상과 최초 의존성 설치가 필요합니다. SECOM 공식 ZI
 
 ## 교육에서 다룬 모델
 
-공정 후보: **Random Forest**,Logistic Regression,Hist Gradient Boosting. 이미지 후보: 교육용 축소 ResNet·VGGNet 계열,Autoencoder. [교육 자료명·페이지와 구현 구분](docs/CURRICULUM_MODELS.md)
+공정 후보: **Decision Tree·Random Forest·Gradient Boosting·XGBoost·LightGBM·CatBoost·KNN·SVM·MLP·Logistic·AdaBoost·Hist Gradient Boosting 12종**. 이미지 후보: 교육용 축소 ResNet·VGGNet 계열,Autoencoder. [교육 자료명·페이지와 구현 구분](docs/CURRICULUM_MODELS.md)
 
 Random Forest는 스칼라 실습과 반도체 자료 모두에서 확인했습니다. 이미지 축소 구조는 표준 ResNet18/VGG16 사전학습 비교가 아닙니다. NLP·시계열과 수율 예측은 향후 범위입니다.
 
 ## 구현한 기능
 
-- 데이터 종류별 후보,전처리,제품 A/B/AB/ABC/ABCD 등 최대15개 학습 범위 비교
-- train 전용 결측·분산·스케일 처리,불량 class weight,정상 전용 Autoencoder
+- 데이터 종류별 후보와 전처리 이유 설명,모델12종 비교 후 상위2종의 최대15개 제품 학습 범위 확장
+- train 전용 결측·상수 제거·스케일 처리,빈도 가중치 또는 train 전용 복제,정상 전용 Autoencoder
 - 근거 검색과 승인 계획·데이터 hash 고정,학습·평가·CSV 내보내기
 - 검사 수량·불량률에 따른 추가 검출량과 검사 부담,손실·재작업 가정 계산
 - 새 배치 성능 점검,승인 후 공통1개·제품별4개 후보의 실제 학습과 버전 저장
@@ -206,7 +216,7 @@ Random Forest는 스칼라 실습과 반도체 자료 모두에서 확인했습�
 
 {main_table}
 
-공개 SECOM은 운영 성능 개선을 주장하지 않고 보류 사례로 보고합니다. 합성 이미지100%는 단순한 인공 패턴이며 현장 성능으로 일반화할 수 없습니다. 모델·전처리·임계값을 포함한 절차 비교로 개별 기법의 인과 효과는 아닙니다.
+합성 공정도 최종 정상 추가검사15.6%로 허용15%를 조금 넘어 적용을 보류했습니다. 공개 SECOM 역시 보류 사례로 보고합니다. 합성 이미지100%는 단순한 인공 패턴이며 현장 성능으로 일반화할 수 없습니다. 모델·전처리·임계값을 포함한 절차 비교로 개별 기법의 인과 효과는 아닙니다.
 
 ## 건수와 비용을 쉽게 읽기
 
@@ -230,13 +240,21 @@ Random Forest는 스칼라 실습과 반도체 자료 모두에서 확인했습�
 .venv/bin/python scripts/build_report.py
 ```
 
-22개 테스트와 실제 MCP stdio 연결을 검증했습니다. 평가 스크립트의 승인자는 명시적인 자동 테스트 actor이며 현장 승인 실적이 아닙니다. 데이터·분할 hash,seed와환경은 JSON 및 requirements.lock.txt에 기록합니다. 기기·라이브러리 차이까지 완전한 재현을 보장하지 않습니다.
+26개 테스트와 실제 MCP stdio 연결을 검증했습니다. 평가 스크립트의 승인자는 명시적인 자동 테스트 actor이며 현장 승인 실적이 아닙니다. 데이터·분할 hash,seed와환경은 JSON 및 requirements.lock.txt에 기록합니다. 기기·라이브러리 차이까지 완전한 재현을 보장하지 않습니다.
 
 ## Agent와 운영 범위
 
-LangGraph의 데이터 검사·근거 검색·계획 역할은 결정적 Python 함수입니다. TF-IDF 검색 근거를 사용하고 독립 LLM 추론·생성형 응답은 구현하지 않았습니다. 외부 LLM 호출0회입니다. DI로 API와 MCP가 Workbench를 공유합니다. MCP는 조회·제안만 제공하고 승인·실행 도구를 노출하지 않습니다. LangSmith 계측은 구현했고 원격 추적은 미검증입니다.
+로컬 Qwen의 품질 점검·계획·결과 검토 역할, LangGraph, 13문서 임베딩 RAG, DI, MCP 4도구, 모듈화·26개 테스트를 구현했습니다. LLM 판단은 허용 코드·출처 연결을 검사하며 실패하면 규칙 설명으로 대체합니다. 수치와 승인은 분석 엔진이 관리합니다. [실제 LLM·검색 평가](docs/evaluation/agent_integration.json)
+
+로컬 LLM과 임베딩을 쓰려면 Ollama에 qwen3.5:2b 및 qwen3-embedding:0.6b가 있어야 합니다. `SEMI_LLM_ENABLED=1 bash start.sh`로 켭니다. 기본값은 규칙·TF-IDF 모드이며 이 상태도 화면에 표시합니다. macOS의 XGBoost·LightGBM에는 OpenMP가 필요해 `brew install libomp`를 먼저 실행합니다. requirements.lock.txt는 검증 환경의 고정 버전입니다.
+
+LangSmith 계측을 추가했고 실제 원격 전송은403 권한 오류로 확인하지 못했습니다. 성공한 것으로 표시하지 않았습니다. 유효한 환경 변수는 실행 프로세스에만 설정하고 비밀을 Git에 올리지 않습니다.
 
 Dockerfile과 deploy/kubernetes.yaml은 기업 클라우드 확장 예시이며 빌드·실배포는 검증하지 않았습니다. production에서는 ENGINEER_TOKEN을 설정해야 API를 사용할 수 있습니다. 현재 공유 토큰·SQLite·단일 worker는 개인별 SSO/RBAC·대규모 worker·중앙 감사 체계를 대체하지 않습니다.
+
+## 외부 모델 발굴 (확장 설계)
+
+외부 검색으로 모델을 찾고 RAG로 문서와 실험 이력을 참고한 뒤, 승인된 동일 조건 실험을 통과한 후보 목록을 갱신하는 설계입니다. 현재 실행 기능은 미구현이며 [상세 설계](docs/MODEL_DISCOVERY_DESIGN.md)로 구분했습니다.
 
 ## 데이터 형식과 출처
 

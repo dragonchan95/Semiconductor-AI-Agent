@@ -2,6 +2,7 @@
 from fastmcp import FastMCP
 from app.config import STATE_DIR
 from app.workbench import Workbench
+from app.catalog import TABULAR, IMAGE, pipeline_reason
 
 workbench = Workbench(STATE_DIR)
 mcp = FastMCP("semiconductor-experiment-copilot")
@@ -23,6 +24,14 @@ def propose_experiment(dataset_id: str, question: str, cohort_mode: str = "all")
 def get_experiment_result(run_id: str) -> dict:
     """엔지니어가 승인한 분석의 실측 결과를 조회합니다."""
     return workbench.store.run(run_id)
+
+
+@mcp.tool()
+def explain_model_candidates(modality: str = 'tabular') -> list[dict]:
+    """데이터 종류에 맞는 교육 모델과 실제 전처리·선정 근거를 조회합니다."""
+    if modality not in {'tabular', 'image'}:
+        raise ValueError('센서 tabular 또는 image만 실제 학습 지원')
+    return [pipeline_reason(n, 'gray' if modality == 'image' else 'auto') for n in (IMAGE if modality == 'image' else TABULAR)]
 
 
 @mcp.resource("semiconductor://knowledge/{topic}")

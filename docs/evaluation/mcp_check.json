@@ -4,9 +4,11 @@
   "tools": [
     "list_datasets",
     "propose_experiment",
-    "get_experiment_result"
+    "get_experiment_result",
+    "explain_model_candidates"
   ],
   "approval_or_execution_tool_exposed": false,
   "dataset_tool_ok": true,
-  "knowledge_resource_ok": true
+  "knowledge_resource_ok": true,
+  "model_explanation_tool_ok": true
 }

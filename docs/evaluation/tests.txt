@@ -1,3 +1,7 @@
+test_dense_connection_failure_is_explicit_fallback (test_advisors.AdvisorTests.test_dense_connection_failure_is_explicit_fallback) ... ok
+test_grounded_role_output (test_advisors.AdvisorTests.test_grounded_role_output) ... ok
+test_train_only_transform_and_model_support (test_advisors.AdvisorTests.test_train_only_transform_and_model_support) ... ok
+test_unknown_citation_or_metric_rejected (test_advisors.AdvisorTests.test_unknown_citation_or_metric_rejected) ... ok
 test_production_auth_does_not_block_health_or_ui (test_api.APITests.test_production_auth_does_not_block_health_or_ui) ... ok
 test_proposal_rejection_and_single_approval_http (test_api.APITests.test_proposal_rejection_and_single_approval_http) ... ok
 test_approval_hash_reject_and_single_use (test_core.CoreTests.test_approval_hash_reject_and_single_use) ... ok
@@ -22,6 +26,6 @@ test_review_plans_need_approval_and_save_candidate_version (test_monitoring.Moni
 test_strategy_selection_uses_validation_and_can_abstain (test_monitoring.MonitoringTests.test_strategy_selection_uses_validation_and_can_abstain) ... ok
 
 ----------------------------------------------------------------------
-Ran 22 tests in 4.426s
+Ran 26 tests in 4.381s
 
 OK

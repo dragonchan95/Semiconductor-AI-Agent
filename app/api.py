@@ -68,7 +68,8 @@ def home():
 @app.get("/health")
 def health():
     return {"status": "ok", "mode": "authenticated" if TOKEN else "local_demo",
-            "cloud_connected": False, "external_llm_calls": False,
+            "cloud_connected": False, "local_llm_enabled": os.getenv('SEMI_LLM_ENABLED', '0') == '1',
+            "paid_llm_calls": False,
             "approval_required": True, "auto_deploy": False}
 
 

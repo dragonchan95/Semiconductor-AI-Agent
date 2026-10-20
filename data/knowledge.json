@@ -54,5 +54,40 @@
     "text": "분석 엔진을 FastAPI 및 MCP에서 재사용한다. Docker와 Kubernetes 배포 예시를 제공한다. 실제 기업 도입에는 조직 SSO, RBAC, 비밀 관리, 데이터 connector, 감사 저장소와 학습 worker 분리가 필요하다. 특정 기업 플랫폼에 종속되지 않으며 클라우드 실배포는 아직 검증하지 않았다.",
     "source": "프로젝트 배포 설계. 제공 모델 서빙 및 AIOps 교육 자료 참고",
     "url": null
+  },
+  {
+    "id": "tree",
+    "title": "트리 계열과 표준화",
+    "text": "Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost는 숫자 특성의 순서에 따른 분기를 학습한다. 트리에는 단위 표준화가 필수는 아니다. 이번 비교에서는 일관된 결측 처리를 위해 학습 중앙값으로 대체한다. SKALA Day1 PDF 51, 62~73쪽 확인.",
+    "source": "scikit-learn Decision Trees",
+    "url": "https://scikit-learn.org/stable/modules/tree.html"
+  },
+  {
+    "id": "distance",
+    "title": "KNN·SVM과 센서 단위",
+    "text": "KNN의 거리와 RBF SVM의 커널은 특성 스케일에 영향을 받는다. 학습 중앙값으로 결측을 대체한 뒤 학습 평균·분산으로 표준화하고 같은 변환을 평가 표본에 적용한다. SKALA Day2 PDF 21~42쪽의 모델을 실제 분류기로 비교한다.",
+    "source": "scikit-learn Preprocessing",
+    "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+  },
+  {
+    "id": "ann",
+    "title": "MLP 신경망과 데이터 부족",
+    "text": "다층 퍼셉트론 MLP는 숫자 센서의 비선형 관계를 학습한다. 표준화와 규제, 고정된 학습 반복 예산을 사용한다. 불량 복제는 train에만 적용하고 validation/test 라벨 분포는 바꾸지 않는다. SKALA Day3 PDF 7~22쪽 신경망 교육에서 후보를 선정했다.",
+    "source": "scikit-learn Neural networks",
+    "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html"
+  },
+  {
+    "id": "modalities",
+    "title": "이미지·로그·시계열 입력의 구분",
+    "text": "반도체 교육 사진 20261017_135247은 이미지 ResNet/VGGNet/GAN/Autoencoder, 자연어 LSTM/GPT/BERT, 시계열 LSTM/ARIMA/Autoencoder를 소개한다. 이번 PoC는 센서 표의 이진 분류와 이미지 분류·이상 탐지만 실제 학습한다. 로그 텍스트와 시계열 예측 표적이 없을 때 해당 모델을 실행했다고 주장하지 않는다.",
+    "source": "제공 반도체 교육 사진의 모델 소개를 요약한 프로젝트 범위",
+    "url": null
+  },
+  {
+    "id": "retraining",
+    "title": "재학습과 제품 전용 후보",
+    "text": "새로운 라벨 배치에서 기존 모델의 Recall 저하와 FPR 증가를 점검한다. 변화 탐지는 재학습 제안 근거이며 원인 진단은 아니다. 엔지니어 승인 후 통합 모델과 제품별 모델을 같은 제품의 validation에서 비교하고 최종 test 기준으로 권고 또는 보류한다. 운영 배포는 자동 수행하지 않는다.",
+    "source": "프로젝트 모델 관리 정책",
+    "url": null
   }
 ]

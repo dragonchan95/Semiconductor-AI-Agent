@@ -20,7 +20,7 @@ G045 김용찬 / SK AI Leader Academy / 과제2 신규 프로젝트 / 2026-10-20
 
 ## 교육 자료에 맞춘 모델
 
-[교육 자료와 모델 선택 근거](CURRICULUM_MODELS.md)에 PDF명과 페이지를 정리했습니다. 공정 후보는 Random Forest, Logistic Regression, Hist Gradient Boosting이며 이미지 후보는 교육용 축소 ResNet·VGGNet 계열과 Autoencoder입니다. 입력 형식에 맞는 후보군 안에서 실제 결과로 선택합니다. NLP·시계열 모델 우월성을 검증한 기능은 없습니다.
+[교육 자료와 모델 선택 근거](CURRICULUM_MODELS.md)에 PDF명과 페이지를 정리했습니다. 공정 후보는 Decision Tree·Random Forest·Gradient Boosting·XGBoost·LightGBM·CatBoost·KNN·SVM·MLP·Logistic·AdaBoost·Hist Gradient Boosting 12종이며 이미지 후보는 교육용 축소 ResNet·VGGNet 계열과 Autoencoder입니다. 입력 형식에 맞는 후보군 안에서 실제 결과로 선택합니다. NLP·시계열 모델 우월성을 검증한 기능은 없습니다.
 
 ## 데이터와 분할
 
@@ -42,27 +42,27 @@ UCI SECOM은1,567행·불량104개·숫자 센서590열입니다. pass=-1을 정
 
 | 데이터 | 후보 수 | Before Recall | After Recall | After Precision | After FPR | 판단 |
 |---|---:|---:|---:|---:|---:|---|
-| 합성 공정 | 60 | 60.0% | 88.0% | 53.7% | 11.4% | 합성 내 검토 가능 |
-| 공개 SECOM | 12 | 6.7% | 60.0% | 5.2% | 65.5% | 보류 |
+| 합성 공정 | 52 | 60.0% | 96.0% | 48.0% | 15.6% | 보류 |
+| 공개 SECOM | 24 | 6.7% | 93.3% | 6.0% | 88.8% | 보류 |
 | 합성 이미지 | 6 | 64.3% | 100.0% | 100.0% | 0.0% | 보류 |
 
 | 데이터 | Test 전체/불량 | Before 미탐/오탐 | After 미탐/오탐 | Before/After AP | Recall Wilson95% | 시간 |
 |---|---:|---:|---:|---:|---:|---:|
-| 합성 공정 | 192 / 25 | 10 / 1 | 3 / 19 | 0.851 / 0.852 | 70.0%~95.8% | 25.54초 |
-| 공개 SECOM | 264 / 15 | 14 / 11 | 6 / 163 | 0.077 / 0.069 | 35.7%~80.2% | 15.59초 |
-| 합성 이미지 | 90 / 14 | 5 / 45 | 0 / 0 | 0.436 / 1.000 | 78.5%~100.0% | 4.22초 |
+| 합성 공정 | 192 / 25 | 10 / 1 | 1 / 26 | 0.851 / 0.920 | 80.5%~99.3% | 22.03초 |
+| 공개 SECOM | 264 / 15 | 14 / 11 | 1 / 221 | 0.077 / 0.076 | 70.2%~98.8% | 23.05초 |
+| 합성 이미지 | 90 / 14 | 5 / 45 | 0 / 0 | 0.436 / 1.000 | 78.5%~100.0% | 4.38초 |
 
-합성 공정 선택은 **Random Forest / B+C / scaled / none**입니다. 공개 SECOM은 calibration·validation 기준을 동시에 만족한 후보가 없어 탐색 후보만 보고하고 보류합니다. 이미지 contrast 세 구조는 validation 주요 지표가 동률이어서 사전 정의한 trial ID로 Autoencoder를 선택했습니다. 구조 우월성의 증거가 아닙니다.
+합성 공정 선택은 **SVM (RBF) / B+C+D / auto / none**입니다. 합성 공정은 최종 FPR15.6%로 허용15%를 초과해 보류합니다. 공개 SECOM은 calibration·validation 기준을 동시에 만족한 후보가 없어 탐색 후보만 보고하고 보류합니다. 이미지 contrast 세 구조는 validation 주요 지표가 동률이어서 사전 정의한 trial ID로 Autoencoder를 선택했습니다. 구조 우월성의 증거가 아닙니다.
 
 AP는 sklearn non-interpolated Average Precision입니다. 단일 seed45·CPU·Python3.11.15,이미지6epoch 결과입니다. 합성의 높은 성능은 실제 현장 성능을 입증하지 않습니다. Wilson 구간도 분포 변화의 보장은 아닙니다. [AP 정의](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html), [PyTorch 재현성](https://docs.pytorch.org/docs/stable/notes/randomness.html)
 
 ## 검사량·비용·재작업 가정
 
-제품1,000개 중 불량100개·정상900개와 검증 비율 유지라는 **가정**입니다. 기본 모델은 불량60.0개, 선택 모델은88.0개를 찾습니다. 불량28.0개를 더 찾는 대신 정상 추가검사는5.4개에서102.4개로97.0개 늘어납니다.
+제품1,000개 중 불량100개·정상900개와 검증 비율 유지라는 **가정**입니다. 기본 모델은 불량60.0개, 선택 모델은96.0개를 찾습니다. 불량36.0개를 더 찾는 대신 정상 추가검사는5.4개에서140.1개로134.7개 늘어납니다.
 
-미검출1개10만원·정상 추가검사1개1천원 가정에서는 손실4,005,389원에서1,302,395원, 차이2,702,994원입니다. 재작업·설비·처리량·매출 효과를 제외하여 실제 영업이익으로 해석하지 않습니다.
+미검출1개10만원·정상 추가검사1개1천원 가정에서는 손실4,005,389원에서540,120원, 차이3,465,269원입니다. 재작업·설비·처리량·매출 효과를 제외하여 실제 영업이익으로 해석하지 않습니다.
 
-두 모델의 검출 불량 중20%를 재작업으로 정상화한다는 별도 가정에서는 양품5.6개를 추가 회수합니다. **재작업 후 양품 비율**은91.2%에서91.8%, 차이0.56%p입니다. 실제 결함의 재작업 가능성과 제조 수율 향상은 검증하지 않았습니다.
+두 모델의 검출 불량 중20%를 재작업으로 정상화한다는 별도 가정에서는 양품7.2개를 추가 회수합니다. **재작업 후 양품 비율**은91.2%에서91.9%, 차이0.72%p입니다. 실제 결함의 재작업 가능성과 제조 수율 향상은 검증하지 않았습니다.
 
 FPR은 실제 정상 중 잘못 추가검사 대상으로 고른 비율입니다. 화면에서는 정상 제품 추가 검사 허용 비율로 표현합니다. 15%는 정상100개 중 최대15개라는 뜻입니다. Recall은 실제 불량 중 발견 비율이므로 분모가 다릅니다.
 
@@ -70,7 +70,7 @@ FPR은 실제 정상 중 잘못 추가검사 대상으로 고른 비율입니다
 
 ## 재학습 판단과 공통·제품별 비교
 
-독립 seed1045의 새 합성3,840행·480lot에서 불량 발생 규칙을 변경했습니다. 이전 데이터와 중복되는 센서 행을 거부하고 새 train 구간에서만 기존 모델을 점검합니다. 이전 test Recall88.0%에 비해 새 train 점검37.1%,FPR23.9%로 **재학습 필요**을 제안했습니다. 서로 다른 배치의 비교이며 Recall10%p하락 등의 개발 휴리스틱은 통계적 drift 검정이 아닙니다. 불량20개 미만은 판단 보류합니다.
+독립 seed1045의 새 합성3,840행·480lot에서 불량 발생 규칙을 변경했습니다. 이전 데이터와 중복되는 센서 행을 거부하고 새 train 구간에서만 기존 모델을 점검합니다. 이전 test Recall96.0%에 비해 새 train 점검39.2%,FPR27.1%로 **재학습 필요**을 제안했습니다. 서로 다른 배치의 비교이며 Recall10%p하락 등의 개발 휴리스틱은 통계적 drift 검정이 아닙니다. 불량20개 미만은 판단 보류합니다.
 
 공통1개와 제품별4개 계획 생성 시 학습하지 않는 것을 검증했습니다. 자동 검증용 테스트 승인자로 승인한 뒤 각4개,총20개 조건(Random Forest/Logistic,none/weighted)을 실제 학습했습니다. 현장 승인 실적이 아닙니다.
 
@@ -91,27 +91,31 @@ FPR은 실제 정상 중 잘못 추가검사 대상으로 고른 비율입니다
 
 | 학습 제품 | 후보 | Recall | Precision | FPR |
 |---|---|---:|---:|---:|
-| A | Random Forest / none | 94.1% | 65.3% | 10.8% |
-| B | Random Forest / none | 73.5% | 61.0% | 10.1% |
-| C | Random Forest / none | 91.2% | 72.1% | 7.6% |
-| D | Random Forest / weighted | 79.4% | 56.2% | 13.3% |
-| A+B | Random Forest / none | 94.1% | 64.0% | 11.4% |
-| A+C | Random Forest / none | 94.1% | 66.7% | 10.1% |
-| A+D | Random Forest / none | 88.2% | 57.7% | 13.9% |
-| B+C | Random Forest / none | 100.0% | 64.2% | 12.0% |
-| B+D | Random Forest / weighted | 85.3% | 65.9% | 9.5% |
-| C+D | Random Forest / weighted | 91.2% | 62.0% | 12.0% |
-| A+B+C | Random Forest / none | 97.1% | 62.3% | 12.7% |
-| A+B+D | Random Forest / weighted | 88.2% | 62.5% | 11.4% |
-| A+C+D | Random Forest / weighted | 88.2% | 68.2% | 8.9% |
-| B+C+D | Random Forest / none | 85.3% | 63.0% | 10.8% |
-| A+B+C+D | Random Forest / none | 94.1% | 60.4% | 13.3% |
+| A | CatBoost / weighted | 91.2% | 66.0% | 10.1% |
+| B | 기준 충족 후보 없음 | — | — | — |
+| C | CatBoost / weighted | 97.1% | 63.5% | 12.0% |
+| D | SVM (RBF) / none | 91.2% | 63.3% | 11.4% |
+| A+B | SVM (RBF) / none | 91.2% | 66.0% | 10.1% |
+| A+C | SVM (RBF) / none | 97.1% | 67.3% | 10.1% |
+| A+D | SVM (RBF) / none | 88.2% | 76.9% | 5.7% |
+| B+C | CatBoost / weighted | 94.1% | 58.2% | 14.6% |
+| B+D | CatBoost / weighted | 88.2% | 60.0% | 12.7% |
+| C+D | SVM (RBF) / none | 94.1% | 74.4% | 7.0% |
+| A+B+C | CatBoost / weighted | 97.1% | 60.0% | 13.9% |
+| A+B+D | SVM (RBF) / none | 97.1% | 67.3% | 10.1% |
+| A+C+D | CatBoost / weighted | 97.1% | 61.1% | 13.3% |
+| B+C+D | SVM (RBF) / none | 100.0% | 61.8% | 13.3% |
+| A+B+C+D | SVM (RBF) / none | 97.1% | 68.8% | 9.5% |
 
 ## Agent 구조와 기술 평가
 
-LangGraph의 DataQualityAgent,KnowledgeAgent,ExperimentPlannerAgent는 결정적 Python 역할 노드입니다. 독립 LLM 추론 Multi-Agent는 구현하지 않았습니다. TF-IDF 문자2~4gram 검색으로8개 정책 문서의 근거를 계획에 결합합니다. 생성형 LLM 호출은0회이며 비용0원입니다. DI로 Store·Knowledge를 주입하고 API·MCP가 Workbench를 공유합니다.
+LangGraph의 검사·검색·실험 계획 그래프와 결과 검토 역할을 분리했습니다. DataQualityAgent·ExperimentPlannerAgent·ResultCriticAgent가 로컬 Qwen3.5:2b를 호출하여 관측 사실과 검색 문서에서 허용된 판단의 우선순위를 제안합니다. 모델 선택 수치·실험 예산·승인·최종 보류는 분석 엔진이 결정합니다. LLM의 코드·출처·주제 연결 검사를 통과하지 못하면 규칙 설명으로 대체하며 실패 상태를 숨기지 않습니다. 실제 통합 검증에서는 품질·계획 역할이 검사를 통과했고 결과 검토는 출처 검사 실패로 규칙 fallback을 사용했습니다. 자유 대화형 자율 Agent나 운영 자동 배포는 아닙니다.
 
-MCP는 list_datasets,propose_experiment,get_experiment_result와 정책 resource만 제공합니다. 승인·실행 도구는 노출하지 않습니다. 실제 stdio handshake·tools/list·tools/call·resources/read를 확인했습니다. SQLite는 승인 상태·hash·감사 이력을 저장하고 단일 worker가 학습합니다. LangSmith @traceable 계측은 구현했으며 원격 업로드는 미검증입니다.
+13개 요약 근거 문서를 qwen3-embedding:0.6b로 임베딩하고 cosine 검색한 뒤 역할별 생성 입력에 연결합니다. TF-IDF는 비교 기준과 연결 장애 시 fallback으로 유지합니다. 같은 13개 고정 질문에서 검색 Hit@3는 둘 다100%, MRR@3는0.9103에서0.9615였습니다. 자체 정답표의 작은 평가로 일반 검색 개선을 보장하지 않습니다. dense는 로컬 모델 호출 때문에 더 느립니다. 실제 질의·응답 시간과 역할별 성공/거부 상태는 [통합 검증 JSON](evaluation/agent_integration.json)에 기록합니다. 유료 LLM API 비용은0원이며 로컬 연산·전력 비용은 측정하지 않았습니다.
+
+MCP는 list_datasets,propose_experiment,get_experiment_result,explain_model_candidates와 지식 resource를 제공합니다. 실제 stdio handshake·tools/list·tools/call·resources/read 및 모델 설명 도구 호출을 검증했습니다. 승인·실행 도구는 노출하지 않습니다. DI로 Store·Knowledge·Advisor를 주입하고 API·MCP가 Workbench를 재사용합니다. SQLite에 hash·승인·이벤트·후보 이력을 저장하며 학습 worker는 단일 프로세스입니다.
+
+LangSmith @traceable 계측과 실제 전송을 시도했지만, 기존 자격 증명으로 원격 API가403 Forbidden을 반환했습니다. 따라서 원격 추적 성공을 주장하지 않습니다. 로컬 실험·통합 검증 기록은 저장했고 유효한 프로젝트 권한으로 원격 추적 재검증이 필요합니다. 비밀 값은 저장소에 넣지 않았습니다.
 
 | 평가항목 | 증빙 |
 |---|---|
@@ -121,7 +125,11 @@ MCP는 list_datasets,propose_experiment,get_experiment_result와 정책 resource
 | 발표20 | 쉬운 건수 비교,승인 시연,발표 대본과 코드 설명 |
 | Before/After bonus10 | 같은 입력·분할의 기본/선택 절차 실측 수치 |
 
-22개 테스트를 통과했습니다. 분할·누수·지표·승인·인증·API·SSE·CSV,가정 계산,재학습 계획 시 실행 없음,승인 후 후보 버전,validation만으로 전략 선택을 확인했습니다. [테스트 로그](evaluation/tests.txt),[MCP 실측](evaluation/mcp_check.json)
+26개 테스트를 통과했습니다. 분할·누수·지표·승인·인증·API·SSE·CSV,가정 계산,재학습 계획 시 실행 없음,승인 후 후보 버전,validation만으로 전략 선택을 확인했습니다. [테스트 로그](evaluation/tests.txt),[MCP 실측](evaluation/mcp_check.json)
+
+## 외부 모델 발굴과 목록 갱신 (확장 설계)
+
+외부 검색으로 새 모델을 찾고 모델 문서·과거 실험을 RAG로 참고한 뒤 적합성을 검토합니다. 엔지니어 승인 후 같은 분할에서 성능·검사 부담·자원 비용을 비교하고 검증 완료 후보 목록을 갱신하는 흐름입니다. [설계 문서](MODEL_DISCOVERY_DESIGN.md)에 상태와 승인·평가 조건을 정리했습니다. 현재 외부 모델 발굴·adapter 생성·자동 목록 갱신은 미구현입니다.
 
 ## 한계와 다음 단계
 

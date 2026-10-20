@@ -10,14 +10,16 @@ from .data import (audit_frame, file_hash, generate_demo, import_secom,
 from .experiments import execute
 from .planner import Dependencies, Knowledge, ProposalRequest, build_planner
 from .store import Store
+from .advisors import LocalAdvisor, result_choices
 
 
 class Workbench:
-    def __init__(self, directory):
+    def __init__(self, directory, knowledge=None, advisor=None, store=None):
         self.directory = Path(directory)
-        self.store = Store(self.directory)
-        self.knowledge = Knowledge()
-        self.planner = build_planner(Dependencies(self.store, self.knowledge))
+        self.store = store or Store(self.directory)
+        self.knowledge = knowledge or Knowledge(self.directory)
+        self.advisor = advisor or LocalAdvisor()
+        self.planner = build_planner(Dependencies(self.store, self.knowledge, self.advisor))
 
     def register(self, path, name, source, synthetic=False, modality="tabular"):
         path = Path(path).resolve()
@@ -51,7 +53,7 @@ class Workbench:
             request = ProposalRequest.model_validate(request)
         state = self.planner.invoke({"request": request.model_dump()})
         return self.store.add_proposal(state["plan"], {
-            "audit": state["audit"], "split": state["split"], "evidence": state["evidence"],
+            "audit": state["audit"], "explanation": state.get("explanation"), "agent_outputs": state.get("agent_outputs", []), "split": state["split"], "evidence": state["evidence"],
             "reasons": state["reasons"], "events": state["events"], "question": request.question,
             "dataset_name": state["dataset"]["name"], "synthetic": state["dataset"]["synthetic"]})
 
@@ -66,6 +68,9 @@ class Workbench:
             raise ValueError("승인한 데이터 버전과 등록 데이터 버전이 다릅니다")
         try:
             result = execute(dataset, proposal["plan"], self.directory / "runs" / run_id, on_event)
+            result['agent_review'] = self.advisor.advise('ResultCriticAgent', {
+                'winner': result['winner']['model'], 'validation': result['winner']['validation'],
+                'test': result['test'], 'gate': result['gate']}, result_choices(result), proposal['evidence'])
             if proposal['plan'].get('management_source_run'):
                 products = result['winner']['products']
                 result['model_version'] = {'id': 'model-'+run_id, 'product': '+'.join(products),

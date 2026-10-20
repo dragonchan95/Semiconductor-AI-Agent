@@ -111,7 +111,9 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(p["status"], "awaiting_approval")
         self.assertEqual(wb.store.runs(), [])
         self.assertEqual(len(p["plan"]["cohorts"]), 15)
-        self.assertEqual(p["plan"]["trial_budget"], 60)
+        self.assertEqual(p["plan"]["trial_budget"], 52)
+        self.assertEqual(len(p['plan']['models']), 12)
+        self.assertEqual(p['plan']['search_strategy'], 'model_then_cohort')
         self.assertEqual(Workbench(self.path / "state").store.proposal(p["id"])["plan_hash"], p["plan_hash"])
 
     def test_changed_data_invalidates_execution(self):

@@ -192,6 +192,7 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
     baseline_model, _, baseline_prep = fitted[first["id"]]
     baseline = measure(y[test], predict(baseline_model, tensors[baseline_prep][test], first["model"]), .5, policy)
     torch.save(best.state_dict(), artifact_dir / "champion.pt")
+    from .catalog import pipeline_reason
     result = {"dataset": {k: dataset[k] for k in ["id", "name", "source", "synthetic", "sha256"]},
               "winner_id": winner["id"], "winner": winner, "trials": rows, "test": metrics,
               "baseline_test": baseline, "selection_feasible": bool(feasible),
@@ -201,6 +202,9 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
               "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
               "economic_note": "합성 이미지 데모 결과. 실제 검사 이미지·영업이익 개선으로 일반화할 수 없음.",
               "actual_llm_api_cost": 0}
+    result['explanation'] = {**pipeline_reason(winner['model'], winner['preprocessing'], winner['balance']),
+        'selection_reason': '같은 validation에서 기준 충족 후보를 Recall·AP 순으로 선택. 동률이면 trial ID로 결정',
+        'search_note': '같은 이미지 평가 표본에서 승인한 전처리·모델 후보를 비교. 단순한 합성 패턴 결과를 현장 성능으로 일반화하지 않음'}
     if not feasible:
         result["gate"] = {"passed": False, "reasons": ["calibration·validation 기준을 함께 만족한 후보 없음"],
                           "action": "배포 보류·학습 데이터와 기준 재검토", "auto_deploy": False}

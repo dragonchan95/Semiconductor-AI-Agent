@@ -1,5 +1,5 @@
 {
-  "run_id": "run-99bac2a3d145",
+  "run_id": "run-106330524fbd",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-067ca2ef0efb",
@@ -44,7 +44,9 @@
     "selection": "calibration threshold; validation selection; final test once",
     "model_backend": "local_sklearn_or_pytorch",
     "auto_deploy": false,
-    "management_source_run": null
+    "management_source_run": null,
+    "search_strategy": "grid",
+    "llm_priorities": []
   },
   "result": {
     "dataset": {
@@ -95,7 +97,7 @@
       },
       "calibration_feasible": true,
       "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-      "fit_seconds": 0.2966152500011958
+      "fit_seconds": 0.3014395419995708
     },
     "trials": [
       {
@@ -138,7 +140,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.1881386659988493
+        "fit_seconds": 1.1449308750015916
       },
       {
         "id": "trial-002",
@@ -180,7 +182,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.0341025840025395
+        "fit_seconds": 1.1540990829998918
       },
       {
         "id": "trial-003",
@@ -222,7 +224,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.6940515839996806
+        "fit_seconds": 0.7461724170025263
       },
       {
         "id": "trial-004",
@@ -264,7 +266,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.6777943749984843
+        "fit_seconds": 0.6825956669999869
       },
       {
         "id": "trial-005",
@@ -306,7 +308,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.30302300000039395
+        "fit_seconds": 0.3082205829996383
       },
       {
         "id": "trial-006",
@@ -348,7 +350,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.2966152500011958
+        "fit_seconds": 0.3014395419995708
       }
     ],
     "test": {
@@ -423,10 +425,28 @@
         "index_hash": "108a594a219f2503a48e2dc9e0f941b59480849af6a52600658f6eaacd8f6e62"
       }
     },
-    "elapsed_seconds": 4.2246054590032145,
+    "elapsed_seconds": 4.380314875001204,
     "seed": 45,
     "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
     "economic_note": "합성 이미지 데모 결과. 실제 검사 이미지·영업이익 개선으로 일반화할 수 없음.",
-    "actual_llm_api_cost": 0
+    "actual_llm_api_cost": 0,
+    "explanation": {
+      "model": "autoencoder",
+      "title": "Autoencoder",
+      "input": "라벨이 있는 검사 이미지",
+      "preprocessing": "contrast",
+      "preprocessing_reason": "흑백 32×32 및 0~1 정규화로 CPU 데모 비용을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능",
+      "model_reason": "정상 이미지를 복원하고 복원 오차로 이상을 점수화",
+      "balance_method": "정상만 학습",
+      "source": "반도체 커리큘럼 사진 20261017_135247, 135711",
+      "limitation": "축소 구조를 scratch 학습. 표준 ResNet50/VGG19 사전학습 성능의 증거가 아님",
+      "selection_reason": "같은 validation에서 기준 충족 후보를 Recall·AP 순으로 선택. 동률이면 trial ID로 결정",
+      "search_note": "같은 이미지 평가 표본에서 승인한 전처리·모델 후보를 비교. 단순한 합성 패턴 결과를 현장 성능으로 일반화하지 않음"
+    },
+    "agent_review": {
+      "role": "ResultCriticAgent",
+      "status": "disabled",
+      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+    }
   }
 }

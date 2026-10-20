@@ -3,11 +3,11 @@
     "dataset_id": "ds-4fadf13f5ae6",
     "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
     "run_ids": [
-      "run-ae633c381849",
-      "run-b6d02ded2929",
-      "run-2a8e0a09622d",
-      "run-d4b6b768e38d",
-      "run-f69af4542d2c"
+      "run-fda0c6a848ce",
+      "run-6294a1cd4212",
+      "run-c9fb431885f6",
+      "run-9589848f69ac",
+      "run-710ac3e0bd53"
     ],
     "products": [
       {
@@ -15,7 +15,7 @@
         "candidates": [
           {
             "strategy": "shared",
-            "run_id": "run-ae633c381849",
+            "run_id": "run-fda0c6a848ce",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -69,7 +69,7 @@
           },
           {
             "strategy": "separate",
-            "run_id": "run-b6d02ded2929",
+            "run_id": "run-6294a1cd4212",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -132,14 +132,14 @@
         },
         "recommendation": "공통 모델 권고",
         "reason": "동일 제품 validation에서 허용 기준을 충족하는 후보 중 불량 발견 비율과 AP로 선택. 최종 test 검토 기준도 통과.",
-        "selected_run": "run-ae633c381849"
+        "selected_run": "run-fda0c6a848ce"
       },
       {
         "product": "B",
         "candidates": [
           {
             "strategy": "shared",
-            "run_id": "run-ae633c381849",
+            "run_id": "run-fda0c6a848ce",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -193,7 +193,7 @@
           },
           {
             "strategy": "separate",
-            "run_id": "run-2a8e0a09622d",
+            "run_id": "run-c9fb431885f6",
             "model": "random_forest",
             "selection_feasible": false,
             "validation": {
@@ -256,14 +256,14 @@
         },
         "recommendation": "적용 보류",
         "reason": "동일 제품 validation에서 두 방식 모두 허용 기준 미달. 비용 최소 후보를 참고로만 표시. 현장 적용을 권고하지 않음.",
-        "selected_run": "run-ae633c381849"
+        "selected_run": "run-fda0c6a848ce"
       },
       {
         "product": "C",
         "candidates": [
           {
             "strategy": "shared",
-            "run_id": "run-ae633c381849",
+            "run_id": "run-fda0c6a848ce",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -317,7 +317,7 @@
           },
           {
             "strategy": "separate",
-            "run_id": "run-d4b6b768e38d",
+            "run_id": "run-9589848f69ac",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -380,14 +380,14 @@
         },
         "recommendation": "제품 전용 모델 권고",
         "reason": "동일 제품 validation에서 허용 기준을 충족하는 후보 중 불량 발견 비율과 AP로 선택. 최종 test 검토 기준도 통과.",
-        "selected_run": "run-d4b6b768e38d"
+        "selected_run": "run-9589848f69ac"
       },
       {
         "product": "D",
         "candidates": [
           {
             "strategy": "shared",
-            "run_id": "run-ae633c381849",
+            "run_id": "run-fda0c6a848ce",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -441,7 +441,7 @@
           },
           {
             "strategy": "separate",
-            "run_id": "run-f69af4542d2c",
+            "run_id": "run-710ac3e0bd53",
             "model": "random_forest",
             "selection_feasible": true,
             "validation": {
@@ -506,7 +506,7 @@
         },
         "recommendation": "적용 보류",
         "reason": "동일 제품 validation에서 허용 기준을 충족하는 후보 중 불량 발견 비율과 AP로 선택. 현장 적용을 권고하지 않음.",
-        "selected_run": "run-ae633c381849"
+        "selected_run": "run-fda0c6a848ce"
       }
     ],
     "policy": {
@@ -518,44 +518,44 @@
     "selection_basis": "같은 제품의 validation으로 방식 선택. test는 순위 선택에 사용하지 않고 최종 확인과 보류에만 사용.",
     "training_scope": "새로 등록한 한 배치의 여러 제품을 합친 학습과 제품별 학습 비교. 과거 배치 파일을 자동 병합하지 않음.",
     "note": "단일 합성 배치의 결과. 제품별 우월성을 일반화할 수 없고 반복 validation 비교의 낙관 편향 가능. 자동 배포 없음.",
-    "id": "comparison-9073a79e8b22",
-    "created_at": "2026-10-20T07:35:15.238129+00:00"
+    "id": "comparison-d2783526f2cf",
+    "created_at": "2026-10-20T08:37:24.257093+00:00"
   },
   "approval_actor": "자동 검증용 테스트 승인자. 현장 승인 실적 아님.",
   "review": {
-    "source_run": "run-b596f073644d",
+    "source_run": "run-885b0eab4bb5",
     "dataset_id": "ds-4fadf13f5ae6",
     "dataset_name": "새로 수집된 공정 데이터 (변화 합성 데모)",
     "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
     "synthetic": true,
     "verdict": "재학습 필요",
     "reasons": [
-      "불량 발견 비율이 88.0%에서 37.1%로 하락",
-      "정상 추가검사 비율 23.9%, 허용 15% 초과",
-      "기존 학습에 없던 제품: A, D"
+      "불량 발견 비율이 96.0%에서 39.2%로 하락",
+      "정상 추가검사 비율 27.1%, 허용 15% 초과",
+      "기존 학습에 없던 제품: A"
     ],
-    "previous_recall": 0.88,
+    "previous_recall": 0.96,
     "current": {
       "n": 2112,
       "positive_count": 469,
-      "tn": 1251,
-      "fp": 392,
-      "fn": 295,
-      "tp": 174,
-      "accuracy": 0.6747159090909091,
-      "recall": 0.37100213219616207,
-      "precision": 0.30742049469964666,
-      "f2": 0.3562653562653563,
-      "fpr": 0.23858794887401097,
-      "average_precision": 0.291941334124195,
-      "roc_auc": 0.6171780000960332,
-      "threshold": 0.17409670908593322,
+      "tn": 1197,
+      "fp": 446,
+      "fn": 285,
+      "tp": 184,
+      "accuracy": 0.6538825757575758,
+      "recall": 0.39232409381663114,
+      "precision": 0.2920634920634921,
+      "f2": 0.36711891460494817,
+      "fpr": 0.2714546561168594,
+      "average_precision": 0.29269244313842757,
+      "roc_auc": 0.609969671683319,
+      "threshold": 0.08097627715343725,
       "recall_wilson95": [
-        0.3284952983034506,
-        0.4156050515811621
+        0.34917966932314565,
+        0.43721814339045667
       ],
-      "assumed_cost_per_10000": 141534090.9090909,
-      "assumed_saving_vs_all_pass_per_10000": 80530303.03030306
+      "assumed_cost_per_10000": 137054924.24242425,
+      "assumed_saving_vs_all_pass_per_10000": 85009469.69696972
     },
     "split": {
       "test": {
@@ -587,13 +587,13 @@
       "D"
     ],
     "note": "새 배치의 train 구간에서 기존 모델을 점검. 재학습 필요 판단은 10%p 하락 등의 개발 규칙이며 통계적 확증은 아님. 새 test는 판단에 사용하지 않음.",
-    "id": "review-1963cb3276d1",
-    "created_at": "2026-10-20T07:35:04.156054+00:00"
+    "id": "review-4ec1071b8857",
+    "created_at": "2026-10-20T08:37:13.132285+00:00"
   },
   "training_started_during_planning": false,
   "runs": [
     {
-      "run_id": "run-ae633c381849",
+      "run_id": "run-fda0c6a848ce",
       "plan": {
         "dataset_id": "ds-4fadf13f5ae6",
         "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
@@ -636,7 +636,9 @@
         "selection": "calibration threshold; validation selection; final test once",
         "model_backend": "local_sklearn_or_pytorch",
         "auto_deploy": false,
-        "management_source_run": "run-b596f073644d"
+        "management_source_run": "run-885b0eab4bb5",
+        "search_strategy": "grid",
+        "llm_priorities": []
       },
       "result": {
         "dataset": {
@@ -685,6 +687,18 @@
             "train_n": 2112,
             "train_defects": 469,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 576,
               "positive_count": 131,
@@ -707,7 +721,7 @@
               "assumed_cost_per_10000": 44531250.0,
               "assumed_saving_vs_all_pass_per_10000": 182899305.55555555
             },
-            "fit_seconds": 1.2968082080005843,
+            "fit_seconds": 1.3278379580006003,
             "validation_fingerprint": "03e24941f2958b7724532bc0e3aaec83262f3e7a5416d21173a718402455691f"
           },
           {
@@ -725,6 +739,18 @@
             "train_n": 2112,
             "train_defects": 469,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 576,
               "positive_count": 131,
@@ -747,7 +773,7 @@
               "assumed_cost_per_10000": 44531250.0,
               "assumed_saving_vs_all_pass_per_10000": 182899305.55555555
             },
-            "fit_seconds": 1.2844464999980119,
+            "fit_seconds": 1.2832459160017606,
             "validation_fingerprint": "03e24941f2958b7724532bc0e3aaec83262f3e7a5416d21173a718402455691f"
           },
           {
@@ -765,6 +791,18 @@
             "train_n": 2112,
             "train_defects": 469,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 576,
               "positive_count": 131,
@@ -787,7 +825,7 @@
               "assumed_cost_per_10000": 20104166.666666668,
               "assumed_saving_vs_all_pass_per_10000": 207326388.88888887
             },
-            "fit_seconds": 1.3709236249997048,
+            "fit_seconds": 1.393240290999529,
             "validation_fingerprint": "03e24941f2958b7724532bc0e3aaec83262f3e7a5416d21173a718402455691f"
           },
           {
@@ -805,6 +843,18 @@
             "train_n": 2112,
             "train_defects": 469,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 576,
               "positive_count": 131,
@@ -827,7 +877,7 @@
               "assumed_cost_per_10000": 11493055.555555556,
               "assumed_saving_vs_all_pass_per_10000": 215937500.0
             },
-            "fit_seconds": 1.3707391249990906,
+            "fit_seconds": 1.370889541998622,
             "validation_fingerprint": "03e24941f2958b7724532bc0e3aaec83262f3e7a5416d21173a718402455691f"
           }
         ],
@@ -847,6 +897,18 @@
           "train_n": 2112,
           "train_defects": 469,
           "calibration_feasible": true,
+          "explanation": {
+            "model": "random_forest",
+            "title": "Random Forest",
+            "input": "숫자 센서와 정상/불량 라벨",
+            "preprocessing": "scaled",
+            "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+            "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+            "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+            "source": "Day1 PDF 59, 62~64쪽",
+            "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+          },
+          "stage": "model_comparison",
           "validation": {
             "n": 576,
             "positive_count": 131,
@@ -869,7 +931,7 @@
             "assumed_cost_per_10000": 11493055.555555556,
             "assumed_saving_vs_all_pass_per_10000": 215937500.0
           },
-          "fit_seconds": 1.3707391249990906,
+          "fit_seconds": 1.370889541998622,
           "validation_fingerprint": "03e24941f2958b7724532bc0e3aaec83262f3e7a5416d21173a718402455691f"
         },
         "test": {
@@ -3808,17 +3870,39 @@
           "action": "배포 보류·표본 보강 및 재검토",
           "auto_deploy": false
         },
-        "elapsed_seconds": 5.360243832998094,
+        "elapsed_seconds": 5.418295750001562,
         "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
         "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
         "seed": 45,
         "actual_llm_api_cost": 0,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+          "selection_reason": "동일 validation에서 기준을 만족한 4개 후보 중 Recall과 AP 순으로 선택",
+          "evaluated_models": [
+            "logistic",
+            "random_forest"
+          ],
+          "search_note": "승인한 후보들의 같은 분할 비교"
+        },
+        "agent_review": {
+          "role": "ResultCriticAgent",
+          "status": "disabled",
+          "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+        },
         "model_version": {
-          "id": "model-run-ae633c381849",
+          "id": "model-run-fda0c6a848ce",
           "product": "A+B+C+D",
-          "run_id": "run-ae633c381849",
-          "source_run": "run-b596f073644d",
-          "artifact": "runs/run-ae633c381849/champion.joblib",
+          "run_id": "run-fda0c6a848ce",
+          "source_run": "run-885b0eab4bb5",
+          "artifact": "runs/run-fda0c6a848ce/champion.joblib",
           "model": "random_forest",
           "status": "후보 검토 보류",
           "test_recall": 0.889763779527559,
@@ -3828,7 +3912,7 @@
       }
     },
     {
-      "run_id": "run-b6d02ded2929",
+      "run_id": "run-6294a1cd4212",
       "plan": {
         "dataset_id": "ds-4fadf13f5ae6",
         "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
@@ -3865,7 +3949,9 @@
         "selection": "calibration threshold; validation selection; final test once",
         "model_backend": "local_sklearn_or_pytorch",
         "auto_deploy": false,
-        "management_source_run": "run-b596f073644d"
+        "management_source_run": "run-885b0eab4bb5",
+        "search_strategy": "grid",
+        "llm_priorities": []
       },
       "result": {
         "dataset": {
@@ -3911,6 +3997,18 @@
             "train_n": 552,
             "train_defects": 131,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 160,
               "positive_count": 41,
@@ -3933,7 +4031,7 @@
               "assumed_cost_per_10000": 100500000.0,
               "assumed_saving_vs_all_pass_per_10000": 155749999.99999997
             },
-            "fit_seconds": 0.23729325000022072,
+            "fit_seconds": 0.23917599999913364,
             "validation_fingerprint": "db789a762c9ab4a8947a403538299dd982d5c873f69463770ef98a2c89cd22a3"
           },
           {
@@ -3948,6 +4046,18 @@
             "train_n": 552,
             "train_defects": 131,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 160,
               "positive_count": 41,
@@ -3970,7 +4080,7 @@
               "assumed_cost_per_10000": 94187500.0,
               "assumed_saving_vs_all_pass_per_10000": 162062499.99999997
             },
-            "fit_seconds": 0.2366570000012871,
+            "fit_seconds": 0.2385177920004935,
             "validation_fingerprint": "db789a762c9ab4a8947a403538299dd982d5c873f69463770ef98a2c89cd22a3"
           },
           {
@@ -3985,6 +4095,18 @@
             "train_n": 552,
             "train_defects": 131,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 160,
               "positive_count": 41,
@@ -4007,7 +4129,7 @@
               "assumed_cost_per_10000": 32062500.0,
               "assumed_saving_vs_all_pass_per_10000": 224187499.99999997
             },
-            "fit_seconds": 0.2877827910015185,
+            "fit_seconds": 0.28024537500095903,
             "validation_fingerprint": "db789a762c9ab4a8947a403538299dd982d5c873f69463770ef98a2c89cd22a3"
           },
           {
@@ -4022,6 +4144,18 @@
             "train_n": 552,
             "train_defects": 131,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 160,
               "positive_count": 41,
@@ -4044,7 +4178,7 @@
               "assumed_cost_per_10000": 44500000.0,
               "assumed_saving_vs_all_pass_per_10000": 211749999.99999997
             },
-            "fit_seconds": 0.28830570799982524,
+            "fit_seconds": 0.2856905000007828,
             "validation_fingerprint": "db789a762c9ab4a8947a403538299dd982d5c873f69463770ef98a2c89cd22a3"
           }
         ],
@@ -4061,6 +4195,18 @@
           "train_n": 552,
           "train_defects": 131,
           "calibration_feasible": true,
+          "explanation": {
+            "model": "random_forest",
+            "title": "Random Forest",
+            "input": "숫자 센서와 정상/불량 라벨",
+            "preprocessing": "scaled",
+            "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+            "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+            "balance_method": "원래 학습 클래스 비율 유지",
+            "source": "Day1 PDF 59, 62~64쪽",
+            "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+          },
+          "stage": "model_comparison",
           "validation": {
             "n": 160,
             "positive_count": 41,
@@ -4083,7 +4229,7 @@
             "assumed_cost_per_10000": 32062500.0,
             "assumed_saving_vs_all_pass_per_10000": 224187499.99999997
           },
-          "fit_seconds": 0.2877827910015185,
+          "fit_seconds": 0.28024537500095903,
           "validation_fingerprint": "db789a762c9ab4a8947a403538299dd982d5c873f69463770ef98a2c89cd22a3"
         },
         "test": {
@@ -4820,17 +4966,39 @@
           "action": "엔지니어 파일럿 검토 가능",
           "auto_deploy": false
         },
-        "elapsed_seconds": 1.0717917919973843,
+        "elapsed_seconds": 1.0636424170006649,
         "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
         "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
         "seed": 45,
         "actual_llm_api_cost": 0,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+          "selection_reason": "동일 validation에서 기준을 만족한 4개 후보 중 Recall과 AP 순으로 선택",
+          "evaluated_models": [
+            "logistic",
+            "random_forest"
+          ],
+          "search_note": "승인한 후보들의 같은 분할 비교"
+        },
+        "agent_review": {
+          "role": "ResultCriticAgent",
+          "status": "disabled",
+          "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+        },
         "model_version": {
-          "id": "model-run-b6d02ded2929",
+          "id": "model-run-6294a1cd4212",
           "product": "A",
-          "run_id": "run-b6d02ded2929",
-          "source_run": "run-b596f073644d",
-          "artifact": "runs/run-b6d02ded2929/champion.joblib",
+          "run_id": "run-6294a1cd4212",
+          "source_run": "run-885b0eab4bb5",
+          "artifact": "runs/run-6294a1cd4212/champion.joblib",
           "model": "random_forest",
           "status": "후보 검토 가능",
           "test_recall": 0.6129032258064516,
@@ -4840,7 +5008,7 @@
       }
     },
     {
-      "run_id": "run-2a8e0a09622d",
+      "run_id": "run-c9fb431885f6",
       "plan": {
         "dataset_id": "ds-4fadf13f5ae6",
         "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
@@ -4877,7 +5045,9 @@
         "selection": "calibration threshold; validation selection; final test once",
         "model_backend": "local_sklearn_or_pytorch",
         "auto_deploy": false,
-        "management_source_run": "run-b596f073644d"
+        "management_source_run": "run-885b0eab4bb5",
+        "search_strategy": "grid",
+        "llm_priorities": []
       },
       "result": {
         "dataset": {
@@ -4923,6 +5093,18 @@
             "train_n": 536,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 28,
@@ -4945,7 +5127,7 @@
               "assumed_cost_per_10000": 43250000.0,
               "assumed_saving_vs_all_pass_per_10000": 190083333.3333333
             },
-            "fit_seconds": 0.35422174999985145,
+            "fit_seconds": 0.33985416699943016,
             "validation_fingerprint": "7951c41e66a57b7f9f7f83b995757a1db72a88b9973926f8715c465f5cf2a761"
           },
           {
@@ -4960,6 +5142,18 @@
             "train_n": 536,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 28,
@@ -4982,7 +5176,7 @@
               "assumed_cost_per_10000": 43583333.33333333,
               "assumed_saving_vs_all_pass_per_10000": 189750000.0
             },
-            "fit_seconds": 0.411079207999137,
+            "fit_seconds": 0.34585287499794504,
             "validation_fingerprint": "7951c41e66a57b7f9f7f83b995757a1db72a88b9973926f8715c465f5cf2a761"
           },
           {
@@ -4997,6 +5191,18 @@
             "train_n": 536,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 28,
@@ -5019,7 +5225,7 @@
               "assumed_cost_per_10000": 18333333.333333332,
               "assumed_saving_vs_all_pass_per_10000": 215000000.0
             },
-            "fit_seconds": 0.3968713750000461,
+            "fit_seconds": 0.3872694590027095,
             "validation_fingerprint": "7951c41e66a57b7f9f7f83b995757a1db72a88b9973926f8715c465f5cf2a761"
           },
           {
@@ -5034,6 +5240,18 @@
             "train_n": 536,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 28,
@@ -5056,7 +5274,7 @@
               "assumed_cost_per_10000": 34583333.333333336,
               "assumed_saving_vs_all_pass_per_10000": 198750000.0
             },
-            "fit_seconds": 0.383686208002473,
+            "fit_seconds": 0.431166165999457,
             "validation_fingerprint": "7951c41e66a57b7f9f7f83b995757a1db72a88b9973926f8715c465f5cf2a761"
           }
         ],
@@ -5073,6 +5291,18 @@
           "train_n": 536,
           "train_defects": 112,
           "calibration_feasible": true,
+          "explanation": {
+            "model": "random_forest",
+            "title": "Random Forest",
+            "input": "숫자 센서와 정상/불량 라벨",
+            "preprocessing": "scaled",
+            "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+            "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+            "balance_method": "원래 학습 클래스 비율 유지",
+            "source": "Day1 PDF 59, 62~64쪽",
+            "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+          },
+          "stage": "model_comparison",
           "validation": {
             "n": 120,
             "positive_count": 28,
@@ -5095,7 +5325,7 @@
             "assumed_cost_per_10000": 18333333.333333332,
             "assumed_saving_vs_all_pass_per_10000": 215000000.0
           },
-          "fit_seconds": 0.3968713750000461,
+          "fit_seconds": 0.3872694590027095,
           "validation_fingerprint": "7951c41e66a57b7f9f7f83b995757a1db72a88b9973926f8715c465f5cf2a761"
         },
         "test": {
@@ -5874,17 +6104,39 @@
           "action": "배포 보류·학습 데이터와 기준 재검토",
           "auto_deploy": false
         },
-        "elapsed_seconds": 1.5663947920002101,
+        "elapsed_seconds": 1.5251991670011193,
         "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
         "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
         "seed": 45,
         "actual_llm_api_cost": 0,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+          "selection_reason": "기준을 만족한 후보가 없어 가정 분류 비용이 가장 작은 참고 후보를 표시하고 적용 보류",
+          "evaluated_models": [
+            "logistic",
+            "random_forest"
+          ],
+          "search_note": "승인한 후보들의 같은 분할 비교"
+        },
+        "agent_review": {
+          "role": "ResultCriticAgent",
+          "status": "disabled",
+          "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+        },
         "model_version": {
-          "id": "model-run-2a8e0a09622d",
+          "id": "model-run-c9fb431885f6",
           "product": "B",
-          "run_id": "run-2a8e0a09622d",
-          "source_run": "run-b596f073644d",
-          "artifact": "runs/run-2a8e0a09622d/champion.joblib",
+          "run_id": "run-c9fb431885f6",
+          "source_run": "run-885b0eab4bb5",
+          "artifact": "runs/run-c9fb431885f6/champion.joblib",
           "model": "random_forest",
           "status": "후보 검토 보류",
           "test_recall": 1.0,
@@ -5894,7 +6146,7 @@
       }
     },
     {
-      "run_id": "run-d4b6b768e38d",
+      "run_id": "run-9589848f69ac",
       "plan": {
         "dataset_id": "ds-4fadf13f5ae6",
         "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
@@ -5931,7 +6183,9 @@
         "selection": "calibration threshold; validation selection; final test once",
         "model_backend": "local_sklearn_or_pytorch",
         "auto_deploy": false,
-        "management_source_run": "run-b596f073644d"
+        "management_source_run": "run-885b0eab4bb5",
+        "search_strategy": "grid",
+        "llm_priorities": []
       },
       "result": {
         "dataset": {
@@ -5977,6 +6231,18 @@
             "train_n": 520,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 26,
@@ -5999,7 +6265,7 @@
               "assumed_cost_per_10000": 34333333.333333336,
               "assumed_saving_vs_all_pass_per_10000": 182333333.33333334
             },
-            "fit_seconds": 0.39320233399848803,
+            "fit_seconds": 0.39521533399965847,
             "validation_fingerprint": "72e0d5d8e0e6dac7dcb91bbd4a9d341f85c8c7db2c71ff50306d44312d6e1631"
           },
           {
@@ -6014,6 +6280,18 @@
             "train_n": 520,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 26,
@@ -6036,7 +6314,7 @@
               "assumed_cost_per_10000": 42666666.66666667,
               "assumed_saving_vs_all_pass_per_10000": 174000000.0
             },
-            "fit_seconds": 0.403455583997129,
+            "fit_seconds": 0.4188905839982908,
             "validation_fingerprint": "72e0d5d8e0e6dac7dcb91bbd4a9d341f85c8c7db2c71ff50306d44312d6e1631"
           },
           {
@@ -6051,6 +6329,18 @@
             "train_n": 520,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 26,
@@ -6073,7 +6363,7 @@
               "assumed_cost_per_10000": 34583333.333333336,
               "assumed_saving_vs_all_pass_per_10000": 182083333.33333334
             },
-            "fit_seconds": 0.4364868339980603,
+            "fit_seconds": 0.4440781670018623,
             "validation_fingerprint": "72e0d5d8e0e6dac7dcb91bbd4a9d341f85c8c7db2c71ff50306d44312d6e1631"
           },
           {
@@ -6088,6 +6378,18 @@
             "train_n": 520,
             "train_defects": 112,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 120,
               "positive_count": 26,
@@ -6110,7 +6412,7 @@
               "assumed_cost_per_10000": 17666666.666666668,
               "assumed_saving_vs_all_pass_per_10000": 199000000.0
             },
-            "fit_seconds": 0.43827654200140387,
+            "fit_seconds": 0.4392932920018211,
             "validation_fingerprint": "72e0d5d8e0e6dac7dcb91bbd4a9d341f85c8c7db2c71ff50306d44312d6e1631"
           }
         ],
@@ -6127,6 +6429,18 @@
           "train_n": 520,
           "train_defects": 112,
           "calibration_feasible": true,
+          "explanation": {
+            "model": "random_forest",
+            "title": "Random Forest",
+            "input": "숫자 센서와 정상/불량 라벨",
+            "preprocessing": "scaled",
+            "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+            "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+            "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+            "source": "Day1 PDF 59, 62~64쪽",
+            "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+          },
+          "stage": "model_comparison",
           "validation": {
             "n": 120,
             "positive_count": 26,
@@ -6149,7 +6463,7 @@
             "assumed_cost_per_10000": 17666666.666666668,
             "assumed_saving_vs_all_pass_per_10000": 199000000.0
           },
-          "fit_seconds": 0.43827654200140387,
+          "fit_seconds": 0.4392932920018211,
           "validation_fingerprint": "72e0d5d8e0e6dac7dcb91bbd4a9d341f85c8c7db2c71ff50306d44312d6e1631"
         },
         "test": {
@@ -6886,17 +7200,39 @@
           "action": "엔지니어 파일럿 검토 가능",
           "auto_deploy": false
         },
-        "elapsed_seconds": 1.6915083330022753,
+        "elapsed_seconds": 1.7178522499998508,
         "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
         "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
         "seed": 45,
         "actual_llm_api_cost": 0,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+          "selection_reason": "동일 validation에서 기준을 만족한 3개 후보 중 Recall과 AP 순으로 선택",
+          "evaluated_models": [
+            "logistic",
+            "random_forest"
+          ],
+          "search_note": "승인한 후보들의 같은 분할 비교"
+        },
+        "agent_review": {
+          "role": "ResultCriticAgent",
+          "status": "disabled",
+          "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+        },
         "model_version": {
-          "id": "model-run-d4b6b768e38d",
+          "id": "model-run-9589848f69ac",
           "product": "C",
-          "run_id": "run-d4b6b768e38d",
-          "source_run": "run-b596f073644d",
-          "artifact": "runs/run-d4b6b768e38d/champion.joblib",
+          "run_id": "run-9589848f69ac",
+          "source_run": "run-885b0eab4bb5",
+          "artifact": "runs/run-9589848f69ac/champion.joblib",
           "model": "random_forest",
           "status": "후보 검토 가능",
           "test_recall": 0.7777777777777778,
@@ -6906,7 +7242,7 @@
       }
     },
     {
-      "run_id": "run-f69af4542d2c",
+      "run_id": "run-710ac3e0bd53",
       "plan": {
         "dataset_id": "ds-4fadf13f5ae6",
         "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
@@ -6943,7 +7279,9 @@
         "selection": "calibration threshold; validation selection; final test once",
         "model_backend": "local_sklearn_or_pytorch",
         "auto_deploy": false,
-        "management_source_run": "run-b596f073644d"
+        "management_source_run": "run-885b0eab4bb5",
+        "search_strategy": "grid",
+        "llm_priorities": []
       },
       "result": {
         "dataset": {
@@ -6989,6 +7327,18 @@
             "train_n": 504,
             "train_defects": 114,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 176,
               "positive_count": 36,
@@ -7011,7 +7361,7 @@
               "assumed_cost_per_10000": 46193181.81818182,
               "assumed_saving_vs_all_pass_per_10000": 158352272.72727275
             },
-            "fit_seconds": 0.2547463750015595,
+            "fit_seconds": 0.25413683299848344,
             "validation_fingerprint": "f935f79a962438ffe8fdf53f5ea0dc2b83a0d1832025c4f03a00f303d18441fd"
           },
           {
@@ -7026,6 +7376,18 @@
             "train_n": 504,
             "train_defects": 114,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "logistic",
+              "title": "Logistic Regression",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day3 PDF 68쪽 이진 확률 예시",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 176,
               "positive_count": 36,
@@ -7048,7 +7410,7 @@
               "assumed_cost_per_10000": 46022727.27272727,
               "assumed_saving_vs_all_pass_per_10000": 158522727.27272728
             },
-            "fit_seconds": 0.2537657920001948,
+            "fit_seconds": 0.2539057079993654,
             "validation_fingerprint": "f935f79a962438ffe8fdf53f5ea0dc2b83a0d1832025c4f03a00f303d18441fd"
           },
           {
@@ -7063,6 +7425,18 @@
             "train_n": 504,
             "train_defects": 114,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "원래 학습 클래스 비율 유지",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 176,
               "positive_count": 36,
@@ -7085,7 +7459,7 @@
               "assumed_cost_per_10000": 18181818.181818184,
               "assumed_saving_vs_all_pass_per_10000": 186363636.36363637
             },
-            "fit_seconds": 0.29984220800179173,
+            "fit_seconds": 0.2974344159993052,
             "validation_fingerprint": "f935f79a962438ffe8fdf53f5ea0dc2b83a0d1832025c4f03a00f303d18441fd"
           },
           {
@@ -7100,6 +7474,18 @@
             "train_n": 504,
             "train_defects": 114,
             "calibration_feasible": true,
+            "explanation": {
+              "model": "random_forest",
+              "title": "Random Forest",
+              "input": "숫자 센서와 정상/불량 라벨",
+              "preprocessing": "scaled",
+              "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+              "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+              "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+              "source": "Day1 PDF 59, 62~64쪽",
+              "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+            },
+            "stage": "model_comparison",
             "validation": {
               "n": 176,
               "positive_count": 36,
@@ -7122,7 +7508,7 @@
               "assumed_cost_per_10000": 40397727.27272727,
               "assumed_saving_vs_all_pass_per_10000": 164147727.27272728
             },
-            "fit_seconds": 0.3023538749985164,
+            "fit_seconds": 0.29688570800135494,
             "validation_fingerprint": "f935f79a962438ffe8fdf53f5ea0dc2b83a0d1832025c4f03a00f303d18441fd"
           }
         ],
@@ -7139,6 +7525,18 @@
           "train_n": 504,
           "train_defects": 114,
           "calibration_feasible": true,
+          "explanation": {
+            "model": "random_forest",
+            "title": "Random Forest",
+            "input": "숫자 센서와 정상/불량 라벨",
+            "preprocessing": "scaled",
+            "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+            "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+            "balance_method": "원래 학습 클래스 비율 유지",
+            "source": "Day1 PDF 59, 62~64쪽",
+            "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+          },
+          "stage": "model_comparison",
           "validation": {
             "n": 176,
             "positive_count": 36,
@@ -7161,7 +7559,7 @@
             "assumed_cost_per_10000": 18181818.181818184,
             "assumed_saving_vs_all_pass_per_10000": 186363636.36363637
           },
-          "fit_seconds": 0.29984220800179173,
+          "fit_seconds": 0.2974344159993052,
           "validation_fingerprint": "f935f79a962438ffe8fdf53f5ea0dc2b83a0d1832025c4f03a00f303d18441fd"
         },
         "test": {
@@ -8020,17 +8418,39 @@
           "action": "배포 보류·표본 보강 및 재검토",
           "auto_deploy": false
         },
-        "elapsed_seconds": 1.133287125001516,
+        "elapsed_seconds": 1.1226337499974761,
         "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
         "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
         "seed": 45,
         "actual_llm_api_cost": 0,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+          "selection_reason": "동일 validation에서 기준을 만족한 4개 후보 중 Recall과 AP 순으로 선택",
+          "evaluated_models": [
+            "logistic",
+            "random_forest"
+          ],
+          "search_note": "승인한 후보들의 같은 분할 비교"
+        },
+        "agent_review": {
+          "role": "ResultCriticAgent",
+          "status": "disabled",
+          "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+        },
         "model_version": {
-          "id": "model-run-f69af4542d2c",
+          "id": "model-run-710ac3e0bd53",
           "product": "D",
-          "run_id": "run-f69af4542d2c",
-          "source_run": "run-b596f073644d",
-          "artifact": "runs/run-f69af4542d2c/champion.joblib",
+          "run_id": "run-710ac3e0bd53",
+          "source_run": "run-885b0eab4bb5",
+          "artifact": "runs/run-710ac3e0bd53/champion.joblib",
           "model": "random_forest",
           "status": "후보 검토 보류",
           "test_recall": 0.8888888888888888,
@@ -8042,11 +8462,11 @@
   ],
   "versions": [
     {
-      "id": "model-run-f69af4542d2c",
+      "id": "model-run-710ac3e0bd53",
       "product": "D",
-      "run_id": "run-f69af4542d2c",
-      "source_run": "run-b596f073644d",
-      "artifact": "runs/run-f69af4542d2c/champion.joblib",
+      "run_id": "run-710ac3e0bd53",
+      "source_run": "run-885b0eab4bb5",
+      "artifact": "runs/run-710ac3e0bd53/champion.joblib",
       "model": "random_forest",
       "status": "후보 검토 보류",
       "test_recall": 0.8888888888888888,
@@ -8054,11 +8474,11 @@
       "auto_deployed": false
     },
     {
-      "id": "model-run-d4b6b768e38d",
+      "id": "model-run-9589848f69ac",
       "product": "C",
-      "run_id": "run-d4b6b768e38d",
-      "source_run": "run-b596f073644d",
-      "artifact": "runs/run-d4b6b768e38d/champion.joblib",
+      "run_id": "run-9589848f69ac",
+      "source_run": "run-885b0eab4bb5",
+      "artifact": "runs/run-9589848f69ac/champion.joblib",
       "model": "random_forest",
       "status": "후보 검토 가능",
       "test_recall": 0.7777777777777778,
@@ -8066,11 +8486,11 @@
       "auto_deployed": false
     },
     {
-      "id": "model-run-2a8e0a09622d",
+      "id": "model-run-c9fb431885f6",
       "product": "B",
-      "run_id": "run-2a8e0a09622d",
-      "source_run": "run-b596f073644d",
-      "artifact": "runs/run-2a8e0a09622d/champion.joblib",
+      "run_id": "run-c9fb431885f6",
+      "source_run": "run-885b0eab4bb5",
+      "artifact": "runs/run-c9fb431885f6/champion.joblib",
       "model": "random_forest",
       "status": "후보 검토 보류",
       "test_recall": 1.0,
@@ -8078,11 +8498,11 @@
       "auto_deployed": false
     },
     {
-      "id": "model-run-b6d02ded2929",
+      "id": "model-run-6294a1cd4212",
       "product": "A",
-      "run_id": "run-b6d02ded2929",
-      "source_run": "run-b596f073644d",
-      "artifact": "runs/run-b6d02ded2929/champion.joblib",
+      "run_id": "run-6294a1cd4212",
+      "source_run": "run-885b0eab4bb5",
+      "artifact": "runs/run-6294a1cd4212/champion.joblib",
       "model": "random_forest",
       "status": "후보 검토 가능",
       "test_recall": 0.6129032258064516,
@@ -8090,11 +8510,11 @@
       "auto_deployed": false
     },
     {
-      "id": "model-run-ae633c381849",
+      "id": "model-run-fda0c6a848ce",
       "product": "A+B+C+D",
-      "run_id": "run-ae633c381849",
-      "source_run": "run-b596f073644d",
-      "artifact": "runs/run-ae633c381849/champion.joblib",
+      "run_id": "run-fda0c6a848ce",
+      "source_run": "run-885b0eab4bb5",
+      "artifact": "runs/run-fda0c6a848ce/champion.joblib",
       "model": "random_forest",
       "status": "후보 검토 보류",
       "test_recall": 0.889763779527559,

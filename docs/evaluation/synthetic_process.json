@@ -1,5 +1,5 @@
 {
-  "run_id": "run-b596f073644d",
+  "run_id": "run-885b0eab4bb5",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-e825048c0fd6",
@@ -77,10 +77,20 @@
     ],
     "models": [
       "logistic",
-      "random_forest"
+      "decision_tree",
+      "random_forest",
+      "gradient_boosting",
+      "xgboost",
+      "lightgbm",
+      "catboost",
+      "knn",
+      "svm",
+      "mlp",
+      "adaboost",
+      "hist_gradient"
     ],
     "preprocessing": [
-      "scaled"
+      "auto"
     ],
     "balance": [
       "none",
@@ -93,13 +103,15 @@
       "miss_cost": 100000,
       "false_alarm_cost": 1000
     },
-    "trial_budget": 60,
+    "trial_budget": 52,
     "split_hash": "8c51a96cbe0435d6e3cde84a64f08ccee106c8ef211f3b49e964eb0c2b5e78ac",
     "seed": 45,
     "selection": "calibration threshold; validation selection; final test once",
     "model_backend": "local_sklearn_or_pytorch",
     "auto_deploy": false,
-    "management_source_run": null
+    "management_source_run": null,
+    "search_strategy": "model_then_cohort",
+    "llm_priorities": []
   },
   "result": {
     "dataset": {
@@ -136,2146 +148,30 @@
       {
         "id": "trial-001",
         "products": [
-          "A"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 160,
-        "train_defects": 23,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7352941176470589,
-          "precision": 0.5,
-          "f2": 0.6720430107526882,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.746298886573471,
-          "roc_auc": 0.8970588235294117,
-          "threshold": 0.14575155427483505,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 48177083.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 128906250.00000003
-        },
-        "fit_seconds": 0.41897674999927403,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-002",
-        "products": [
-          "A"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 160,
-        "train_defects": 23,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 129,
-          "fp": 29,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.8020833333333334,
-          "recall": 0.7352941176470589,
-          "precision": 0.46296296296296297,
-          "f2": 0.6578947368421053,
-          "fpr": 0.18354430379746836,
-          "average_precision": 0.7473696184174554,
-          "roc_auc": 0.8918466120625466,
-          "threshold": 0.3701650760164096,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 48385416.66666667,
-          "assumed_saving_vs_all_pass_per_10000": 128697916.66666667
-        },
-        "fit_seconds": 0.3982524999992165,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-003",
-        "products": [
-          "A"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 160,
-        "train_defects": 23,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 141,
-          "fp": 17,
-          "fn": 2,
-          "tp": 32,
-          "accuracy": 0.9010416666666666,
-          "recall": 0.9411764705882353,
-          "precision": 0.6530612244897959,
-          "f2": 0.8648648648648649,
-          "fpr": 0.10759493670886076,
-          "average_precision": 0.8563317482089138,
-          "roc_auc": 0.9637006701414742,
-          "threshold": 0.1698214285714286,
-          "recall_wilson95": [
-            0.8090606311053629,
-            0.9837176869361576
-          ],
-          "assumed_cost_per_10000": 11302083.333333332,
-          "assumed_saving_vs_all_pass_per_10000": 165781250.00000003
-        },
-        "fit_seconds": 0.3954388750025828,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-004",
-        "products": [
-          "A"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 160,
-        "train_defects": 23,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 144,
-          "fp": 14,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.8958333333333334,
-          "recall": 0.8235294117647058,
-          "precision": 0.6666666666666666,
-          "f2": 0.7865168539325842,
-          "fpr": 0.08860759493670886,
-          "average_precision": 0.7866513405941452,
-          "roc_auc": 0.9452717795979151,
-          "threshold": 0.30444101037851035,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 31979166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 145104166.6666667
-        },
-        "fit_seconds": 0.41874495800220757,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-005",
-        "products": [
-          "B"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 176,
-        "train_defects": 20,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 134,
-          "fp": 24,
-          "fn": 10,
-          "tp": 24,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7058823529411765,
-          "precision": 0.5,
-          "f2": 0.6521739130434783,
-          "fpr": 0.1518987341772152,
-          "average_precision": 0.7380622089957729,
-          "roc_auc": 0.8520104244229337,
-          "threshold": 0.15891003765495865,
-          "recall_wilson95": [
-            0.5383077411853625,
-            0.8316554739006805
-          ],
-          "assumed_cost_per_10000": 53333333.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 123750000.00000003
-        },
-        "fit_seconds": 0.39949683400118374,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-006",
-        "products": [
-          "B"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 176,
-        "train_defects": 20,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.828125,
-          "recall": 0.7941176470588235,
-          "precision": 0.5094339622641509,
-          "f2": 0.7142857142857143,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.7691487779657098,
-          "roc_auc": 0.8825390915860015,
-          "threshold": 0.42953999077901284,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37812500.0,
-          "assumed_saving_vs_all_pass_per_10000": 139270833.33333334
-        },
-        "fit_seconds": 0.4010318750006263,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-007",
-        "products": [
-          "B"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 176,
-        "train_defects": 20,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 142,
-          "fp": 16,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.8697916666666666,
-          "recall": 0.7352941176470589,
-          "precision": 0.6097560975609756,
-          "f2": 0.7062146892655369,
-          "fpr": 0.10126582278481013,
-          "average_precision": 0.7764007992888949,
-          "roc_auc": 0.9270290394638868,
-          "threshold": 0.20562545093795093,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 47708333.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 129375000.00000003
-        },
-        "fit_seconds": 0.41527795900037745,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-008",
-        "products": [
-          "B"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 176,
-        "train_defects": 20,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.8385416666666666,
-          "recall": 0.8235294117647058,
-          "precision": 0.5283018867924528,
-          "f2": 0.7407407407407406,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.720751876350222,
-          "roc_auc": 0.9020848845867461,
-          "threshold": 0.3302824527525615,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 32552083.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 144531250.00000003
-        },
-        "fit_seconds": 0.42514933299753466,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-009",
-        "products": [
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 28,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 130,
-          "fp": 28,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.8235294117647058,
-          "precision": 0.5,
-          "f2": 0.7291666666666666,
-          "fpr": 0.17721518987341772,
-          "average_precision": 0.7988059468735093,
-          "roc_auc": 0.9071109456440803,
-          "threshold": 0.17952874765698768,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 32708333.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 144375000.00000003
-        },
-        "fit_seconds": 0.40218520899725263,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-010",
-        "products": [
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 28,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.8333333333333334,
-          "recall": 0.8235294117647058,
-          "precision": 0.5185185185185185,
-          "f2": 0.7368421052631579,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.7953667669850132,
-          "roc_auc": 0.9175353685778109,
-          "threshold": 0.5102597561500819,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 32604166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 144479166.6666667
-        },
-        "fit_seconds": 0.40790725000260863,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-011",
-        "products": [
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 28,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 146,
-          "fp": 12,
-          "fn": 3,
-          "tp": 31,
-          "accuracy": 0.921875,
-          "recall": 0.9117647058823529,
-          "precision": 0.7209302325581395,
-          "f2": 0.8659217877094972,
-          "fpr": 0.0759493670886076,
-          "average_precision": 0.8953344819709275,
-          "roc_auc": 0.975614296351452,
-          "threshold": 0.2578323412698414,
-          "recall_wilson95": [
-            0.7703918204763959,
-            0.9695346096956899
-          ],
-          "assumed_cost_per_10000": 16250000.0,
-          "assumed_saving_vs_all_pass_per_10000": 160833333.33333334
-        },
-        "fit_seconds": 0.4231815419989289,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-012",
-        "products": [
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 28,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.8385416666666666,
-          "recall": 0.8529411764705882,
-          "precision": 0.5272727272727272,
-          "f2": 0.7591623036649214,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.7573363097321039,
-          "roc_auc": 0.9359642591213702,
-          "threshold": 0.33880275974025975,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 27395833.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 149687500.00000003
-        },
-        "fit_seconds": 0.43020099999921513,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-013",
-        "products": [
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 41,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.828125,
-          "recall": 0.7647058823529411,
-          "precision": 0.5098039215686274,
-          "f2": 0.6951871657754011,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.7600360379049039,
-          "roc_auc": 0.8756515264333581,
-          "threshold": 0.36539305101173214,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42968750.0,
-          "assumed_saving_vs_all_pass_per_10000": 134114583.33333336
-        },
-        "fit_seconds": 0.4010496669980057,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-014",
-        "products": [
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 41,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 134,
-          "fp": 24,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8333333333333334,
-          "recall": 0.7647058823529411,
-          "precision": 0.52,
-          "f2": 0.6989247311827957,
-          "fpr": 0.1518987341772152,
-          "average_precision": 0.7583621304592537,
-          "roc_auc": 0.8739761727475801,
-          "threshold": 0.6496941684599723,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42916666.66666667,
-          "assumed_saving_vs_all_pass_per_10000": 134166666.66666667
-        },
-        "fit_seconds": 0.4007966249992023,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-015",
-        "products": [
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 41,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 137,
-          "fp": 21,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8541666666666666,
-          "recall": 0.7941176470588235,
-          "precision": 0.5625,
-          "f2": 0.7336956521739131,
-          "fpr": 0.13291139240506328,
-          "average_precision": 0.7873049435090028,
-          "roc_auc": 0.9149292628443781,
-          "threshold": 0.31869047619047625,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37552083.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 139531250.00000003
-        },
-        "fit_seconds": 0.42816887500157463,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-016",
-        "products": [
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 184,
-        "train_defects": 41,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 137,
-          "fp": 21,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8541666666666666,
-          "recall": 0.7941176470588235,
-          "precision": 0.5625,
-          "f2": 0.7336956521739131,
-          "fpr": 0.13291139240506328,
-          "average_precision": 0.7887859985204331,
-          "roc_auc": 0.9260982874162323,
-          "threshold": 0.5410740301365301,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37552083.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 139531250.00000003
-        },
-        "fit_seconds": 0.43279145800261176,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-017",
-        "products": [
-          "A",
-          "B"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 336,
-        "train_defects": 43,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 131,
-          "fp": 27,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.8125,
-          "recall": 0.7352941176470589,
-          "precision": 0.4807692307692308,
-          "f2": 0.6648936170212766,
-          "fpr": 0.17088607594936708,
-          "average_precision": 0.7631011691662438,
-          "roc_auc": 0.8868205510052123,
-          "threshold": 0.12486552889942251,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 48281250.0,
-          "assumed_saving_vs_all_pass_per_10000": 128802083.33333336
-        },
-        "fit_seconds": 0.40231308299917146,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-018",
-        "products": [
-          "A",
-          "B"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 336,
-        "train_defects": 43,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 135,
-          "fp": 23,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.8333333333333334,
-          "recall": 0.7352941176470589,
-          "precision": 0.5208333333333334,
-          "f2": 0.6793478260869567,
-          "fpr": 0.14556962025316456,
-          "average_precision": 0.7610085362485924,
-          "roc_auc": 0.8892405063291139,
-          "threshold": 0.47118035684181814,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 48072916.66666667,
-          "assumed_saving_vs_all_pass_per_10000": 129010416.66666667
-        },
-        "fit_seconds": 0.40388974999950733,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-019",
-        "products": [
-          "A",
-          "B"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 336,
-        "train_defects": 43,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 140,
-          "fp": 18,
-          "fn": 2,
-          "tp": 32,
-          "accuracy": 0.8958333333333334,
-          "recall": 0.9411764705882353,
-          "precision": 0.64,
-          "f2": 0.8602150537634409,
-          "fpr": 0.11392405063291139,
-          "average_precision": 0.8648946830210454,
-          "roc_auc": 0.9685405807892777,
-          "threshold": 0.17228904061624647,
-          "recall_wilson95": [
-            0.8090606311053629,
-            0.9837176869361576
-          ],
-          "assumed_cost_per_10000": 11354166.666666668,
-          "assumed_saving_vs_all_pass_per_10000": 165729166.6666667
-        },
-        "fit_seconds": 0.41270108399839955,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-020",
-        "products": [
-          "A",
-          "B"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 336,
-        "train_defects": 43,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.84375,
-          "recall": 0.8529411764705882,
-          "precision": 0.5370370370370371,
-          "f2": 0.763157894736842,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.8008231162486102,
-          "roc_auc": 0.9391288160833954,
-          "threshold": 0.28662668928293933,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 27343750.0,
-          "assumed_saving_vs_all_pass_per_10000": 149739583.33333334
-        },
-        "fit_seconds": 0.436083292002877,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-021",
-        "products": [
-          "A",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 51,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7647058823529411,
-          "precision": 0.5,
-          "f2": 0.6914893617021276,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.785395239829271,
-          "roc_auc": 0.9113924050632911,
-          "threshold": 0.16668467878217058,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 43020833.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 134062500.00000003
-        },
-        "fit_seconds": 0.40571545800048625,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-022",
-        "products": [
-          "A",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 51,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8489583333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.5510204081632653,
-          "f2": 0.7297297297297297,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.7888847193737644,
-          "roc_auc": 0.9164184661206255,
-          "threshold": 0.5377532223079852,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37604166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139479166.6666667
-        },
-        "fit_seconds": 0.42727308299799915,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-023",
-        "products": [
-          "A",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 51,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 142,
-          "fp": 16,
-          "fn": 2,
-          "tp": 32,
-          "accuracy": 0.90625,
-          "recall": 0.9411764705882353,
-          "precision": 0.6666666666666666,
-          "f2": 0.8695652173913043,
-          "fpr": 0.10126582278481013,
-          "average_precision": 0.906596946533339,
-          "roc_auc": 0.9780342516753537,
-          "threshold": 0.18991071428571432,
-          "recall_wilson95": [
-            0.8090606311053629,
-            0.9837176869361576
-          ],
-          "assumed_cost_per_10000": 11250000.0,
-          "assumed_saving_vs_all_pass_per_10000": 165833333.33333334
-        },
-        "fit_seconds": 0.4331545000022743,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-024",
-        "products": [
-          "A",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 51,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 4,
-          "tp": 30,
-          "accuracy": 0.8645833333333334,
-          "recall": 0.8823529411764706,
-          "precision": 0.5769230769230769,
-          "f2": 0.7978723404255318,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.8246546653276671,
-          "roc_auc": 0.9536485480268057,
-          "threshold": 0.3040147243107769,
-          "recall_wilson95": [
-            0.7337882520370121,
-            0.9532862902656388
-          ],
-          "assumed_cost_per_10000": 21979166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 155104166.6666667
-        },
-        "fit_seconds": 0.4250550420001673,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-025",
-        "products": [
-          "A",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 64,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 131,
-          "fp": 27,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7941176470588235,
-          "precision": 0.5,
-          "f2": 0.7105263157894737,
-          "fpr": 0.17088607594936708,
-          "average_precision": 0.7906370695723292,
-          "roc_auc": 0.904132539091586,
-          "threshold": 0.17570975275564285,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37864583.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 139218750.00000003
-        },
-        "fit_seconds": 0.41150745800041477,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-026",
-        "products": [
-          "A",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 64,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 138,
-          "fp": 20,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8541666666666666,
-          "recall": 0.7647058823529411,
-          "precision": 0.5652173913043478,
-          "f2": 0.7142857142857143,
-          "fpr": 0.12658227848101267,
-          "average_precision": 0.7842941236632652,
-          "roc_auc": 0.9020848845867461,
-          "threshold": 0.49620184008777984,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42708333.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 134375000.00000003
-        },
-        "fit_seconds": 0.40334900000016205,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-027",
-        "products": [
-          "A",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 64,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 4,
-          "tp": 30,
-          "accuracy": 0.8645833333333334,
-          "recall": 0.8823529411764706,
-          "precision": 0.5769230769230769,
-          "f2": 0.7978723404255318,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.8441207819678731,
-          "roc_auc": 0.9516008935219658,
-          "threshold": 0.18956966644466647,
-          "recall_wilson95": [
-            0.7337882520370121,
-            0.9532862902656388
-          ],
-          "assumed_cost_per_10000": 21979166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 155104166.6666667
-        },
-        "fit_seconds": 0.43308941700161085,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-028",
-        "products": [
-          "A",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 344,
-        "train_defects": 64,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 139,
-          "fp": 19,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.875,
-          "recall": 0.8529411764705882,
-          "precision": 0.6041666666666666,
-          "f2": 0.7880434782608695,
-          "fpr": 0.12025316455696203,
-          "average_precision": 0.8074524231069877,
-          "roc_auc": 0.93801191362621,
-          "threshold": 0.36456312784437783,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 27031250.0,
-          "assumed_saving_vs_all_pass_per_10000": 150052083.33333334
-        },
-        "fit_seconds": 0.4314367500010121,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-029",
-        "products": [
-          "B",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 48,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.828125,
-          "recall": 0.7941176470588235,
-          "precision": 0.5094339622641509,
-          "f2": 0.7142857142857143,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.7783330245763707,
-          "roc_auc": 0.8888682055100521,
-          "threshold": 0.1503329757715306,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37812500.0,
-          "assumed_saving_vs_all_pass_per_10000": 139270833.33333334
-        },
-        "fit_seconds": 0.4032418749993667,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-030",
-        "products": [
-          "B",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 48,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 127,
-          "fp": 31,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8020833333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.46551724137931033,
-          "f2": 0.6958762886597938,
-          "fpr": 0.1962025316455696,
-          "average_precision": 0.7864584362771202,
-          "roc_auc": 0.9045048399106478,
-          "threshold": 0.472782389544631,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 38072916.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139010416.6666667
-        },
-        "fit_seconds": 0.42474262500036275,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-031",
-        "products": [
-          "B",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 48,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 139,
-          "fp": 19,
-          "fn": 0,
-          "tp": 34,
-          "accuracy": 0.9010416666666666,
-          "recall": 1.0,
-          "precision": 0.6415094339622641,
-          "f2": 0.8994708994708994,
-          "fpr": 0.12025316455696203,
-          "average_precision": 0.8594550920791169,
-          "roc_auc": 0.9676098287416232,
-          "threshold": 0.17409670908593322,
-          "recall_wilson95": [
-            0.8984820937803899,
-            1.0
-          ],
-          "assumed_cost_per_10000": 989583.3333333333,
-          "assumed_saving_vs_all_pass_per_10000": 176093750.00000003
-        },
-        "fit_seconds": 0.4295490000004065,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-032",
-        "products": [
-          "B",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 48,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 4,
-          "tp": 30,
-          "accuracy": 0.8645833333333334,
-          "recall": 0.8823529411764706,
-          "precision": 0.5769230769230769,
-          "f2": 0.7978723404255318,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.7830901715431972,
-          "roc_auc": 0.9428518242740134,
-          "threshold": 0.3096607559107559,
-          "recall_wilson95": [
-            0.7337882520370121,
-            0.9532862902656388
-          ],
-          "assumed_cost_per_10000": 21979166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 155104166.6666667
-        },
-        "fit_seconds": 0.43469570899833343,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-033",
-        "products": [
-          "B",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 61,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.828125,
-          "recall": 0.7941176470588235,
-          "precision": 0.5094339622641509,
-          "f2": 0.7142857142857143,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.7780585986651822,
-          "roc_auc": 0.8858897989575577,
-          "threshold": 0.16493836862883146,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37812500.0,
-          "assumed_saving_vs_all_pass_per_10000": 139270833.33333334
-        },
-        "fit_seconds": 0.43043329099964467,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-034",
-        "products": [
-          "B",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 61,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 139,
-          "fp": 19,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8645833333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.5869565217391305,
-          "f2": 0.7417582417582417,
-          "fpr": 0.12025316455696203,
-          "average_precision": 0.7819932676112098,
-          "roc_auc": 0.8894266567386448,
-          "threshold": 0.5085866473022622,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37447916.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139635416.6666667
-        },
-        "fit_seconds": 0.41072179099865025,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-035",
-        "products": [
-          "B",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 61,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 140,
-          "fp": 18,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.875,
-          "recall": 0.8235294117647058,
-          "precision": 0.6086956521739131,
-          "f2": 0.7692307692307693,
-          "fpr": 0.11392405063291139,
-          "average_precision": 0.8184661387260588,
-          "roc_auc": 0.9430379746835442,
-          "threshold": 0.20749855225184177,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 32187500.0,
-          "assumed_saving_vs_all_pass_per_10000": 144895833.33333334
-        },
-        "fit_seconds": 0.43838925000090967,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-036",
-        "products": [
-          "B",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 360,
-        "train_defects": 61,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 143,
-          "fp": 15,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.8958333333333334,
-          "recall": 0.8529411764705882,
-          "precision": 0.6590909090909091,
-          "f2": 0.8055555555555555,
-          "fpr": 0.0949367088607595,
-          "average_precision": 0.7907617084336891,
-          "roc_auc": 0.943410275502606,
-          "threshold": 0.3787094155844156,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 26822916.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 150260416.6666667
-        },
-        "fit_seconds": 0.4633223330019973,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-037",
-        "products": [
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 368,
-        "train_defects": 69,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8333333333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.5192307692307693,
-          "f2": 0.7180851063829786,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.7837525304642529,
-          "roc_auc": 0.892963514519732,
-          "threshold": 0.24021781039892587,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37760416.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139322916.6666667
-        },
-        "fit_seconds": 0.4073700410008314,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-038",
-        "products": [
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 368,
-        "train_defects": 69,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.84375,
-          "recall": 0.7647058823529411,
-          "precision": 0.5416666666666666,
-          "f2": 0.7065217391304347,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.7779277261215812,
-          "roc_auc": 0.8950111690245719,
-          "threshold": 0.5975075172267861,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42812500.0,
-          "assumed_saving_vs_all_pass_per_10000": 134270833.33333334
-        },
-        "fit_seconds": 0.4047629169981519,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-039",
-        "products": [
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 368,
-        "train_defects": 69,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 139,
-          "fp": 19,
-          "fn": 6,
-          "tp": 28,
-          "accuracy": 0.8697916666666666,
-          "recall": 0.8235294117647058,
-          "precision": 0.5957446808510638,
-          "f2": 0.7650273224043717,
-          "fpr": 0.12025316455696203,
-          "average_precision": 0.820052862829994,
-          "roc_auc": 0.9393149664929263,
-          "threshold": 0.2457147366522367,
-          "recall_wilson95": [
-            0.6648593225994784,
-            0.9165114439643031
-          ],
-          "assumed_cost_per_10000": 32239583.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 144843750.00000003
-        },
-        "fit_seconds": 0.42917512499843724,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-040",
-        "products": [
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 368,
-        "train_defects": 69,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 139,
-          "fp": 19,
-          "fn": 3,
-          "tp": 31,
-          "accuracy": 0.8854166666666666,
-          "recall": 0.9117647058823529,
-          "precision": 0.62,
-          "f2": 0.8333333333333334,
-          "fpr": 0.12025316455696203,
-          "average_precision": 0.7954464449107015,
-          "roc_auc": 0.9367088607594937,
-          "threshold": 0.38468592171717175,
-          "recall_wilson95": [
-            0.7703918204763959,
-            0.9695346096956899
-          ],
-          "assumed_cost_per_10000": 16614583.333333332,
-          "assumed_saving_vs_all_pass_per_10000": 160468750.00000003
-        },
-        "fit_seconds": 0.44672600000194507,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-041",
-        "products": [
-          "A",
-          "B",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 71,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 137,
-          "fp": 21,
-          "fn": 9,
-          "tp": 25,
-          "accuracy": 0.84375,
-          "recall": 0.7352941176470589,
-          "precision": 0.5434782608695652,
-          "f2": 0.6868131868131869,
-          "fpr": 0.13291139240506328,
-          "average_precision": 0.7852101356363348,
-          "roc_auc": 0.9013402829486225,
-          "threshold": 0.187808085323423,
-          "recall_wilson95": [
-            0.5688253783710155,
-            0.8539897245844621
-          ],
-          "assumed_cost_per_10000": 47968750.0,
-          "assumed_saving_vs_all_pass_per_10000": 129114583.33333336
-        },
-        "fit_seconds": 0.40602245799891534,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-042",
-        "products": [
-          "A",
-          "B",
-          "C"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 71,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7647058823529411,
-          "precision": 0.5,
-          "f2": 0.6914893617021276,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.785362939405139,
-          "roc_auc": 0.9082278481012658,
-          "threshold": 0.47617201480100724,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 43020833.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 134062500.00000003
-        },
-        "fit_seconds": 0.40645162500004517,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-043",
-        "products": [
-          "A",
-          "B",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 71,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 138,
-          "fp": 20,
-          "fn": 1,
-          "tp": 33,
-          "accuracy": 0.890625,
-          "recall": 0.9705882352941176,
-          "precision": 0.6226415094339622,
-          "f2": 0.8730158730158729,
-          "fpr": 0.12658227848101267,
-          "average_precision": 0.8656537797162684,
-          "roc_auc": 0.9683544303797468,
-          "threshold": 0.1530155273969567,
-          "recall_wilson95": [
-            0.8508409778365519,
-            0.9947892280744034
-          ],
-          "assumed_cost_per_10000": 6250000.0,
-          "assumed_saving_vs_all_pass_per_10000": 170833333.33333334
-        },
-        "fit_seconds": 0.43809500000133994,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-044",
-        "products": [
-          "A",
-          "B",
-          "C"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 71,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 144,
-          "fp": 14,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.9010416666666666,
-          "recall": 0.8529411764705882,
-          "precision": 0.6744186046511628,
-          "f2": 0.8100558659217876,
-          "fpr": 0.08860759493670886,
-          "average_precision": 0.8140046937684723,
-          "roc_auc": 0.9523454951600894,
-          "threshold": 0.37198891168251474,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 26770833.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 150312500.00000003
-        },
-        "fit_seconds": 0.555423082998459,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-045",
-        "products": [
-          "A",
-          "B",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 84,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 137,
-          "fp": 21,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8489583333333334,
-          "recall": 0.7647058823529411,
-          "precision": 0.5531914893617021,
-          "f2": 0.7103825136612022,
-          "fpr": 0.13291139240506328,
-          "average_precision": 0.7862030322214493,
-          "roc_auc": 0.8981757259865972,
-          "threshold": 0.19424622586668908,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42760416.66666667,
-          "assumed_saving_vs_all_pass_per_10000": 134322916.6666667
-        },
-        "fit_seconds": 0.4101949159994547,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-046",
-        "products": [
-          "A",
-          "B",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 84,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 137,
-          "fp": 21,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.8489583333333334,
-          "recall": 0.7647058823529411,
-          "precision": 0.5531914893617021,
-          "f2": 0.7103825136612022,
-          "fpr": 0.13291139240506328,
-          "average_precision": 0.7831214511865825,
-          "roc_auc": 0.8994787788533135,
-          "threshold": 0.4916221299021356,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42760416.66666667,
-          "assumed_saving_vs_all_pass_per_10000": 134322916.6666667
-        },
-        "fit_seconds": 0.4094186250003986,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-047",
-        "products": [
-          "A",
-          "B",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 84,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 142,
-          "fp": 16,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8802083333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.627906976744186,
-          "f2": 0.7541899441340782,
-          "fpr": 0.10126582278481013,
-          "average_precision": 0.8448562159764775,
-          "roc_auc": 0.9584884586746091,
-          "threshold": 0.21159374999999997,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37291666.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139791666.6666667
-        },
-        "fit_seconds": 0.44869062499856227,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-048",
-        "products": [
-          "A",
-          "B",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 520,
-        "train_defects": 84,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 140,
-          "fp": 18,
-          "fn": 4,
-          "tp": 30,
-          "accuracy": 0.8854166666666666,
-          "recall": 0.8823529411764706,
-          "precision": 0.625,
-          "f2": 0.8152173913043478,
-          "fpr": 0.11392405063291139,
-          "average_precision": 0.82029418846814,
-          "roc_auc": 0.9484363365599404,
-          "threshold": 0.362123778998779,
-          "recall_wilson95": [
-            0.7337882520370121,
-            0.9532862902656388
-          ],
-          "assumed_cost_per_10000": 21770833.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 155312500.00000003
-        },
-        "fit_seconds": 0.4925732080009766,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-049",
-        "products": [
-          "A",
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 528,
-        "train_defects": 92,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 131,
-          "fp": 27,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8229166666666666,
-          "recall": 0.7941176470588235,
-          "precision": 0.5,
-          "f2": 0.7105263157894737,
-          "fpr": 0.17088607594936708,
-          "average_precision": 0.7936442210434049,
-          "roc_auc": 0.9063663440059568,
-          "threshold": 0.17140859738277192,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37864583.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 139218750.00000003
-        },
-        "fit_seconds": 0.4060528330010129,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-050",
-        "products": [
-          "A",
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 528,
-        "train_defects": 92,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 8,
-          "tp": 26,
-          "accuracy": 0.84375,
-          "recall": 0.7647058823529411,
-          "precision": 0.5416666666666666,
-          "f2": 0.7065217391304347,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.785692303253852,
-          "roc_auc": 0.9067386448250186,
-          "threshold": 0.48585795673168564,
-          "recall_wilson95": [
-            0.6000353719173557,
-            0.8756316189075566
-          ],
-          "assumed_cost_per_10000": 42812500.0,
-          "assumed_saving_vs_all_pass_per_10000": 134270833.33333334
-        },
-        "fit_seconds": 0.4093912500029546,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-051",
-        "products": [
-          "A",
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 528,
-        "train_defects": 92,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 132,
-          "fp": 26,
-          "fn": 1,
-          "tp": 33,
-          "accuracy": 0.859375,
-          "recall": 0.9705882352941176,
-          "precision": 0.559322033898305,
-          "f2": 0.846153846153846,
-          "fpr": 0.16455696202531644,
-          "average_precision": 0.8792557679082018,
-          "roc_auc": 0.9672375279225615,
-          "threshold": 0.18019414050744695,
-          "recall_wilson95": [
-            0.8508409778365519,
-            0.9947892280744034
-          ],
-          "assumed_cost_per_10000": 6562500.0,
-          "assumed_saving_vs_all_pass_per_10000": 170520833.33333334
-        },
-        "fit_seconds": 0.44520816699878196,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-052",
-        "products": [
-          "A",
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 528,
-        "train_defects": 92,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 144,
-          "fp": 14,
-          "fn": 4,
-          "tp": 30,
-          "accuracy": 0.90625,
-          "recall": 0.8823529411764706,
-          "precision": 0.6818181818181818,
-          "f2": 0.8333333333333334,
-          "fpr": 0.08860759493670886,
-          "average_precision": 0.8439294559838444,
-          "roc_auc": 0.9532762472077438,
-          "threshold": 0.3580948578210575,
-          "recall_wilson95": [
-            0.7337882520370121,
-            0.9532862902656388
-          ],
-          "assumed_cost_per_10000": 21562500.0,
-          "assumed_saving_vs_all_pass_per_10000": 155520833.33333334
-        },
-        "fit_seconds": 0.4436522089999926,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-053",
-        "products": [
-          "B",
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 544,
-        "train_defects": 89,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 136,
-          "fp": 22,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8489583333333334,
-          "recall": 0.7941176470588235,
-          "precision": 0.5510204081632653,
-          "f2": 0.7297297297297297,
-          "fpr": 0.13924050632911392,
-          "average_precision": 0.7808534145249177,
-          "roc_auc": 0.8914743112434849,
-          "threshold": 0.186720447666401,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37604166.666666664,
-          "assumed_saving_vs_all_pass_per_10000": 139479166.6666667
-        },
-        "fit_seconds": 0.433143750000454,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-054",
-        "products": [
-          "B",
-          "C",
-          "D"
-        ],
-        "model": "logistic",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 544,
-        "train_defects": 89,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 134,
-          "fp": 24,
-          "fn": 7,
-          "tp": 27,
-          "accuracy": 0.8385416666666666,
-          "recall": 0.7941176470588235,
-          "precision": 0.5294117647058824,
-          "f2": 0.7219251336898396,
-          "fpr": 0.1518987341772152,
-          "average_precision": 0.7852677206033633,
-          "roc_auc": 0.8985480268056589,
-          "threshold": 0.470542959076623,
-          "recall_wilson95": [
-            0.6320128389178601,
-            0.8965060397764868
-          ],
-          "assumed_cost_per_10000": 37708333.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 139375000.00000003
-        },
-        "fit_seconds": 0.4082670829993731,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-055",
-        "products": [
-          "B",
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "none",
-        "status": "completed",
-        "train_n": 544,
-        "train_defects": 89,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 141,
-          "fp": 17,
-          "fn": 5,
-          "tp": 29,
-          "accuracy": 0.8854166666666666,
-          "recall": 0.8529411764705882,
-          "precision": 0.6304347826086957,
-          "f2": 0.7967032967032968,
-          "fpr": 0.10759493670886076,
-          "average_precision": 0.848103033595322,
-          "roc_auc": 0.9519731943410276,
-          "threshold": 0.1996162518037518,
-          "recall_wilson95": [
-            0.6987161182594804,
-            0.9355065361737359
-          ],
-          "assumed_cost_per_10000": 26927083.333333336,
-          "assumed_saving_vs_all_pass_per_10000": 150156250.00000003
-        },
-        "fit_seconds": 0.4473484580012155,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-056",
-        "products": [
-          "B",
-          "C",
-          "D"
-        ],
-        "model": "random_forest",
-        "preprocessing": "scaled",
-        "balance": "weighted",
-        "status": "completed",
-        "train_n": 544,
-        "train_defects": 89,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 192,
-          "positive_count": 34,
-          "tn": 133,
-          "fp": 25,
-          "fn": 2,
-          "tp": 32,
-          "accuracy": 0.859375,
-          "recall": 0.9411764705882353,
-          "precision": 0.5614035087719298,
-          "f2": 0.8290155440414507,
-          "fpr": 0.15822784810126583,
-          "average_precision": 0.807525384712759,
-          "roc_auc": 0.947505584512286,
-          "threshold": 0.28276239682936105,
-          "recall_wilson95": [
-            0.8090606311053629,
-            0.9837176869361576
-          ],
-          "assumed_cost_per_10000": 11718750.0,
-          "assumed_saving_vs_all_pass_per_10000": 165364583.33333334
-        },
-        "fit_seconds": 0.44987899999978254,
-        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
-      },
-      {
-        "id": "trial-057",
-        "products": [
           "A",
           "B",
           "C",
           "D"
         ],
         "model": "logistic",
-        "preprocessing": "scaled",
+        "preprocessing": "auto",
         "balance": "none",
         "status": "completed",
         "train_n": 704,
         "train_defects": 112,
         "calibration_feasible": true,
+        "explanation": {
+          "model": "logistic",
+          "title": "Logistic Regression",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day3 PDF 68쪽 이진 확률 예시",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
         "validation": {
           "n": 192,
           "positive_count": 34,
@@ -2298,11 +194,11 @@
           "assumed_cost_per_10000": 42656250.0,
           "assumed_saving_vs_all_pass_per_10000": 134427083.33333334
         },
-        "fit_seconds": 0.409149333001551,
+        "fit_seconds": 0.4207780830001866,
         "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
       },
       {
-        "id": "trial-058",
+        "id": "trial-002",
         "products": [
           "A",
           "B",
@@ -2310,12 +206,24 @@
           "D"
         ],
         "model": "logistic",
-        "preprocessing": "scaled",
+        "preprocessing": "auto",
         "balance": "weighted",
         "status": "completed",
         "train_n": 704,
         "train_defects": 112,
         "calibration_feasible": true,
+        "explanation": {
+          "model": "logistic",
+          "title": "Logistic Regression",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day3 PDF 68쪽 이진 확률 예시",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
         "validation": {
           "n": 192,
           "positive_count": 34,
@@ -2338,11 +246,115 @@
           "assumed_cost_per_10000": 43020833.33333333,
           "assumed_saving_vs_all_pass_per_10000": 134062500.00000003
         },
-        "fit_seconds": 0.4060708750002959,
+        "fit_seconds": 0.42601333299899125,
         "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
       },
       {
-        "id": "trial-059",
+        "id": "trial-003",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "decision_tree",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "decision_tree",
+          "title": "Decision Tree",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "조건 분기로 센서의 비선형 관계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 33~55쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 143,
+          "fp": 15,
+          "fn": 8,
+          "tp": 26,
+          "accuracy": 0.8802083333333334,
+          "recall": 0.7647058823529411,
+          "precision": 0.6341463414634146,
+          "f2": 0.7344632768361582,
+          "fpr": 0.0949367088607595,
+          "average_precision": 0.6522271846742793,
+          "roc_auc": 0.8665301563663441,
+          "threshold": 0.3333333333333333,
+          "recall_wilson95": [
+            0.6000353719173557,
+            0.8756316189075566
+          ],
+          "assumed_cost_per_10000": 42447916.66666667,
+          "assumed_saving_vs_all_pass_per_10000": 134635416.6666667
+        },
+        "fit_seconds": 0.030417750000196975,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-004",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "decision_tree",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "decision_tree",
+          "title": "Decision Tree",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "조건 분기로 센서의 비선형 관계를 비교",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 33~55쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 140,
+          "fp": 18,
+          "fn": 9,
+          "tp": 25,
+          "accuracy": 0.859375,
+          "recall": 0.7352941176470589,
+          "precision": 0.5813953488372093,
+          "f2": 0.6983240223463688,
+          "fpr": 0.11392405063291139,
+          "average_precision": 0.5782928133633755,
+          "roc_auc": 0.8240878629932986,
+          "threshold": 0.545722713864307,
+          "recall_wilson95": [
+            0.5688253783710155,
+            0.8539897245844621
+          ],
+          "assumed_cost_per_10000": 47812500.0,
+          "assumed_saving_vs_all_pass_per_10000": 129270833.33333336
+        },
+        "fit_seconds": 0.03209229200001573,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-005",
         "products": [
           "A",
           "B",
@@ -2350,12 +362,24 @@
           "D"
         ],
         "model": "random_forest",
-        "preprocessing": "scaled",
+        "preprocessing": "auto",
         "balance": "none",
         "status": "completed",
         "train_n": 704,
         "train_defects": 112,
         "calibration_feasible": true,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
         "validation": {
           "n": 192,
           "positive_count": 34,
@@ -2378,11 +402,11 @@
           "assumed_cost_per_10000": 11510416.666666668,
           "assumed_saving_vs_all_pass_per_10000": 165572916.6666667
         },
-        "fit_seconds": 0.4541244159991038,
+        "fit_seconds": 0.4623107080005866,
         "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
       },
       {
-        "id": "trial-060",
+        "id": "trial-006",
         "products": [
           "A",
           "B",
@@ -2390,12 +414,24 @@
           "D"
         ],
         "model": "random_forest",
-        "preprocessing": "scaled",
+        "preprocessing": "auto",
         "balance": "weighted",
         "status": "completed",
         "train_n": 704,
         "train_defects": 112,
         "calibration_feasible": true,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
         "validation": {
           "n": 192,
           "positive_count": 34,
@@ -2418,70 +454,2419 @@
           "assumed_cost_per_10000": 21822916.666666664,
           "assumed_saving_vs_all_pass_per_10000": 155260416.6666667
         },
-        "fit_seconds": 0.4424734999993234,
+        "fit_seconds": 0.4515146250014368,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-007",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "gradient_boosting",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "gradient_boosting",
+          "title": "Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "앞선 트리의 오차를 순차 보완하는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 60~61쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 138,
+          "fp": 20,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.8802083333333334,
+          "recall": 0.9117647058823529,
+          "precision": 0.6078431372549019,
+          "f2": 0.8288770053475936,
+          "fpr": 0.12658227848101267,
+          "average_precision": 0.8791603790864874,
+          "roc_auc": 0.9680752047654505,
+          "threshold": 0.10348461523537808,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16666666.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 160416666.6666667
+        },
+        "fit_seconds": 0.22320495800158824,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-008",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "gradient_boosting",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "gradient_boosting",
+          "title": "Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "앞선 트리의 오차를 순차 보완하는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 60~61쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 136,
+          "fp": 22,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.875,
+          "recall": 0.9411764705882353,
+          "precision": 0.5925925925925926,
+          "f2": 0.8421052631578946,
+          "fpr": 0.13924050632911392,
+          "average_precision": 0.8484036762182529,
+          "roc_auc": 0.9581161578555473,
+          "threshold": 0.2957204156969148,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 165520833.33333334
+        },
+        "fit_seconds": 0.25455470900124055,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-009",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "xgboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "xgboost",
+          "title": "XGBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "규제를 적용한 트리 부스팅 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 65~67, 71, 74~75쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 143,
+          "fp": 15,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.9114583333333334,
+          "recall": 0.9411764705882353,
+          "precision": 0.6808510638297872,
+          "f2": 0.8743169398907105,
+          "fpr": 0.0949367088607595,
+          "average_precision": 0.8742763128427592,
+          "roc_auc": 0.9680752047654506,
+          "threshold": 0.1219862625002861,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11197916.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 165885416.6666667
+        },
+        "fit_seconds": 0.9810672080020595,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-010",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "xgboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "xgboost",
+          "title": "XGBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "규제를 적용한 트리 부스팅 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 65~67, 71, 74~75쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 136,
+          "fp": 22,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8802083333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.6,
+          "f2": 0.8638743455497382,
+          "fpr": 0.13924050632911392,
+          "average_precision": 0.8660125008784559,
+          "roc_auc": 0.9640729709605361,
+          "threshold": 0.21518062055110931,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6354166.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 170729166.6666667
+        },
+        "fit_seconds": 0.2965241249985411,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-011",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "lightgbm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "lightgbm",
+          "title": "LightGBM",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "히스토그램 기반 트리 부스팅 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 68~69, 72쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 132,
+          "fp": 26,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.859375,
+          "recall": 0.9705882352941176,
+          "precision": 0.559322033898305,
+          "f2": 0.846153846153846,
+          "fpr": 0.16455696202531644,
+          "average_precision": 0.8652398888606606,
+          "roc_auc": 0.9637006701414743,
+          "threshold": 0.05937011315536972,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 170520833.33333334
+        },
+        "fit_seconds": 0.5721464999987802,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-012",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "lightgbm",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "lightgbm",
+          "title": "LightGBM",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "히스토그램 기반 트리 부스팅 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 68~69, 72쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 132,
+          "fp": 26,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.859375,
+          "recall": 0.9705882352941176,
+          "precision": 0.559322033898305,
+          "f2": 0.846153846153846,
+          "fpr": 0.16455696202531644,
+          "average_precision": 0.870568641914007,
+          "roc_auc": 0.9655621742367833,
+          "threshold": 0.14521725940315633,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 170520833.33333334
+        },
+        "fit_seconds": 0.3548813749985129,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-013",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 137,
+          "fp": 21,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.8802083333333334,
+          "recall": 0.9411764705882353,
+          "precision": 0.6037735849056604,
+          "f2": 0.8465608465608466,
+          "fpr": 0.13291139240506328,
+          "average_precision": 0.8708807998773105,
+          "roc_auc": 0.9677959791511541,
+          "threshold": 0.1293733898241952,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11510416.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 165572916.6666667
+        },
+        "fit_seconds": 1.5315121250023367,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-014",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 141,
+          "fp": 17,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.90625,
+          "recall": 0.9705882352941176,
+          "precision": 0.66,
+          "f2": 0.8870967741935484,
+          "fpr": 0.10759493670886076,
+          "average_precision": 0.8729982808863881,
+          "roc_auc": 0.9694713328369322,
+          "threshold": 0.3496454253609927,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6093750.0,
+          "assumed_saving_vs_all_pass_per_10000": 170989583.33333334
+        },
+        "fit_seconds": 0.4263831249991199,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-015",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "knn",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "knn",
+          "title": "KNN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "가까운 센서 패턴의 라벨로 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 21~31쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 137,
+          "fp": 21,
+          "fn": 4,
+          "tp": 30,
+          "accuracy": 0.8697916666666666,
+          "recall": 0.8823529411764706,
+          "precision": 0.5882352941176471,
+          "f2": 0.8021390374331552,
+          "fpr": 0.13291139240506328,
+          "average_precision": 0.8627089639739507,
+          "roc_auc": 0.930379746835443,
+          "threshold": 0.13613207761746135,
+          "recall_wilson95": [
+            0.7337882520370121,
+            0.9532862902656388
+          ],
+          "assumed_cost_per_10000": 21927083.333333336,
+          "assumed_saving_vs_all_pass_per_10000": 155156250.00000003
+        },
+        "fit_seconds": 0.13321470799928647,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-016",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "knn",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "knn",
+          "title": "KNN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "가까운 센서 패턴의 라벨로 비교",
+          "balance_method": "학습 표본 안에서만 불량 무작위 복제 (오버샘플링)",
+          "source": "Day2 PDF 21~31쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 133,
+          "fp": 25,
+          "fn": 4,
+          "tp": 30,
+          "accuracy": 0.8489583333333334,
+          "recall": 0.8823529411764706,
+          "precision": 0.5454545454545454,
+          "f2": 0.7853403141361257,
+          "fpr": 0.15822784810126583,
+          "average_precision": 0.7244541322693628,
+          "roc_auc": 0.9036671630677588,
+          "threshold": 0.3044487927402602,
+          "recall_wilson95": [
+            0.7337882520370121,
+            0.9532862902656388
+          ],
+          "assumed_cost_per_10000": 22135416.666666664,
+          "assumed_saving_vs_all_pass_per_10000": 154947916.6666667
+        },
+        "fit_seconds": 0.10878470900206594,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-017",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 143,
+          "fp": 15,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.9166666666666666,
+          "recall": 0.9705882352941176,
+          "precision": 0.6875,
+          "f2": 0.8967391304347826,
+          "fpr": 0.0949367088607595,
+          "average_precision": 0.9357186682083831,
+          "roc_auc": 0.9834326135517498,
+          "threshold": 0.08926823499715926,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 5989583.333333334,
+          "assumed_saving_vs_all_pass_per_10000": 171093750.00000003
+        },
+        "fit_seconds": 0.4401079999988724,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-018",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 137,
+          "fp": 21,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.875,
+          "recall": 0.9117647058823529,
+          "precision": 0.5961538461538461,
+          "f2": 0.824468085106383,
+          "fpr": 0.13291139240506328,
+          "average_precision": 0.9053906043021109,
+          "roc_auc": 0.975614296351452,
+          "threshold": 0.08365236574413694,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16718750.0,
+          "assumed_saving_vs_all_pass_per_10000": 160364583.33333334
+        },
+        "fit_seconds": 0.4158181249986228,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-019",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "mlp",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "mlp",
+          "title": "MLP / ANN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "다층 신경망으로 센서 간 비선형 관계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day3 PDF 7~22쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 140,
+          "fp": 18,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.8958333333333334,
+          "recall": 0.9411764705882353,
+          "precision": 0.64,
+          "f2": 0.8602150537634409,
+          "fpr": 0.11392405063291139,
+          "average_precision": 0.9292335291094491,
+          "roc_auc": 0.9802680565897246,
+          "threshold": 0.03119280988435167,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11354166.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 165729166.6666667
+        },
+        "fit_seconds": 0.5029526670004998,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-020",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "mlp",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "mlp",
+          "title": "MLP / ANN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "다층 신경망으로 센서 간 비선형 관계를 비교",
+          "balance_method": "학습 표본 안에서만 불량 무작위 복제 (오버샘플링)",
+          "source": "Day3 PDF 7~22쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 138,
+          "fp": 20,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.8854166666666666,
+          "recall": 0.9411764705882353,
+          "precision": 0.6153846153846154,
+          "f2": 0.8510638297872339,
+          "fpr": 0.12658227848101267,
+          "average_precision": 0.9276282104687038,
+          "roc_auc": 0.981012658227848,
+          "threshold": 0.006228097700809634,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11458333.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 165625000.00000003
+        },
+        "fit_seconds": 0.5482272089975595,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-021",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "adaboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "adaboost",
+          "title": "AdaBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "틀린 표본에 더 집중하는 부스팅 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 139,
+          "fp": 19,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.8854166666666666,
+          "recall": 0.9117647058823529,
+          "precision": 0.62,
+          "f2": 0.8333333333333334,
+          "fpr": 0.12025316455696203,
+          "average_precision": 0.8784946133564787,
+          "roc_auc": 0.9604430379746836,
+          "threshold": 0.4046705204008544,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16614583.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 160468750.00000003
+        },
+        "fit_seconds": 0.2618870410005911,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-022",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "adaboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "adaboost",
+          "title": "AdaBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "틀린 표본에 더 집중하는 부스팅 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "반도체 발표 PDF 40~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 136,
+          "fp": 22,
+          "fn": 4,
+          "tp": 30,
+          "accuracy": 0.8645833333333334,
+          "recall": 0.8823529411764706,
+          "precision": 0.5769230769230769,
+          "f2": 0.7978723404255318,
+          "fpr": 0.13924050632911392,
+          "average_precision": 0.8833421751063328,
+          "roc_auc": 0.9594192107222635,
+          "threshold": 0.46293979951807973,
+          "recall_wilson95": [
+            0.7337882520370121,
+            0.9532862902656388
+          ],
+          "assumed_cost_per_10000": 21979166.666666664,
+          "assumed_saving_vs_all_pass_per_10000": 155104166.6666667
+        },
+        "fit_seconds": 0.227566958998068,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-023",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 134,
+          "fp": 24,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8697916666666666,
+          "recall": 0.9705882352941176,
+          "precision": 0.5789473684210527,
+          "f2": 0.854922279792746,
+          "fpr": 0.1518987341772152,
+          "average_precision": 0.8730199454510957,
+          "roc_auc": 0.9672375279225615,
+          "threshold": 0.05086917391385536,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6458333.333333334,
+          "assumed_saving_vs_all_pass_per_10000": 170625000.00000003
+        },
+        "fit_seconds": 0.43335716699948534,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-024",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 704,
+        "train_defects": 112,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 134,
+          "fp": 24,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8697916666666666,
+          "recall": 0.9705882352941176,
+          "precision": 0.5789473684210527,
+          "f2": 0.854922279792746,
+          "fpr": 0.1518987341772152,
+          "average_precision": 0.8791754802922771,
+          "roc_auc": 0.9668652271034996,
+          "threshold": 0.10450666373669672,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6458333.333333334,
+          "assumed_saving_vs_all_pass_per_10000": 170625000.00000003
+        },
+        "fit_seconds": 0.512127458001487,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-025",
+        "products": [
+          "A"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 160,
+        "train_defects": 23,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 150,
+          "fp": 8,
+          "fn": 11,
+          "tp": 23,
+          "accuracy": 0.9010416666666666,
+          "recall": 0.6764705882352942,
+          "precision": 0.7419354838709677,
+          "f2": 0.688622754491018,
+          "fpr": 0.05063291139240506,
+          "average_precision": 0.7859836249706763,
+          "roc_auc": 0.9251675353685778,
+          "threshold": 0.2868842307885144,
+          "recall_wilson95": [
+            0.5084258404811939,
+            0.8086854867354143
+          ],
+          "assumed_cost_per_10000": 57708333.33333333,
+          "assumed_saving_vs_all_pass_per_10000": 119375000.00000003
+        },
+        "fit_seconds": 0.4099313330007135,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-026",
+        "products": [
+          "B"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 176,
+        "train_defects": 20,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 132,
+          "fp": 26,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.859375,
+          "recall": 0.9705882352941176,
+          "precision": 0.559322033898305,
+          "f2": 0.846153846153846,
+          "fpr": 0.16455696202531644,
+          "average_precision": 0.8641115447408998,
+          "roc_auc": 0.9644452717795979,
+          "threshold": 0.07679376726011741,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 170520833.33333334
+        },
+        "fit_seconds": 0.406889833000605,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-027",
+        "products": [
+          "C"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 28,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 144,
+          "fp": 14,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.9114583333333334,
+          "recall": 0.9117647058823529,
+          "precision": 0.6888888888888889,
+          "f2": 0.856353591160221,
+          "fpr": 0.08860759493670886,
+          "average_precision": 0.9179936417861762,
+          "roc_auc": 0.9789650037230082,
+          "threshold": 0.2965761448174178,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16354166.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 160729166.6666667
+        },
+        "fit_seconds": 0.4357112079997023,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-028",
+        "products": [
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 41,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 140,
+          "fp": 18,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.890625,
+          "recall": 0.9117647058823529,
+          "precision": 0.6326530612244898,
+          "f2": 0.8378378378378378,
+          "fpr": 0.11392405063291139,
+          "average_precision": 0.828642085165957,
+          "roc_auc": 0.9577438570364856,
+          "threshold": 0.4023264997804175,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 160520833.33333334
+        },
+        "fit_seconds": 0.4080393340009323,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-029",
+        "products": [
+          "A",
+          "B"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 336,
+        "train_defects": 43,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 142,
+          "fp": 16,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.9010416666666666,
+          "recall": 0.9117647058823529,
+          "precision": 0.6595744680851063,
+          "f2": 0.8469945355191257,
+          "fpr": 0.10126582278481013,
+          "average_precision": 0.8959557605374461,
+          "roc_auc": 0.9724497393894267,
+          "threshold": 0.11375229028053996,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16458333.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 160625000.00000003
+        },
+        "fit_seconds": 0.40671800000200165,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-030",
+        "products": [
+          "A",
+          "C"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 344,
+        "train_defects": 51,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 142,
+          "fp": 16,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.9114583333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.673469387755102,
+          "f2": 0.8918918918918919,
+          "fpr": 0.10126582278481013,
+          "average_precision": 0.922560128214669,
+          "roc_auc": 0.977475800446761,
+          "threshold": 0.15095443659197122,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6041666.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 171041666.6666667
+        },
+        "fit_seconds": 0.41229054200084647,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-031",
+        "products": [
+          "A",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 344,
+        "train_defects": 64,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 149,
+          "fp": 9,
+          "fn": 4,
+          "tp": 30,
+          "accuracy": 0.9322916666666666,
+          "recall": 0.8823529411764706,
+          "precision": 0.7692307692307693,
+          "f2": 0.8571428571428571,
+          "fpr": 0.056962025316455694,
+          "average_precision": 0.9118759697952579,
+          "roc_auc": 0.9763588979895756,
+          "threshold": 0.23057493053583258,
+          "recall_wilson95": [
+            0.7337882520370121,
+            0.9532862902656388
+          ],
+          "assumed_cost_per_10000": 21302083.333333336,
+          "assumed_saving_vs_all_pass_per_10000": 155781250.00000003
+        },
+        "fit_seconds": 0.4328088749971357,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-032",
+        "products": [
+          "B",
+          "C"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 48,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 133,
+          "fp": 25,
+          "fn": 0,
+          "tp": 34,
+          "accuracy": 0.8697916666666666,
+          "recall": 1.0,
+          "precision": 0.576271186440678,
+          "f2": 0.8717948717948719,
+          "fpr": 0.15822784810126583,
+          "average_precision": 0.896770392581941,
+          "roc_auc": 0.9787788533134774,
+          "threshold": 0.084362655416714,
+          "recall_wilson95": [
+            0.8984820937803899,
+            1.0
+          ],
+          "assumed_cost_per_10000": 1302083.3333333335,
+          "assumed_saving_vs_all_pass_per_10000": 175781250.00000003
+        },
+        "fit_seconds": 0.4710628339998948,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-033",
+        "products": [
+          "B",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 61,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 134,
+          "fp": 24,
+          "fn": 0,
+          "tp": 34,
+          "accuracy": 0.875,
+          "recall": 1.0,
+          "precision": 0.5862068965517241,
+          "f2": 0.8762886597938144,
+          "fpr": 0.1518987341772152,
+          "average_precision": 0.8917498651106108,
+          "roc_auc": 0.9744973938942665,
+          "threshold": 0.10016704284510296,
+          "recall_wilson95": [
+            0.8984820937803899,
+            1.0
+          ],
+          "assumed_cost_per_10000": 1250000.0,
+          "assumed_saving_vs_all_pass_per_10000": 175833333.33333334
+        },
+        "fit_seconds": 0.4221516249999695,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-034",
+        "products": [
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 368,
+        "train_defects": 69,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 147,
+          "fp": 11,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.9322916666666666,
+          "recall": 0.9411764705882353,
+          "precision": 0.7441860465116279,
+          "f2": 0.8938547486033519,
+          "fpr": 0.06962025316455696,
+          "average_precision": 0.9314303116399829,
+          "roc_auc": 0.9849218168279971,
+          "threshold": 0.24066412332030396,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 10989583.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 166093750.00000003
+        },
+        "fit_seconds": 0.41457466700012446,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-035",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 520,
+        "train_defects": 71,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 145,
+          "fp": 13,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.921875,
+          "recall": 0.9411764705882353,
+          "precision": 0.7111111111111111,
+          "f2": 0.8839779005524863,
+          "fpr": 0.08227848101265822,
+          "average_precision": 0.9221065189072749,
+          "roc_auc": 0.9811988086373791,
+          "threshold": 0.1092577849737787,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11093750.0,
+          "assumed_saving_vs_all_pass_per_10000": 165989583.33333334
+        },
+        "fit_seconds": 0.423131250001461,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-036",
+        "products": [
+          "A",
+          "B",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 520,
+        "train_defects": 84,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 142,
+          "fp": 16,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.9114583333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.673469387755102,
+          "f2": 0.8918918918918919,
+          "fpr": 0.10126582278481013,
+          "average_precision": 0.9213189485541368,
+          "roc_auc": 0.9804542069992553,
+          "threshold": 0.07556162701151248,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6041666.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 171041666.6666667
+        },
+        "fit_seconds": 0.42307337500096764,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-037",
+        "products": [
+          "A",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 528,
+        "train_defects": 92,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 153,
+          "fp": 5,
+          "fn": 6,
+          "tp": 28,
+          "accuracy": 0.9427083333333334,
+          "recall": 0.8235294117647058,
+          "precision": 0.8484848484848485,
+          "f2": 0.8284023668639051,
+          "fpr": 0.03164556962025317,
+          "average_precision": 0.9407349556975803,
+          "roc_auc": 0.9819434102755026,
+          "threshold": 0.32301298063136435,
+          "recall_wilson95": [
+            0.6648593225994784,
+            0.9165114439643031
+          ],
+          "assumed_cost_per_10000": 31510416.666666664,
+          "assumed_saving_vs_all_pass_per_10000": 145572916.6666667
+        },
+        "fit_seconds": 0.4732919169982779,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-038",
+        "products": [
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 89,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 137,
+          "fp": 21,
+          "fn": 0,
+          "tp": 34,
+          "accuracy": 0.890625,
+          "recall": 1.0,
+          "precision": 0.6181818181818182,
+          "f2": 0.8900523560209423,
+          "fpr": 0.13291139240506328,
+          "average_precision": 0.9189057697430254,
+          "roc_auc": 0.9823157110945644,
+          "threshold": 0.08097627715343725,
+          "recall_wilson95": [
+            0.8984820937803899,
+            1.0
+          ],
+          "assumed_cost_per_10000": 1093750.0,
+          "assumed_saving_vs_all_pass_per_10000": 175989583.33333334
+        },
+        "fit_seconds": 0.4156160410020675,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-039",
+        "products": [
+          "A"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 160,
+        "train_defects": 23,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 142,
+          "fp": 16,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.9010416666666666,
+          "recall": 0.9117647058823529,
+          "precision": 0.6595744680851063,
+          "f2": 0.8469945355191257,
+          "fpr": 0.10126582278481013,
+          "average_precision": 0.8362821740829425,
+          "roc_auc": 0.9571854058078928,
+          "threshold": 0.28593957564895794,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16458333.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 160625000.00000003
+        },
+        "fit_seconds": 0.4251662499991653,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-040",
+        "products": [
+          "B"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 176,
+        "train_defects": 20,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 131,
+          "fp": 27,
+          "fn": 5,
+          "tp": 29,
+          "accuracy": 0.8333333333333334,
+          "recall": 0.8529411764705882,
+          "precision": 0.5178571428571429,
+          "f2": 0.7552083333333333,
+          "fpr": 0.17088607594936708,
+          "average_precision": 0.7335522898119059,
+          "roc_auc": 0.922933730454207,
+          "threshold": 0.36579247228956047,
+          "recall_wilson95": [
+            0.6987161182594804,
+            0.9355065361737359
+          ],
+          "assumed_cost_per_10000": 27447916.666666664,
+          "assumed_saving_vs_all_pass_per_10000": 149635416.6666667
+        },
+        "fit_seconds": 0.43873441699906834,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-041",
+        "products": [
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 28,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 139,
+          "fp": 19,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8958333333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.6346153846153846,
+          "f2": 0.8776595744680851,
+          "fpr": 0.12025316455696203,
+          "average_precision": 0.864421803167717,
+          "roc_auc": 0.9668652271034996,
+          "threshold": 0.420791090107967,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6197916.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 170885416.6666667
+        },
+        "fit_seconds": 0.421414749998803,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-042",
+        "products": [
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 41,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 138,
+          "fp": 20,
+          "fn": 7,
+          "tp": 27,
+          "accuracy": 0.859375,
+          "recall": 0.7941176470588235,
+          "precision": 0.574468085106383,
+          "f2": 0.7377049180327868,
+          "fpr": 0.12658227848101267,
+          "average_precision": 0.8171414518176042,
+          "roc_auc": 0.939687267311988,
+          "threshold": 0.4700908298731612,
+          "recall_wilson95": [
+            0.6320128389178601,
+            0.8965060397764868
+          ],
+          "assumed_cost_per_10000": 37500000.0,
+          "assumed_saving_vs_all_pass_per_10000": 139583333.33333334
+        },
+        "fit_seconds": 0.4234385419986211,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-043",
+        "products": [
+          "A",
+          "B"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 336,
+        "train_defects": 43,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 131,
+          "fp": 27,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.8489583333333334,
+          "recall": 0.9411764705882353,
+          "precision": 0.5423728813559322,
+          "f2": 0.8205128205128206,
+          "fpr": 0.17088607594936708,
+          "average_precision": 0.8221229563393377,
+          "roc_auc": 0.9532762472077438,
+          "threshold": 0.27995095149966776,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11822916.666666668,
+          "assumed_saving_vs_all_pass_per_10000": 165260416.6666667
+        },
+        "fit_seconds": 0.4242950420011766,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-044",
+        "products": [
+          "A",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 344,
+        "train_defects": 51,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 139,
+          "fp": 19,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8958333333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.6346153846153846,
+          "f2": 0.8776595744680851,
+          "fpr": 0.12025316455696203,
+          "average_precision": 0.8813396159133802,
+          "roc_auc": 0.9715189873417722,
+          "threshold": 0.35919664090488324,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6197916.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 170885416.6666667
+        },
+        "fit_seconds": 0.42576924999957555,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-045",
+        "products": [
+          "A",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 344,
+        "train_defects": 64,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 148,
+          "fp": 10,
+          "fn": 8,
+          "tp": 26,
+          "accuracy": 0.90625,
+          "recall": 0.7647058823529411,
+          "precision": 0.7222222222222222,
+          "f2": 0.7558139534883721,
+          "fpr": 0.06329113924050633,
+          "average_precision": 0.8399398645224343,
+          "roc_auc": 0.9506701414743113,
+          "threshold": 0.5484729743181586,
+          "recall_wilson95": [
+            0.6000353719173557,
+            0.8756316189075566
+          ],
+          "assumed_cost_per_10000": 42187500.0,
+          "assumed_saving_vs_all_pass_per_10000": 134895833.33333334
+        },
+        "fit_seconds": 0.42406387500159326,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-046",
+        "products": [
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 48,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 135,
+          "fp": 23,
+          "fn": 2,
+          "tp": 32,
+          "accuracy": 0.8697916666666666,
+          "recall": 0.9411764705882353,
+          "precision": 0.5818181818181818,
+          "f2": 0.8376963350785339,
+          "fpr": 0.14556962025316456,
+          "average_precision": 0.8434838211112924,
+          "roc_auc": 0.9627699180938198,
+          "threshold": 0.3702221182616632,
+          "recall_wilson95": [
+            0.8090606311053629,
+            0.9837176869361576
+          ],
+          "assumed_cost_per_10000": 11614583.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 165468750.00000003
+        },
+        "fit_seconds": 0.42994245899899397,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-047",
+        "products": [
+          "B",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 61,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 138,
+          "fp": 20,
+          "fn": 4,
+          "tp": 30,
+          "accuracy": 0.875,
+          "recall": 0.8823529411764706,
+          "precision": 0.6,
+          "f2": 0.8064516129032258,
+          "fpr": 0.12658227848101267,
+          "average_precision": 0.8312940136390982,
+          "roc_auc": 0.9478778853313476,
+          "threshold": 0.3363898757962615,
+          "recall_wilson95": [
+            0.7337882520370121,
+            0.9532862902656388
+          ],
+          "assumed_cost_per_10000": 21875000.0,
+          "assumed_saving_vs_all_pass_per_10000": 155208333.33333334
+        },
+        "fit_seconds": 0.42510816699723364,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-048",
+        "products": [
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 368,
+        "train_defects": 69,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 140,
+          "fp": 18,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.890625,
+          "recall": 0.9117647058823529,
+          "precision": 0.6326530612244898,
+          "f2": 0.8378378378378378,
+          "fpr": 0.11392405063291139,
+          "average_precision": 0.8541798708286232,
+          "roc_auc": 0.9607222635889799,
+          "threshold": 0.45261174304498014,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16562500.0,
+          "assumed_saving_vs_all_pass_per_10000": 160520833.33333334
+        },
+        "fit_seconds": 0.4275228340011381,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-049",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 520,
+        "train_defects": 71,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 136,
+          "fp": 22,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8802083333333334,
+          "recall": 0.9705882352941176,
+          "precision": 0.6,
+          "f2": 0.8638743455497382,
+          "fpr": 0.13924050632911392,
+          "average_precision": 0.8609202196359841,
+          "roc_auc": 0.9677959791511541,
+          "threshold": 0.32026338203129673,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6354166.666666666,
+          "assumed_saving_vs_all_pass_per_10000": 170729166.6666667
+        },
+        "fit_seconds": 0.4263912079986767,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-050",
+        "products": [
+          "A",
+          "B",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 520,
+        "train_defects": 84,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 139,
+          "fp": 19,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.8854166666666666,
+          "recall": 0.9117647058823529,
+          "precision": 0.62,
+          "f2": 0.8333333333333334,
+          "fpr": 0.12025316455696203,
+          "average_precision": 0.8357646908271528,
+          "roc_auc": 0.9502978406552494,
+          "threshold": 0.3667957587144971,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16614583.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 160468750.00000003
+        },
+        "fit_seconds": 0.4299269999974058,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-051",
+        "products": [
+          "A",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 528,
+        "train_defects": 92,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 137,
+          "fp": 21,
+          "fn": 1,
+          "tp": 33,
+          "accuracy": 0.8854166666666666,
+          "recall": 0.9705882352941176,
+          "precision": 0.6111111111111112,
+          "f2": 0.8684210526315789,
+          "fpr": 0.13291139240506328,
+          "average_precision": 0.8907837271162047,
+          "roc_auc": 0.9735666418466121,
+          "threshold": 0.3557894409699257,
+          "recall_wilson95": [
+            0.8508409778365519,
+            0.9947892280744034
+          ],
+          "assumed_cost_per_10000": 6302083.333333334,
+          "assumed_saving_vs_all_pass_per_10000": 170781250.00000003
+        },
+        "fit_seconds": 0.4320752909989096,
+        "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
+      },
+      {
+        "id": "trial-052",
+        "products": [
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 89,
+        "calibration_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 192,
+          "positive_count": 34,
+          "tn": 142,
+          "fp": 16,
+          "fn": 3,
+          "tp": 31,
+          "accuracy": 0.9010416666666666,
+          "recall": 0.9117647058823529,
+          "precision": 0.6595744680851063,
+          "f2": 0.8469945355191257,
+          "fpr": 0.10126582278481013,
+          "average_precision": 0.8442996671726125,
+          "roc_auc": 0.9629560685033507,
+          "threshold": 0.4365872048535317,
+          "recall_wilson95": [
+            0.7703918204763959,
+            0.9695346096956899
+          ],
+          "assumed_cost_per_10000": 16458333.333333332,
+          "assumed_saving_vs_all_pass_per_10000": 160625000.00000003
+        },
+        "fit_seconds": 0.43434666600296623,
         "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
       }
     ],
-    "winner_id": "trial-031",
+    "winner_id": "trial-038",
     "winner": {
-      "id": "trial-031",
+      "id": "trial-038",
       "products": [
         "B",
-        "C"
+        "C",
+        "D"
       ],
-      "model": "random_forest",
-      "preprocessing": "scaled",
+      "model": "svm",
+      "preprocessing": "auto",
       "balance": "none",
       "status": "completed",
-      "train_n": 360,
-      "train_defects": 48,
+      "train_n": 544,
+      "train_defects": 89,
       "calibration_feasible": true,
+      "explanation": {
+        "model": "svm",
+        "title": "SVM (RBF)",
+        "input": "숫자 센서와 정상/불량 라벨",
+        "preprocessing": "scaled",
+        "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+        "model_reason": "커널로 비선형 경계를 비교",
+        "balance_method": "원래 학습 클래스 비율 유지",
+        "source": "Day2 PDF 32~42쪽",
+        "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+      },
+      "stage": "cohort_comparison",
       "validation": {
         "n": 192,
         "positive_count": 34,
-        "tn": 139,
-        "fp": 19,
+        "tn": 137,
+        "fp": 21,
         "fn": 0,
         "tp": 34,
-        "accuracy": 0.9010416666666666,
+        "accuracy": 0.890625,
         "recall": 1.0,
-        "precision": 0.6415094339622641,
-        "f2": 0.8994708994708994,
-        "fpr": 0.12025316455696203,
-        "average_precision": 0.8594550920791169,
-        "roc_auc": 0.9676098287416232,
-        "threshold": 0.17409670908593322,
+        "precision": 0.6181818181818182,
+        "f2": 0.8900523560209423,
+        "fpr": 0.13291139240506328,
+        "average_precision": 0.9189057697430254,
+        "roc_auc": 0.9823157110945644,
+        "threshold": 0.08097627715343725,
         "recall_wilson95": [
           0.8984820937803899,
           1.0
         ],
-        "assumed_cost_per_10000": 989583.3333333333,
-        "assumed_saving_vs_all_pass_per_10000": 176093750.00000003
+        "assumed_cost_per_10000": 1093750.0,
+        "assumed_saving_vs_all_pass_per_10000": 175989583.33333334
       },
-      "fit_seconds": 0.4295490000004065,
+      "fit_seconds": 0.4156160410020675,
       "validation_fingerprint": "41d32e75ac81bf3f5d3e13f1cee447af04a6105d46d9a2de63b0132a8ae271dd"
     },
     "test": {
       "n": 192,
       "positive_count": 25,
-      "tn": 148,
-      "fp": 19,
-      "fn": 3,
-      "tp": 22,
-      "accuracy": 0.8854166666666666,
-      "recall": 0.88,
-      "precision": 0.5365853658536586,
-      "f2": 0.7801418439716313,
-      "fpr": 0.11377245508982035,
-      "average_precision": 0.8516356329715464,
-      "roc_auc": 0.9652694610778444,
-      "threshold": 0.17409670908593322,
+      "tn": 141,
+      "fp": 26,
+      "fn": 1,
+      "tp": 24,
+      "accuracy": 0.859375,
+      "recall": 0.96,
+      "precision": 0.48,
+      "f2": 0.7999999999999999,
+      "fpr": 0.15568862275449102,
+      "average_precision": 0.9202228597666043,
+      "roc_auc": 0.984191616766467,
+      "threshold": 0.08097627715343725,
       "recall_wilson95": [
-        0.7004380781662651,
-        0.9583325864293191
+        0.8045552759497747,
+        0.9929039496133008
       ],
-      "assumed_cost_per_10000": 16614583.333333332,
-      "assumed_saving_vs_all_pass_per_10000": 113593750.0
+      "assumed_cost_per_10000": 6562500.0,
+      "assumed_saving_vs_all_pass_per_10000": 123645833.33333334
     },
     "baseline_test": {
       "n": 192,
@@ -2510,975 +2895,1009 @@
       {
         "sample_index": 0,
         "label": 0,
-        "score": 0.02483974358974359
+        "score": 2.3973559092105016e-05
       },
       {
         "sample_index": 1,
         "label": 0,
-        "score": 0.027380952380952384
+        "score": 0.0007095903480242265
       },
       {
         "sample_index": 2,
         "label": 0,
-        "score": 0.014885912698412699
+        "score": 0.01256051811155695
       },
       {
         "sample_index": 3,
         "label": 0,
-        "score": 0.044464285714285706
+        "score": 0.003417202621044819
       },
       {
         "sample_index": 4,
         "label": 0,
-        "score": 0.03329365079365079
+        "score": 0.006992179538091046
       },
       {
         "sample_index": 5,
         "label": 0,
-        "score": 0.0325
+        "score": 5.616460735203133e-05
       },
       {
         "sample_index": 6,
         "label": 0,
-        "score": 0.011656746031746032
+        "score": 0.0031677585504397824
       },
       {
         "sample_index": 7,
         "label": 0,
-        "score": 0.030863095238095238
+        "score": 0.0028559699849957337
       },
       {
         "sample_index": 24,
         "label": 0,
-        "score": 0.03058712121212121
+        "score": 0.0023146956469483207
       },
       {
         "sample_index": 25,
         "label": 0,
-        "score": 0.02034722222222222
+        "score": 0.015040072601570507
       },
       {
         "sample_index": 26,
         "label": 0,
-        "score": 0.0
+        "score": 0.0007061680723851118
       },
       {
         "sample_index": 27,
         "label": 0,
-        "score": 0.11595186781609199
+        "score": 0.0068111359467405335
       },
       {
         "sample_index": 28,
         "label": 0,
-        "score": 0.05145833333333334
+        "score": 0.004209667705981218
       },
       {
         "sample_index": 29,
         "label": 0,
-        "score": 0.047271825396825395
+        "score": 0.01667074231951286
       },
       {
         "sample_index": 30,
         "label": 0,
-        "score": 0.08008877257799671
+        "score": 0.0003598092071624495
       },
       {
         "sample_index": 31,
         "label": 0,
-        "score": 0.07196924603174602
+        "score": 0.0015855651250552664
       },
       {
         "sample_index": 80,
         "label": 0,
-        "score": 0.06330917874396133
+        "score": 0.01746591387812684
       },
       {
         "sample_index": 81,
         "label": 0,
-        "score": 0.028635912698412702
+        "score": 0.002098088155305065
       },
       {
         "sample_index": 82,
         "label": 0,
-        "score": 0.0513635741652983
+        "score": 0.006462520451984104
       },
       {
         "sample_index": 83,
         "label": 0,
-        "score": 0.22256628787878788
+        "score": 0.008538248705956784
       },
       {
         "sample_index": 84,
         "label": 1,
-        "score": 0.4434226190476191
+        "score": 0.4395988405624274
       },
       {
         "sample_index": 85,
         "label": 1,
-        "score": 0.4421130952380953
+        "score": 0.9628311755104532
       },
       {
         "sample_index": 86,
         "label": 0,
-        "score": 0.003556034482758621
+        "score": 0.00023190380429766674
       },
       {
         "sample_index": 87,
         "label": 1,
-        "score": 0.26361111111111113
+        "score": 0.4810414835639162
       },
       {
         "sample_index": 272,
         "label": 0,
-        "score": 0.026696428571428572
+        "score": 0.00013471757775987926
       },
       {
         "sample_index": 273,
         "label": 0,
-        "score": 0.01875
+        "score": 0.002769580125453749
       },
       {
         "sample_index": 274,
         "label": 0,
-        "score": 0.0864781746031746
+        "score": 0.005950466671663867
       },
       {
         "sample_index": 275,
         "label": 1,
-        "score": 0.6804256854256855
+        "score": 0.9558004324173723
       },
       {
         "sample_index": 276,
         "label": 0,
-        "score": 0.00625
+        "score": 0.0041505992253101365
       },
       {
         "sample_index": 277,
         "label": 0,
-        "score": 0.10455357142857143
+        "score": 0.01462865277662917
       },
       {
         "sample_index": 278,
         "label": 1,
-        "score": 0.6951321248196247
+        "score": 0.8993132447991201
       },
       {
         "sample_index": 279,
         "label": 0,
-        "score": 0.0038144841269841267
+        "score": 0.0013935268434249668
       },
       {
         "sample_index": 304,
         "label": 0,
-        "score": 0.020104166666666666
+        "score": 0.000276677191168209
       },
       {
         "sample_index": 305,
         "label": 0,
-        "score": 0.2589583333333334
+        "score": 0.017781320562930004
       },
       {
         "sample_index": 306,
         "label": 0,
-        "score": 0.05650246305418719
+        "score": 0.0009388576626346604
       },
       {
         "sample_index": 307,
         "label": 1,
-        "score": 0.3950446428571429
+        "score": 0.9313111860819416
       },
       {
         "sample_index": 308,
         "label": 1,
-        "score": 0.6635114538239539
+        "score": 0.9727999155558936
       },
       {
         "sample_index": 309,
         "label": 0,
-        "score": 0.0
+        "score": 0.00044892122769607133
       },
       {
         "sample_index": 310,
         "label": 0,
-        "score": 0.23426587301587296
+        "score": 0.49402230002154546
       },
       {
         "sample_index": 311,
         "label": 0,
-        "score": 0.30583333333333335
+        "score": 0.08594324993893147
       },
       {
         "sample_index": 488,
         "label": 0,
-        "score": 0.01125
+        "score": 0.0460468242302592
       },
       {
         "sample_index": 489,
         "label": 0,
-        "score": 0.38503968253968257
+        "score": 0.43803506005586423
       },
       {
         "sample_index": 490,
         "label": 1,
-        "score": 0.25864583333333335
+        "score": 0.3127505360542742
       },
       {
         "sample_index": 491,
         "label": 0,
-        "score": 0.043437500000000004
+        "score": 0.026101687807870484
       },
       {
         "sample_index": 492,
         "label": 0,
-        "score": 0.05684027777777778
+        "score": 0.005350898550538521
       },
       {
         "sample_index": 493,
         "label": 0,
-        "score": 0.1090011048733875
+        "score": 0.00377684949840205
       },
       {
         "sample_index": 494,
         "label": 0,
-        "score": 0.042045454545454546
+        "score": 0.04764088637617756
       },
       {
         "sample_index": 495,
         "label": 0,
-        "score": 0.031071428571428573
+        "score": 0.005114885323070989
       },
       {
         "sample_index": 568,
         "label": 1,
-        "score": 0.5121726190476192
+        "score": 0.518180826635298
       },
       {
         "sample_index": 569,
         "label": 0,
-        "score": 0.06687564699792961
+        "score": 0.0007877172022549798
       },
       {
         "sample_index": 570,
         "label": 1,
-        "score": 0.3817455808080808
+        "score": 0.7093065750768593
       },
       {
         "sample_index": 571,
         "label": 1,
-        "score": 0.36738095238095236
+        "score": 0.6531632286391671
       },
       {
         "sample_index": 572,
         "label": 0,
-        "score": 0.15739583333333335
+        "score": 0.001858863236592702
       },
       {
         "sample_index": 573,
         "label": 0,
-        "score": 0.32160714285714287
+        "score": 0.12886489176517338
       },
       {
         "sample_index": 574,
         "label": 1,
-        "score": 0.6080456349206349
+        "score": 0.9582973050555688
       },
       {
         "sample_index": 575,
         "label": 0,
-        "score": 0.02818452380952381
+        "score": 0.0011033700374563854
       },
       {
         "sample_index": 576,
         "label": 0,
-        "score": 0.03822916666666667
+        "score": 0.01536551681159758
       },
       {
         "sample_index": 577,
         "label": 0,
-        "score": 0.030079365079365084
+        "score": 0.04525067351092733
       },
       {
         "sample_index": 578,
         "label": 0,
-        "score": 0.04267045454545454
+        "score": 0.010320409768498635
       },
       {
         "sample_index": 579,
         "label": 0,
-        "score": 0.030550595238095234
+        "score": 0.012791289984035555
       },
       {
         "sample_index": 580,
         "label": 0,
-        "score": 0.0010745614035087719
+        "score": 0.0011199023287310835
       },
       {
         "sample_index": 581,
         "label": 0,
-        "score": 0.013824404761904763
+        "score": 0.0024205167220641482
       },
       {
         "sample_index": 582,
         "label": 0,
-        "score": 0.02430059523809524
+        "score": 0.003713517805144989
       },
       {
         "sample_index": 583,
         "label": 0,
-        "score": 0.13460762178434593
+        "score": 0.6348737701887659
       },
       {
         "sample_index": 640,
         "label": 0,
-        "score": 0.057013888888888885
+        "score": 0.005471927852696116
       },
       {
         "sample_index": 641,
         "label": 0,
-        "score": 0.03053520114942529
+        "score": 0.009688155977855545
       },
       {
         "sample_index": 642,
         "label": 0,
-        "score": 0.16752976190476193
+        "score": 0.1698040002954555
       },
       {
         "sample_index": 643,
         "label": 0,
-        "score": 0.015520833333333334
+        "score": 0.008135713912491132
       },
       {
         "sample_index": 644,
         "label": 0,
-        "score": 0.10367018398268399
+        "score": 0.006565139792757751
       },
       {
         "sample_index": 645,
         "label": 0,
-        "score": 0.0711904761904762
+        "score": 0.09703267349153398
       },
       {
         "sample_index": 646,
         "label": 0,
-        "score": 0.10276190476190475
+        "score": 0.03682439853311272
       },
       {
         "sample_index": 647,
         "label": 0,
-        "score": 0.098965744400527
+        "score": 0.11060612904350177
       },
       {
         "sample_index": 696,
         "label": 0,
-        "score": 0.021666666666666664
+        "score": 0.0006895113547343692
       },
       {
         "sample_index": 697,
         "label": 0,
-        "score": 0.026240079365079362
+        "score": 0.0028815515366604795
       },
       {
         "sample_index": 698,
         "label": 0,
-        "score": 0.07854823356468091
+        "score": 0.02032954321523271
       },
       {
         "sample_index": 699,
         "label": 0,
-        "score": 0.06866071428571427
+        "score": 0.014935127581432544
       },
       {
         "sample_index": 700,
         "label": 0,
-        "score": 0.014434523809523809
+        "score": 0.03765430654995323
       },
       {
         "sample_index": 701,
         "label": 0,
-        "score": 0.03172632433783108
+        "score": 0.021688289694199194
       },
       {
         "sample_index": 702,
         "label": 0,
-        "score": 0.12346230158730158
+        "score": 0.007888317373097996
       },
       {
         "sample_index": 703,
         "label": 0,
-        "score": 0.023035201149425286
+        "score": 0.004962044852229206
       },
       {
         "sample_index": 792,
         "label": 0,
-        "score": 0.19102182539682538
+        "score": 0.024493341356643415
       },
       {
         "sample_index": 793,
         "label": 0,
-        "score": 0.03569940476190476
+        "score": 0.005662715264465312
       },
       {
         "sample_index": 794,
         "label": 0,
-        "score": 0.11984623015873015
+        "score": 0.09614521619376555
       },
       {
         "sample_index": 795,
         "label": 0,
-        "score": 0.05952380952380952
+        "score": 0.0048933274962417745
       },
       {
         "sample_index": 796,
         "label": 0,
-        "score": 0.016919129720853857
+        "score": 0.0019052493172924013
       },
       {
         "sample_index": 797,
         "label": 0,
-        "score": 0.03671195652173913
+        "score": 0.018285607079576927
       },
       {
         "sample_index": 798,
         "label": 0,
-        "score": 0.0242445054945055
+        "score": 0.006715113803951648
       },
       {
         "sample_index": 799,
         "label": 0,
-        "score": 0.05101686507936508
+        "score": 0.0002643116209140622
       },
       {
         "sample_index": 912,
         "label": 0,
-        "score": 0.0075
+        "score": 5.73039572594371e-05
       },
       {
         "sample_index": 913,
         "label": 0,
-        "score": 0.013972701149425287
+        "score": 0.0008420422296546354
       },
       {
         "sample_index": 914,
         "label": 0,
-        "score": 0.14467706622879034
+        "score": 0.016910001028221835
       },
       {
         "sample_index": 915,
         "label": 0,
-        "score": 0.03431992337164751
+        "score": 0.000298366560567416
       },
       {
         "sample_index": 916,
         "label": 0,
-        "score": 0.14143308080808076
+        "score": 0.1396194920088213
       },
       {
         "sample_index": 917,
         "label": 0,
-        "score": 0.01261853448275862
+        "score": 0.00012417827981512765
       },
       {
         "sample_index": 918,
         "label": 0,
-        "score": 0.035625000000000004
+        "score": 0.0017403610389204692
       },
       {
         "sample_index": 919,
         "label": 1,
-        "score": 0.28231612318840577
+        "score": 0.3878404604352567
       },
       {
         "sample_index": 920,
         "label": 0,
-        "score": 0.08547619047619046
+        "score": 0.021139465558729743
       },
       {
         "sample_index": 921,
         "label": 0,
-        "score": 0.10609287642182379
+        "score": 0.08139139272689709
       },
       {
         "sample_index": 922,
         "label": 0,
-        "score": 0.015625
+        "score": 0.005672877729729322
       },
       {
         "sample_index": 923,
         "label": 0,
-        "score": 0.17432043650793652
+        "score": 0.061607727269055834
       },
       {
         "sample_index": 924,
         "label": 0,
-        "score": 0.11191912972085387
+        "score": 0.02211836458049346
       },
       {
         "sample_index": 925,
         "label": 1,
-        "score": 0.08299999999999999
+        "score": 0.063710243266166
       },
       {
         "sample_index": 926,
         "label": 1,
-        "score": 0.3989434523809524
+        "score": 0.9907456640235183
       },
       {
         "sample_index": 927,
         "label": 1,
-        "score": 0.3319574979114453
+        "score": 0.6268987761802955
       },
       {
         "sample_index": 936,
         "label": 0,
-        "score": 0.10430059523809525
+        "score": 0.008155339137667564
       },
       {
         "sample_index": 937,
         "label": 1,
-        "score": 0.6427678571428572
+        "score": 0.9580790428375763
       },
       {
         "sample_index": 938,
         "label": 0,
-        "score": 0.030178571428571433
+        "score": 0.0011997462007917862
       },
       {
         "sample_index": 939,
         "label": 0,
-        "score": 0.026354166666666668
+        "score": 0.0025996306586178234
       },
       {
         "sample_index": 940,
         "label": 0,
-        "score": 0.06989583333333334
+        "score": 0.011985855382586189
       },
       {
         "sample_index": 941,
         "label": 0,
-        "score": 0.48093695887445886
+        "score": 0.24771684514090112
       },
       {
         "sample_index": 942,
         "label": 0,
-        "score": 0.03729166666666667
+        "score": 0.003911017339355814
       },
       {
         "sample_index": 943,
         "label": 0,
-        "score": 0.04864583333333334
+        "score": 0.24495155606777844
       },
       {
         "sample_index": 1040,
         "label": 1,
-        "score": 0.2437121212121212
+        "score": 0.22775092322605348
       },
       {
         "sample_index": 1041,
         "label": 0,
-        "score": 0.012916666666666668
+        "score": 1.858654391202483e-05
       },
       {
         "sample_index": 1042,
         "label": 0,
-        "score": 0.11175938644688643
+        "score": 0.4496966402880282
       },
       {
         "sample_index": 1043,
         "label": 0,
-        "score": 0.08639880952380953
+        "score": 0.01873143273271571
       },
       {
         "sample_index": 1044,
         "label": 0,
-        "score": 0.030654761904761907
+        "score": 0.005732281196079395
       },
       {
         "sample_index": 1045,
         "label": 0,
-        "score": 0.021041666666666667
+        "score": 0.008333612903046976
       },
       {
         "sample_index": 1046,
         "label": 1,
-        "score": 0.6678075396825397
+        "score": 0.9596574809575357
       },
       {
         "sample_index": 1047,
         "label": 0,
-        "score": 0.2089632936507937
+        "score": 0.008757866079953444
       },
       {
         "sample_index": 1064,
         "label": 0,
-        "score": 0.05282738095238095
+        "score": 0.00597025130428319
       },
       {
         "sample_index": 1065,
         "label": 0,
-        "score": 0.03699404761904762
+        "score": 0.00022450259862553688
       },
       {
         "sample_index": 1066,
         "label": 0,
-        "score": 0.010208333333333333
+        "score": 0.0003387540641880409
       },
       {
         "sample_index": 1067,
         "label": 0,
-        "score": 0.30470553751803753
+        "score": 0.09949105450073241
       },
       {
         "sample_index": 1068,
         "label": 1,
-        "score": 0.4511069624819625
+        "score": 0.6180829035047863
       },
       {
         "sample_index": 1069,
         "label": 0,
-        "score": 0.033898809523809526
+        "score": 0.00042497717448285914
       },
       {
         "sample_index": 1070,
         "label": 0,
-        "score": 0.01450892857142857
+        "score": 0.001988146231161075
       },
       {
         "sample_index": 1071,
         "label": 0,
-        "score": 0.06625
+        "score": 0.00016596565697183171
       },
       {
         "sample_index": 1072,
         "label": 0,
-        "score": 0.01125
+        "score": 3.101148345707282e-05
       },
       {
         "sample_index": 1073,
         "label": 0,
-        "score": 0.036944444444444446
+        "score": 0.01706970268896142
       },
       {
         "sample_index": 1074,
         "label": 0,
-        "score": 0.007201867816091953
+        "score": 0.000258591224266164
       },
       {
         "sample_index": 1075,
         "label": 0,
-        "score": 0.3404786324786325
+        "score": 0.0611100349067185
       },
       {
         "sample_index": 1076,
         "label": 0,
-        "score": 0.005198412698412699
+        "score": 6.267558459625726e-05
       },
       {
         "sample_index": 1077,
         "label": 0,
-        "score": 0.24119112318840577
+        "score": 0.33637361951914585
       },
       {
         "sample_index": 1078,
         "label": 0,
-        "score": 0.12126984126984126
+        "score": 0.07041914001726499
       },
       {
         "sample_index": 1079,
         "label": 1,
-        "score": 0.358313492063492
+        "score": 0.8622193612174875
       },
       {
         "sample_index": 1088,
         "label": 0,
-        "score": 0.10708958426630841
+        "score": 0.0949661960527632
       },
       {
         "sample_index": 1089,
         "label": 0,
-        "score": 0.005823412698412698
+        "score": 0.0011834520060321186
       },
       {
         "sample_index": 1090,
         "label": 0,
-        "score": 0.0019791666666666664
+        "score": 0.04612629233700386
       },
       {
         "sample_index": 1091,
         "label": 0,
-        "score": 0.07464285714285715
+        "score": 0.013363137789149082
       },
       {
         "sample_index": 1092,
         "label": 0,
-        "score": 0.0
+        "score": 0.0449515297933821
       },
       {
         "sample_index": 1093,
         "label": 0,
-        "score": 0.22413997539564687
+        "score": 0.15011432562193872
       },
       {
         "sample_index": 1094,
         "label": 0,
-        "score": 0.08004464285714287
+        "score": 0.0039374287442057124
       },
       {
         "sample_index": 1095,
         "label": 0,
-        "score": 0.04089285714285714
+        "score": 0.006480784796284973
       },
       {
         "sample_index": 1096,
         "label": 0,
-        "score": 0.01979166666666667
+        "score": 0.01182696653475969
       },
       {
         "sample_index": 1097,
         "label": 0,
-        "score": 0.2087346681096681
+        "score": 0.10809812194339237
       },
       {
         "sample_index": 1098,
         "label": 0,
-        "score": 0.08748511904761903
+        "score": 0.23441283136359628
       },
       {
         "sample_index": 1099,
         "label": 0,
-        "score": 0.02902777777777778
+        "score": 0.007576632518077516
       },
       {
         "sample_index": 1100,
         "label": 0,
-        "score": 0.05116468253968254
+        "score": 0.015239089200322183
       },
       {
         "sample_index": 1101,
         "label": 0,
-        "score": 0.020208333333333335
+        "score": 0.0026403069799355995
       },
       {
         "sample_index": 1102,
         "label": 0,
-        "score": 0.2508035092302333
+        "score": 0.4034050321475822
       },
       {
         "sample_index": 1103,
         "label": 0,
-        "score": 0.1642246852764094
+        "score": 0.09896105645281722
       },
       {
         "sample_index": 1144,
         "label": 0,
-        "score": 0.0523860465600533
+        "score": 0.006794353265500676
       },
       {
         "sample_index": 1145,
         "label": 0,
-        "score": 0.0025
+        "score": 6.805519883780691e-05
       },
       {
         "sample_index": 1146,
         "label": 0,
-        "score": 0.04112116560767236
+        "score": 0.0015044155346590656
       },
       {
         "sample_index": 1147,
         "label": 0,
-        "score": 0.06448908730158728
+        "score": 0.0015906159786352168
       },
       {
         "sample_index": 1148,
         "label": 0,
-        "score": 0.16429143772893776
+        "score": 0.05853453496207033
       },
       {
         "sample_index": 1149,
         "label": 0,
-        "score": 0.14565476190476187
+        "score": 0.19752261077539365
       },
       {
         "sample_index": 1150,
         "label": 0,
-        "score": 0.027488553113553117
+        "score": 0.0031694706667983667
       },
       {
         "sample_index": 1151,
         "label": 0,
-        "score": 0.04698573356468093
+        "score": 0.007540463502586986
       },
       {
         "sample_index": 1160,
         "label": 0,
-        "score": 0.15751488095238095
+        "score": 0.028458622413339133
       },
       {
         "sample_index": 1161,
         "label": 0,
-        "score": 0.035863095238095236
+        "score": 5.268237659004094e-05
       },
       {
         "sample_index": 1162,
         "label": 0,
-        "score": 0.0
+        "score": 0.00020702463632337216
       },
       {
         "sample_index": 1163,
         "label": 0,
-        "score": 0.3032638888888889
+        "score": 0.07172387252976957
       },
       {
         "sample_index": 1164,
         "label": 0,
-        "score": 0.020823412698412695
+        "score": 0.004193335556212475
       },
       {
         "sample_index": 1165,
         "label": 1,
-        "score": 0.6723552489177489
+        "score": 0.9968480204527724
       },
       {
         "sample_index": 1166,
         "label": 0,
-        "score": 0.019990079365079367
+        "score": 0.002287622214718941
       },
       {
         "sample_index": 1167,
         "label": 0,
-        "score": 0.03225147099069513
+        "score": 0.0025100236431450833
       },
       {
         "sample_index": 1184,
         "label": 0,
-        "score": 0.026458333333333334
+        "score": 0.019270603467724336
       },
       {
         "sample_index": 1185,
         "label": 0,
-        "score": 0.003125
+        "score": 7.059309157506472e-05
       },
       {
         "sample_index": 1186,
         "label": 0,
-        "score": 0.02065972222222222
+        "score": 0.011286623605459418
       },
       {
         "sample_index": 1187,
         "label": 0,
-        "score": 0.07184968527640942
+        "score": 0.010295320411293631
       },
       {
         "sample_index": 1188,
         "label": 0,
-        "score": 0.28435515873015876
+        "score": 0.004179222507173801
       },
       {
         "sample_index": 1189,
         "label": 0,
-        "score": 0.006845238095238096
+        "score": 0.03136902548035807
       },
       {
         "sample_index": 1190,
         "label": 0,
-        "score": 0.019895833333333335
+        "score": 0.004286328001748091
       },
       {
         "sample_index": 1191,
         "label": 0,
-        "score": 0.046656746031746035
+        "score": 0.05677751703955152
       },
       {
         "sample_index": 1200,
         "label": 0,
-        "score": 0.02505952380952381
+        "score": 0.0360331572379146
       },
       {
         "sample_index": 1201,
         "label": 0,
-        "score": 0.04478199602122016
+        "score": 0.004811269279114185
       },
       {
         "sample_index": 1202,
         "label": 0,
-        "score": 0.1334654344193818
+        "score": 0.015728902830375962
       },
       {
         "sample_index": 1203,
         "label": 0,
-        "score": 0.08525610902255637
+        "score": 0.14382293730141485
       },
       {
         "sample_index": 1204,
         "label": 0,
-        "score": 0.09726190476190474
+        "score": 0.05393606423654865
       },
       {
         "sample_index": 1205,
         "label": 1,
-        "score": 0.13616468253968253
+        "score": 0.4062183435786371
       },
       {
         "sample_index": 1206,
         "label": 0,
-        "score": 0.06522222222222221
+        "score": 0.0010676276019134566
       },
       {
         "sample_index": 1207,
         "label": 0,
-        "score": 0.0924107142857143
+        "score": 0.019423012982819416
       },
       {
         "sample_index": 1208,
         "label": 0,
-        "score": 0.05262400793650792
+        "score": 0.04899290660455066
       },
       {
         "sample_index": 1209,
         "label": 0,
-        "score": 0.007291666666666666
+        "score": 0.0008263100142273943
       },
       {
         "sample_index": 1210,
         "label": 1,
-        "score": 0.6126686507936507
+        "score": 0.7777031363426917
       },
       {
         "sample_index": 1211,
         "label": 0,
-        "score": 0.04940476190476191
+        "score": 0.09109109662870139
       },
       {
         "sample_index": 1212,
         "label": 0,
-        "score": 0.02103174603174603
+        "score": 0.001237540393565912
       },
       {
         "sample_index": 1213,
         "label": 0,
-        "score": 0.21539003759398495
+        "score": 0.13096247185035545
       },
       {
         "sample_index": 1214,
         "label": 0,
-        "score": 0.005198412698412699
+        "score": 2.771748487561259e-05
       },
       {
         "sample_index": 1215,
         "label": 1,
-        "score": 0.16998015873015873
+        "score": 0.32862063546653125
       }
     ],
     "selection_feasible": true,
     "gate": {
-      "passed": true,
-      "reasons": [],
-      "action": "엔지니어 파일럿 검토 가능",
+      "passed": false,
+      "reasons": [
+        "오탐률 상한 초과"
+      ],
+      "action": "배포 보류·표본 보강 및 재검토",
       "auto_deploy": false
     },
-    "elapsed_seconds": 25.53564958300194,
+    "elapsed_seconds": 22.030614084000263,
     "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
     "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
     "seed": 45,
-    "actual_llm_api_cost": 0
+    "actual_llm_api_cost": 0,
+    "explanation": {
+      "model": "svm",
+      "title": "SVM (RBF)",
+      "input": "숫자 센서와 정상/불량 라벨",
+      "preprocessing": "scaled",
+      "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화",
+      "model_reason": "커널로 비선형 경계를 비교",
+      "balance_method": "원래 학습 클래스 비율 유지",
+      "source": "Day2 PDF 32~42쪽",
+      "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+      "selection_reason": "동일 validation에서 기준을 만족한 41개 후보 중 Recall과 AP 순으로 선택",
+      "evaluated_models": [
+        "adaboost",
+        "catboost",
+        "decision_tree",
+        "gradient_boosting",
+        "hist_gradient",
+        "knn",
+        "lightgbm",
+        "logistic",
+        "mlp",
+        "random_forest",
+        "svm",
+        "xgboost"
+      ],
+      "search_note": "전체 제품으로 모든 모델·불균형 정책 비교 후 validation 상위 서로 다른 두 모델의 최선 정책을 제품 조합으로 확장. 완전탐색이 아니며 같은 validation의 반복 사용에 따른 선택 편향 가능"
+    },
+    "agent_review": {
+      "role": "ResultCriticAgent",
+      "status": "disabled",
+      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+    }
   }
 }

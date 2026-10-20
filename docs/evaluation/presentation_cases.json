@@ -21,23 +21,23 @@
       "normal_extra_check_rate": 0.005988023952095809
     },
     "after": {
-      "detected_defects": 88.0,
-      "missed_defects": 12.0,
-      "normal_extra_checks": 102.39520958083831,
-      "normal_pass": 797.6047904191616,
-      "flagged_total": 190.3952095808383,
-      "assumed_loss": 1302395.2095808382,
-      "recovered_by_repair": 17.6,
-      "good_fraction_after_repair": 0.9176,
-      "recall": 0.88,
-      "normal_extra_check_rate": 0.11377245508982035
+      "detected_defects": 96.0,
+      "missed_defects": 4.0,
+      "normal_extra_checks": 140.11976047904193,
+      "normal_pass": 759.8802395209581,
+      "flagged_total": 236.11976047904193,
+      "assumed_loss": 540119.760479042,
+      "recovered_by_repair": 19.200000000000003,
+      "good_fraction_after_repair": 0.9192,
+      "recall": 0.96,
+      "normal_extra_check_rate": 0.15568862275449102
     },
     "delta": {
-      "additional_detected": 28.0,
-      "additional_normal_checks": 97.00598802395209,
-      "assumed_loss_reduction": 2702994.011976048,
-      "additional_recovered": 5.600000000000001,
-      "good_fraction_change": 0.005599999999999938
+      "additional_detected": 36.0,
+      "additional_normal_checks": 134.7305389221557,
+      "assumed_loss_reduction": 3465269.4610778443,
+      "additional_recovered": 7.200000000000003,
+      "good_fraction_change": 0.007199999999999984
     },
     "cost_assumptions": {
       "missed_defect": 100000,
@@ -75,23 +75,23 @@
       "normal_extra_check_rate": 0.04417670682730924
     },
     "after": {
-      "detected_defects": 60.0,
-      "missed_defects": 40.0,
-      "normal_extra_checks": 589.1566265060242,
-      "normal_pass": 310.84337349397583,
-      "flagged_total": 649.1566265060242,
-      "assumed_loss": 4589156.626506024,
-      "recovered_by_repair": 12.0,
-      "good_fraction_after_repair": 0.912,
-      "recall": 0.6,
-      "normal_extra_check_rate": 0.6546184738955824
+      "detected_defects": 93.33333333333333,
+      "missed_defects": 6.666666666666671,
+      "normal_extra_checks": 798.7951807228916,
+      "normal_pass": 101.20481927710841,
+      "flagged_total": 892.128514056225,
+      "assumed_loss": 1465461.8473895588,
+      "recovered_by_repair": 18.666666666666668,
+      "good_fraction_after_repair": 0.9186666666666666,
+      "recall": 0.9333333333333333,
+      "normal_extra_check_rate": 0.8875502008032129
     },
     "delta": {
-      "additional_detected": 53.333333333333336,
-      "additional_normal_checks": 549.3975903614459,
-      "assumed_loss_reduction": 4783935.742971887,
-      "additional_recovered": 10.666666666666666,
-      "good_fraction_change": 0.010666666666666713
+      "additional_detected": 86.66666666666666,
+      "additional_normal_checks": 759.0361445783133,
+      "assumed_loss_reduction": 7907630.522088353,
+      "additional_recovered": 17.333333333333336,
+      "good_fraction_change": 0.01733333333333331
     },
     "cost_assumptions": {
       "missed_defect": 100000,

@@ -1,9 +1,9 @@
 {
-  "slides": 11,
-  "native_tables": 8,
-  "speaker_notes": 11,
-  "curriculum_models": "RandomForest,Logistic,HistGradientBoosting; image teaching variants",
-  "url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit",
-  "google_pdf_export_rendered": true,
-  "old_model_names_removed": true
+  "native_google_slides_url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit",
+  "slides": 14,
+  "native_tables": 11,
+  "speaker_notes": 14,
+  "all_pages_rendered": true,
+  "general_access": "anyone_with_link_viewer_verified_in_browser",
+  "external_model_discovery": "future_design_not_implemented"
 }
