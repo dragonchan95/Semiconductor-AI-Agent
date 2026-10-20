@@ -27,6 +27,8 @@ class ProposalRequest(BaseModel):
     question: str = Field(default="불량 재현율과 제품별 학습 조합, 불균형 대책을 비교해줘", max_length=3000)
     cohort_mode: str = Field(default="subsets", pattern="^(all|subsets)$")
     target_products: list[str] | None = None
+    training_products: list[str] | None = None
+    management_source_run: str | None = None
     models: list[str] | None = None
     preprocessing: list[str] | None = None
     balance: list[str] | None = None
@@ -88,11 +90,17 @@ def build_planner(deps):
         target = req.get("target_products") or products
         if not set(target) <= set(products) or not target:
             raise ValueError("평가 대상 제품이 데이터에 없습니다")
-        combinations = cohorts(products, req["cohort_mode"])
+        training = req.get('training_products') or products
+        if not training or not set(training) <= set(products):
+            raise ValueError('학습 제품이 데이터에 없습니다')
+        combinations = cohorts(training, req["cohort_mode"])
+        source_run = req.get('management_source_run')
+        if source_run and deps.store.run(source_run)['status'] != 'completed':
+            raise ValueError('모델 관리의 기준 실행이 완료되지 않았습니다')
         names = req.get("models") or (["resnet_small", "vgg_small", "autoencoder"] if image else
-                                     (["logistic", "extra_trees"] if len(products) > 2 else
-                                      ["logistic", "extra_trees", "hist_gradient"]))
-        allowed = {"resnet_small", "vgg_small", "autoencoder"} if image else {"logistic", "extra_trees", "hist_gradient"}
+                                     (["logistic", "random_forest"] if len(products) > 2 else
+                                      ["logistic", "random_forest", "hist_gradient"]))
+        allowed = {"resnet_small", "vgg_small", "autoencoder"} if image else {"logistic", "random_forest", "hist_gradient"}
         if not names or not set(names) <= allowed or len(names) != len(set(names)):
             raise ValueError("모델 후보가 유효하지 않습니다")
         if image and not any(n != "autoencoder" for n in names):
@@ -113,7 +121,8 @@ def build_planner(deps):
                 "epochs": req["epochs"], "policy": req["policy"], "trial_budget": count,
                 "split_hash": digest(state["split"]), "seed": SEED,
                 "selection": "calibration threshold; validation selection; final test once",
-                "model_backend": "local_sklearn_or_pytorch", "auto_deploy": False}
+                "model_backend": "local_sklearn_or_pytorch", "auto_deploy": False,
+                "management_source_run": source_run}
         reasons = list(quality["warnings"]) + [
             f"제품 학습 조합 {len(combinations)}개와 모델 {len(names)}개 등 최대 {count}개 실험입니다.",
             "모든 학습 조합은 동일한 대상 제품의 validation/test 표본으로 평가합니다.",

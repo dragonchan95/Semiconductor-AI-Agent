@@ -126,7 +126,7 @@ class CoreTests(unittest.TestCase):
         wb = Workbench(self.path / "state")
         ds = wb.register(self.path / "process_demo.csv", "demo", "test", True)
         for extra in [{"target_products": ["unknown"]},
-                      {"models": ["logistic", "extra_trees", "hist_gradient"], "preprocessing": ["median", "scaled"]}]:
+                      {"models": ["logistic", "random_forest", "hist_gradient"], "preprocessing": ["median", "scaled"]}]:
             with self.assertRaises(ValueError):
                 wb.propose({"dataset_id": ds["id"], **extra})
 

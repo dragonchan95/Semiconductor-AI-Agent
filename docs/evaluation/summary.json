@@ -1,28 +1,28 @@
 {
-  "python": "3.11.15",
-  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.14.7",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
   "datasets": [
     {
       "dataset": "synthetic_process",
-      "run_id": "run-2116a51b3379",
+      "run_id": "run-b596f073644d",
       "trials": 60,
-      "winner": "extra_trees",
+      "winner": "random_forest",
       "baseline_recall": 0.6,
-      "test_recall": 1.0,
-      "test_precision": 0.5319148936170213,
-      "test_fpr": 0.1317365269461078,
-      "AP": 0.9033272343673138,
+      "test_recall": 0.88,
+      "test_precision": 0.5365853658536586,
+      "test_fpr": 0.11377245508982035,
+      "AP": 0.8516356329715464,
       "gate": {
         "passed": true,
         "reasons": [],
         "action": "엔지니어 파일럿 검토 가능",
         "auto_deploy": false
       },
-      "seconds": 24.8862266670003
+      "seconds": 25.53564958300194
     },
     {
       "dataset": "secom",
-      "run_id": "run-bce88f65d549",
+      "run_id": "run-1171296797af",
       "trials": 12,
       "winner": "logistic",
       "baseline_recall": 0.06666666666666667,
@@ -38,11 +38,11 @@
         "action": "배포 보류·학습 데이터와 기준 재검토",
         "auto_deploy": false
       },
-      "seconds": 15.064106750000064
+      "seconds": 15.594488833998184
     },
     {
       "dataset": "images",
-      "run_id": "run-22cfcaf15033",
+      "run_id": "run-99bac2a3d145",
       "trials": 6,
       "winner": "autoencoder",
       "baseline_recall": 0.6428571428571429,
@@ -58,7 +58,7 @@
         "action": "배포 보류·표본 보강 및 재검토",
         "auto_deploy": false
       },
-      "seconds": 4.286398625001311
+      "seconds": 4.2246054590032145
     }
   ]
 }

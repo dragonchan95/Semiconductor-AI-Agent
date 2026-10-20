@@ -66,6 +66,14 @@ class Workbench:
             raise ValueError("승인한 데이터 버전과 등록 데이터 버전이 다릅니다")
         try:
             result = execute(dataset, proposal["plan"], self.directory / "runs" / run_id, on_event)
+            if proposal['plan'].get('management_source_run'):
+                products = result['winner']['products']
+                result['model_version'] = {'id': 'model-'+run_id, 'product': '+'.join(products),
+                    'run_id': run_id, 'source_run': proposal['plan']['management_source_run'],
+                    'artifact': f'runs/{run_id}/champion.joblib', 'model': result['winner']['model'],
+                    'status': '후보 검토 가능' if result['gate']['passed'] else '후보 검토 보류',
+                    'test_recall': result['test']['recall'], 'test_fpr': result['test']['fpr'],
+                    'auto_deployed': False}
             self.store.finish_run(run_id, result)
             on_event({"type": "RunCompleted", "run_id": run_id})
             return result

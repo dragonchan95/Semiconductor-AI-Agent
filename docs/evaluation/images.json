@@ -1,5 +1,5 @@
 {
-  "run_id": "run-22cfcaf15033",
+  "run_id": "run-99bac2a3d145",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-067ca2ef0efb",
@@ -43,7 +43,8 @@
     "seed": 45,
     "selection": "calibration threshold; validation selection; final test once",
     "model_backend": "local_sklearn_or_pytorch",
-    "auto_deploy": false
+    "auto_deploy": false,
+    "management_source_run": null
   },
   "result": {
     "dataset": {
@@ -94,7 +95,7 @@
       },
       "calibration_feasible": true,
       "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-      "fit_seconds": 0.30354137500034994
+      "fit_seconds": 0.2966152500011958
     },
     "trials": [
       {
@@ -137,7 +138,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.1096472089993767
+        "fit_seconds": 1.1881386659988493
       },
       {
         "id": "trial-002",
@@ -179,7 +180,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.0922982920019422
+        "fit_seconds": 1.0341025840025395
       },
       {
         "id": "trial-003",
@@ -221,7 +222,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.7539374590014631
+        "fit_seconds": 0.6940515839996806
       },
       {
         "id": "trial-004",
@@ -263,7 +264,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.6818325420026667
+        "fit_seconds": 0.6777943749984843
       },
       {
         "id": "trial-005",
@@ -305,7 +306,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.31199870799900964
+        "fit_seconds": 0.30302300000039395
       },
       {
         "id": "trial-006",
@@ -347,7 +348,7 @@
         },
         "calibration_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.30354137500034994
+        "fit_seconds": 0.2966152500011958
       }
     ],
     "test": {
@@ -422,7 +423,7 @@
         "index_hash": "108a594a219f2503a48e2dc9e0f941b59480849af6a52600658f6eaacd8f6e62"
       }
     },
-    "elapsed_seconds": 4.286398625001311,
+    "elapsed_seconds": 4.2246054590032145,
     "seed": 45,
     "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
     "economic_note": "합성 이미지 데모 결과. 실제 검사 이미지·영업이익 개선으로 일반화할 수 없음.",

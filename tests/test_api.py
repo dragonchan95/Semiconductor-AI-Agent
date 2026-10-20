@@ -56,6 +56,10 @@ class APITests(unittest.TestCase):
                 stream = client.get(f"/api/runs/{run_id}/events")
                 self.assertTrue(stream.text.endswith("data: [DONE]\n\n"))
                 self.assertEqual(client.get(f"/api/runs/{run_id}/export.csv").status_code, 200)
+                impact = client.post(f'/api/runs/{run_id}/impact', json={'quantity': 1000, 'defect_rate': .1, 'repair_success': .2})
+                self.assertEqual(impact.status_code, 200)
+                self.assertEqual(impact.json()['expected_defects'], 100)
+                self.assertEqual(client.post(f'/api/runs/{run_id}/impact', json={'defect_rate': 2}).status_code, 422)
 
 
 if __name__ == "__main__":

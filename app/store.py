@@ -32,6 +32,10 @@ class Store:
               status TEXT NOT NULL, result TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY AUTOINCREMENT,
               at TEXT NOT NULL, entity TEXT NOT NULL, kind TEXT NOT NULL, payload TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS model_comparisons(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS model_reviews(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS model_versions(id TEXT PRIMARY KEY, run_id TEXT UNIQUE,
+              product TEXT NOT NULL, payload TEXT NOT NULL);
             """)
 
     def connect(self):
@@ -115,6 +119,10 @@ class Store:
                       (status, json.dumps(result, ensure_ascii=False, allow_nan=False), run_id))
             c.execute("UPDATE proposals SET status=? WHERE id=(SELECT proposal_id FROM runs WHERE id=?)",
                       (status, run_id))
+            if not failed and result.get('model_version'):
+                v = result['model_version']
+                c.execute('INSERT INTO model_versions VALUES(?,?,?,?)',
+                          (v['id'], run_id, v['product'], json.dumps(v, ensure_ascii=False)))
         self.event(run_id, status, {"winner": result.get("winner_id")})
 
     def run(self, ident):
@@ -134,3 +142,31 @@ class Store:
         with self.connect() as c:
             return [{**dict(r), "payload": json.loads(r["payload"])}
                     for r in c.execute("SELECT * FROM events WHERE entity=? ORDER BY id", (entity,))]
+
+    def save_review(self, payload):
+        record = {**payload, 'id': 'review-'+uuid.uuid4().hex[:12], 'created_at': now()}
+        with self.connect() as c:
+            c.execute('INSERT INTO model_reviews VALUES(?,?)', (record['id'], json.dumps(record, ensure_ascii=False)))
+        return record
+
+    def review(self, ident):
+        with self.connect() as c:
+            row = c.execute('SELECT payload FROM model_reviews WHERE id=?', (ident,)).fetchone()
+        if row is None:
+            raise KeyError('모델 점검 결과가 없습니다')
+        return json.loads(row[0])
+
+    def versions(self):
+        with self.connect() as c:
+            return [json.loads(r[0]) for r in c.execute('SELECT payload FROM model_versions ORDER BY rowid DESC')]
+
+
+    def save_comparison(self, payload):
+        record = {**payload, 'id':'comparison-'+uuid.uuid4().hex[:12], 'created_at':now()}
+        with self.connect() as c:
+            c.execute('INSERT INTO model_comparisons VALUES(?,?)',(record['id'],json.dumps(record,ensure_ascii=False)))
+        return record
+
+    def comparisons(self):
+        with self.connect() as c:
+            return [json.loads(r[0]) for r in c.execute('SELECT payload FROM model_comparisons ORDER BY rowid DESC')]

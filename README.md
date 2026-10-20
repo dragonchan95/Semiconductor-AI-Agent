@@ -1,49 +1,68 @@
-# Fab Experiment Copilot
+# 반도체 검사 모델 관리 Agent
 
-**G045 김용찬 · SK AI Leader Academy · AI Mini-Project 과제 2(신규 프로젝트)**
+G045 김용찬 / SK AI Leader Academy / 과제2 신규 프로젝트
 
-[최종 보고서 Google Slides](https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit) · [상세 보고서와 수치](docs/REPORT.md)
+[최종 보고서 Google Slides](https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit) / [상세 보고서](docs/REPORT.md) / [발표 대본 TXT](docs/발표대본_G045.txt)
 
-반도체 공정 엔지니어가 학습 데이터 범위·전처리·불균형 대책을 비교하고, 근거와 수치를 보고 실험을 승인하는 Agent입니다. 특정 회사 플랫폼에 종속되지 않는 독립 교육용 PoC입니다.
+불량 추가 발견과 정상 제품 추가검사 부담을 비교합니다. 새 데이터에서 재학습 필요를 판단하고,엔지니어 승인 후 공통·제품 전용 모델을 생성해 같은 제품의 평가에서 학습 방식을 권고하거나 보류합니다. 공개·합성 데이터의 교육용 PoC입니다.
 
-![엔지니어 검토 화면](docs/assets/proposal.png)
+![검사 효과 화면](docs/assets/easy-result.png)
 
 ## 시작하기
-
-Python 3.11 이상을 권장합니다. 최초 실행은 PyTorch 등 의존성을 설치하므로 인터넷과 여유 디스크가 필요합니다.
 
 ```bash
 bash start.sh
 ```
 
-브라우저에서 <http://localhost:8700>을 엽니다. `공개 데이터·합성 데모 준비`를 누르고 데이터를 선택한 다음 `근거와 실험 계획 제안받기`를 누릅니다. 이 단계는 **학습하지 않습니다**. 계획과 기준을 확인하고 `이 계획 승인 후 분석 실행`을 누르면 실제 모델을 학습합니다. `반려`하면 실행하지 않습니다.
+http://localhost:8700 에서 연습용 공정 데이터와 완료된 예시 결과 바로 보기를 선택합니다. 새 설치에는 실행 이력이 없으므로 예제 데이터 준비 후 비교 계획을 생성하고 승인합니다. **계획 생성만으로 학습하지 않습니다.** 승인한 계획만 실행하고 반려·중복 실행은 차단합니다.
 
-네트워크 없이 실행하려면 최초 설치를 마쳐야 합니다. 공식 SECOM 아카이브는 저장소에 포함되어 있고 SHA-256으로 검증합니다.
+Python3.11 이상과 최초 의존성 설치가 필요합니다. SECOM 공식 ZIP은 저장소에 포함되어 SHA256으로 확인합니다. [시연 순서](docs/DEMO.md)
+
+## 교육에서 다룬 모델
+
+공정 후보: **Random Forest**,Logistic Regression,Hist Gradient Boosting. 이미지 후보: 교육용 축소 ResNet·VGGNet 계열,Autoencoder. [교육 자료명·페이지와 구현 구분](docs/CURRICULUM_MODELS.md)
+
+Random Forest는 스칼라 실습과 반도체 자료 모두에서 확인했습니다. 이미지 축소 구조는 표준 ResNet18/VGG16 사전학습 비교가 아닙니다. NLP·시계열과 수율 예측은 향후 범위입니다.
 
 ## 구현한 기능
 
-- 공정 CSV: Logistic Regression, Extra Trees, HistGradientBoosting 비교
-- 검사 이미지: 자체 축소 ResNetSmall·VGGSmall·convolutional Autoencoder 실제 PyTorch 학습
-- A, B, AB, ABC, ABCD 등 최대 15개 학습 제품 집합 비교. 모든 후보의 평가 대상과 평가 표본은 동일
-- train 전용 결측 대체·분산 필터·표준화, 이미지 grayscale·contrast 비교
-- class weight, 정상 전용 Autoencoder, calibration 임계값 선택으로 희소 불량 대응
-- Recall·Precision·FPR·Average Precision·혼동행렬·Recall 신뢰구간·가정 비용 비교
-- 승인 계획 및 데이터 SHA-256, 승인자, 실행 이력 저장. 변경·반려·중복 실행 차단
-- 근거 검색, MCP 읽기·제안 도구, API, 결과 CSV 내보내기
+- 데이터 종류별 후보,전처리,제품 A/B/AB/ABC/ABCD 등 최대15개 학습 범위 비교
+- train 전용 결측·분산·스케일 처리,불량 class weight,정상 전용 Autoencoder
+- 근거 검색과 승인 계획·데이터 hash 고정,학습·평가·CSV 내보내기
+- 검사 수량·불량률에 따른 추가 검출량과 검사 부담,손실·재작업 가정 계산
+- 새 배치 성능 점검,승인 후 공통1개·제품별4개 후보의 실제 학습과 버전 저장
+- 동일 제품 validation으로 공통/전용 방식 선택,test 기준 미달이면 보류
 
-## 실측 결과
+## 실제 측정 결과
 
-2026-10-20, seed 45, CPU에서 실제 학습했습니다. 아래는 최종 test 결과이며, 모델 선택은 validation에서만 수행했습니다.
-
-| 데이터 | 실험 수 | Before Recall | After Recall | After Precision | After FPR | 판단 |
+| 데이터 | 후보 수 | Before Recall | After Recall | After Precision | After FPR | 판단 |
 |---|---:|---:|---:|---:|---:|---|
-| 합성 공정 1,280행 | 60 | 60.0% | 100.0% | 53.2% | 13.2% | 합성 환경 파일럿 검토 |
-| 공개 SECOM 1,567행 | 12 | 6.7% | 60.0% | 5.2% | 65.5% | **배포 보류** |
-| 합성 이미지 576장 | 6 | 64.3% | 100.0% | 100.0% | 0.0% | 불량 평가 표본 14개, 보류 |
+| 합성 공정 | 60 | 60.0% | 88.0% | 53.7% | 11.4% | 합성 내 검토 가능 |
+| 공개 SECOM | 12 | 6.7% | 60.0% | 5.2% | 65.5% | 보류 |
+| 합성 이미지 | 6 | 64.3% | 100.0% | 100.0% | 0.0% | 보류 |
 
-SECOM에서는 Recall을 높여도 오탐이 크게 늘어납니다. Agent는 이를 성공적인 운영 모델로 추천하지 않습니다. 합성 이미지의 100%는 쉽게 구분되는 인공 패턴의 결과이며 실제 검사 성능을 의미하지 않습니다. Before/After는 모델·전처리·임계값을 포함한 전체 실험 절차 비교이며 개별 기법의 인과 효과는 아닙니다.
+공개 SECOM은 운영 성능 개선을 주장하지 않고 보류 사례로 보고합니다. 합성 이미지100%는 단순한 인공 패턴이며 현장 성능으로 일반화할 수 없습니다. 모델·전처리·임계값을 포함한 절차 비교로 개별 기법의 인과 효과는 아닙니다.
 
-전체 결과와 한계는 [최종 보고서](docs/REPORT.md), 수치 원본은 [평가 JSON](docs/evaluation/summary.json), 발표 설명은 [발표·코드 안내](docs/DEMO.md)를 참조하세요.
+## 건수와 비용을 쉽게 읽기
+
+제품1,000개 중 불량100개·정상900개와 검증 비율 유지라는 **가정**입니다. 기본 모델은 불량60.0개, 선택 모델은88.0개를 찾습니다. 불량28.0개를 더 찾는 대신 정상 추가검사는5.4개에서102.4개로97.0개 늘어납니다.
+
+미검출1개10만원·정상 추가검사1개1천원 가정에서는 손실4,005,389원에서1,302,395원, 차이2,702,994원입니다. 재작업·설비·처리량·매출 효과를 제외하여 실제 영업이익으로 해석하지 않습니다.
+
+두 모델의 검출 불량 중20%를 재작업으로 정상화한다는 별도 가정에서는 양품5.6개를 추가 회수합니다. **재작업 후 양품 비율**은91.2%에서91.8%, 차이0.56%p입니다. 실제 결함의 재작업 가능성과 제조 수율 향상은 검증하지 않았습니다.
+
+## 통합·제품별 재학습 비교
+
+기존 모델의 이전 test Recall88.0%와 새 배치 train 점검37.1%를 비교해 재학습을 제안했습니다. 서로 다른 배치의 비교이며 통계적 drift 검정은 아닙니다.
+
+| 제품 | 공통 Recall / FPR | 전용 Recall / FPR | 선택 방식 | 최종 판단 |
+|---|---:|---:|---|---|
+| A | 95.1% / 14.3% | 87.8% / 10.9% | 공통 | 공통 모델 권고 |
+| B | 92.9% / 16.3% | 92.9% / 21.7% | 공통 | 적용 보류 |
+| C | 92.3% / 12.8% | 92.3% / 12.8% | 전용 | 제품 전용 모델 권고 |
+| D | 100.0% / 12.9% | 91.7% / 14.3% | 공통 | 적용 보류 |
+
+표는 같은 제품의 같은 validation에서 비교합니다. test는 방식 선택에 쓰지 않고 최종 확인에만 사용합니다. 새 배치 안에서 통합·전용 학습을 비교하며 과거 파일을 자동 병합하지 않습니다. 운영 모델 자동 교체는 없습니다. [실제 점검·학습 기록](docs/evaluation/model_management.json)
 
 ## 검증과 재현
 
@@ -51,62 +70,20 @@ SECOM에서는 Recall을 높여도 오탐이 크게 늘어납니다. Agent는 �
 .venv/bin/python -m unittest discover -s tests -v
 .venv/bin/python scripts/check_mcp.py
 .venv/bin/python scripts/evaluate.py
+.venv/bin/python scripts/evaluate_management.py
 .venv/bin/python scripts/build_report.py
 ```
 
-동일 데이터 hash·분할 hash·seed를 결과에 기록합니다. 실행 시간은 기기와 부하에 따라 달라집니다. 검증 환경은 `requirements.lock.txt`에 고정했습니다. 서로 다른 PyTorch 버전·기기까지 완전한 재현을 보장하지 않습니다.
+22개 테스트와 실제 MCP stdio 연결을 검증했습니다. 평가 스크립트의 승인자는 명시적인 자동 테스트 actor이며 현장 승인 실적이 아닙니다. 데이터·분할 hash,seed와환경은 JSON 및 requirements.lock.txt에 기록합니다. 기기·라이브러리 차이까지 완전한 재현을 보장하지 않습니다.
 
-## Agent 구조
+## Agent와 운영 범위
 
-```mermaid
-flowchart TD
-  U[엔지니어 요청과 평가 기준] --> Q[DataQualityAgent]
-  Q --> K[KnowledgeAgent: TF-IDF 근거 검색]
-  K --> P[ExperimentPlannerAgent: 예산과 계획]
-  P --> H{엔지니어 승인}
-  H -->|반려| R[종료 및 이력 저장]
-  H -->|승인된 계획 hash| X[실제 sklearn / PyTorch 실험]
-  X --> V[validation 선택]
-  V --> T[선택 후보와 baseline 최종 test]
-  T --> G[기준 충족 여부와 근거 보고]
-```
+LangGraph의 데이터 검사·근거 검색·계획 역할은 결정적 Python 함수입니다. TF-IDF 검색 근거를 사용하고 독립 LLM 추론·생성형 응답은 구현하지 않았습니다. 외부 LLM 호출0회입니다. DI로 API와 MCP가 Workbench를 공유합니다. MCP는 조회·제안만 제공하고 승인·실행 도구를 노출하지 않습니다. LangSmith 계측은 구현했고 원격 추적은 미검증입니다.
 
-LangGraph의 세 역할 노드는 데이터 검사·검색·계획을 수행하는 결정적 Python 함수입니다. 서로 독립적으로 추론하는 LLM Multi-Agent는 구현하지 않았습니다. 검색한 근거를 계획에 결합하지만 생성형 LLM 응답은 사용하지 않습니다. 외부 LLM 호출 비용은 0원입니다. LangSmith 추적 지점은 구현했으며 원격 업로드는 검증하지 않았습니다.
+Dockerfile과 deploy/kubernetes.yaml은 기업 클라우드 확장 예시이며 빌드·실배포는 검증하지 않았습니다. production에서는 ENGINEER_TOKEN을 설정해야 API를 사용할 수 있습니다. 현재 공유 토큰·SQLite·단일 worker는 개인별 SSO/RBAC·대규모 worker·중앙 감사 체계를 대체하지 않습니다.
 
-## MCP
+## 데이터 형식과 출처
 
-```json
-{
-  "mcpServers": {
-    "semiconductor": {
-      "command": "/absolute/path/Semiconductor-AI-Agent/.venv/bin/python",
-      "args": ["/absolute/path/Semiconductor-AI-Agent/mcp_server.py"],
-      "env": {"LANGSMITH_TRACING": "false"}
-    }
-  }
-}
-```
+공정 CSV에는 label(정상0/불량1),product,lot_id 또는 timestamp와 숫자 센서 열을 넣습니다. 이미지 ZIP은 manifest.csv와 image_path의 상대 이미지 파일로 구성합니다. 이미지 manifest에도 label·product·lot_id 또는 timestamp가 필요합니다. 업로드30MB,압축 해제128MB,실험72조건,제품4개,행20,000개로 제한합니다.
 
-도구는 `list_datasets`, `propose_experiment`, `get_experiment_result`입니다. AI가 스스로 승인하거나 학습 실행을 승인하는 도구는 노출하지 않습니다. 데모 준비는 웹에서 한 번 수행하세요. MCP는 실행 결과와 제안을 같은 SQLite 상태에서 조회합니다.
-
-## 기업용 클라우드 확장
-
-`Dockerfile`과 [Kubernetes 예시](deploy/kubernetes.yaml)를 제공합니다. 클라우드 실배포와 이미지 빌드는 아직 검증하지 않았습니다. 현재는 단일 프로세스·단일 학습 worker·SQLite이며 API가 분석을 수행합니다. 도입 시 SSO/RBAC, 별도 승인 권한, DB·Object Storage connector, worker queue, 중앙 감사 로그와 모델 registry를 추가해야 합니다.
-
-```bash
-docker build -t semiconductor-copilot:1.0 .
-# ENGINEER_TOKEN은 배포 환경의 Secret으로 전달합니다.
-docker run --rm -p 8700:8700 -e APP_ENV=production -e ENGINEER_TOKEN -v fab-state:/state semiconductor-copilot:1.0
-```
-
-`ENGINEER_TOKEN`이 있으면 `/api` 전체가 토큰을 요구합니다. 데모 UI의 토큰 입력란에 입력할 수 있습니다. production 모드에서는 토큰 없이 서버가 시작하지 않습니다. 현재 토큰은 공유 토큰이므로 실제 기업의 개인별 권한 체계를 대체하지 않습니다.
-
-## 데이터와 범위
-
-- [UCI SECOM](https://archive.ics.uci.edu/dataset/179/secom): McCann & Johnston(2008), CC BY 4.0. 실제 파일의 센서 열 590개, 불량 104개. 원본 pass=-1은 정상0으로, fail=1은 불량1로 변환
-- 합성 공정·이미지: 코드로 생성한 데모. 실제 회사·장비·제품 데이터가 아님
-- 제공 교육·아이디어 자료의 원본 사진과 PDF는 저장소에 재배포하지 않음
-- 실제 제품 식별자가 없는 SECOM에 A/B/C 라벨을 붙이지 않음
-- GAN, NLP 로그 분석, LSTM/ARIMA 시계열, SEM 길이 계측은 향후 확장. 이번 구현의 성능 검증 범위에 포함하지 않음
-
-제출용 명단 Excel은 개인 정보가 포함된 별도 양식이므로 이 공개 저장소에 업로드하지 않습니다.
+[UCI SECOM](https://archive.ics.uci.edu/dataset/179/secom)은CC BY4.0입니다. 센서590열·표본1,567·불량104입니다. 교육 PDF·아이디어 사진과 제출용 명단 엑셀은 공개 저장소에 넣지 않았습니다.

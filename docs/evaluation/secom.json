@@ -1,5 +1,5 @@
 {
-  "run_id": "run-bce88f65d549",
+  "run_id": "run-1171296797af",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-b8b7b9c11301",
@@ -15,7 +15,7 @@
     ],
     "models": [
       "logistic",
-      "extra_trees",
+      "random_forest",
       "hist_gradient"
     ],
     "preprocessing": [
@@ -38,7 +38,8 @@
     "seed": 45,
     "selection": "calibration threshold; validation selection; final test once",
     "model_backend": "local_sklearn_or_pytorch",
-    "auto_deploy": false
+    "auto_deploy": false,
+    "management_source_run": null
   },
   "result": {
     "dataset": {
@@ -106,7 +107,7 @@
           "assumed_cost_per_10000": 23102310.231023103,
           "assumed_saving_vs_all_pass_per_10000": 19801980.198019803
         },
-        "fit_seconds": 0.6107049999991432,
+        "fit_seconds": 0.6161080409983697,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -143,7 +144,7 @@
           "assumed_cost_per_10000": 25379537.95379538,
           "assumed_saving_vs_all_pass_per_10000": 17524752.475247525
         },
-        "fit_seconds": 0.6022914579989447,
+        "fit_seconds": 0.6135439579993545,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -180,7 +181,7 @@
           "assumed_cost_per_10000": 28910891.08910891,
           "assumed_saving_vs_all_pass_per_10000": 13993399.339933995
         },
-        "fit_seconds": 0.5046960420004325,
+        "fit_seconds": 0.515567166999972,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -217,7 +218,7 @@
           "assumed_cost_per_10000": 25577557.75577558,
           "assumed_saving_vs_all_pass_per_10000": 17326732.673267324
         },
-        "fit_seconds": 0.5127777090019663,
+        "fit_seconds": 0.5141338329995051,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -225,7 +226,7 @@
         "products": [
           "SECOM"
         ],
-        "model": "extra_trees",
+        "model": "random_forest",
         "preprocessing": "median",
         "balance": "none",
         "status": "completed",
@@ -235,26 +236,26 @@
         "validation": {
           "n": 303,
           "positive_count": 13,
-          "tn": 285,
-          "fp": 5,
+          "tn": 290,
+          "fp": 0,
           "fn": 13,
           "tp": 0,
-          "accuracy": 0.9405940594059405,
+          "accuracy": 0.9570957095709571,
           "recall": 0.0,
           "precision": 0.0,
           "f2": 0.0,
-          "fpr": 0.017241379310344827,
-          "average_precision": 0.04461789628631266,
-          "roc_auc": 0.5031830238726791,
-          "threshold": 0.16557963085649838,
+          "fpr": 0.0,
+          "average_precision": 0.047974668009648586,
+          "roc_auc": 0.5254641909814324,
+          "threshold": 0.251870278599537,
           "recall_wilson95": [
             0.0,
             0.22810184305529166
           ],
-          "assumed_cost_per_10000": 43069306.930693075,
-          "assumed_saving_vs_all_pass_per_10000": -165016.50165017054
+          "assumed_cost_per_10000": 42904290.429042906,
+          "assumed_saving_vs_all_pass_per_10000": 0.0
         },
-        "fit_seconds": 0.5576633749988105,
+        "fit_seconds": 0.738520040998992,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -262,46 +263,9 @@
         "products": [
           "SECOM"
         ],
-        "model": "extra_trees",
+        "model": "random_forest",
         "preprocessing": "median",
         "balance": "weighted",
-        "status": "completed",
-        "train_n": 769,
-        "train_defects": 67,
-        "calibration_feasible": true,
-        "validation": {
-          "n": 303,
-          "positive_count": 13,
-          "tn": 284,
-          "fp": 6,
-          "fn": 13,
-          "tp": 0,
-          "accuracy": 0.9372937293729373,
-          "recall": 0.0,
-          "precision": 0.0,
-          "f2": 0.0,
-          "fpr": 0.020689655172413793,
-          "average_precision": 0.04767330863915733,
-          "roc_auc": 0.48779840848806366,
-          "threshold": 0.37843137713430863,
-          "recall_wilson95": [
-            0.0,
-            0.22810184305529166
-          ],
-          "assumed_cost_per_10000": 43102310.2310231,
-          "assumed_saving_vs_all_pass_per_10000": -198019.80198019918
-        },
-        "fit_seconds": 0.5670926249986223,
-        "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
-      },
-      {
-        "id": "trial-007",
-        "products": [
-          "SECOM"
-        ],
-        "model": "extra_trees",
-        "preprocessing": "scaled",
-        "balance": "none",
         "status": "completed",
         "train_n": 769,
         "train_defects": 67,
@@ -318,9 +282,9 @@
           "precision": 0.0,
           "f2": 0.0,
           "fpr": 0.017241379310344827,
-          "average_precision": 0.04461789628631266,
-          "roc_auc": 0.5031830238726791,
-          "threshold": 0.16557963085649838,
+          "average_precision": 0.07500121962367315,
+          "roc_auc": 0.6159151193633952,
+          "threshold": 0.3312372389529043,
           "recall_wilson95": [
             0.0,
             0.22810184305529166
@@ -328,7 +292,44 @@
           "assumed_cost_per_10000": 43069306.930693075,
           "assumed_saving_vs_all_pass_per_10000": -165016.50165017054
         },
-        "fit_seconds": 0.5866844590018445,
+        "fit_seconds": 0.6397899580006197,
+        "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
+      },
+      {
+        "id": "trial-007",
+        "products": [
+          "SECOM"
+        ],
+        "model": "random_forest",
+        "preprocessing": "scaled",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 769,
+        "train_defects": 67,
+        "calibration_feasible": true,
+        "validation": {
+          "n": 303,
+          "positive_count": 13,
+          "tn": 290,
+          "fp": 0,
+          "fn": 13,
+          "tp": 0,
+          "accuracy": 0.9570957095709571,
+          "recall": 0.0,
+          "precision": 0.0,
+          "f2": 0.0,
+          "fpr": 0.0,
+          "average_precision": 0.0480073302752084,
+          "roc_auc": 0.5254641909814324,
+          "threshold": 0.251870278599537,
+          "recall_wilson95": [
+            0.0,
+            0.22810184305529166
+          ],
+          "assumed_cost_per_10000": 42904290.429042906,
+          "assumed_saving_vs_all_pass_per_10000": 0.0
+        },
+        "fit_seconds": 0.7450957500004733,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -336,7 +337,7 @@
         "products": [
           "SECOM"
         ],
-        "model": "extra_trees",
+        "model": "random_forest",
         "preprocessing": "scaled",
         "balance": "weighted",
         "status": "completed",
@@ -346,26 +347,26 @@
         "validation": {
           "n": 303,
           "positive_count": 13,
-          "tn": 284,
-          "fp": 6,
+          "tn": 285,
+          "fp": 5,
           "fn": 13,
           "tp": 0,
-          "accuracy": 0.9372937293729373,
+          "accuracy": 0.9405940594059405,
           "recall": 0.0,
           "precision": 0.0,
           "f2": 0.0,
-          "fpr": 0.020689655172413793,
-          "average_precision": 0.04767330863915733,
-          "roc_auc": 0.48779840848806366,
-          "threshold": 0.37843137713430863,
+          "fpr": 0.017241379310344827,
+          "average_precision": 0.07572092626001656,
+          "roc_auc": 0.6164456233421751,
+          "threshold": 0.3312372389529043,
           "recall_wilson95": [
             0.0,
             0.22810184305529166
           ],
-          "assumed_cost_per_10000": 43102310.2310231,
-          "assumed_saving_vs_all_pass_per_10000": -198019.80198019918
+          "assumed_cost_per_10000": 43069306.930693075,
+          "assumed_saving_vs_all_pass_per_10000": -165016.50165017054
         },
-        "fit_seconds": 0.5834681670021382,
+        "fit_seconds": 0.658401333999791,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -402,7 +403,7 @@
           "assumed_cost_per_10000": 42904290.429042906,
           "assumed_saving_vs_all_pass_per_10000": 0.0
         },
-        "fit_seconds": 0.8374062919974676,
+        "fit_seconds": 0.8520368749996123,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -439,7 +440,7 @@
           "assumed_cost_per_10000": 39966996.699669965,
           "assumed_saving_vs_all_pass_per_10000": 2937293.7293729363
         },
-        "fit_seconds": 4.403646750000917,
+        "fit_seconds": 4.409429457999067,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -476,7 +477,7 @@
           "assumed_cost_per_10000": 42904290.429042906,
           "assumed_saving_vs_all_pass_per_10000": 0.0
         },
-        "fit_seconds": 0.833514166999521,
+        "fit_seconds": 0.8262274580010853,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       },
       {
@@ -513,7 +514,7 @@
           "assumed_cost_per_10000": 39966996.699669965,
           "assumed_saving_vs_all_pass_per_10000": 2937293.7293729363
         },
-        "fit_seconds": 4.381049915999029,
+        "fit_seconds": 4.407747709003161,
         "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
       }
     ],
@@ -552,7 +553,7 @@
         "assumed_cost_per_10000": 23102310.231023103,
         "assumed_saving_vs_all_pass_per_10000": 19801980.198019803
       },
-      "fit_seconds": 0.6107049999991432,
+      "fit_seconds": 0.6161080409983697,
       "validation_fingerprint": "a8af6312dbb5813acf68ddb8e27578c3c1157bef43ae1a646662b645b1a99297"
     },
     "test": {
@@ -1931,7 +1932,7 @@
       "action": "배포 보류·학습 데이터와 기준 재검토",
       "auto_deploy": false
     },
-    "elapsed_seconds": 15.064106750000064,
+    "elapsed_seconds": 15.594488833998184,
     "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
     "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
     "seed": 45,

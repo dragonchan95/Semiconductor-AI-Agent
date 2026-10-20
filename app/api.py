@@ -18,6 +18,8 @@ from pydantic import BaseModel, Field
 from .config import MAX_UPLOAD_BYTES, ROOT, STATE_DIR
 from .planner import ProposalRequest
 from .workbench import Workbench
+from .impact import ImpactRequest, compare_impact
+from .monitoring import prepare_changed_demo, assess, product_plans, compare_strategies
 
 TOKEN = os.environ.get("ENGINEER_TOKEN", "")
 if os.environ.get("APP_ENV") == "production" and not TOKEN:
@@ -159,6 +161,41 @@ def run(ident: str):
     return app.state.workbench.store.run(ident)
 
 
+@app.post('/api/runs/{ident}/impact')
+def impact(ident: str, req: ImpactRequest):
+    record = app.state.workbench.store.run(ident)
+    if record['status'] != 'completed':
+        raise ValueError('완료된 실험의 성능으로만 계산할 수 있습니다')
+    plan = app.state.workbench.store.proposal(record['proposal_id'])['plan']
+    return compare_impact(record['result'], req, plan['policy'])
+
+
+class ModelReviewRequest(BaseModel):
+    source_run: str
+    dataset_id: str
+
+
+@app.post('/api/model-management/example')
+def management_example():
+    d = prepare_changed_demo(app.state.workbench)
+    return {k:v for k,v in d.items() if k != 'path'}
+
+
+@app.post('/api/model-management/review')
+def management_review(req: ModelReviewRequest):
+    return assess(app.state.workbench,req.source_run,req.dataset_id)
+
+
+@app.post('/api/model-management/reviews/{ident}/plans')
+def management_plans(ident: str):
+    return product_plans(app.state.workbench,ident)
+
+
+@app.get('/api/model-versions')
+def model_versions():
+    return app.state.workbench.store.versions()
+
+
 @app.get("/api/runs/{ident}/events")
 async def events(ident: str):
     wb = app.state.workbench
@@ -193,3 +230,17 @@ def export_csv(ident: str):
                          m.get("precision"), m.get("average_precision"), row.get("fit_seconds"), row["status"]])
     return Response("\ufeff" + buf.getvalue(), media_type="text/csv",
                     headers={"Content-Disposition": f'attachment; filename="{ident}.csv"'})
+
+
+class StrategyRequest(BaseModel):
+    run_ids: list[str] = Field(min_length=2,max_length=5)
+
+
+@app.post('/api/model-comparisons')
+def strategy_comparison(req: StrategyRequest):
+    return compare_strategies(app.state.workbench,req.run_ids)
+
+
+@app.get('/api/model-comparisons')
+def strategy_history():
+    return app.state.workbench.store.comparisons()

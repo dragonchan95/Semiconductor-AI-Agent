@@ -17,7 +17,7 @@ from app.workbench import Workbench
 
 def main():
     wb = Workbench(ROOT / "var")
-    datasets = wb.ensure_examples()
+    datasets = [d for d in wb.ensure_examples() if d['name'] in {'제품 A–D 합성 공정','UCI SECOM 공개 공정','제품 A–D 합성 검사 이미지'}]
     receipts = []
     for dataset in reversed(datasets):
         if "--images-only" in sys.argv and dataset["modality"] != "image":

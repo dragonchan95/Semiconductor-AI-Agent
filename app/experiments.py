@@ -8,7 +8,7 @@ from pathlib import Path
 
 import joblib
 import numpy as np
-from sklearn.ensemble import ExtraTreesClassifier, HistGradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
@@ -33,8 +33,8 @@ def estimator(name, preprocessing, balance):
     balanced = "balanced" if balance == "weighted" else None
     if name == "logistic":
         model = LogisticRegression(C=.2, max_iter=1500, class_weight=balanced, random_state=SEED)
-    elif name == "extra_trees":
-        model = ExtraTreesClassifier(n_estimators=80, max_depth=9, min_samples_leaf=3,
+    elif name == "random_forest":
+        model = RandomForestClassifier(n_estimators=80, max_depth=9, min_samples_leaf=3,
                                      class_weight=balanced, n_jobs=1, random_state=SEED)
     elif name == "hist_gradient":
         model = HistGradientBoostingClassifier(max_iter=70, max_leaf_nodes=9,
