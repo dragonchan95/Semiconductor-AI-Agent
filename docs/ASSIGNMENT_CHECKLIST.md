@@ -10,9 +10,9 @@ SKALA 광주 2반 · G045 김용찬 · 신규 프로젝트 · 2026-10-21 검증 
 | 신규 주제 및 세부 기능 리스트 작성 (11~12쪽) | 원본 제출 엑셀 `2반!C11:D11`, README | G045 김용찬·과제2·세부 기능 반영 |
 | UID·성함·Git 주소·공개 보고서 주소 등록 (3쪽) | 원본 제출 엑셀 `2반!A11:F11` | GitHub·기존 Google Slides URL 유지. 로그인 없는 공개 접근은 확인했으나 Slides 최신본은 미반영. 공용 Google Spread 직접 제출은 미수행 |
 | 기능 구현 완성도 30점: 실제 동작 (13쪽) | [API](../app/api.py), [Workbench](../app/workbench.py), [실험 엔진](../app/experiments.py), [이미지 학습](../app/images.py), [모델 점검·재학습](../app/monitoring.py) | 센서12종·이미지3종 실제 학습, 승인 후 실행, 같은 알고리즘 재학습·후보 버전 저장. 현장 적용 실적은 아님 |
-| Before/After 보너스10점: 같은 입력 실측 (13쪽) | 발표6~7·11~14장, [최초 센서](evaluation/synthetic_process.json), [재학습](evaluation/model_management.json), [SECOM](evaluation/secom.json), [이미지](evaluation/images.json) | 각 비교에서 같은 Test 행·라벨 사용. 모델·전처리·판정값·학습 범위가 함께 바뀐 절차 비교이며 개별 기법의 인과 효과는 아님 |
+| Before/After 보너스10점: 같은 입력 실측 (13쪽) | 발표7·11~12장, [최초 센서](evaluation/synthetic_process.json), [재학습](evaluation/model_management.json), [SECOM](evaluation/secom.json), [이미지](evaluation/images.json) | 각 비교에서 같은 Test 행·라벨 사용. 모델·전처리·판정값·학습 범위가 함께 바뀐 절차 비교이며 개별 기법의 인과 효과는 아님 |
 | 한계·Trade-off20점 (13쪽) | 발표6~10·13장, [상세 보고서](REPORT.md) | Recall 증가와 정상 오판 증가, 작은 불량 표본, 합성·공개 데이터, 반복 Validation 비교, LLM fallback 표시 |
-| PPT·발표20점: 문제→기능→수치→한계 (13쪽) | 발표1~10장, [PDF](G045_Semiconductor_Agent.pdf), [TXT 대본](발표대본_G045.txt) | 1~3장 소개·문제·아키텍처, 4~5장 입력·승인 화면, 6장 모델별 Validation 비교, 7장 같은 Test 결과, 8장 새 후보 탐색, 9장 기술·추적, 10장 교훈·한계. 11~16장은 질문용 부록 |
+| PPT·발표20점: 문제→기준→시연→기술→교훈 (13쪽) | 발표1~10장, [PDF](G045_Semiconductor_Agent.pdf), [TXT 대본](발표대본_G045.txt) | 1~3장 소개·문제·지표 기준, 4~5장 입력·승인 화면, 6장 모델별 Validation 비교, 7장 같은 Test 결과, 8장 후보·문서 근거, 9장 구조·추적·평가, 10장 교훈·한계. 11~16장은 질문용 부록 |
 
 ## 기술 요소 30점의 세부 대응
 
@@ -33,4 +33,4 @@ SKALA 광주 2반 · G045 김용찬 · 신규 프로젝트 · 2026-10-21 검증 
 
 평가항목의 기술을 언급했다는 사실만으로 충분한 구현으로 인정된다고 단정하지 않습니다. 실제 구현과 미확인·미구현 상태를 함께 제시했습니다. 실제 회사의 공통 Recall/FPR 합격 수치를 확인하지 못했으며 90%·15%·불량20개는 교육용 기본값입니다.
 
-목표 Train/Validation/Test=6:2:2. 본문10장·질문용 부록6장, 발화280초+전환20초의 5분 계획입니다. [Windows 로컬 Qwen 포함 전체 학습](evaluation/windows_llm_synthetic.json)에서 실제 세 역할 응답과 같은 Test 결과(TP27·FP14)를 재현했습니다. 기존 Test를 재사용한 외부 후보 탐색은 독립 검증이 필요합니다. 15장은 기술 대응표, 16장은 출처입니다. 본문은 ‘여러 모델 비교’로 소개하고 각 후보의 수업·반도체 자료 출처를 구분합니다. AdaBoost는 반도체 자료의 회귀 사례를 분류용으로 적용했습니다.
+목표 Train/Validation/Test=6:2:2. 본문10장·질문용 부록6장, 발화 목표255초+전환20초+여유25초로 5분을 준비합니다. 실측 리허설 시간은 아닙니다. [Windows 로컬 Qwen 포함 전체 학습](evaluation/windows_llm_synthetic.json)에서 실제 세 역할 응답과 같은 Test 결과(TP27·FP14)를 재현했습니다. 기존 Test를 재사용한 외부 후보 탐색은 독립 검증이 필요합니다. 14장은 기술 대응표, 15장은 Judge 오판 사례, 16장은 출처입니다. 본문은 ‘여러 모델 비교’로 소개하고 각 후보의 수업·반도체 자료 출처를 구분합니다. AdaBoost는 반도체 자료의 회귀 사례를 분류용으로 적용했습니다.

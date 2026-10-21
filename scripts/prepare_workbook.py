@@ -53,7 +53,7 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['제출 절차','이 파일은 로컬 명단입니다. 지정된 공용 Google Spreadsheet 등록 여부는 별도 확인 필요.'],
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
       ['실행 모드','Windows: 로컬 Qwen2.5-1.5B 양자화 모델 + TF-IDF 검색. 역할별 검증 기록을 별도 보관.'],
-      ['발표 구성','본문 10장 280초 + 전환 20초 / 질문용 부록 6장']]
+      ['발표 구성','본문 10장 발화 목표255초 + 전환20초 + 여유25초 / 질문용 부록6장. 지표 설명→입력→승인→비교→결과→RAG→구조·검증 순서. 필수 기능 실제 화면5장. 리허설 실측 아님.']]
 for i,row in enumerate(rows,1):
     for j,value in enumerate(row,1):
         cell=info.cell(i,j,value);cell.alignment=Alignment(vertical='top',wrap_text=True)

@@ -47,143 +47,8 @@ def ranking(trials, policy):
 
 
 def make_content():
-    receipts={n:load(n) for n in ['synthetic_process','secom','images']}
-    r=receipts['synthetic_process']['result']; w=r['winner']; b=r['baseline_test']; t=r['test']
-    policy=receipts['synthetic_process']['plan']['policy']; ranks=ranking(r['trials'],policy)
-    mg=load('model_management')['comparison']; retrain=mg['same_model_retraining']
-    trace=load('langsmith_check') if (DOCS/'evaluation/langsmith_check.json').exists() else None
-    local=load('local_llm_check') if (DOCS/'evaluation/local_llm_check.json').exists() else None
-    local_verified=bool(local and local.get('all_roles_verified'))
-    judge=load('llm_judge') if (DOCS/'evaluation/llm_judge.json').exists() else None
-    judge_summary=(f'자체 예제 {judge["label_match_count"]}/{judge["case_count"]}개에서 사전 라벨과 일치' if judge else '별도 로컬 LLM 평가 기록 확인')
-    windows=load('windows_check') if (DOCS/'evaluation/windows_check.json').exists() else None
-    test_count=windows.get('test_count',30) if windows else 30
-    test_state=f'{test_count}개 테스트 통과' if windows and windows.get('tests_passed') else 'Windows 테스트 검증 기록 확인'
-    content=[]
-    def add(title,context,body,seconds=0,note='',table=None,image=None,kind=None,sources=None):
-        content.append(dict(title=title,context=context,body=body,seconds=seconds,note=note,
-                            table=table,image=image,kind=kind,sources=sources or []))
-    add('반도체 검사 모델\n실험 도우미','AI AGENT MINI PROJECT · 과제 2',[
-        '데이터를 점검하고, 승인받아 모델을 비교하고, 선택 근거를 보여 줍니다.',
-        'SKALA 광주 2반 · G045 김용찬 · 2026.10.22'],15,
-        '안녕하세요. SKALA 광주 2반 G045 김용찬입니다. 반도체 검사 데이터를 넣으면 여러 모델을 비교하고, 어떤 후보를 선택했는지 근거를 보여 주는 Agent를 만들었습니다.',kind='cover')
-    add('데이터가 다르면 비교할 모델도 달라집니다','문제 · 반복 실험을 연결하는 도구가 필요합니다',[
-        '사용자: 새 검사 데이터로 정상·불량 분류 모델을 만드는 엔지니어',
-        '전처리 → 모델 비교 → 근거 정리 → 추가 실험을 매번 반복합니다.'],25,
-        '스칼라에서 배운 모델을 바탕으로 반도체 자료에서 참고한 후보도 함께 넣었습니다. 검사 이미지, 로그, 시계열처럼 데이터 형태에 따라 사용하는 모델이 달랐습니다. 이번에는 숫자 센서와 검사 이미지의 정상·불량 분류로 범위를 줄였습니다. 모델 하나를 추천하는 대신, 엔지니어가 반복하는 비교와 기록 과정을 연결하는 것이 목적입니다.',
-        table=[['데이터','교육자료의 모델 예시','이번 구현'],
-               ['숫자 센서','Tree · KNN · SVM · ANN','여러 분류 모델 실제 학습'],
-               ['검사 이미지','ResNet · VGGNet · Autoencoder','자체 축소 구조 3종 실제 학습'],
-               ['로그 / 시계열','BERT·GPT / LSTM·ARIMA','향후 확장']],
-        sources=['docs/CURRICULUM_MODELS.md','반도체 교육 사진의 분류를 표로 재구성'])
-    add('Agent는 계획과 근거, 엔지니어는 승인을 맡습니다','아키텍처 · 실제 실행 순서',[
-        'LangGraph로 점검·검색·계획 역할을 연결하고, 승인된 계획만 실행합니다.',
-        'Validation으로 후보를 고르고, 같은 Test에서 기본 모델과 비교합니다.'],35,
-        '구조입니다. 데이터 점검, 근거 검색, 실험 계획을 LangGraph로 연결했습니다. 계획과 데이터의 해시를 저장하고 엔지니어가 승인한 뒤에만 학습합니다. 결과에서는 선택 근거와 불량 발견·정상 오판을 함께 보여 줍니다. 학습과 수치는 실험 엔진이 계산하고, LLM은 제한된 근거와 설명을 보조합니다.',kind='architecture',
-        sources=['app/planner.py','app/workbench.py','app/store.py','mcp_server.py'])
-    add('① 데이터를 선택하고 비교 계획을 요청합니다','같은 합성 센서 사례를 끝까지 따라갑니다',[
-        '제품 A–D · 1,280건 · 불량 201건',
-        'A–D는 가상 제품명입니다.',
-        '첫 사용: 예제 데이터 준비 → 센서 선택 → 비교 계획 제안받기'],20,
-        '한 사례를 끝까지 보겠습니다. 제품 A부터 D의 합성 센서 1,280건을 선택합니다. 불량 정답은 201건이고 제품 이름은 가상입니다. 처음 실행하면 예제 데이터를 준비하고, 센서를 선택한 뒤 비교 계획을 요청합니다.',image='app-data.jpg',
-        sources=['app/data.py','docs/evaluation/synthetic_process.json'])
-    add('② 전처리·모델·분할을 확인한 뒤 승인합니다','승인 전에는 학습하지 않습니다',[
-        'Train 768 / Validation 256 / Test 256',
-        '같은 생산 묶음(lot)은 구간 사이에 섞지 않습니다.',
-        '여러 후보·불균형 설정을 비교한 뒤 상위 후보의 제품 조합 확장',
-        '최대 52조건 · 완전탐색은 아닙니다.'],25,
-        'Agent가 결측과 불량 비율을 확인하고 전처리와 모델 계획을 제안합니다. 수업 기준 6대2대2를 사전에 고정하고 같은 생산 묶음이 평가에 섞이지 않도록 나눴습니다. 스칼라에서 배운 모델과 반도체 자료에서 참고한 후보를 함께 비교하고 상위 후보의 제품 조합을 확장합니다. 이 계획을 승인해야 실제 학습합니다.',image='app-plan.jpg',
-        sources=['app/planner.py','app/experiments.py'])
-    show=[ranks[0],ranks[1],next(x for x in ranks if x['model']=='adaboost'),next(x for x in ranks if x['model']=='logistic')]
-    table=[['전체 제품 학습 · Validation','Recall','정상 오판률','F1']]+[
-        [NAMES[x['model']],pct(x['validation']['recall']),pct(x['validation']['fpr']),pct(x['validation']['f1'])] for x in show]
-    add('③ Validation으로 후보를 고르고 이유를 남깁니다','Test 결과를 보고 모델 순위를 바꾸지 않습니다',[
-        '선택 규칙: Recall ≥ 90% · 정상 오판률 ≤ 15% 목표 충족 우선',
-        '충족 후보 중 Recall 우선, 동률이면 정상 오판률이 낮은 후보',
-        '상위 2모델의 제품 조합 비교 → CatBoost · A+B+C 선택'],35,
-        '왜 CatBoost를 골랐는지입니다. 먼저 Validation에서 두 목표를 충족했는지 확인하고 Recall을 우선합니다. 동률이면 정상 오판률이 낮은 후보가 앞섭니다. AdaBoost는 F1이 더 높지만 Recall 우선 규칙에서는 CatBoost가 앞섰습니다. 이후 상위 두 알고리즘의 제품 조합을 비교해 A B C로 학습한 CatBoost를 골랐습니다. 이 규칙은 실험 전에 정한 교육용 목표입니다.',table=table,
-        sources=['docs/evaluation/synthetic_process.json','app/metrics.py:selection_key'])
-    add('④ 더 찾았지만, 목표에는 못 미쳤습니다','같은 Test 256건 · 불량 32건 / 정상 224건',[
-        f'기본: Logistic Regression / 선택 후보: {NAMES[w["model"]]} · {"+".join(w["products"])}',
-        f'후보 Recall {pct(t["recall"])} < 목표 90% → 추가 실험 필요'],35,
-        f'마지막 Test입니다. 같은 불량 {t["positive_count"]}개 중 기본 Logistic은 {b["tp"]}개, 후보 CatBoost는 {t["tp"]}개를 찾았습니다. 대신 정상을 불량으로 오판한 수는 {b["fp"]}개에서 {t["fp"]}개로 늘었습니다. 후보 Recall {pct(t["recall"])}는 목표 90퍼센트에 못 미쳤습니다. 그래서 이 후보를 바로 현장 적용 모델로 확정하지 않고 추가 검증이 필요하다고 설명합니다.',
-        table=[['같은 Test에서 비교','기본 모델','선택 후보'],
-               ['불량 발견',f'{b["tp"]} / 32개',f'{t["tp"]} / 32개'],
-               ['놓친 불량',f'{b["fn"]}개',f'{t["fn"]}개'],
-               ['정상 오판',f'{b["fp"]} / 224개',f'{t["fp"]} / 224개'],
-               ['Recall',pct(b['recall']),pct(t['recall'])]],
-        sources=['docs/evaluation/synthetic_process.json'])
-    add('공식 문서에서 비교할 후보를 추가할 수 있습니다','모델 비교의 확장 · 후보 탐색 RAG',[
-        '공식 모델 목록·문서 조회 → 근거 검색 → 새 비교 계획 → 승인·학습',
-        'ExtraTrees · GaussianNB를 기존 후보와 비교하고 목록을 갱신',
-        '기록된 추가 실험에서는 CatBoost 유지',
-        '현재 실행 가능한 범위: 검토된 두 모델 adapter'],35,
-        '기존 비교 목록에 없는 후보를 추가하는 기능입니다. 공식 모델 목록과 문서를 조회하고, RAG로 근거를 연결해 ExtraTrees와 Gaussian Naive Bayes를 제안합니다. 승인받아 기존 후보와 같은 조건으로 학습하고 후보 목록에 기록했습니다. 이 추가 실험에서는 CatBoost를 유지했습니다. 현재는 검토된 두 모델 연결을 지원합니다. 기존 Test를 재사용한 탐색 비교여서 최종 적용에는 새로운 독립 데이터가 필요합니다.',image='app-discovery.jpg',
-        sources=['app/discovery.py','docs/evaluation/model_discovery.json'])
-    add('실험 경로와 실패 상태를 기록합니다','적용 기술 · 관측 가능성 및 평가',[
-        'LangGraph 역할 분리 · MCP 4도구와 지식 Resource · 의존성 주입',
-        '로컬 Qwen2.5 · RAG 근거 검색 · 공식 문서에서 비교 후보 추가',
-        ('LangSmith APAC: 실제 계획 생성과 하위 실행 API 재조회 성공' if trace else 'LangSmith: 연결 검증 결과 별도 확인'),
-        (f'LLM 평가 {judge["label_match_count"]}/{judge["case_count"]} 예제 일치 · 테스트 {test_count}개 통과' if judge else test_state)],30,
-        'LangGraph로 역할을 연결하고 MCP와 RAG를 적용했습니다. 설명에는 수업에서 사용한 Qwen2.5를 로컬로 연결했습니다. LangSmith로 실제 실행 경로를 확인했고, 별도의 LLM 평가자가 설명과 실제 결과를 비교하도록 했습니다. '+judge_summary+'했습니다. 작은 자체 개발 예제의 결과이며 LLM 평가도 틀릴 수 있어 코드 검사와 함께 사용합니다.',kind='trace',
-        sources=['docs/evaluation/langsmith_check.json','docs/evaluation/local_llm_check.json','docs/evaluation/llm_judge.json','docs/evaluation/tests-windows.txt'])
-    add('선택한 모델과 선택 이유를 함께 보여 줍니다','교훈 · 트레이드오프 · 다음 개선',[
-        '구현: 데이터 점검 → 계획 승인 → 모델 비교 → 선택 근거·지표 확인',
-        '교훈: Recall을 높이면 정상 오판도 늘 수 있고, 선택 규칙이 결론을 바꿉니다.',
-        '한계: 합성 데이터·작은 불량 표본·반복 Validation·Test 재사용 탐색',
-        '다음: 현장 기준 합의 → 독립 기간 검증 → 엔지니어 작업시간 측정'],25,
-        '핵심 성과는 데이터 점검부터 승인된 모델 비교, 선택 근거와 결과 확인까지 한 흐름으로 연결했다는 점입니다. Recall을 높이면 정상 오판이 늘 수 있고, 선택 기준이 결과를 바꾼다는 것을 배웠습니다. 합성 데이터와 작은 표본, 반복 비교가 한계입니다. 다음에는 현장 기준과 독립 기간 데이터로 검증하고 실제 작업시간 절감도 측정하겠습니다. 감사합니다.')
-    full=[['모델 · 전체 제품 학습','불균형 설정','Recall','정상 오판률','F1']]+[
-        [NAMES[x['model']],x['balance'],pct(x['validation']['recall']),pct(x['validation']['fpr']),pct(x['validation']['f1'])] for x in ranks]
-    add('모델별 Validation 비교','부록 · 알고리즘마다 최선 불균형 설정 1개 표시',[
-        '같은 전체 제품 Train에서 비교했습니다. 이 표는 제품 조합 확장 전 단계입니다.',
-        '후보별 판정값은 Validation에서 조정했습니다. Test 전체 모델 순위가 아닙니다.'],table=full,
-        note='전체 제품 학습 24조건에서 모델마다 최선 불균형 설정을 하나씩 표시합니다. CatBoost와 HistGradientBoosting의 제품 조합을 확장해 최종 CatBoost A+B+C를 선택했습니다. 모든 후보가 두 목표를 못 맞추면 목표 부족분 합계가 적은 탐색 참고 후보를 보여 줍니다.',sources=['docs/evaluation/synthetic_process.json'])
-    other=[['데이터','기본 / 선택·참고 후보','불량 발견','정상 오판','판단']]
-    for name,label in [('synthetic_process','합성 센서'),('secom','UCI SECOM'),('images','합성 이미지')]:
-        q=receipts[name]['result']; a=q['baseline_test']; z=q['test']
-        other.append([label,('축소 ResNet' if name=='images' else 'Logistic')+' / '+NAMES[q['winner']['model']],
-                      f'{a["tp"]} → {z["tp"]} / {z["positive_count"]}',f'{a["fp"]} → {z["fp"]} / {z["tn"]+z["fp"]}',
-                      '목표 충족 후보 없음' if name=='secom' else '불량 표본 보강' if name=='images' else '추가 실험 필요'])
-    add('데이터를 바꾸면 후보와 결론도 달라집니다','부록 · 각 행 안에서만 같은 Test 비교',[
-        '합성 센서·이미지는 실제 공장 데이터가 아닙니다. SECOM은 실제 공개 센서 자료입니다.',
-        '각 데이터의 Test는 서로 다릅니다. 모델의 종합 순위로 해석하지 않습니다.'],table=other,
-        note='SECOM은 1,567건 중 불합격104건이고 제조사·제품ID는 제공되지 않습니다. 이미지 Test의 불량15건은 작은 표본이어서 목표 통과를 확정하기 어렵습니다.',
-        sources=['https://archive.ics.uci.edu/dataset/179/secom','https://doi.org/10.24432/C54305','docs/evaluation/summary.json'])
-    add('Recall만 높으면 좋은 모델인가요?','부록 · 검사 목적과 판단 기준',[
-        'Recall: 실제 불량 중 찾아낸 비율 / 정상 오판률: 정상을 불량으로 잘못 본 비율',
-        '전부 불량이라고 판단하면 Recall은 높지만 정상 오판도 커집니다.',
-        '먼저 담당자와 불량 미검출·정상 오판의 허용 범위를 정합니다.',
-        '이번 90%·15%는 교육용 목표이며 회사의 공통 양산 기준이 아닙니다.',
-        'Precision·F1도 함께 보고, 작은 불량 표본의 불확실성을 확인합니다.'],
-        note='같은 Test에서 후보가 불량을 더 찾았지만 정상 오판도 늘었습니다. 목표는 검사 단계와 업무 비용에 따라 정해야 합니다. 이번 실험에서는 두 목표 충족 여부, Recall 우선, 동률 시 정상 오판률 순서로 후보를 비교했습니다.',sources=['app/metrics.py','docs/evaluation/synthetic_process.json'])
-    add('6:2:2는 사전 고정, 혼합 비율은 별도 실험입니다','부록 · 데이터 분할과 앙상블',[
-        'Train: 모델 학습 / Validation: 모델·제품 조합·판정값 선택 / Test: 선택 결과 확인',
-        '합성 센서 768 / 256 / 256 · 후보 A+B+C는 Train 중 544건 학습',
-        'SECOM은 날짜 블록 60/20/20 → 실제 행 수 820 / 367 / 380',
-        'RF·부스팅은 사용 · 서로 다른 모델의 혼합 가중치 탐색은 미구현',
-        '확장 시: 사전에 정한 가중치를 Validation으로 고르고 새 Test로 확인'],
-        note='6대2대2가 모든 데이터의 최적 비율이라는 뜻은 아닙니다. 수업 기준으로 정한 재현 가능한 실험 조건입니다. 같은 lot·날짜 경계를 지키므로 실제 행 비율은 달라집니다. 추가 탐색으로 기존 Test를 반복 확인했다면 독립 기간 Test를 새로 확보해야 합니다.',sources=['app/data.py','docs/MODEL_DISCOVERY_DESIGN.md'])
-    add('구현한 기술과 남은 범위를 구분합니다','부록 · 최종 보고서 기술 대응표',[
-        '과제의 기술 목록 전체를 구현했다고 주장하지 않습니다.'],table=[
-        ['요소','구현·증빙','현재 한계'],
-        ['Multi-Agent / LangGraph','점검·검색·계획·결과 검토 역할','고정 그래프 · 자율 Supervisor 미구현'],
-        ['RAG','TF-IDF / 선택적 Qwen 임베딩·cosine','별도 Vector DB 미도입 · 14개 소규모 근거'],
-        ['외부 모델 탐색','공식 문서 검색·ExtraTrees/GaussianNB','검토된 두 adapter만 지원'],
-        ['MCP','stdio 4도구 + 지식 Resource','승인·학습 실행은 API에서만'],
-        ['코드 품질','모듈화·DI·단위/API 테스트','배포·동시 다중 사용자 미검증'],
-        ['LangSmith','실제 root/child trace API 재조회','LLM 응답 성공과 별도'],
-        ['LLM-as-a-Judge','로컬 Qwen으로 설명과 실제 결과 비교',judge_summary+' · 독립 평가 아님']],
-        note='기존 dense/TF-IDF 검색 평가는 고정13질의에서 Hit@3 양쪽100%, MRR@3 양쪽0.9615였습니다. 일반적인 검색 성능 우위를 주장하지 않습니다. LLM을 꺼도 규칙 실험 모드는 동작하며 실행 상태를 UI와 보고서에 표시합니다.',sources=['docs/ASSIGNMENT_CHECKLIST.md','docs/evaluation/agent_integration.json'])
-    add('출처와 재현 자료','부록 · 질문 대비와 제출 링크',[
-        '모델 참고: 스칼라 9주차 수업 + 15주차 반도체 발표자료',
-        'SECOM: McCann & Johnston (2008), UCI · DOI 10.24432/C54305 · CC BY 4.0',
-        '측정 원본: docs/evaluation/ · 고정 seed 45 · 기존 Mac 결과와 Windows 검증 구분',
-        '소스·최종 보고서: github.com/dragonchan95/Semiconductor-AI-Agent',
-        '기존 Google Slides 주소는 README에 보존 · 온라인 갱신 여부는 별도 확인'],
-        note='발표는 1~10장이고 11~16장은 질문용입니다. 회사 공통 Recall 수치나 수율·금액 이익, 시간 절감은 확인하지 않았습니다. 제출 명단 엑셀과 교육자료 원본, API 키는 공개 저장소에 포함하지 않습니다.',sources=[REPO_URL,SLIDES_URL,'docs/CURRICULUM_MODELS.md'])
-    assert sum(s['seconds'] for s in content)==280
-    return content,receipts,trace
+    from presentation_content import compose_content
+    return compose_content(load,NAMES,pct,ranking)
 
 
 def color(value):
@@ -253,24 +118,39 @@ def build_deck(content,trace):
             for j,(a,b) in enumerate([('01','데이터 점검'),('02','계획 승인'),('03','실제 비교'),('04','선택 근거')]):
                 x=.72+j*3.08;box(slide,x,5.15,2.78,1.05,PALE,rounded=True)
                 text(slide,a,x+.2,5.27,.5,.32,14,TEAL,True);text(slide,b,x+.2,5.68,2.4,.4,19,INK,True)
+        elif item['kind']=='criteria':
+            for j,(label,definition) in enumerate([('불량 검출률 · Recall','불량 100개 중 몇 개를 찾았나요?'),('정상 오판률','정상 100개 중 몇 개를 잘못 잡았나요?')]):
+                x=.72+j*6.08
+                box(slide,x,2.15,5.82,1.43,PALE if j==0 else ORANGE,rounded=True)
+                text(slide,label,x+.22,2.34,5.35,.45,25,TEAL if j==0 else INK,True)
+                text(slide,definition,x+.22,2.97,5.35,.4,19,INK)
+            text(slide,'시연 목표: 불량 검출률 90% 이상 · 정상 오판률 15% 이하',.8,3.99,11.7,.55,23,INK,True)
+            text(slide,'두 목표 충족 → 검출률 우선 → 동률이면 정상 오판이 적은 후보',.8,4.89,11.7,.65,22,TEAL,True)
+            text(slide,item['body'][-1],.8,6.12,11.7,.45,17,MUTED)
         elif item['kind']=='architecture':
-            text(slide,item['body'][0],.68,2.12,12,.5,20,MUTED)
-            nodes=[('데이터 점검','행·결측·라벨·분할'),('근거 검색','교육 근거 / 공식 문서'),('실험 계획','모델·전처리·예산'),('엔지니어 승인','계획·데이터 hash 확인')]
+            text(slide,'LangGraph 역할 연결 · 로컬 Qwen 설명 · MCP 조회·계획 도구',.68,2.1,12,.45,21,MUTED)
+            nodes=[('데이터 점검','행·결측·라벨'),('근거 검색','교육 근거 / 공식 문서'),('실험 계획','모델·전처리·비교 범위'),('엔지니어 승인','확인 후 실행 허용')]
             for j,(a,b) in enumerate(nodes):
-                x=.7+j*3.08;box(slide,x,3.02,2.77,1.26,PALE,rounded=True)
-                text(slide,a,x+.15,3.2,2.48,.4,21,TEAL,True);text(slide,b,x+.15,3.77,2.5,.35,13,MUTED)
-                if j<3:text(slide,'→',x+2.8,3.38,.28,.4,19,TEAL,True)
-            box(slide,.7,4.8,5.7,1.35,'FFFFFF',LINE,True)
-            text(slide,'승인 후 학습·평가',.95,5,5.15,.4,22,TEAL,True)
-            text(slide,'Train 학습 → Validation 선택 → 고정 Test 확인',.95,5.57,5.15,.35,15,MUTED)
-            box(slide,6.85,4.8,5.7,1.35,ORANGE,rounded=True)
-            text(slide,'기본 모델과 후보 결과 비교',7.1,5,5.15,.4,22,INK,True)
-            text(slide,'불량 발견·정상 오판 → 기준 충족 여부 확인',7.1,5.57,5.15,.35,16,MUTED)
-            text(slide,'MCP는 조회·계획 도구를 제공하고, LangSmith는 실행 경로를 추적합니다.',.75,6.4,11.8,.3,13,MUTED)
+                x=.7+j*3.08;box(slide,x,2.92,2.77,1.12,PALE,rounded=True)
+                text(slide,a,x+.15,3.08,2.48,.4,21,TEAL,True);text(slide,b,x+.15,3.59,2.5,.3,13,MUTED)
+                if j<3:text(slide,'→',x+2.8,3.22,.28,.4,19,TEAL,True)
+            box(slide,.7,4.36,11.95,.85,'FFFFFF',LINE,True)
+            text(slide,'실험 엔진 학습·수치·순위 계산 → 결과 검토 역할이 근거 정리',.92,4.56,11.5,.45,22,INK,True)
+            text(slide,'LangSmith: 실제 실행 추적 · API 재조회 확인',.8,5.56,11.7,.4,19,TEAL,True)
+            text(slide,'LLM 평가: 자체 예제 6/8 일치 · 오판 2개 / 코드 테스트: 33개 통과',.8,6.16,11.7,.4,18,MUTED)
+        elif item['kind']=='validation_screen':
+            picture(slide,DOCS/'assets'/item['image'],.78,2.15,8.02,4.2)
+            for j,line in enumerate(['같은 조건에서 후보 비교','검출률·정상 오판 동시 확인','선택: CatBoost · A+B+C','Test는 마지막 확인에 사용']):
+                text(slide,line,9.15,2.35+j*1.04,3.42,.85,21 if j==2 else 18,TEAL if j==2 else INK,j==2)
+            text(slide,'실제 앱 비교표의 상단 4행 · 전체표는 부록 A',.88,6.65,11.8,.22,11,MUTED)
+        elif item['kind']=='result_screen':
+            for j,line in enumerate(item['body']):
+                text(slide,line,.78,2.3+j*1.04,4.25,.87,24 if j<2 else 21,TEAL if j<2 else INK,True)
+            picture(slide,DOCS/'assets'/item['image'],5.45,2.1,7.03,4.55)
         elif item['image']:
             for j,line in enumerate(item['body']):
-                text(slide,line,.72,2.25+j*.84,5.75,.74,21 if j==0 else 18,INK if j==0 else MUTED,j==0)
-            picture(slide,DOCS/'assets'/item['image'],7.1,2.05,5.3,4.55)
+                text(slide,line,.72,2.25+j*.96,4.95,.88,22 if j==0 else 19,INK if j==0 else MUTED,j==0)
+            picture(slide,DOCS/'assets'/item['image'],6.0,2.05,6.4,4.55)
         elif item['kind']=='trace':
             for j,line in enumerate(item['body']):text(slide,line,.7,2.15+j*.62,12,.52,19,INK,j==2)
             box(slide,.72,4.93,11.9,1.42,'FFFFFF',LINE,True)
@@ -283,11 +163,11 @@ def build_deck(content,trace):
             y=2.12+len(item['body'])*.46+.16
             height=6.64-y
             font=16 if i<=10 else 13
-            if i in [11,15]:font=12
+            if i in [11,14]:font=12
             widths=None
-            if i in [6,11]:widths=[5.43]+([2.2]*3) if i==6 else [4.43,1.9,1.9,1.9,1.9]
-            if i==7:widths=[5.23,3.4,3.4]
-            if i==15:widths=[2.35,5,4.68]
+            if i==11:widths=[4.43,1.9,1.9,1.9,1.9]
+            if i==14:widths=[2.35,5,4.68]
+            if i==15:widths=[5.7,3.13,3.2]
             add_table(slide,item['table'],y,height,font,widths)
         else:
             for j,line in enumerate(item['body']):
@@ -302,7 +182,7 @@ def build_deck(content,trace):
 def write_documents(content,receipts,trace):
     (DOCS/'slide-content.json').write_text(json.dumps(content,ensure_ascii=False,indent=2),encoding='utf-8')
     script='SKALA 광주 2반 · G045 김용찬 / 과제 2\n반도체 검사 모델 실험 도우미\n'
-    script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 6장\n발화 280초 + 화면 전환 20초 = 5분 계획\n\n'
+    script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 6장\n발화 목표 255초 + 화면 전환 20초 = 4분35초 / 5분까지 여유25초\n계획 시간이며 실제 리허설 측정값은 아닙니다. 부록은 읽지 않습니다.\n\n'
     elapsed=0
     report='# 반도체 검사 모델 실험 도우미\n\nSKALA 광주 2반 · G045 김용찬 · 과제 2 · 2026-10-22 발표\n\n'
     report+='검사 데이터에 맞는 모델을 비교하고 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
