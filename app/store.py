@@ -25,6 +25,8 @@ class Store:
         self.lock = threading.RLock()
         with self.connect() as c:
             c.executescript("""
+            CREATE TABLE IF NOT EXISTS discoveries(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS candidate_registry(model TEXT PRIMARY KEY, payload TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS datasets(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS proposals(id TEXT PRIMARY KEY, status TEXT NOT NULL,
               plan TEXT NOT NULL, hash TEXT NOT NULL, payload TEXT NOT NULL);
@@ -170,3 +172,25 @@ class Store:
     def comparisons(self):
         with self.connect() as c:
             return [json.loads(r[0]) for r in c.execute('SELECT payload FROM model_comparisons ORDER BY rowid DESC')]
+
+    def save_discovery(self, payload):
+        with self.connect() as c:
+            c.execute('INSERT INTO discoveries VALUES(?,?)',(payload['id'],json.dumps(payload,ensure_ascii=False)))
+        self.event(payload['id'],'external_documents_retrieved',{'models':[m['model']for m in payload['models']]})
+        return payload
+
+    def discovery(self, ident):
+        with self.connect() as c:
+            row=c.execute('SELECT payload FROM discoveries WHERE id=?',(ident,)).fetchone()
+        if row is None:raise KeyError('모델 탐색 기록이 없습니다')
+        return json.loads(row[0])
+
+    def update_candidate(self, payload):
+        with self.lock,self.connect() as c:
+            row=c.execute('SELECT payload FROM candidate_registry WHERE model=?',(payload['model'],)).fetchone()
+            prior=json.loads(row[0])if row else {'experiments':[]}
+            history=[x for x in prior['experiments']if x['run_id']!=payload['run_id']]+[payload]
+            c.execute('INSERT OR REPLACE INTO candidate_registry VALUES(?,?)',(payload['model'],json.dumps({'model':payload['model'],'title':payload['title'],'experiments':history,'latest':payload},ensure_ascii=False)))
+
+    def candidates(self):
+        with self.connect() as c:return [json.loads(row[0])for row in c.execute('SELECT payload FROM candidate_registry ORDER BY model')]

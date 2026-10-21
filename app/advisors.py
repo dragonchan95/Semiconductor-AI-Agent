@@ -26,6 +26,8 @@ class LocalAdvisor:
                       'logistic':'ann', 'mlp':'ann', 'knn':'distance', 'svm':'distance'}
         if role == 'ExperimentPlannerAgent':
             source_map.update({c:'tree' for c in choices if c not in source_map})
+        if role in {'ModelDiscoveryAgent','ExperimentPlannerAgent'}:
+            source_map.update({c:'external-'+c for c in choices if c in {'extra_trees','gaussian_nb'}})
         choices = {c:v for c,v in choices.items() if source_map.get(c) in ids}
         required = {c:source_map[c] for c in choices}
         schema = {'type': 'object', 'properties': {

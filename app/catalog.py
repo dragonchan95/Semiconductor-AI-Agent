@@ -13,6 +13,11 @@ TABULAR = {
     'adaboost': ('AdaBoost', 'median', '틀린 표본에 더 집중하는 부스팅 후보', '반도체 발표 PDF 40~42쪽'),
     'hist_gradient': ('Hist Gradient Boosting', 'median', '히스토그램 기반 부스팅의 추가 비교 후보', '반도체 발표 PDF 40쪽'),
 }
+EXTERNAL = {
+    'extra_trees': ('ExtraTrees', 'median', '무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.', 'https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html', 'ExtraTreesClassifier'),
+    'gaussian_nb': ('Gaussian Naive Bayes', 'scaled', '특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.', 'https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html', 'GaussianNB'),
+}
+
 IMAGE = {
     'resnet_small': ('ResNet 계열 축소', '잔차 연결을 적용한 교육용 CNN', 'Day3 PDF 74쪽 / 반도체 커리큘럼 사진 20261017_135247'),
     'vgg_small': ('VGGNet 계열 축소', '작은 합성곱을 쌓은 교육용 CNN', 'Day3 PDF 74쪽 / 같은 커리큘럼 사진'),
@@ -27,9 +32,11 @@ def pipeline_reason(model, prep='auto', balance='none'):
                 'preprocessing': prep, 'preprocessing_reason': '흑백 32×32 및 0~1 정규화로 CPU 데모 연산량을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능',
                 'model_reason': why, 'balance_method': '정상만 학습' if model == 'autoencoder' else '가중 손실' if balance == 'weighted' else '기본 손실',
                 'source': source, 'limitation': '축소 구조를 scratch 학습. 표준 ResNet50/VGG19 사전학습 성능의 증거가 아님'}
-    title, default, why, source = TABULAR[model]
+    title, default, why, source = (TABULAR[model] if model in TABULAR else EXTERNAL[model][:4])
     prep = default if prep == 'auto' else prep
     reason = '센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)' if prep == 'scaled' else '트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용'
+    if model == 'gaussian_nb':
+        reason = '학습 구간의 평균·분산으로 수치 범위를 맞춰 비교. 클래스별 분포·특성 독립 가정의 적합성은 별도 확인'
     if model in {'knn', 'mlp'} and balance == 'weighted':
         method = '학습 표본 안에서만 불량 무작위 복제 (오버샘플링)'
     elif balance == 'weighted':

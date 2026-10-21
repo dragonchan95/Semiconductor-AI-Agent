@@ -1,0 +1,2384 @@
+{
+  "discovery": {
+    "id": "discovery-71eeda37dfee",
+    "created_at": "2026-10-21T06:19:22.202077+00:00",
+    "dataset_id": "ds-e825048c0fd6",
+    "dataset_sha256": "5780a9d7e393e2b9dbc75895b21c2551336d46dc8a68edb7d9a3a968817013ff",
+    "question": "숫자 센서 불량 분류에 적합한 새로운 모델을 기존 후보와 비교",
+    "provider": "scikit-learn official API index",
+    "index_url": "https://scikit-learn.org/stable/api/index.html",
+    "index_hash": "4bfb73c3ec1c5961d00199fdeb2e3cc6ead3598c37cccbb1910803259202abbd",
+    "index_model_count": 582,
+    "models": [
+      {
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "status": "발굴됨 · 승인 전",
+        "reason": "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.",
+        "preprocessing": "Train 중앙값 결측 대체·상수 제거·Scaling",
+        "evidence_id": "external-gaussian_nb",
+        "retrieval_score": 0.251297,
+        "adapter": "reviewed_local"
+      },
+      {
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "status": "발굴됨 · 승인 전",
+        "reason": "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+        "preprocessing": "Train 중앙값 결측 대체·상수 제거",
+        "evidence_id": "external-extra_trees",
+        "retrieval_score": 0.245395,
+        "adapter": "reviewed_local"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "external-gaussian_nb",
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "text": "GaussianNB#\n\n\n\nclass sklearn.naive_bayes.GaussianNB(*, priors=None, var_smoothing=1e-09)[source]#\n\n\nGaussian Naive Bayes (GaussianNB).\n\nCan perform online updates to model parameters via partial_fit.\nFor details on algorithm used to update feature means and variance online,\nsee Stanford CS tech report STAN-CS-79-773 by Chan, Golub, and LeVeque.\n\nRead more in the User Guide.\n\n\n",
+        "score": 0.251297,
+        "document_hash": "825c8966b691e5e3670df33ebac1f964aad7b9b751fb2a1ad06b8015d4cbdf85",
+        "fetched_at": "2026-10-21T06:19:18.958704+00:00"
+      },
+      {
+        "id": "external-extra_trees",
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "text": "ExtraTreesClassifier#\n\n\n\nclass sklearn.ensemble.ExtraTreesClassifier(n_estimators=100, *, criterion='gini', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='sqrt', max_leaf_nodes=None, min_impurity_decrease=0.0, bootstrap=False, oob_score=False, n_jobs=None, random_state=None, verbose=0, warm_start=False, class_weight=None, ccp_alpha=0.0, max_samples=None, monotonic_cst=None)[source]#\n\n\nAn extra-trees classifier.\n\nThis class implements a meta estimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the \nstimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the predictive accuracy\nand control over-fitting.\n\nThis estimator has native support for missing values (NaNs) for\nrandom splits. During training, a random threshold will be chosen\nto split the non-missing values on. Then the non-missing values will be sent\nto the left and right child based on the randomly selected threshold, while\nthe missing values will also be randomly sent to the left or right child.\nThis is repeated for every feature considered at each split. The best split\namong these is chose",
+        "score": 0.245395,
+        "document_hash": "4bd1b023e4c41f97eddcc316d36f6eba8a744608724a7aa7886f584abdb9a101",
+        "fetched_at": "2026-10-21T06:19:18.719197+00:00"
+      }
+    ],
+    "agent": {
+      "role": "ModelDiscoveryAgent",
+      "status": "verified",
+      "model": "qwen3.5:2b",
+      "priority_codes": [
+        "extra_trees"
+      ],
+      "recommendations": [
+        "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다."
+      ],
+      "evidence_ids": [
+        "external-extra_trees"
+      ],
+      "seconds": 3.238,
+      "tokens": 40,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    },
+    "errors": [],
+    "retrieval": "live official HTML chunks + character TF-IDF + cosine; local LLM grounded code selection or deterministic evidence template",
+    "scope": "공식 API 목록에서 기존 교육12종 밖의 ExtraTrees·GaussianNB를 찾고 검토된 adapter로 실험. 임의 웹 모델 코드 생성·설치는 지원하지 않음",
+    "privacy": "원본 센서 행·제품명·사용자 질문을 외부 서버로 전송하지 않음. 공식 문서 GET만 수행",
+    "summary": "숫자 센서 이진 분류에 연결 가능한 새 후보를 공식 문서에서 찾았습니다. 문서 근거는 실험 적합성 가설이며 성능 우위를 보장하지 않습니다."
+  },
+  "proposal": {
+    "id": "proposal-c41667bb55f3",
+    "status": "completed",
+    "plan": {
+      "dataset_id": "ds-e825048c0fd6",
+      "dataset_sha256": "5780a9d7e393e2b9dbc75895b21c2551336d46dc8a68edb7d9a3a968817013ff",
+      "image_digest": null,
+      "cohorts": [
+        [
+          "A",
+          "B",
+          "C"
+        ]
+      ],
+      "target_products": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "models": [
+        "catboost",
+        "gaussian_nb",
+        "extra_trees"
+      ],
+      "preprocessing": [
+        "auto"
+      ],
+      "balance": [
+        "none",
+        "weighted"
+      ],
+      "epochs": 4,
+      "policy": {
+        "min_recall": 0.9,
+        "max_fpr": 0.15,
+        "min_test_defects": 20
+      },
+      "trial_budget": 6,
+      "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b",
+      "seed": 45,
+      "selection": "Validation threshold and candidate selection; final Test once",
+      "model_backend": "local_sklearn_or_pytorch",
+      "auto_deploy": false,
+      "management_source_run": null,
+      "discovery_id": "discovery-71eeda37dfee",
+      "discovery_source_run": "run-41b9baee7130",
+      "discovery_incumbent": "catboost",
+      "search_strategy": "grid",
+      "llm_priorities": []
+    },
+    "plan_hash": "bdb8da933092dfeeaaa76e70e8639ee0a2c131dac73d3bd07d54924527bef011",
+    "audit": {
+      "rows": 1280,
+      "features": 8,
+      "defects": 201,
+      "defect_ratio": 0.15703125,
+      "missing_ratio": 0.0189453125,
+      "products": {
+        "A": 320,
+        "B": 320,
+        "C": 320,
+        "D": 320
+      },
+      "warnings": [
+        "불량 비율 15.7%: 정확도만으로 선택하지 않고 가중치·임계값을 비교합니다",
+        "센서 결측 1.9%: 결측 대체·스케일러는 학습 파티션에서만 적합합니다"
+      ],
+      "feature_names": [
+        "sensor_0",
+        "sensor_1",
+        "sensor_2",
+        "sensor_3",
+        "sensor_4",
+        "sensor_5",
+        "sensor_6",
+        "sensor_7"
+      ],
+      "modality": "tabular"
+    },
+    "explanation": {
+      "data_summary": "숫자 공정 센서 1,280개, 불량 201개 (15.7%), 결측 1.9%",
+      "task": "정상/불량 이진 분류. 수율 회귀 또는 시간 예측 과제가 아님",
+      "preprocessing_evidence": "숫자 특성 8개. 결측 대체·상수 제거·Scaling의 적합은 train에만 수행합니다.",
+      "imbalance_reason": "불량 15.7%. Recall, 정상 오판률(정상을 불량으로 판정), Precision을 함께 비교합니다. 복제·가중치는 train에만 적용합니다.",
+      "candidates": [
+        {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        {
+          "model": "gaussian_nb",
+          "title": "Gaussian Naive Bayes",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        {
+          "model": "extra_trees",
+          "title": "ExtraTrees",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        }
+      ],
+      "excluded": [
+        {
+          "models": "LSTM / ARIMA",
+          "reason": "연속 관측 주기와 예측 시점·목표가 있는 시계열 입력이 필요. 현재 행 단위 불량 분류와 직접 경쟁시키지 않음"
+        },
+        {
+          "models": "BERT / GPT",
+          "reason": "장비 로그 텍스트 및 분류 라벨이 필요. 현재 센서 CSV·이미지의 검사 모델로 학습하지 않음"
+        },
+        {
+          "models": "GAN",
+          "reason": "결함 생성의 진위·품질 평가와 별도 검증이 필요. 합성 불량 생성 학습은 이번 PoC 범위 밖"
+        }
+      ]
+    },
+    "agent_outputs": [
+      {
+        "role": "DataQualityAgent",
+        "status": "verified",
+        "model": "qwen3.5:2b",
+        "priority_codes": [
+          "split",
+          "missing",
+          "imbalance"
+        ],
+        "recommendations": [
+          "같은 lot 또는 날짜가 학습·평가에 걸치지 않도록 분할을 확인",
+          "관측한 센서 결측을 학습 중앙값으로 대체",
+          "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교"
+        ],
+        "evidence_ids": [
+          "leakage",
+          "leakage",
+          "imbalance"
+        ],
+        "seconds": 1.783,
+        "tokens": 56,
+        "numeric_claims": "engine_only",
+        "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+      },
+      {
+        "role": "ExperimentPlannerAgent",
+        "status": "fallback",
+        "note": "LLM 응답을 검증할 수 없어 규칙 근거를 사용",
+        "error_type": "ValueError",
+        "seconds": 1.715
+      }
+    ],
+    "split": {
+      "test": {
+        "rows": 256,
+        "defects": 32,
+        "index_hash": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1"
+      },
+      "validation": {
+        "rows": 256,
+        "defects": 42,
+        "index_hash": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      "train": {
+        "rows": 768,
+        "defects": 127,
+        "index_hash": "4e93dd124431922bb190ebadf53f1efa09d387e0d4d453bb9cd6421d79bd37c5"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      }
+    },
+    "evidence": [
+      {
+        "id": "retraining",
+        "title": "재학습과 제품 전용 후보",
+        "text": "같은 제품에서 기존 모델과 판정 경계값을 고정해 새 라벨 데이터의 성능을 점검한다. 점검은 새 학습 구간만 사용하며 새 Validation/Test는 남겨 둔다. 데모 목표 미달 또는 검출률 하락이면 승인 후 같은 알고리즘 재학습을 비교한다. 새 제품 도입은 기존 제품 성능 저하와 구분하며 운영 모델을 자동 교체하지 않는다.",
+        "source": "프로젝트 모델 관리 정책",
+        "url": null,
+        "score": 0.480241
+      },
+      {
+        "id": "profit",
+        "title": "불량 검출과 정상 오판의 해석",
+        "text": "정상 오판은 실제 정상을 불량으로 판정한 것이다. 실제 재검사나 폐기 여부는 현장 절차에 따라 달라진다. 불량 발견 건수와 정상 오판 건수는 분모가 다르다. 이 프로젝트는 판정 성능을 비교하며 제조 수율 향상 실측을 주장하지 않는다.",
+        "source": "프로젝트 판정 성능 정의",
+        "url": null,
+        "score": 0.442115
+      },
+      {
+        "id": "leakage",
+        "title": "학습·평가 누수 방지",
+        "text": "lot 또는 날짜로 학습, Validation, Test를 먼저 분리한다. 결측 대체, 상수 제거, Scaling은 학습 데이터에만 fit한다. Validation으로 판정 경계값과 후보를 비교하며 Test는 마지막 확인에만 쓴다. 같은 Validation의 반복 비교는 낙관 편향 가능성이 있어 독립 기간 평가가 필요하다.",
+        "source": "scikit-learn Common pitfalls",
+        "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+        "score": 0.436101
+      },
+      {
+        "id": "imbalance",
+        "title": "불균형 불량 탐지",
+        "text": "불량을 양성1로 정의한다. 정상만 예측해도 정확도가 높을 수 있어 실제 불량 중 발견한 비율 Recall과 실제 정상 중 불량으로 잘못 판정한 정상 오판률을 함께 본다. 불량 가중치·복제는 학습 데이터에만 적용한다. Validation/Test의 원래 분포는 바꾸지 않는다.",
+        "source": "scikit-learn precision_recall_curve",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_curve.html",
+        "score": 0.427082
+      },
+      {
+        "id": "approval",
+        "title": "엔지니어 승인 및 변경 통제",
+        "text": "데이터 품질, 학습할 모델·제품·전처리·비교 목표와 근거를 제시하고 엔지니어가 승인한 계획만 실행한다. 계획 hash와 데이터 hash 및 실행 이력을 저장한다. 학습 실행 승인과 회사의 운영 적용 승인은 별개다.",
+        "source": "프로젝트 HITL 설계. AI Mini-Project 평가 항목 및 Capstone 역할 분리 참고",
+        "url": null,
+        "score": 0.40723
+      },
+      {
+        "id": "secom",
+        "title": "공개 반도체 공정 SECOM",
+        "text": "SECOM은 공정 센서와 pass/fail, 시각을 포함한다. 원본 -1 pass를 정상 0, 원본 1 fail을 불량 1로 매핑한다. 실제 제품 A/B/C 식별자가 없으므로 SECOM은 단일 집단으로 사용한다. 합성 제품 실험과 실제 데이터 결과를 구분한다.",
+        "source": "McCann, M. & Johnston, A. (2008), SECOM, UCI, CC BY 4.0",
+        "url": "https://archive.ics.uci.edu/dataset/179/secom",
+        "score": 0.38419
+      },
+      {
+        "id": "tree",
+        "title": "트리 계열과 Scaling",
+        "text": "Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost는 숫자 특성의 순서에 따른 분기를 학습한다. 트리에는 단위 Scaling가 필수는 아니다. 이번 비교에서는 일관된 결측 처리를 위해 학습 중앙값으로 대체한다. SKALA Day1 PDF 51, 62~73쪽 확인.",
+        "source": "scikit-learn Decision Trees",
+        "url": "https://scikit-learn.org/stable/modules/tree.html",
+        "score": 0.369638
+      },
+      {
+        "id": "ann",
+        "title": "MLP 신경망과 데이터 부족",
+        "text": "다층 퍼셉트론 MLP는 숫자 센서의 비선형 관계를 학습한다. Scaling와 규제, 고정된 학습 반복 예산을 사용한다. 불량 복제는 train에만 적용하고 validation/test 라벨 분포는 바꾸지 않는다. SKALA Day3 PDF 7~22쪽 신경망 교육에서 후보를 선정했다.",
+        "source": "scikit-learn Neural networks",
+        "url": "https://scikit-learn.org/stable/modules/neural_networks_supervised.html",
+        "score": 0.346918
+      },
+      {
+        "id": "external-gaussian_nb",
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "text": "GaussianNB#\n\n\n\nclass sklearn.naive_bayes.GaussianNB(*, priors=None, var_smoothing=1e-09)[source]#\n\n\nGaussian Naive Bayes (GaussianNB).\n\nCan perform online updates to model parameters via partial_fit.\nFor details on algorithm used to update feature means and variance online,\nsee Stanford CS tech report STAN-CS-79-773 by Chan, Golub, and LeVeque.\n\nRead more in the User Guide.\n\n\n",
+        "score": 0.251297,
+        "document_hash": "825c8966b691e5e3670df33ebac1f964aad7b9b751fb2a1ad06b8015d4cbdf85",
+        "fetched_at": "2026-10-21T06:19:18.958704+00:00"
+      },
+      {
+        "id": "external-extra_trees",
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "text": "ExtraTreesClassifier#\n\n\n\nclass sklearn.ensemble.ExtraTreesClassifier(n_estimators=100, *, criterion='gini', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='sqrt', max_leaf_nodes=None, min_impurity_decrease=0.0, bootstrap=False, oob_score=False, n_jobs=None, random_state=None, verbose=0, warm_start=False, class_weight=None, ccp_alpha=0.0, max_samples=None, monotonic_cst=None)[source]#\n\n\nAn extra-trees classifier.\n\nThis class implements a meta estimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the \nstimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the predictive accuracy\nand control over-fitting.\n\nThis estimator has native support for missing values (NaNs) for\nrandom splits. During training, a random threshold will be chosen\nto split the non-missing values on. Then the non-missing values will be sent\nto the left and right child based on the randomly selected threshold, while\nthe missing values will also be randomly sent to the left or right child.\nThis is repeated for every feature considered at each split. The best split\namong these is chose",
+        "score": 0.245395,
+        "document_hash": "4bd1b023e4c41f97eddcc316d36f6eba8a744608724a7aa7886f584abdb9a101",
+        "fetched_at": "2026-10-21T06:19:18.719197+00:00"
+      }
+    ],
+    "reasons": [
+      "불량 비율 15.7%: 정확도만으로 선택하지 않고 가중치·임계값을 비교합니다",
+      "센서 결측 1.9%: 결측 대체·스케일러는 학습 파티션에서만 적합합니다",
+      "제품 학습 조합 1개와 모델 3개 등 최대 6개 실험입니다.",
+      "모든 학습 조합은 동일한 대상 제품의 validation/test 표본으로 평가합니다.",
+      "test는 모델 선택에 쓰지 않고 선택된 후보와 사전 정의 baseline만 마지막에 평가합니다.",
+      "입력값은 교육용 비교 목표입니다. 회사 양산 기준은 현장 담당자가 별도 정의해야 합니다.",
+      "승인은 이 계획의 로컬 학습 실행만 허용합니다. 장비·recipe 변경과 운영 배포는 수행하지 않습니다."
+    ],
+    "events": [
+      {
+        "type": "DataAudited",
+        "rows": 1280
+      },
+      {
+        "type": "KnowledgeRetrieved",
+        "count": 10,
+        "mode": "dense",
+        "model": "qwen3-embedding:0.6b",
+        "document_count": 14
+      },
+      {
+        "type": "PlanProposed",
+        "trial_count": 6
+      }
+    ],
+    "question": "공식 외부 문서 근거로 새 후보를 기존 모델과 비교",
+    "dataset_name": "제품 A–D 합성 공정",
+    "synthetic": true,
+    "created_at": "2026-10-21T06:20:35.248423+00:00"
+  },
+  "run_id": "run-a7ee698b3401",
+  "result": {
+    "dataset": {
+      "id": "ds-e825048c0fd6",
+      "name": "제품 A–D 합성 공정",
+      "source": "자체 생성 합성 데이터, 실제 반도체 측정값 아님",
+      "synthetic": true,
+      "sha256": "5780a9d7e393e2b9dbc75895b21c2551336d46dc8a68edb7d9a3a968817013ff"
+    },
+    "split": {
+      "test": {
+        "rows": 256,
+        "defects": 32,
+        "index_hash": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1"
+      },
+      "validation": {
+        "rows": 256,
+        "defects": 42,
+        "index_hash": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      "train": {
+        "rows": 768,
+        "defects": 127,
+        "index_hash": "4e93dd124431922bb190ebadf53f1efa09d387e0d4d453bb9cd6421d79bd37c5"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      }
+    },
+    "trials": [
+      {
+        "id": "trial-001",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9375,
+          "recall": 1.0,
+          "precision": 0.7241379310344828,
+          "f1": 0.84,
+          "fpr": 0.07476635514018691,
+          "roc_auc": 0.9855362705829995,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 0.628197750000254,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-002",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.93359375,
+          "recall": 0.9761904761904762,
+          "precision": 0.7192982456140351,
+          "f1": 0.8282828282828283,
+          "fpr": 0.07476635514018691,
+          "roc_auc": 0.9849799732977303,
+          "threshold": 0.4845091792473412,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 0.4750935420015594,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-003",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "gaussian_nb",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "gaussian_nb",
+          "title": "Gaussian Naive Bayes",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 193,
+          "fp": 21,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.90625,
+          "recall": 0.9285714285714286,
+          "precision": 0.65,
+          "f1": 0.7647058823529411,
+          "fpr": 0.09813084112149532,
+          "roc_auc": 0.9671784601691144,
+          "threshold": 0.1779695806301292,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 0.4556501670012949,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-004",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "gaussian_nb",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "gaussian_nb",
+          "title": "Gaussian Naive Bayes",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 193,
+          "fp": 21,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.90625,
+          "recall": 0.9285714285714286,
+          "precision": 0.65,
+          "f1": 0.7647058823529411,
+          "fpr": 0.09813084112149532,
+          "roc_auc": 0.9671784601691144,
+          "threshold": 0.5530775504249036,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 0.46166933399945265,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-005",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "extra_trees",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "extra_trees",
+          "title": "ExtraTrees",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.90234375,
+          "recall": 1.0,
+          "precision": 0.6268656716417911,
+          "f1": 0.7706422018348624,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.985981308411215,
+          "threshold": 0.18817992070295614,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 0.4901160830013396,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-006",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "extra_trees",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "extra_trees",
+          "title": "ExtraTrees",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 197,
+          "fp": 17,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.921875,
+          "recall": 0.9285714285714286,
+          "precision": 0.6964285714285714,
+          "f1": 0.7959183673469388,
+          "fpr": 0.0794392523364486,
+          "roc_auc": 0.9692923898531376,
+          "threshold": 0.4958477288307751,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 0.4903087910024624,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      }
+    ],
+    "winner_id": "trial-001",
+    "winner": {
+      "id": "trial-001",
+      "products": [
+        "A",
+        "B",
+        "C"
+      ],
+      "model": "catboost",
+      "preprocessing": "auto",
+      "balance": "none",
+      "status": "completed",
+      "train_n": 544,
+      "train_defects": 81,
+      "validation_feasible": true,
+      "explanation": {
+        "model": "catboost",
+        "title": "CatBoost",
+        "input": "숫자 센서와 정상/불량 라벨",
+        "preprocessing": "median",
+        "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+        "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+        "balance_method": "원래 학습 클래스 비율 유지",
+        "source": "Day1 PDF 70, 73쪽",
+        "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+      },
+      "stage": "model_comparison",
+      "validation": {
+        "n": 256,
+        "positive_count": 42,
+        "tn": 198,
+        "fp": 16,
+        "fn": 0,
+        "tp": 42,
+        "accuracy": 0.9375,
+        "recall": 1.0,
+        "precision": 0.7241379310344828,
+        "f1": 0.84,
+        "fpr": 0.07476635514018691,
+        "roc_auc": 0.9855362705829995,
+        "threshold": 0.18696192285673094,
+        "recall_wilson95": [
+          0.9161983874908382,
+          1.0
+        ]
+      },
+      "fit_seconds": 0.628197750000254,
+      "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+    },
+    "test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 210,
+      "fp": 14,
+      "fn": 5,
+      "tp": 27,
+      "accuracy": 0.92578125,
+      "recall": 0.84375,
+      "precision": 0.6585365853658537,
+      "f1": 0.7397260273972602,
+      "fpr": 0.0625,
+      "roc_auc": 0.9737723214285714,
+      "threshold": 0.18696192285673094,
+      "recall_wilson95": [
+        0.6824550744643347,
+        0.9313568089337279
+      ]
+    },
+    "baseline_test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 223,
+      "fp": 1,
+      "fn": 12,
+      "tp": 20,
+      "accuracy": 0.94921875,
+      "recall": 0.625,
+      "precision": 0.9523809523809523,
+      "f1": 0.7547169811320755,
+      "fpr": 0.004464285714285714,
+      "roc_auc": 0.9468470982142857,
+      "threshold": 0.5,
+      "recall_wilson95": [
+        0.45254100589525126,
+        0.7706633153404079
+      ]
+    },
+    "test_fingerprint": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1",
+    "test_predictions": [
+      {
+        "sample_index": 0,
+        "label": 0,
+        "score": 0.024707849363077388
+      },
+      {
+        "sample_index": 1,
+        "label": 0,
+        "score": 0.029623666162812656
+      },
+      {
+        "sample_index": 2,
+        "label": 0,
+        "score": 0.08122543916821848
+      },
+      {
+        "sample_index": 3,
+        "label": 0,
+        "score": 0.027031051174207746
+      },
+      {
+        "sample_index": 4,
+        "label": 0,
+        "score": 0.05312374878498995
+      },
+      {
+        "sample_index": 5,
+        "label": 0,
+        "score": 0.05049120857550601
+      },
+      {
+        "sample_index": 6,
+        "label": 0,
+        "score": 0.03405551721048906
+      },
+      {
+        "sample_index": 7,
+        "label": 0,
+        "score": 0.053305553711803705
+      },
+      {
+        "sample_index": 24,
+        "label": 0,
+        "score": 0.0328257201281548
+      },
+      {
+        "sample_index": 25,
+        "label": 0,
+        "score": 0.057571223138678476
+      },
+      {
+        "sample_index": 26,
+        "label": 0,
+        "score": 0.023927432227048826
+      },
+      {
+        "sample_index": 27,
+        "label": 0,
+        "score": 0.06387025954580786
+      },
+      {
+        "sample_index": 28,
+        "label": 0,
+        "score": 0.04500105411123934
+      },
+      {
+        "sample_index": 29,
+        "label": 0,
+        "score": 0.05278687309801242
+      },
+      {
+        "sample_index": 30,
+        "label": 0,
+        "score": 0.051974410554408754
+      },
+      {
+        "sample_index": 31,
+        "label": 0,
+        "score": 0.08035757459055706
+      },
+      {
+        "sample_index": 32,
+        "label": 0,
+        "score": 0.0580645588454823
+      },
+      {
+        "sample_index": 33,
+        "label": 0,
+        "score": 0.11058318102645348
+      },
+      {
+        "sample_index": 34,
+        "label": 0,
+        "score": 0.18303183774690396
+      },
+      {
+        "sample_index": 35,
+        "label": 1,
+        "score": 0.7000344232865454
+      },
+      {
+        "sample_index": 36,
+        "label": 0,
+        "score": 0.2926727543245994
+      },
+      {
+        "sample_index": 37,
+        "label": 0,
+        "score": 0.034421259064479695
+      },
+      {
+        "sample_index": 38,
+        "label": 0,
+        "score": 0.032505544732343204
+      },
+      {
+        "sample_index": 39,
+        "label": 0,
+        "score": 0.0629011173541857
+      },
+      {
+        "sample_index": 80,
+        "label": 0,
+        "score": 0.1595422324274653
+      },
+      {
+        "sample_index": 81,
+        "label": 0,
+        "score": 0.03510979713672045
+      },
+      {
+        "sample_index": 82,
+        "label": 0,
+        "score": 0.09762739237052431
+      },
+      {
+        "sample_index": 83,
+        "label": 0,
+        "score": 0.09497678563049818
+      },
+      {
+        "sample_index": 84,
+        "label": 1,
+        "score": 0.2036714603201976
+      },
+      {
+        "sample_index": 85,
+        "label": 1,
+        "score": 0.5403056988293514
+      },
+      {
+        "sample_index": 86,
+        "label": 0,
+        "score": 0.03896470569555259
+      },
+      {
+        "sample_index": 87,
+        "label": 1,
+        "score": 0.11198432580741134
+      },
+      {
+        "sample_index": 224,
+        "label": 0,
+        "score": 0.05044227952381542
+      },
+      {
+        "sample_index": 225,
+        "label": 0,
+        "score": 0.026603743360914717
+      },
+      {
+        "sample_index": 226,
+        "label": 0,
+        "score": 0.15878527471271142
+      },
+      {
+        "sample_index": 227,
+        "label": 0,
+        "score": 0.09108795441718498
+      },
+      {
+        "sample_index": 228,
+        "label": 1,
+        "score": 0.7232363768361121
+      },
+      {
+        "sample_index": 229,
+        "label": 1,
+        "score": 0.2701785088622896
+      },
+      {
+        "sample_index": 230,
+        "label": 0,
+        "score": 0.07527757952093801
+      },
+      {
+        "sample_index": 231,
+        "label": 0,
+        "score": 0.05244334297669892
+      },
+      {
+        "sample_index": 272,
+        "label": 0,
+        "score": 0.03164122486001272
+      },
+      {
+        "sample_index": 273,
+        "label": 0,
+        "score": 0.028001049409383402
+      },
+      {
+        "sample_index": 274,
+        "label": 0,
+        "score": 0.03369760260402936
+      },
+      {
+        "sample_index": 275,
+        "label": 1,
+        "score": 0.7768579906641201
+      },
+      {
+        "sample_index": 276,
+        "label": 0,
+        "score": 0.025196350845631564
+      },
+      {
+        "sample_index": 277,
+        "label": 0,
+        "score": 0.09269086660759562
+      },
+      {
+        "sample_index": 278,
+        "label": 1,
+        "score": 0.7328497659936258
+      },
+      {
+        "sample_index": 279,
+        "label": 0,
+        "score": 0.03291331393606318
+      },
+      {
+        "sample_index": 280,
+        "label": 1,
+        "score": 0.19312961239787677
+      },
+      {
+        "sample_index": 281,
+        "label": 0,
+        "score": 0.11501339793461035
+      },
+      {
+        "sample_index": 282,
+        "label": 0,
+        "score": 0.09421385022460017
+      },
+      {
+        "sample_index": 283,
+        "label": 0,
+        "score": 0.08589820346703099
+      },
+      {
+        "sample_index": 284,
+        "label": 0,
+        "score": 0.0965245891444521
+      },
+      {
+        "sample_index": 285,
+        "label": 0,
+        "score": 0.025741680899226252
+      },
+      {
+        "sample_index": 286,
+        "label": 0,
+        "score": 0.06833632793444734
+      },
+      {
+        "sample_index": 287,
+        "label": 0,
+        "score": 0.1059914383783939
+      },
+      {
+        "sample_index": 304,
+        "label": 0,
+        "score": 0.02823643772340538
+      },
+      {
+        "sample_index": 305,
+        "label": 0,
+        "score": 0.11575296160205358
+      },
+      {
+        "sample_index": 306,
+        "label": 0,
+        "score": 0.058321587514707264
+      },
+      {
+        "sample_index": 307,
+        "label": 1,
+        "score": 0.2293140011688608
+      },
+      {
+        "sample_index": 308,
+        "label": 1,
+        "score": 0.6434396675774677
+      },
+      {
+        "sample_index": 309,
+        "label": 0,
+        "score": 0.0496530920691147
+      },
+      {
+        "sample_index": 310,
+        "label": 0,
+        "score": 0.14464623362395373
+      },
+      {
+        "sample_index": 311,
+        "label": 0,
+        "score": 0.1047814614029525
+      },
+      {
+        "sample_index": 352,
+        "label": 0,
+        "score": 0.03582340081585444
+      },
+      {
+        "sample_index": 353,
+        "label": 0,
+        "score": 0.10242909651088168
+      },
+      {
+        "sample_index": 354,
+        "label": 0,
+        "score": 0.07014807322068133
+      },
+      {
+        "sample_index": 355,
+        "label": 0,
+        "score": 0.04307290415979416
+      },
+      {
+        "sample_index": 356,
+        "label": 0,
+        "score": 0.05536874118262278
+      },
+      {
+        "sample_index": 357,
+        "label": 0,
+        "score": 0.27511820839065154
+      },
+      {
+        "sample_index": 358,
+        "label": 0,
+        "score": 0.026036543356063764
+      },
+      {
+        "sample_index": 359,
+        "label": 0,
+        "score": 0.13654768280603582
+      },
+      {
+        "sample_index": 488,
+        "label": 0,
+        "score": 0.033638189680653754
+      },
+      {
+        "sample_index": 489,
+        "label": 0,
+        "score": 0.2930286212202586
+      },
+      {
+        "sample_index": 490,
+        "label": 1,
+        "score": 0.1841831177015888
+      },
+      {
+        "sample_index": 491,
+        "label": 0,
+        "score": 0.05906398048440261
+      },
+      {
+        "sample_index": 492,
+        "label": 0,
+        "score": 0.05960259522535609
+      },
+      {
+        "sample_index": 493,
+        "label": 0,
+        "score": 0.07732263241347802
+      },
+      {
+        "sample_index": 494,
+        "label": 0,
+        "score": 0.059636462940214345
+      },
+      {
+        "sample_index": 495,
+        "label": 0,
+        "score": 0.03955501580424132
+      },
+      {
+        "sample_index": 512,
+        "label": 0,
+        "score": 0.04957450174429456
+      },
+      {
+        "sample_index": 513,
+        "label": 0,
+        "score": 0.02850652457570352
+      },
+      {
+        "sample_index": 514,
+        "label": 0,
+        "score": 0.04286383199472279
+      },
+      {
+        "sample_index": 515,
+        "label": 0,
+        "score": 0.06404643264202277
+      },
+      {
+        "sample_index": 516,
+        "label": 0,
+        "score": 0.031577424847715835
+      },
+      {
+        "sample_index": 517,
+        "label": 0,
+        "score": 0.2005554632748519
+      },
+      {
+        "sample_index": 518,
+        "label": 0,
+        "score": 0.0981856058864266
+      },
+      {
+        "sample_index": 519,
+        "label": 0,
+        "score": 0.06261170988682772
+      },
+      {
+        "sample_index": 568,
+        "label": 1,
+        "score": 0.6771618503929885
+      },
+      {
+        "sample_index": 569,
+        "label": 0,
+        "score": 0.055741079993821045
+      },
+      {
+        "sample_index": 570,
+        "label": 1,
+        "score": 0.4771306541225653
+      },
+      {
+        "sample_index": 571,
+        "label": 1,
+        "score": 0.3482198304585804
+      },
+      {
+        "sample_index": 572,
+        "label": 0,
+        "score": 0.09081489327373202
+      },
+      {
+        "sample_index": 573,
+        "label": 0,
+        "score": 0.15755052370810574
+      },
+      {
+        "sample_index": 574,
+        "label": 1,
+        "score": 0.4814343291578356
+      },
+      {
+        "sample_index": 575,
+        "label": 0,
+        "score": 0.025229938593336228
+      },
+      {
+        "sample_index": 576,
+        "label": 0,
+        "score": 0.08859786888426889
+      },
+      {
+        "sample_index": 577,
+        "label": 0,
+        "score": 0.0553307070229536
+      },
+      {
+        "sample_index": 578,
+        "label": 0,
+        "score": 0.03359466852903981
+      },
+      {
+        "sample_index": 579,
+        "label": 0,
+        "score": 0.06532110756026151
+      },
+      {
+        "sample_index": 580,
+        "label": 0,
+        "score": 0.027793942305931577
+      },
+      {
+        "sample_index": 581,
+        "label": 0,
+        "score": 0.027511465232537894
+      },
+      {
+        "sample_index": 582,
+        "label": 0,
+        "score": 0.028539817602063196
+      },
+      {
+        "sample_index": 583,
+        "label": 0,
+        "score": 0.16049227809864405
+      },
+      {
+        "sample_index": 640,
+        "label": 0,
+        "score": 0.054137854936657556
+      },
+      {
+        "sample_index": 641,
+        "label": 0,
+        "score": 0.06055437899071811
+      },
+      {
+        "sample_index": 642,
+        "label": 0,
+        "score": 0.1053010437800136
+      },
+      {
+        "sample_index": 643,
+        "label": 0,
+        "score": 0.03825015430660361
+      },
+      {
+        "sample_index": 644,
+        "label": 0,
+        "score": 0.060837931800396844
+      },
+      {
+        "sample_index": 645,
+        "label": 0,
+        "score": 0.16683290422069957
+      },
+      {
+        "sample_index": 646,
+        "label": 0,
+        "score": 0.08236414683071681
+      },
+      {
+        "sample_index": 647,
+        "label": 0,
+        "score": 0.06562752190281093
+      },
+      {
+        "sample_index": 656,
+        "label": 1,
+        "score": 0.5175024112483328
+      },
+      {
+        "sample_index": 657,
+        "label": 0,
+        "score": 0.3189129154568699
+      },
+      {
+        "sample_index": 658,
+        "label": 0,
+        "score": 0.054313735701454466
+      },
+      {
+        "sample_index": 659,
+        "label": 1,
+        "score": 0.1713852539873867
+      },
+      {
+        "sample_index": 660,
+        "label": 0,
+        "score": 0.06471236010250969
+      },
+      {
+        "sample_index": 661,
+        "label": 0,
+        "score": 0.10644696343661297
+      },
+      {
+        "sample_index": 662,
+        "label": 0,
+        "score": 0.05279187603438191
+      },
+      {
+        "sample_index": 663,
+        "label": 0,
+        "score": 0.07109830542244472
+      },
+      {
+        "sample_index": 696,
+        "label": 0,
+        "score": 0.03241761572379794
+      },
+      {
+        "sample_index": 697,
+        "label": 0,
+        "score": 0.033561493718678545
+      },
+      {
+        "sample_index": 698,
+        "label": 0,
+        "score": 0.0267233585565163
+      },
+      {
+        "sample_index": 699,
+        "label": 0,
+        "score": 0.03808045461267464
+      },
+      {
+        "sample_index": 700,
+        "label": 0,
+        "score": 0.03550958916530666
+      },
+      {
+        "sample_index": 701,
+        "label": 0,
+        "score": 0.0866035662761683
+      },
+      {
+        "sample_index": 702,
+        "label": 0,
+        "score": 0.08785779217393395
+      },
+      {
+        "sample_index": 703,
+        "label": 0,
+        "score": 0.10762010319137474
+      },
+      {
+        "sample_index": 792,
+        "label": 0,
+        "score": 0.10002270177449651
+      },
+      {
+        "sample_index": 793,
+        "label": 0,
+        "score": 0.032568532446608345
+      },
+      {
+        "sample_index": 794,
+        "label": 0,
+        "score": 0.1522127768854003
+      },
+      {
+        "sample_index": 795,
+        "label": 0,
+        "score": 0.08202354516177654
+      },
+      {
+        "sample_index": 796,
+        "label": 0,
+        "score": 0.051213071455430165
+      },
+      {
+        "sample_index": 797,
+        "label": 0,
+        "score": 0.029362333539892947
+      },
+      {
+        "sample_index": 798,
+        "label": 0,
+        "score": 0.027944772215709384
+      },
+      {
+        "sample_index": 799,
+        "label": 0,
+        "score": 0.0247694543016147
+      },
+      {
+        "sample_index": 912,
+        "label": 0,
+        "score": 0.024648003024216804
+      },
+      {
+        "sample_index": 913,
+        "label": 0,
+        "score": 0.05033708284347833
+      },
+      {
+        "sample_index": 914,
+        "label": 0,
+        "score": 0.24239790702984584
+      },
+      {
+        "sample_index": 915,
+        "label": 0,
+        "score": 0.05332898398558662
+      },
+      {
+        "sample_index": 916,
+        "label": 0,
+        "score": 0.11356764279415336
+      },
+      {
+        "sample_index": 917,
+        "label": 0,
+        "score": 0.05536325224435289
+      },
+      {
+        "sample_index": 918,
+        "label": 0,
+        "score": 0.032664353702517045
+      },
+      {
+        "sample_index": 919,
+        "label": 1,
+        "score": 0.35893277962519765
+      },
+      {
+        "sample_index": 920,
+        "label": 0,
+        "score": 0.03284550249710109
+      },
+      {
+        "sample_index": 921,
+        "label": 0,
+        "score": 0.024270677257620374
+      },
+      {
+        "sample_index": 922,
+        "label": 0,
+        "score": 0.04043243996576738
+      },
+      {
+        "sample_index": 923,
+        "label": 0,
+        "score": 0.09847400695578212
+      },
+      {
+        "sample_index": 924,
+        "label": 0,
+        "score": 0.10117440282345805
+      },
+      {
+        "sample_index": 925,
+        "label": 1,
+        "score": 0.22152670431448673
+      },
+      {
+        "sample_index": 926,
+        "label": 1,
+        "score": 0.8082377819204286
+      },
+      {
+        "sample_index": 927,
+        "label": 1,
+        "score": 0.19750204370480473
+      },
+      {
+        "sample_index": 936,
+        "label": 0,
+        "score": 0.07069624829468729
+      },
+      {
+        "sample_index": 937,
+        "label": 1,
+        "score": 0.6211439988054138
+      },
+      {
+        "sample_index": 938,
+        "label": 0,
+        "score": 0.05982024383597498
+      },
+      {
+        "sample_index": 939,
+        "label": 0,
+        "score": 0.05245478408947989
+      },
+      {
+        "sample_index": 940,
+        "label": 0,
+        "score": 0.09041864802508616
+      },
+      {
+        "sample_index": 941,
+        "label": 0,
+        "score": 0.555100627151031
+      },
+      {
+        "sample_index": 942,
+        "label": 0,
+        "score": 0.039513839252091856
+      },
+      {
+        "sample_index": 943,
+        "label": 0,
+        "score": 0.05909338762261982
+      },
+      {
+        "sample_index": 1024,
+        "label": 0,
+        "score": 0.03462179535454049
+      },
+      {
+        "sample_index": 1025,
+        "label": 0,
+        "score": 0.028342335668227813
+      },
+      {
+        "sample_index": 1026,
+        "label": 0,
+        "score": 0.0670752719500479
+      },
+      {
+        "sample_index": 1027,
+        "label": 0,
+        "score": 0.0877675152021066
+      },
+      {
+        "sample_index": 1028,
+        "label": 0,
+        "score": 0.16535320038225648
+      },
+      {
+        "sample_index": 1029,
+        "label": 0,
+        "score": 0.07644298262634333
+      },
+      {
+        "sample_index": 1030,
+        "label": 1,
+        "score": 0.6823347481260966
+      },
+      {
+        "sample_index": 1031,
+        "label": 0,
+        "score": 0.24203630957976546
+      },
+      {
+        "sample_index": 1040,
+        "label": 1,
+        "score": 0.16208532800333286
+      },
+      {
+        "sample_index": 1041,
+        "label": 0,
+        "score": 0.02393827670305979
+      },
+      {
+        "sample_index": 1042,
+        "label": 0,
+        "score": 0.13728174004103796
+      },
+      {
+        "sample_index": 1043,
+        "label": 0,
+        "score": 0.0294399224998994
+      },
+      {
+        "sample_index": 1044,
+        "label": 0,
+        "score": 0.03693480961601599
+      },
+      {
+        "sample_index": 1045,
+        "label": 0,
+        "score": 0.07415675991771421
+      },
+      {
+        "sample_index": 1046,
+        "label": 1,
+        "score": 0.8046862705710197
+      },
+      {
+        "sample_index": 1047,
+        "label": 0,
+        "score": 0.11193213894231151
+      },
+      {
+        "sample_index": 1064,
+        "label": 0,
+        "score": 0.057816419217802416
+      },
+      {
+        "sample_index": 1065,
+        "label": 0,
+        "score": 0.03221592070287118
+      },
+      {
+        "sample_index": 1066,
+        "label": 0,
+        "score": 0.028649767859602864
+      },
+      {
+        "sample_index": 1067,
+        "label": 0,
+        "score": 0.19586443922624716
+      },
+      {
+        "sample_index": 1068,
+        "label": 1,
+        "score": 0.4336499140046123
+      },
+      {
+        "sample_index": 1069,
+        "label": 0,
+        "score": 0.029646070915324264
+      },
+      {
+        "sample_index": 1070,
+        "label": 0,
+        "score": 0.03710239531392511
+      },
+      {
+        "sample_index": 1071,
+        "label": 0,
+        "score": 0.04675400448153843
+      },
+      {
+        "sample_index": 1072,
+        "label": 0,
+        "score": 0.025818930222001574
+      },
+      {
+        "sample_index": 1073,
+        "label": 0,
+        "score": 0.0472605460313525
+      },
+      {
+        "sample_index": 1074,
+        "label": 0,
+        "score": 0.05912710345530989
+      },
+      {
+        "sample_index": 1075,
+        "label": 0,
+        "score": 0.1676971716126338
+      },
+      {
+        "sample_index": 1076,
+        "label": 0,
+        "score": 0.025416737645548956
+      },
+      {
+        "sample_index": 1077,
+        "label": 0,
+        "score": 0.09903998842634765
+      },
+      {
+        "sample_index": 1078,
+        "label": 0,
+        "score": 0.10342456238730727
+      },
+      {
+        "sample_index": 1079,
+        "label": 1,
+        "score": 0.508786775531688
+      },
+      {
+        "sample_index": 1088,
+        "label": 0,
+        "score": 0.13228922249549763
+      },
+      {
+        "sample_index": 1089,
+        "label": 0,
+        "score": 0.027324685319773112
+      },
+      {
+        "sample_index": 1090,
+        "label": 0,
+        "score": 0.02777392575648232
+      },
+      {
+        "sample_index": 1091,
+        "label": 0,
+        "score": 0.06654474039961299
+      },
+      {
+        "sample_index": 1092,
+        "label": 0,
+        "score": 0.02905248567105958
+      },
+      {
+        "sample_index": 1093,
+        "label": 0,
+        "score": 0.14855111902140716
+      },
+      {
+        "sample_index": 1094,
+        "label": 0,
+        "score": 0.0767247654817723
+      },
+      {
+        "sample_index": 1095,
+        "label": 0,
+        "score": 0.06377885174441773
+      },
+      {
+        "sample_index": 1096,
+        "label": 0,
+        "score": 0.04196305655627612
+      },
+      {
+        "sample_index": 1097,
+        "label": 0,
+        "score": 0.1190100906784199
+      },
+      {
+        "sample_index": 1098,
+        "label": 0,
+        "score": 0.033654886808960095
+      },
+      {
+        "sample_index": 1099,
+        "label": 0,
+        "score": 0.03953353149603705
+      },
+      {
+        "sample_index": 1100,
+        "label": 0,
+        "score": 0.04776221555033693
+      },
+      {
+        "sample_index": 1101,
+        "label": 0,
+        "score": 0.03688524413406821
+      },
+      {
+        "sample_index": 1102,
+        "label": 0,
+        "score": 0.19107967285774938
+      },
+      {
+        "sample_index": 1103,
+        "label": 0,
+        "score": 0.27862097602496955
+      },
+      {
+        "sample_index": 1104,
+        "label": 0,
+        "score": 0.053024179453831324
+      },
+      {
+        "sample_index": 1105,
+        "label": 0,
+        "score": 0.1208389660431189
+      },
+      {
+        "sample_index": 1106,
+        "label": 0,
+        "score": 0.029522961407727255
+      },
+      {
+        "sample_index": 1107,
+        "label": 0,
+        "score": 0.03237093095322908
+      },
+      {
+        "sample_index": 1108,
+        "label": 0,
+        "score": 0.07721355049232491
+      },
+      {
+        "sample_index": 1109,
+        "label": 0,
+        "score": 0.039951931341957084
+      },
+      {
+        "sample_index": 1110,
+        "label": 0,
+        "score": 0.023433743180738414
+      },
+      {
+        "sample_index": 1111,
+        "label": 0,
+        "score": 0.2420664116791132
+      },
+      {
+        "sample_index": 1144,
+        "label": 0,
+        "score": 0.060404108279086675
+      },
+      {
+        "sample_index": 1145,
+        "label": 0,
+        "score": 0.02290721344056311
+      },
+      {
+        "sample_index": 1146,
+        "label": 0,
+        "score": 0.06064522357388501
+      },
+      {
+        "sample_index": 1147,
+        "label": 0,
+        "score": 0.06551696780474389
+      },
+      {
+        "sample_index": 1148,
+        "label": 0,
+        "score": 0.09359285463306466
+      },
+      {
+        "sample_index": 1149,
+        "label": 0,
+        "score": 0.13696955017085596
+      },
+      {
+        "sample_index": 1150,
+        "label": 0,
+        "score": 0.027398615940311646
+      },
+      {
+        "sample_index": 1151,
+        "label": 0,
+        "score": 0.0827131943646908
+      },
+      {
+        "sample_index": 1160,
+        "label": 0,
+        "score": 0.09833040555158837
+      },
+      {
+        "sample_index": 1161,
+        "label": 0,
+        "score": 0.033426119994898994
+      },
+      {
+        "sample_index": 1162,
+        "label": 0,
+        "score": 0.02582202200169647
+      },
+      {
+        "sample_index": 1163,
+        "label": 0,
+        "score": 0.1972488280211469
+      },
+      {
+        "sample_index": 1164,
+        "label": 0,
+        "score": 0.038216820039861585
+      },
+      {
+        "sample_index": 1165,
+        "label": 1,
+        "score": 0.7735199963067102
+      },
+      {
+        "sample_index": 1166,
+        "label": 0,
+        "score": 0.02867305552392612
+      },
+      {
+        "sample_index": 1167,
+        "label": 0,
+        "score": 0.05955236073328158
+      },
+      {
+        "sample_index": 1184,
+        "label": 0,
+        "score": 0.088243530825831
+      },
+      {
+        "sample_index": 1185,
+        "label": 0,
+        "score": 0.02582788092265979
+      },
+      {
+        "sample_index": 1186,
+        "label": 0,
+        "score": 0.03153975939138078
+      },
+      {
+        "sample_index": 1187,
+        "label": 0,
+        "score": 0.05359112071105772
+      },
+      {
+        "sample_index": 1188,
+        "label": 0,
+        "score": 0.0922736164094763
+      },
+      {
+        "sample_index": 1189,
+        "label": 0,
+        "score": 0.037755630821365654
+      },
+      {
+        "sample_index": 1190,
+        "label": 0,
+        "score": 0.03188966355589387
+      },
+      {
+        "sample_index": 1191,
+        "label": 0,
+        "score": 0.04083628328942771
+      },
+      {
+        "sample_index": 1200,
+        "label": 0,
+        "score": 0.04704265720359506
+      },
+      {
+        "sample_index": 1201,
+        "label": 0,
+        "score": 0.06962022693993092
+      },
+      {
+        "sample_index": 1202,
+        "label": 0,
+        "score": 0.22281637046458405
+      },
+      {
+        "sample_index": 1203,
+        "label": 0,
+        "score": 0.029353699085364858
+      },
+      {
+        "sample_index": 1204,
+        "label": 0,
+        "score": 0.14816235605519745
+      },
+      {
+        "sample_index": 1205,
+        "label": 1,
+        "score": 0.11611720943191632
+      },
+      {
+        "sample_index": 1206,
+        "label": 0,
+        "score": 0.05084411955801532
+      },
+      {
+        "sample_index": 1207,
+        "label": 0,
+        "score": 0.09407127074121945
+      },
+      {
+        "sample_index": 1208,
+        "label": 0,
+        "score": 0.16429068517979847
+      },
+      {
+        "sample_index": 1209,
+        "label": 0,
+        "score": 0.028608869079737285
+      },
+      {
+        "sample_index": 1210,
+        "label": 1,
+        "score": 0.6888300102692094
+      },
+      {
+        "sample_index": 1211,
+        "label": 0,
+        "score": 0.027278464033146915
+      },
+      {
+        "sample_index": 1212,
+        "label": 0,
+        "score": 0.02835668180351006
+      },
+      {
+        "sample_index": 1213,
+        "label": 0,
+        "score": 0.06171793632431823
+      },
+      {
+        "sample_index": 1214,
+        "label": 0,
+        "score": 0.02319513692512512
+      },
+      {
+        "sample_index": 1215,
+        "label": 1,
+        "score": 0.2917626420723434
+      }
+    ],
+    "selection_feasible": true,
+    "gate": {
+      "passed": false,
+      "reasons": [
+        "불량 검출률 84.4%: 데모 목표 90% 미달"
+      ],
+      "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+      "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+      "auto_deploy": false
+    },
+    "elapsed_seconds": 3.079083874999924,
+    "scope_note": "불량 판정 성능 비교이며 제조 수율 개선 실측이 아닙니다.",
+    "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
+    "seed": 45,
+    "discovery_comparison": {
+      "reference_model": "catboost",
+      "reference_validation": {
+        "n": 256,
+        "positive_count": 42,
+        "tn": 198,
+        "fp": 16,
+        "fn": 0,
+        "tp": 42,
+        "accuracy": 0.9375,
+        "recall": 1.0,
+        "precision": 0.7241379310344828,
+        "f1": 0.84,
+        "fpr": 0.07476635514018691,
+        "roc_auc": 0.9855362705829995,
+        "threshold": 0.18696192285673094,
+        "recall_wilson95": [
+          0.9161983874908382,
+          1.0
+        ]
+      },
+      "reference_test": {
+        "n": 256,
+        "positive_count": 32,
+        "tn": 210,
+        "fp": 14,
+        "fn": 5,
+        "tp": 27,
+        "accuracy": 0.92578125,
+        "recall": 0.84375,
+        "precision": 0.6585365853658537,
+        "f1": 0.7397260273972602,
+        "fpr": 0.0625,
+        "roc_auc": 0.9737723214285714,
+        "threshold": 0.18696192285673094,
+        "recall_wilson95": [
+          0.6824550744643347,
+          0.9313568089337279
+        ]
+      },
+      "reference_products": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": "기존 알고리즘과 새 후보를 같은 학습 제품·같은 분할로 비교. 기존 Test 재사용 탐색 결과"
+    },
+    "explanation": {
+      "model": "catboost",
+      "title": "CatBoost",
+      "input": "숫자 센서와 정상/불량 라벨",
+      "preprocessing": "median",
+      "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+      "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+      "balance_method": "원래 학습 클래스 비율 유지",
+      "source": "Day1 PDF 70, 73쪽",
+      "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+      "selection_reason": "같은 Validation에서 데모 목표를 만족한 6개 후보 중 불량 검출률이 높고 정상 오판률이 낮은 순서로 선택",
+      "evaluated_models": [
+        "catboost",
+        "extra_trees",
+        "gaussian_nb"
+      ],
+      "search_note": "승인한 후보들의 같은 분할 비교"
+    },
+    "agent_review": {
+      "role": "ResultCriticAgent",
+      "status": "fallback",
+      "note": "LLM 응답을 검증할 수 없어 규칙 근거를 사용",
+      "error_type": "ValueError",
+      "seconds": 1.603
+    },
+    "discovery": {
+      "id": "discovery-71eeda37dfee",
+      "source_run": "run-41b9baee7130",
+      "registry_updates": [
+        {
+          "model": "gaussian_nb",
+          "title": "Gaussian Naive Bayes",
+          "discovery_id": "discovery-71eeda37dfee",
+          "run_id": "run-a7ee698b3401",
+          "dataset_id": "ds-e825048c0fd6",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+          "updated_at": "2026-10-21T06:20:45.244834+00:00",
+          "status": "Validation 목표 충족",
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 193,
+            "fp": 21,
+            "fn": 3,
+            "tp": 39,
+            "accuracy": 0.90625,
+            "recall": 0.9285714285714286,
+            "precision": 0.65,
+            "f1": 0.7647058823529411,
+            "fpr": 0.09813084112149532,
+            "roc_auc": 0.9671784601691144,
+            "threshold": 0.5530775504249036,
+            "recall_wilson95": [
+              0.8099028671147483,
+              0.9754100364488272
+            ]
+          },
+          "selected": false,
+          "production_deployed": false,
+          "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+        },
+        {
+          "model": "extra_trees",
+          "title": "ExtraTrees",
+          "discovery_id": "discovery-71eeda37dfee",
+          "run_id": "run-a7ee698b3401",
+          "dataset_id": "ds-e825048c0fd6",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+          "updated_at": "2026-10-21T06:20:45.245438+00:00",
+          "status": "Validation 목표 충족",
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 189,
+            "fp": 25,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.90234375,
+            "recall": 1.0,
+            "precision": 0.6268656716417911,
+            "f1": 0.7706422018348624,
+            "fpr": 0.11682242990654206,
+            "roc_auc": 0.985981308411215,
+            "threshold": 0.18817992070295614,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1.0
+            ]
+          },
+          "selected": false,
+          "production_deployed": false,
+          "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+        }
+      ],
+      "note": "기존에 확인한 Test를 재사용한 탐색 비교입니다. 독립 기간 검증 없이 현장 적용을 확정하지 않습니다."
+    }
+  },
+  "registry": [
+    {
+      "model": "gaussian_nb",
+      "title": "Gaussian Naive Bayes",
+      "experiments": [
+        {
+          "model": "gaussian_nb",
+          "title": "Gaussian Naive Bayes",
+          "discovery_id": "discovery-71eeda37dfee",
+          "run_id": "run-a7ee698b3401",
+          "dataset_id": "ds-e825048c0fd6",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+          "updated_at": "2026-10-21T06:20:45.244834+00:00",
+          "status": "Validation 목표 충족",
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 193,
+            "fp": 21,
+            "fn": 3,
+            "tp": 39,
+            "accuracy": 0.90625,
+            "recall": 0.9285714285714286,
+            "precision": 0.65,
+            "f1": 0.7647058823529411,
+            "fpr": 0.09813084112149532,
+            "roc_auc": 0.9671784601691144,
+            "threshold": 0.5530775504249036,
+            "recall_wilson95": [
+              0.8099028671147483,
+              0.9754100364488272
+            ]
+          },
+          "selected": false,
+          "production_deployed": false,
+          "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+        }
+      ],
+      "latest": {
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "discovery_id": "discovery-71eeda37dfee",
+        "run_id": "run-a7ee698b3401",
+        "dataset_id": "ds-e825048c0fd6",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "updated_at": "2026-10-21T06:20:45.244834+00:00",
+        "status": "Validation 목표 충족",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 193,
+          "fp": 21,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.90625,
+          "recall": 0.9285714285714286,
+          "precision": 0.65,
+          "f1": 0.7647058823529411,
+          "fpr": 0.09813084112149532,
+          "roc_auc": 0.9671784601691144,
+          "threshold": 0.5530775504249036,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "selected": false,
+        "production_deployed": false,
+        "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+      }
+    },
+    {
+      "model": "extra_trees",
+      "title": "ExtraTrees",
+      "experiments": [
+        {
+          "model": "extra_trees",
+          "title": "ExtraTrees",
+          "discovery_id": "discovery-71eeda37dfee",
+          "run_id": "run-a7ee698b3401",
+          "dataset_id": "ds-e825048c0fd6",
+          "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+          "updated_at": "2026-10-21T06:20:45.245438+00:00",
+          "status": "Validation 목표 충족",
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 189,
+            "fp": 25,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.90234375,
+            "recall": 1.0,
+            "precision": 0.6268656716417911,
+            "f1": 0.7706422018348624,
+            "fpr": 0.11682242990654206,
+            "roc_auc": 0.985981308411215,
+            "threshold": 0.18817992070295614,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1.0
+            ]
+          },
+          "selected": false,
+          "production_deployed": false,
+          "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+        }
+      ],
+      "latest": {
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "discovery_id": "discovery-71eeda37dfee",
+        "run_id": "run-a7ee698b3401",
+        "dataset_id": "ds-e825048c0fd6",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "updated_at": "2026-10-21T06:20:45.245438+00:00",
+        "status": "Validation 목표 충족",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.90234375,
+          "recall": 1.0,
+          "precision": 0.6268656716417911,
+          "f1": 0.7706422018348624,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.985981308411215,
+          "threshold": 0.18817992070295614,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "selected": false,
+        "production_deployed": false,
+        "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b"
+      }
+    }
+  ],
+  "approval_actor": "Agent가 김용찬 기본 승인자명으로 수행한 UI 검증. 현장 승인 실적 아님",
+  "browser_flow_verified": true
+}

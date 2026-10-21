@@ -16,7 +16,7 @@ from .config import MAX_TRIALS, ROOT, SEED
 from .data import audit_frame, load_frame, split_frame
 from .experiments import cohorts
 from .store import digest
-from .catalog import TABULAR, IMAGE, explain_plan
+from .catalog import TABULAR, IMAGE, EXTERNAL, explain_plan
 from .advisors import quality_choices
 
 
@@ -36,6 +36,8 @@ class ProposalRequest(BaseModel):
     models: list[str] | None = None
     preprocessing: list[str] | None = None
     balance: list[str] | None = None
+    discovery_id: str | None = None
+    discovery_source_run: str | None = None
     epochs: int = Field(default=4, ge=1, le=12)
     policy: Policy = Field(default_factory=Policy)
 
@@ -114,6 +116,12 @@ def build_planner(deps):
     def retrieve(state):
         query = state["request"]["question"] + " 불균형 누수 방지 제품별 승인 " + state["dataset"]["modality"]
         evidence = deps.knowledge.search(query, 8)
+        discovery_id=state['request'].get('discovery_id')
+        if discovery_id:
+            d=deps.store.discovery(discovery_id)
+            if d['dataset_id']!=state['dataset']['id']or d['dataset_sha256']!=state['dataset']['sha256']:
+                raise ValueError('탐색한 데이터와 현재 데이터가 다릅니다')
+            evidence=evidence+d['evidence']
         qa = deps.advisor.advise('DataQualityAgent', state['audit'], quality_choices(state['audit']), evidence) if deps.advisor else {'role': 'DataQualityAgent', 'status': 'disabled'}
         return {"evidence": evidence, 'agent_outputs': [qa], "events": state["events"] + [{"type": "KnowledgeRetrieved", "count": len(evidence), **deps.knowledge.last_status}]}
 
@@ -134,6 +142,12 @@ def build_planner(deps):
             raise ValueError('모델 관리의 기준 실행이 완료되지 않았습니다')
         names = req.get('models') or list(IMAGE if image else TABULAR)
         allowed = set(IMAGE if image else TABULAR)
+        if source_run and not image:
+            source_model=deps.store.run(source_run)['result']['winner']['model']
+            if source_model in EXTERNAL: allowed.add(source_model)
+        if req.get('discovery_id') and not image:
+            d=deps.store.discovery(req['discovery_id'])
+            allowed.update(x['model']for x in d['models']if x['model']in EXTERNAL)
         if not names or not set(names) <= allowed or len(names) != len(set(names)):
             raise ValueError("모델 후보가 유효하지 않습니다")
         if image and not any(n != "autoencoder" for n in names):
@@ -158,7 +172,14 @@ def build_planner(deps):
                 "split_hash": digest(state["split"]), "seed": SEED,
                 "selection": "Validation threshold and candidate selection; final Test once",
                 "model_backend": "local_sklearn_or_pytorch", "auto_deploy": False,
-                "management_source_run": source_run}
+                "management_source_run": source_run, "discovery_id": req.get("discovery_id"), "discovery_source_run": req.get("discovery_source_run")}
+        if req.get('discovery_id'):
+            source=deps.store.run(req.get('discovery_source_run'))
+            if source['status']!='completed' or source['result']['dataset']['id']!=state['dataset']['id']:
+                raise ValueError('외부 후보 비교의 기준 실험이 유효하지 않습니다')
+            plan['discovery_incumbent']=source['result']['winner']['model']
+            if plan['discovery_incumbent'] not in names:
+                raise ValueError('새 모델 비교에는 기존 후보 알고리즘을 포함해야 합니다')
         plan['search_strategy'] = 'model_then_cohort' if staged else 'grid'
         reasons = list(quality["warnings"]) + [
             f"제품 학습 조합 {len(combinations)}개와 모델 {len(names)}개 등 최대 {count}개 실험입니다.",
@@ -172,7 +193,7 @@ def build_planner(deps):
         elif staged:
             reasons.append('전체 제품에서 모든 모델을 비교한 뒤 validation 상위 서로 다른 두 모델의 제품 학습 조합을 확장합니다. 완전탐색은 아니며 같은 validation의 반복 사용에 따른 선택 편향이 남습니다.')
         explanation = explain_plan(quality, plan)
-        choices = {n: (IMAGE[n][1] if image else TABULAR[n][2]) for n in names}
+        choices = {n: (IMAGE[n][1] if image else (TABULAR.get(n) or EXTERNAL[n])[2]) for n in names}
         advice = deps.advisor.advise('ExperimentPlannerAgent', {'audit': quality, 'budget': count,
                 'strategy': plan['search_strategy']}, choices, state['evidence']) if deps.advisor else {'role': 'ExperimentPlannerAgent', 'status': 'disabled'}
         plan['llm_priorities'] = advice.get('priority_codes', [])

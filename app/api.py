@@ -245,3 +245,29 @@ def strategy_comparison(req: StrategyRequest):
 @app.get('/api/model-comparisons')
 def strategy_history():
     return app.state.workbench.store.comparisons()
+
+
+class DiscoveryRequest(BaseModel):
+    dataset_id: str
+    question: str = Field(default='숫자 센서의 불량 분류에 쓸 새로운 모델',max_length=1500)
+
+
+@app.post('/api/model-discovery/search', dependencies=[Depends(authorize)])
+def search_models(req: DiscoveryRequest):
+    from .discovery import discover
+    return discover(app.state.workbench,req.dataset_id,req.question)
+
+
+class DiscoveryPlanRequest(BaseModel):
+    source_run: str
+
+
+@app.post('/api/model-discovery/{ident}/proposal', dependencies=[Depends(authorize)])
+def propose_models(ident: str, req: DiscoveryPlanRequest):
+    from .discovery import propose_discovery
+    return propose_discovery(app.state.workbench,ident,req.source_run)
+
+
+@app.get('/api/model-candidates')
+def model_candidates():
+    return app.state.workbench.store.candidates()

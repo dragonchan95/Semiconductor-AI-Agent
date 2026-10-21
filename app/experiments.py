@@ -9,7 +9,8 @@ from pathlib import Path
 import joblib
 import numpy as np
 from sklearn.ensemble import (RandomForestClassifier, HistGradientBoostingClassifier,
-                              GradientBoostingClassifier, AdaBoostClassifier)
+                              GradientBoostingClassifier, AdaBoostClassifier, ExtraTreesClassifier)
+from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
@@ -40,6 +41,10 @@ def estimator(name, preprocessing, balance):
     balanced = "balanced" if balance == "weighted" else None
     if name == "logistic":
         model = LogisticRegression(C=.2, max_iter=1500, class_weight=balanced, random_state=SEED)
+    elif name == "extra_trees":
+        model = ExtraTreesClassifier(n_estimators=80, max_depth=9, min_samples_leaf=3, class_weight=balanced, n_jobs=1, random_state=SEED)
+    elif name == "gaussian_nb":
+        model = GaussianNB(var_smoothing=1e-8)
     elif name == "random_forest":
         model = RandomForestClassifier(n_estimators=80, max_depth=9, min_samples_leaf=3,
                                      class_weight=balanced, n_jobs=1, random_state=SEED)
@@ -92,7 +97,7 @@ def fit_estimator(name, prep, balance, x, y):
         target = max(map(len, groups))
         idx = np.concatenate([np.concatenate([g, rng.choice(g, target-len(g), replace=True)]) for g in groups])
         x, y = x[idx], y[idx]
-    elif balance == 'weighted' and name in {'gradient_boosting', 'adaboost', 'xgboost', 'lightgbm', 'catboost'}:
+    elif balance == 'weighted' and name in {'gradient_boosting', 'adaboost', 'xgboost', 'lightgbm', 'catboost', 'gaussian_nb'}:
         kwargs['classifier__sample_weight'] = compute_sample_weight('balanced', y)
     return model.fit(x, y, **kwargs)
 
@@ -201,6 +206,13 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
               "scope_note": "불량 판정 성능 비교이며 제조 수율 개선 실측이 아닙니다.",
               "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
               "seed": SEED}
+    if plan.get('discovery_incumbent'):
+        reference_rows=[row for row in complete if row['model']==plan['discovery_incumbent']]
+        reference=max(reference_rows,key=lambda row:(*selection_key(row['validation'],policy),row['id']))
+        reference_model,reference_threshold=fitted[reference['id']]
+        result['discovery_comparison']={'reference_model':reference['model'],'reference_validation':reference['validation'],
+            'reference_test':measure(y[test],reference_model.predict_proba(x[test])[:,1],reference_threshold,policy),
+            'reference_products':reference['products'],'note':'기존 알고리즘과 새 후보를 같은 학습 제품·같은 분할로 비교. 기존 Test 재사용 탐색 결과'}
     result['explanation'] = {
         **winner['explanation'],
         'selection_reason': f"같은 Validation에서 데모 목표를 만족한 {len(feasible)}개 후보 중 불량 검출률이 높고 정상 오판률이 낮은 순서로 선택" if feasible else '두 데모 목표를 만족한 후보 없음. 목표와의 차이가 가장 작은 참고 후보이며 적용 추천이 아님',

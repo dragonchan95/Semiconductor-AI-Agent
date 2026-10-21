@@ -79,6 +79,8 @@ class Workbench:
                     'status': '후보 검토 가능' if result['gate']['passed'] else '후보 검토 보류',
                     'test_recall': result['test']['recall'], 'test_fpr': result['test']['fpr'],
                     'auto_deployed': False}
+            from .discovery import register_results
+            register_results(self, proposal, run_id, result)
             self.store.finish_run(run_id, result)
             on_event({"type": "RunCompleted", "run_id": run_id})
             return result
