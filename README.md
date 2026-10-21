@@ -21,6 +21,8 @@
 이 후보·간격·데이터 안의 최선이며 전체 모델의 전역 최적이나 양산 최적을 뜻하지 않습니다.
 [실제 승인·실행 기록](docs/evaluation/weighted_ensemble.json) · [브라우저·CSV 검증](docs/evaluation/ensemble_browser.json) · [비교 방법](docs/ENSEMBLE.md)
 
+학습할 제품 범위도 비교합니다. A·AB·ABC·ABCD 등15개 학습 부분집합 탐색과, 별도 배치의 전체 공통 모델 대 제품별 전용 모델 비교가 구현돼 있습니다. 제품별 전용이 항상 우수하다고 가정하지 않습니다. ABC용 모델+D용 모델 같은 그룹 구성의 자동 전수 선택은 별도 확장입니다. [실제 범위와 제품별 비교](docs/PRODUCT_GROUPING.md)
+
 ## Windows에서 실행
 
 `start.cmd`를 더블클릭하고 **http://localhost:8700**을 엽니다. 실행 창은 열어 둡니다.

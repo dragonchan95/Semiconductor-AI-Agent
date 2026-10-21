@@ -26,6 +26,7 @@ SKALA 광주 2반 · G045 김용찬 · 신규 프로젝트 · 2026-10-21 검증 
 | 모듈화 | app/data.py·catalog.py·metrics.py·experiments.py·images.py·monitoring.py·store.py·api.py | 데이터·모델·지표·학습·관리·저장·접속 역할 분리 |
 | 단위/API 테스트 | [tests/](../tests), [Windows 42개 통과 로그](evaluation/tests-windows.txt), [검증 환경](evaluation/windows_check.json) | 분할·지표·승인 hash·인증·SSE·CSV·재학습·앙상블 Recall 우선·F1 동률·오판 한도·단일 모델 유지·저장 모델 재현·Judge 실패 상태 검증 |
 | 모델 간 앙상블 | [확률 혼합](../app/ensemble.py), [실측](evaluation/weighted_ensemble.json), [실제 UI](evaluation/ensemble_browser.json), [방법](ENSEMBLE.md) | 승인한 상위3개 모델과5% 간격+균등 비율232개를 Validation에서 비교. 정상 오판 한도 안에서 Recall 우선·동률 F1. CatBoost90%+LightGBM10%, 같은 Test 불량발견30/32동일·정상오판21→19·F1 .723→.741. 전역 최적 주장은 아님 |
+| 학습 제품 범위 | [제품 범위 설명](PRODUCT_GROUPING.md), [기존 제품별 비교](evaluation/model_management.json), 발표2·5·12장 | 학습 제품 부분집합15개 탐색과 별도 배치의 공통·제품 전용 비교. A는 공통, C는 전용 모델이 Validation에서 우세. ABC용+D용 같은 그룹 구성의 자동 전수 최적화와 구분 |
 | LLM-as-a-Judge | [로컬 평가자](../app/judge.py), [실제 평가 기록](evaluation/llm_judge.json), [초기 실패 기록](evaluation/llm_judge_initial.json) | 로컬 Qwen이 결과 설명과 실제 실험 근거를 대조해 판정. 사전 라벨을 모델에 보내지 않고 일치율을 측정. 프롬프트 보완에 사용한 작은 자체 개발 예제이며 독립 평가·일반 정확도 실적은 아님. 코드 검사를 대체하지 않음 |
 
 | 미구현 기술 | 실제 범위 표시 | 별도 Vector DB·자율 Supervisor는 미구현. 혼합은 센서 이진 분류의 검토된2~3개 구성 모델에 한정 |

@@ -22,13 +22,14 @@ for i,page in enumerate(pdf):
     for s in prs.slides[i].shapes:
         if s.left < 0 or s.top < 0 or s.left+s.width>prs.slide_width+1000 or s.top+s.height>prs.slide_height+1000:
             overflow.append(i+1)
-    if i in [2,3,4,5,6,7,8,10,13,14]:page.get_pixmap(matrix=pymupdf.Matrix(1.5,1.5),alpha=False).save(out/f'slide-{i+1:02d}.png')
+    if i in [2,3,4,5,6,7,8,10,11,12,13]:page.get_pixmap(matrix=pymupdf.Matrix(1.5,1.5),alpha=False).save(out/f'slide-{i+1:02d}.png')
     assert prs.slides[i].notes_slide.notes_text_frame.text.strip()
     assert '\ufffd' not in page.get_text()
 assert not overflow,overflow
 assert content[2]['kind']=='criteria'
 assert content[5]['kind']=='ensemble_screen'
 assert content[6]['kind']=='result_screen'
+assert '제품별 전용 모델' in content[11]['title']
 assert sum(x['seconds'] for x in content)==255
 for i in [3,4,5,6,7]:
     assert any(s.shape_type==13 for s in prs.slides[i].shapes),f'Missing screenshot on slide {i+1}'

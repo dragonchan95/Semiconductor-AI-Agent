@@ -19,10 +19,10 @@ def compose_content(load,names,pct,ranking):
         '안녕하세요. 김용찬입니다. 검사 데이터를 넣으면 모델과 앙상블 비율을 비교하고, 왜 그 비율을 선택했는지 결과와 함께 보여 주는 Agent를 만들었습니다.',kind='cover')
     add('반복하던 모델·비율 비교를 한 흐름으로','02 · 사용자와 해결할 문제',[
         '사용자: 검사 데이터로 정상·불량 분류 모델을 만드는 엔지니어',
-        '반복 업무: 데이터 확인 → 여러 모델 학습 → 혼합 비율 비교 → 근거 기록',
+        '반복 업무: 학습할 제품 묶음 선택 → 모델·혼합 비율 비교 → 근거 기록',
         'Agent가 근거와 계획을 제시하고, 엔지니어가 승인하면 실행',
         '센서 사례 하나로 입력부터 선택 결과까지 보여 드립니다.'],20,
-        '대상은 검사 모델을 만드는 엔지니어입니다. 데이터가 바뀌면 어떤 모델을 쓰고 예측을 어떤 비율로 섞을지 비교해야 합니다. 이 반복 작업을 연결했습니다. 스칼라에서 배운 모델과 반도체 자료의 후보를 함께 넣었고, 센서 사례 하나로 설명하겠습니다.')
+        '대상은 검사 모델을 만드는 엔지니어입니다. 어떤 제품 데이터를 함께 학습할지, 어떤 모델과 혼합 비율을 쓸지 비교해야 합니다. 이 반복 작업을 연결했습니다. 스칼라에서 배운 모델과 반도체 자료의 후보를 함께 넣었고, 센서 사례 하나로 설명하겠습니다.')
     add('불량을 놓치지 않되, 정상 오판도 제한합니다','03 · 결과를 읽기 위한 기준',[
         '불량 검출률(Recall): 실제 불량 중 찾아낸 비율',
         '정상 오판률: 정상을 불량으로 잘못 판정한 비율',
@@ -39,9 +39,9 @@ def compose_content(load,names,pct,ranking):
     add('② 모델 비교 후, 비율 탐색 계획을 승인합니다','05 · 실제 화면 | 비율 탐색도 승인 후 실행',[
         '결측·불균형 점검과\n전처리 이유 확인',
         '학습60% / 후보 선택20% / 마지막 확인20% · 같은 lot은 분리',
-        '상위 3개 모델의 확률을 5% 간격으로 혼합 · 합계100%',
+        '제품 묶음도 비교 · 오늘의 앙상블 사례는 A+B+C+D로 고정',
         '232개 비율 비교 · 엔지니어 승인 후 실행'],25,
-        '먼저 여러 모델을 같은 조건으로 비교하고 상위 세 알고리즘을 고릅니다. 화면은 그 확률을 섞는 비율 탐색 계획입니다. 학습, 후보 선택, 마지막 확인 데이터를 육 대 이 대 이로 나누고 같은 생산 묶음은 섞지 않습니다. 비교 범위를 확인하고 승인하면 실행합니다.',image='app-ensemble-plan.jpg',sources=['app/ensemble.py','docs/evaluation/weighted_ensemble.json'])
+        '모델뿐 아니라 A만 학습할지, AB나ABC를 합쳐 학습할지도 비교합니다. 오늘 앙상블 사례는 제품ABCD로 고정해 상위 세 모델의 확률을 섞습니다. 학습, 후보 선택, 마지막 확인 데이터를 육 대 이 대 이로 나누고 같은 생산 묶음은 섞지 않습니다. 비율 탐색 계획을 확인하고 승인하면 실행합니다.',image='app-ensemble-plan.jpg',sources=['app/experiments.py','app/ensemble.py','docs/evaluation/weighted_ensemble.json'])
     add('③ 선택 비율: CatBoost 90% + LightGBM 10%','06 · 실제 화면 | Validation에서 비율과 판정 기준 선택',[
         f'검출률 {pct(ev["recall"])} 유지 · F1 {single["f1"]:.3f} → {ev["f1"]:.3f}',
         '정상 오판 한도 준수 → Recall 최대 → 동률이면 F1',
@@ -76,16 +76,19 @@ def compose_content(load,names,pct,ranking):
         '전체 제품 Train의 24조건에서 알고리즘별 최선 불균형 설정을 표시합니다.',
         '앙상블은 같은 학습 범위의 CatBoost·HistGradientBoosting·LightGBM으로 비교했습니다.'],table=full,
         note='초기 전체 제품 비교표입니다. AdaBoost는 F1이 더 높지만 이번에는 검출률을 먼저 보는 규칙을 따랐습니다. 초기 제품 조합 탐색의 CatBoost A+B+C와 이번 전체 제품 앙상블은 별도의 실험입니다.',sources=['docs/evaluation/synthetic_process.json','docs/evaluation/weighted_ensemble.json'])
-    other=[['데이터','기본 / 선택·참고 후보','불량 발견','정상 오판','판단']]
-    for key,label in [('synthetic_process','합성 센서'),('secom','UCI SECOM'),('images','합성 이미지')]:
-        q=receipts[key]['result'];a=q['baseline_test'];z=q['test']
-        other.append([label,('축소 ResNet' if key=='images' else 'Logistic')+' / '+names[q['winner']['model']],
-            f'{a["tp"]} → {z["tp"]} / {z["positive_count"]}',f'{a["fp"]} → {z["fp"]} / {z["tn"]+z["fp"]}',
-            '목표 충족 후보 없음' if key=='secom' else '불량 표본 보강' if key=='images' else '추가 검증 필요'])
-    add('공개 센서와 이미지에서도 실행했습니다','부록 B · 앙상블 추가 전의 별도 실험 기록',[
-        '본문의 앙상블 결과와 별개입니다. 각 행 안에서만 같은 Test를 비교합니다.',
-        'SECOM은 실제 공개 자료이며, 센서·이미지 예제는 합성 데이터입니다.'],table=other,
-        note='SECOM은1,567건 중 불합격104건이며 제조사·제품ID는 제공되지 않습니다. 이미지 Test의 불량15건은 작은 표본입니다. 이 표는 이전 실험 기록이며 앙상블 적용 결과로 해석하지 않습니다.',sources=['docs/evaluation/summary.json'])
+    grouping=load('model_management')['comparison']
+    grouped=[['제품','ABCD 공통 모델\n검출률 / 정상 오판률','해당 제품 전용 모델\n검출률 / 정상 오판률','Validation 선택']]
+    for product in grouping['products']:
+        metrics={c['strategy']:c['validation'] for c in product['candidates']}
+        selected='공통' if product['selected_strategy']=='shared' else '전용'
+        if not product['validation_feasible']:selected+=' · 목표 미달'
+        grouped.append([product['product'],
+            pct(metrics['shared']['recall'])+' / '+pct(metrics['shared']['fpr']),
+            pct(metrics['separate']['recall'])+' / '+pct(metrics['separate']['fpr']),selected])
+    add('제품별 전용 모델이 항상 더 좋지는 않습니다','부록 B · 별도 합성 후속 배치의 실제 비교',[
+        '같은 제품의 같은 Validation 행에서 공통·전용 CatBoost를 비교했습니다.',
+        'A는 공통 모델, C는 전용 모델이 더 높은 검출률을 보였습니다.'],table=grouped,
+        note='제품별로 나누면 데이터가 줄고, 합치면 제품 차이를 놓칠 수 있습니다. 이 별도 실험에서는 A의 공통 모델 검출률98.6%가 전용94.2%보다 높았고, C는 전용93.2%가 공통90.9%보다 높았습니다. Validation 선택이 미래 우월성을 보장하지 않아 Test도 따로 확인합니다. 본문 앙상블과 다른 합성 배치의 보존 기록입니다. ABC용 모델과D용 모델처럼 모든 그룹 구성을 자동 최적화한 결과는 아닙니다.',sources=['docs/evaluation/model_management.json','app/monitoring.py','docs/PRODUCT_GROUPING.md'])
     add('왜 이 비율을 선택했나요?','부록 C · 앙상블 선택 근거와 범위',[
         'Train: 학습 / Validation: 비율·판정 기준 선택 / Test: 선택 후 확인',
         '동일 제품 A+B+C+D의 Train 768건으로 세 모델 학습 · 분할768/256/256',

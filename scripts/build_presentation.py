@@ -172,6 +172,7 @@ def build_deck(content,trace):
             if i==14:font=15
             widths=None
             if i==11:widths=[4.43,1.9,1.9,1.9,1.9]
+            if i==12:widths=[1.0,3.9,3.9,3.23]
             if i==14:widths=[5.3,3.3,3.43]
             if i==15:widths=[5.7,3.13,3.2]
             add_table(slide,item['table'],y,height,font,widths)
@@ -192,7 +193,7 @@ def write_documents(content,receipts,trace):
     elapsed=0
     report='# 반도체 검사 모델 실험 도우미\n\nSKALA 광주 2반 · G045 김용찬 · 과제 2 · 2026-10-22 발표\n\n'
     report+='검사 데이터에 맞는 모델과 예측 확률의 앙상블 비율을 비교하고, 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
-    report+='[발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt)\n\n'
+    report+='[발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt) · [제품 학습 범위 비교](PRODUCT_GROUPING.md)\n\n'
     report+='원래 Mac의 실험 기록을 보존했으며 Windows 재실행에서도 합성 센서 Test 결과를 동일하게 재현했습니다. 로컬 LLM·테스트·추적 검증은 별도 기록으로 남겼습니다.\n\n'
     for i,s in enumerate(content,1):
         elapsed+=s['seconds'];timing=f'{s["seconds"]}초 / 누적 {elapsed//60}:{elapsed%60:02d}' if i<=10 else '질문용 부록'
@@ -261,6 +262,12 @@ A. 수업 기준으로 정한 사전 고정 조건입니다. 모든 데이터에
 Q. 서로 다른 모델의 예측을 섞는 앙상블도 구현했나요?
 A. 네. 각 모델의 불량 확률을 비율대로 곱해 더합니다. 단일 모델과 균등 비율도 포함해 비교했습니다. 현재 예제에서는 CatBoost90%와LightGBM10%가 선택됐습니다. Random Forest·부스팅 내부의 앙상블을 쓰는 것에서 한 단계 더 나아가, 서로 다른 모델 사이의 비율도 비교한 것입니다.
 
+Q. 제품별로 따로 학습하는 것이 당연히 좋지 않나요?
+A. 꼭 그렇지는 않습니다. 제품별로 나누면 특성은 맞추기 쉽지만 학습 데이터와 불량 표본도 줄어듭니다. 별도 합성 실험에서는 A는 전체 제품을 합친 모델이, C는 전용 모델이 Validation에서 더 높은 검출률을 보였습니다. 같은 제품의 같은 평가 행으로 비교해야 합니다.
+
+Q. ABC용 모델과D용 모델로 나누는 것도 자동으로 비교하나요?
+A. 현재는 학습할 제품 부분집합15개를 탐색하고, 별도 실험에서 전체 공통 모델과 제품별 전용 모델을 비교합니다. ABC용 모델과D용 모델 같은 그룹 구성을 모두 자동 비교해 고르는 기능은 별도 확장입니다. 한 모델의 학습 범위와 여러 모델의 담당 제품 구성을 구분합니다.
+
 Q. 왜 F1이 가장 높은 비율을 고르지 않나요?
 A. 이번 목적은 불량을 놓치는 일을 줄이는 것입니다. 정상 오판률 한도 안에서 Recall을 먼저 높이고, Recall이 같을 때 F1으로 고릅니다. F1·Precision·오판률을 모두 함께 보여 줍니다. 실제 현장 기준은 업무 비용에 맞춰 정해야 합니다.
 
@@ -311,6 +318,8 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 단일 모델도 포함하며 동률이면 적은 모델을 택합니다. 항상 혼합을 강제하지 않습니다.
 이 후보·간격·데이터 안의 최선이며 전체 모델의 전역 최적이나 양산 최적을 뜻하지 않습니다.
 [실제 승인·실행 기록](docs/evaluation/weighted_ensemble.json) · [브라우저·CSV 검증](docs/evaluation/ensemble_browser.json) · [비교 방법](docs/ENSEMBLE.md)
+
+학습할 제품 범위도 비교합니다. A·AB·ABC·ABCD 등15개 학습 부분집합 탐색과, 별도 배치의 전체 공통 모델 대 제품별 전용 모델 비교가 구현돼 있습니다. 제품별 전용이 항상 우수하다고 가정하지 않습니다. ABC용 모델+D용 모델 같은 그룹 구성의 자동 전수 선택은 별도 확장입니다. [실제 범위와 제품별 비교](docs/PRODUCT_GROUPING.md)
 
 ## Windows에서 실행
 
