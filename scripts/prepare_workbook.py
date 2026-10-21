@@ -58,7 +58,9 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['제출 절차','이 파일은 로컬 명단입니다. 지정된 공용 Google Spreadsheet 등록 여부는 별도 확인 필요.'],
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
       ['실행 모드','Windows: 로컬 Qwen2.5-1.5B + BGE-M3 임베딩·FAISS 벡터 저장/검색. 실제 검색·근거 전달 검증 기록을 별도 보관.'],
-      ['발표 구성','본문10장 발화 목표255초+전환20초+여유25초 / 질문용 부록4장. 기준→입력→승인→제품 그룹→별도 앙상블→구조·검증→교훈. RAG 화면은 부록12장. 필수 화면5장. 리허설 실측 아님.']]
+      ['발표 구성','본문10장 발화 목표255초+전환20초+여유25초 / 질문용 부록4장. 기준→입력→승인→제품 그룹→별도 앙상블→구조·검증→교훈. RAG 화면은 부록12장. 필수 화면5장. 리허설 실측 아님.'],
+      ['자료 구분','발표 PPTX·PDF는5분 요약본, 최종 보고서는 같은 프로젝트의5개 필수 항목 상세 문서. 모두15주차 폴더에 배치. Google Slides를 보고서용으로 따로 남겨둔 것은 아님.'],
+      ['상세 보고서 PDF',repo+'/blob/main/docs/G045_Final_Report.pdf']]
 for i,row in enumerate(rows,1):
     for j,value in enumerate(row,1):
         cell=info.cell(i,j,value);cell.alignment=Alignment(vertical='top',wrap_text=True)

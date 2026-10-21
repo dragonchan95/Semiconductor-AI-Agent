@@ -1,0 +1,10 @@
+{
+  "artifact": "docs/G045_Final_Report.pdf",
+  "html_self_contained": true,
+  "pages": 8,
+  "required_sections": 5,
+  "screens": 7,
+  "architecture": "Printable flow diagram equivalent to the report Mermaid branches",
+  "purpose": "Detailed submission report; separate from the five-minute slide deck",
+  "no_replacement_characters": true
+}

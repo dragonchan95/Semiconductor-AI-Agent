@@ -257,6 +257,8 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
+발표자료는5분 요약본, 최종 보고서는 같은 프로젝트의 상세 제출 문서입니다. [상세 보고서 PDF](docs/G045_Final_Report.pdf)와 인터넷 없이 읽는 [HTML 사본](docs/G045_Final_Report.html)도 제공합니다. 15주차 폴더에는 발표자료·보고서·대본·제출 엑셀을 함께 모았습니다.
+
 기존 [Google Slides]({SLIDES_URL}) 주소를 보존했습니다. 이번 수정의 원본은 이 저장소의 보고서와 PPTX입니다. Slides의 온라인 갱신 상태는 별도로 확인해야 합니다.
 
 ## 하나의 사용 흐름

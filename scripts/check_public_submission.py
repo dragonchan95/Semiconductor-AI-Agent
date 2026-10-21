@@ -15,7 +15,7 @@ raw='https://raw.githubusercontent.com/dragonchan95/Semiconductor-AI-Agent/main/
 receipt={'verified_at':datetime.now(timezone.utc).isoformat(),'anonymous_requests':True,
          'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checks':{}}
 with httpx.Client(follow_redirects=True,timeout=45,headers={'User-Agent':'G045-public-submission-check'}) as client:
-    for label,local,path in [('report','docs/REPORT.md','docs/REPORT.md'),('pptx','docs/G045_Semiconductor_Agent.pptx','docs/G045_Semiconductor_Agent.pptx'),('pdf','docs/G045_Semiconductor_Agent.pdf','docs/G045_Semiconductor_Agent.pdf')]:
+    for label,local,path in [('report','docs/REPORT.md','docs/REPORT.md'),('pptx','docs/G045_Semiconductor_Agent.pptx','docs/G045_Semiconductor_Agent.pptx'),('pdf','docs/G045_Semiconductor_Agent.pdf','docs/G045_Semiconductor_Agent.pdf'),('detailed_report_pdf','docs/G045_Final_Report.pdf','docs/G045_Final_Report.pdf')]:
         r=client.get(raw+path+'?verify='+receipt['commit']);r.raise_for_status()
         local_bytes=(ROOT/local).read_bytes()
         exact=r.content==local_bytes
@@ -39,6 +39,6 @@ with httpx.Client(follow_redirects=True,timeout=45,headers={'User-Agent':'G045-p
     else:google['matches_latest_story']=False
     receipt['checks']['google_slides']=google
 receipt['google_slides_updated_this_session']=False
-receipt['latest_report_and_artifacts_public']=all(receipt['checks'][x]['matches_latest_local_file'] for x in ['report','pptx','pdf'])
+receipt['latest_report_and_artifacts_public']=all(receipt['checks'][x]['matches_latest_local_file'] for x in ['report','pptx','pdf','detailed_report_pdf'])
 (ROOT/'docs/evaluation/public_links.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(receipt,ensure_ascii=False,indent=2))
