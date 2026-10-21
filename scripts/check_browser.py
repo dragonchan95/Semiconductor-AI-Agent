@@ -26,9 +26,17 @@ with sync_playwright() as p:
     assert not errors,errors
     out=ROOT/'var/browser-check';out.mkdir(exist_ok=True)
     page.locator('#result-section').screenshot(path=str(out/'windows-result.png'))
+    page.locator('#view-ensemble').click()
+    page.locator('#ensemble-recommendation').wait_for(state='visible',timeout=30000)
+    assert 'NaN' not in page.locator('#ensemble-recommendation').inner_text()
+    assert '90.0%' in page.locator('.ensemble-weights').inner_text()
+    page.locator('#back-to-models').click()
+    page.locator('#ensemble-proposal').wait_for(state='visible',timeout=30000)
+    assert not errors,errors
     receipt={'browser':'Chrome headless','console_errors':errors,'result_loaded':True,
              'validation_ranking_visible':True,'next_discovery':True,'retraining_outside_main_flow':True,
-             'change_goal':True,'main_wording_uses_generic_model_comparison':True}
+             'change_goal':True,'main_wording_uses_generic_model_comparison':True,
+             'saved_ensemble_loaded_and_returned_to_source':True}
     (ROOT/'docs/evaluation/browser_check.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(receipt,ensure_ascii=False))
     browser.close()

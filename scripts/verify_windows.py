@@ -18,7 +18,7 @@ receipt={'verified_at':datetime.now(timezone.utc).isoformat(),'platform':platfor
          'python':platform.python_version(),'tests_passed':result.returncode==0,
          'test_count':int(match.group(1)) if match else None,
          'seconds':float(match.group(2)) if match else None,
-         'scope':'Windows unit/API tests; preserved model metrics in other receipts were measured on Mac.'}
+         'scope':'Windows unit/API tests including approved ensemble search; original Mac receipts and later Windows experiment receipts are stored separately.'}
 (ROOT/'docs/evaluation/windows_check.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(receipt,ensure_ascii=False,indent=2))
 if result.returncode:print(result.stdout)

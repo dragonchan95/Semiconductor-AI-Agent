@@ -10,7 +10,7 @@ docs=ROOT/'docs'
 prs=Presentation(docs/'G045_Semiconductor_Agent.pptx')
 pdf=pymupdf.open(docs/'G045_Semiconductor_Agent.pdf')
 content=json.loads((docs/'slide-content.json').read_text(encoding='utf-8'))
-assert len(prs.slides)==len(pdf)==16
+assert len(prs.slides)==len(pdf)==len(content)==14
 out=ROOT/'var/presentation-preview';out.mkdir(parents=True,exist_ok=True)
 sheet=Image.new('RGB',(1920,1160),'#e3eaed')
 overflow=[]
@@ -27,14 +27,15 @@ for i,page in enumerate(pdf):
     assert '\ufffd' not in page.get_text()
 assert not overflow,overflow
 assert content[2]['kind']=='criteria'
-assert content[5]['kind']=='validation_screen'
+assert content[5]['kind']=='ensemble_screen'
 assert content[6]['kind']=='result_screen'
 assert sum(x['seconds'] for x in content)==255
 for i in [3,4,5,6,7]:
     assert any(s.shape_type==13 for s in prs.slides[i].shapes),f'Missing screenshot on slide {i+1}'
 assert not any('Recall만 높으면' in x['title'] for x in content[10:])
+assert not any('출처·시연' in x['title'] or x['title']=='구현 기술의 상세 범위' for x in content)
 sheet.save(out/'contact-sheet.jpg')
-receipt={'slides':16,'main_slides':10,'appendix_slides':6,'speaker_notes':16,
+receipt={'slides':14,'main_slides':10,'appendix_slides':4,'speaker_notes':14,
          'planned_speech_seconds':255,'planned_transition_seconds':20,'buffer_seconds':25,
          'timing_is_rehearsal_measurement':False,
          'criteria_before_results':True,'essential_ui_screens_slides':[4,5,6,7,8],

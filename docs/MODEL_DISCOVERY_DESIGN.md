@@ -16,8 +16,8 @@
 
 실행 기록: [model_discovery.json](evaluation/model_discovery.json). 합성 센서 A+B+C 학습에서 ExtraTrees·GaussianNB를 비교했고 CatBoost가 유지됐습니다. 새 모델의 Validation 결과와 후보 상태를 목록에 저장합니다. 새로운 모델이 항상 우수하다는 가정은 두지 않습니다.
 
-## 남은 확장: 모델 간 앙상블 비율
+## 모델 간 앙상블 비율
 
-현재 RF·부스팅은 실제 알고리즘 후보입니다. 서로 다른 모델의 예측 확률을 섞는 비율 탐색은 미구현입니다. 확장 시 사전에 정한 비율을 Validation에서 비교하고 고정된 Test로 확인합니다. 학습·추론 자원과 관리 부담도 함께 확인하며 실험한 비율 안의 최선으로 설명합니다.
+RF·부스팅 자체를 사용하는 것에 더해, 서로 다른 모델의 예측 확률을 섞는 비율 탐색도 구현했습니다. 승인한 구성 모델과 비율을 Validation에서 비교하고 선택 후 같은 Test를 확인합니다. 정상 오판 한도 안에서 Recall 우선·동률 F1으로 고르며, 현재 예제는CatBoost90%와LightGBM10%입니다. [앙상블 방법·실측·한계](ENSEMBLE.md)를 참고합니다.
 
 근거: [ExtraTrees 공식 문서](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html), [GaussianNB 공식 문서](https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html), [교차검증](https://scikit-learn.org/stable/modules/cross_validation.html).

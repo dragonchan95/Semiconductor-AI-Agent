@@ -67,7 +67,11 @@ class Workbench:
         if dataset["sha256"] != proposal["plan"]["dataset_sha256"] or dataset.get("image_digest") != proposal["plan"].get("image_digest"):
             raise ValueError("승인한 데이터 버전과 등록 데이터 버전이 다릅니다")
         try:
-            result = execute(dataset, proposal["plan"], self.directory / "runs" / run_id, on_event)
+            if proposal['plan'].get('ensemble'):
+                from .ensemble import execute_ensemble
+                result = execute_ensemble(self,dataset,proposal['plan'],self.directory/'runs'/run_id,on_event)
+            else:
+                result = execute(dataset, proposal["plan"], self.directory / "runs" / run_id, on_event)
             result['agent_review'] = self.advisor.advise('ResultCriticAgent', {
                 'winner': result['winner']['model'], 'validation': result['winner']['validation'],
                 'test': result['test'], 'gate': result['gate']}, result_choices(result), proposal['evidence'])

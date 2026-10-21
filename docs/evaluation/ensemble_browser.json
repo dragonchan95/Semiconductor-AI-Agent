@@ -1,0 +1,8 @@
+{
+  "ui_plan_and_approval": true,
+  "csv_weights": 232,
+  "duplicate_approval_blocked": true,
+  "console_errors": [],
+  "weights": "catboost 90% + hist_gradient 0% + lightgbm 10%",
+  "run_id": "run-0f29691bca7d"
+}

@@ -6,5 +6,6 @@
   "next_discovery": true,
   "retraining_outside_main_flow": true,
   "change_goal": true,
-  "main_wording_uses_generic_model_comparison": true
+  "main_wording_uses_generic_model_comparison": true,
+  "saved_ensemble_loaded_and_returned_to_source": true
 }

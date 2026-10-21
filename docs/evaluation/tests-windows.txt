@@ -22,6 +22,15 @@ test_discovery_requires_evidence_and_engineer_approval (test_discovery.Discovery
 test_external_adapters_train_and_predict (test_discovery.DiscoveryTests.test_external_adapters_train_and_predict) ... ok
 test_failed_network_never_invents_candidates (test_discovery.DiscoveryTests.test_failed_network_never_invents_candidates) ... ok
 test_live_documents_retrieved_without_dataset_transmission (test_discovery.DiscoveryTests.test_live_documents_retrieved_without_dataset_transmission) ... ok
+test_approval_training_scope_artifact_and_test_only_after_selection (test_ensemble.EnsembleTests.test_approval_training_scope_artifact_and_test_only_after_selection) ... ok
+test_complementary_predictions_can_outperform_both_single_models (test_ensemble.EnsembleTests.test_complementary_predictions_can_outperform_both_single_models) ... ok
+test_equal_performance_keeps_a_single_model_instead_of_forcing_mixing (test_ensemble.EnsembleTests.test_equal_performance_keeps_a_single_model_instead_of_forcing_mixing) ... ok
+test_false_alarm_limit_prevents_all_defective_shortcut (test_ensemble.EnsembleTests.test_false_alarm_limit_prevents_all_defective_shortcut) ... ok
+test_grid_includes_all_simplex_vertices_and_equal_weight (test_ensemble.EnsembleTests.test_grid_includes_all_simplex_vertices_and_equal_weight) ... ok
+test_invalid_probabilities_or_dimensions_are_rejected (test_ensemble.EnsembleTests.test_invalid_probabilities_or_dimensions_are_rejected) ... ok
+test_positive_class_column_is_found_by_label (test_ensemble.EnsembleTests.test_positive_class_column_is_found_by_label) ... ok
+test_recall_has_priority_over_f1_within_false_alarm_limit (test_ensemble.EnsembleTests.test_recall_has_priority_over_f1_within_false_alarm_limit) ... ok
+test_threshold_matches_independent_enumeration_of_confusion_metrics (test_ensemble.EnsembleTests.test_threshold_matches_independent_enumeration_of_confusion_metrics) ... ok
 test_counts_keep_separate_defect_and_normal_denominators (test_impact.CountIllustrationTests.test_counts_keep_separate_defect_and_normal_denominators) ... ok
 test_no_money_or_yield_claims (test_impact.CountIllustrationTests.test_no_money_or_yield_claims) ... ok
 test_reject_removed_repair_and_invalid_inputs (test_impact.CountIllustrationTests.test_reject_removed_repair_and_invalid_inputs) ... ok
@@ -33,6 +42,6 @@ test_review_plans_need_approval_and_save_candidate_version (test_monitoring.Moni
 test_strategy_selection_uses_validation_and_can_abstain (test_monitoring.MonitoringTests.test_strategy_selection_uses_validation_and_can_abstain) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 61.019s
+Ran 42 tests in 119.598s
 
 OK

@@ -136,6 +136,17 @@ class Decision(BaseModel):
     plan_hash: str = Field(min_length=64, max_length=64)
 
 
+class EnsembleRequest(BaseModel):
+    source_run: str
+    grid_percent: int = Field(default=5)
+
+
+@app.post('/api/ensemble/proposals', dependencies=[Depends(authorize)])
+def ensemble_proposal(req: EnsembleRequest):
+    from .ensemble import propose_ensemble
+    return propose_ensemble(app.state.workbench,req.source_run,req.grid_percent)
+
+
 @app.post("/api/proposals/{ident}/decision", dependencies=[Depends(authorize)])
 def decide(ident: str, req: Decision):
     wb = app.state.workbench
@@ -223,12 +234,14 @@ def export_csv(ident: str):
     buf = io.StringIO()
     writer = csv.writer(buf)
     writer.writerow(["trial", "model", "train_products", "preprocessing", "balance", "validation_recall",
-                     "validation_precision", "validation_normal_false_positive_rate", "fit_seconds", "status"])
+                     "validation_precision", "validation_normal_false_positive_rate", "fit_seconds", "status",
+                     "validation_f1", "threshold", "weights"])
     for row in record["result"]["trials"]:
         m = row.get("validation", {})
         writer.writerow([row["id"], row.get("model"), "+".join(row.get("products", [])),
                          row.get("preprocessing"), row.get("balance"), m.get("recall"),
-                         m.get("precision"), m.get("fpr"), row.get("fit_seconds"), row["status"]])
+                      m.get("precision"), m.get("fpr"), row.get("fit_seconds"), row["status"],
+                      m.get('f1'),m.get('threshold'),json.dumps(row.get('weights'),ensure_ascii=False)])
     return Response("\ufeff" + buf.getvalue(), media_type="text/csv",
                     headers={"Content-Disposition": f'attachment; filename="{ident}.csv"'})
 

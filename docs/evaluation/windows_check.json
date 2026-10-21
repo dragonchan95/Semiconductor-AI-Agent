@@ -1,9 +1,9 @@
 {
-  "verified_at": "2026-10-21T15:18:22.793190+00:00",
+  "verified_at": "2026-10-21T17:05:23.307130+00:00",
   "platform": "Windows-10-10.0.26200-SP0",
   "python": "3.11.16",
   "tests_passed": true,
-  "test_count": 33,
-  "seconds": 61.019,
-  "scope": "Windows unit/API tests; preserved model metrics in other receipts were measured on Mac."
+  "test_count": 42,
+  "seconds": 119.598,
+  "scope": "Windows unit/API tests including approved ensemble search; original Mac receipts and later Windows experiment receipts are stored separately."
 }

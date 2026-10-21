@@ -115,7 +115,7 @@ def build_deck(content,trace):
         if item['kind']=='cover':
             text(slide,item['body'][0],.72,2.75,11.5,.8,23,MUTED)
             text(slide,item['body'][1],.72,3.77,11.5,.5,20,INK)
-            for j,(a,b) in enumerate([('01','데이터 점검'),('02','계획 승인'),('03','실제 비교'),('04','선택 근거')]):
+            for j,(a,b) in enumerate([('01','데이터 점검'),('02','계획 승인'),('03','모델·비율 비교'),('04','선택 근거')]):
                 x=.72+j*3.08;box(slide,x,5.15,2.78,1.05,PALE,rounded=True)
                 text(slide,a,x+.2,5.27,.5,.32,14,TEAL,True);text(slide,b,x+.2,5.68,2.4,.4,19,INK,True)
         elif item['kind']=='criteria':
@@ -125,7 +125,8 @@ def build_deck(content,trace):
                 text(slide,label,x+.22,2.34,5.35,.45,25,TEAL if j==0 else INK,True)
                 text(slide,definition,x+.22,2.97,5.35,.4,19,INK)
             text(slide,'시연 목표: 불량 검출률 90% 이상 · 정상 오판률 15% 이하',.8,3.99,11.7,.55,23,INK,True)
-            text(slide,'두 목표 충족 → 검출률 우선 → 동률이면 정상 오판이 적은 후보',.8,4.89,11.7,.65,22,TEAL,True)
+            text(slide,'정상 오판 한도 준수 → 검출률 최대 → 동률이면 F1',.8,4.89,11.7,.55,22,TEAL,True)
+            text(slide,'F1: 불량 검출과 불량 판정의 정확성을 함께 보는 보조 지표',.8,5.58,11.7,.4,17,MUTED)
             text(slide,item['body'][-1],.8,6.12,11.7,.45,17,MUTED)
         elif item['kind']=='architecture':
             text(slide,'LangGraph 역할 연결 · 로컬 Qwen 설명 · MCP 조회·계획 도구',.68,2.1,12,.45,21,MUTED)
@@ -137,7 +138,11 @@ def build_deck(content,trace):
             box(slide,.7,4.36,11.95,.85,'FFFFFF',LINE,True)
             text(slide,'실험 엔진 학습·수치·순위 계산 → 결과 검토 역할이 근거 정리',.92,4.56,11.5,.45,22,INK,True)
             text(slide,'LangSmith: 실제 실행 추적 · API 재조회 확인',.8,5.56,11.7,.4,19,TEAL,True)
-            text(slide,'LLM 평가: 자체 예제 6/8 일치 · 오판 2개 / 코드 테스트: 33개 통과',.8,6.16,11.7,.4,18,MUTED)
+            text(slide,f'설명 검사(LLM-as-a-Judge): 6/8개 올바른 판단 · 코드 테스트 {load("windows_check")["test_count"]}개 통과',.8,6.16,11.7,.4,18,MUTED)
+        elif item['kind']=='ensemble_screen':
+            picture(slide,DOCS/'assets'/item['image'],.8,2.2,11.72,3.82)
+            text(slide,item['body'][0],.85,6.12,11.7,.4,20,TEAL,True)
+            text(slide,'5% 간격과 균등 비율의 232개 비교 · 이 탐색 범위 안의 최선 · Test로 비율 선택하지 않음',.85,6.62,11.7,.24,12,MUTED)
         elif item['kind']=='validation_screen':
             picture(slide,DOCS/'assets'/item['image'],.78,2.15,8.02,4.2)
             for j,line in enumerate(['같은 조건에서 후보 비교','검출률·정상 오판 동시 확인','선택: CatBoost · A+B+C','Test는 마지막 확인에 사용']):
@@ -163,10 +168,11 @@ def build_deck(content,trace):
             y=2.12+len(item['body'])*.46+.16
             height=6.64-y
             font=16 if i<=10 else 13
-            if i in [11,14]:font=12
+            if i==11:font=12
+            if i==14:font=15
             widths=None
             if i==11:widths=[4.43,1.9,1.9,1.9,1.9]
-            if i==14:widths=[2.35,5,4.68]
+            if i==14:widths=[5.3,3.3,3.43]
             if i==15:widths=[5.7,3.13,3.2]
             add_table(slide,item['table'],y,height,font,widths)
         else:
@@ -182,10 +188,10 @@ def build_deck(content,trace):
 def write_documents(content,receipts,trace):
     (DOCS/'slide-content.json').write_text(json.dumps(content,ensure_ascii=False,indent=2),encoding='utf-8')
     script='SKALA 광주 2반 · G045 김용찬 / 과제 2\n반도체 검사 모델 실험 도우미\n'
-    script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 6장\n발화 목표 255초 + 화면 전환 20초 = 4분35초 / 5분까지 여유25초\n계획 시간이며 실제 리허설 측정값은 아닙니다. 부록은 읽지 않습니다.\n\n'
+    script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 4장\n발화 목표 255초 + 화면 전환 20초 = 4분35초 / 5분까지 여유25초\n계획 시간이며 실제 리허설 측정값은 아닙니다. 부록은 읽지 않습니다.\n\n'
     elapsed=0
     report='# 반도체 검사 모델 실험 도우미\n\nSKALA 광주 2반 · G045 김용찬 · 과제 2 · 2026-10-22 발표\n\n'
-    report+='검사 데이터에 맞는 모델을 비교하고 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
+    report+='검사 데이터에 맞는 모델과 예측 확률의 앙상블 비율을 비교하고, 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
     report+='[발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt)\n\n'
     report+='원래 Mac의 실험 기록을 보존했으며 Windows 재실행에서도 합성 센서 Test 결과를 동일하게 재현했습니다. 로컬 LLM·테스트·추적 검증은 별도 기록으로 남겼습니다.\n\n'
     for i,s in enumerate(content,1):
@@ -210,7 +216,9 @@ flowchart LR
     E -->|승인| F[Train 실제 학습]
     E -->|반려| D
     F --> G[Validation 후보·판정값 선택]
-    G --> H[고정 Test 확인]
+    G --> E2{앙상블 탐색 계획 승인}
+    E2 --> W[비율·판정 기준 Validation 탐색]
+    W --> H[고정 Test 확인]
     H --> I[결과 검토]
     I --> J[기준 충족 여부와 선택 근거]
     K2[공식 문서에서 후보 추가] --> D
@@ -237,7 +245,7 @@ Mac에서 통과하던 SQLite 코드도 Windows에서는 연결이 닫히지 않
 전처리·모델·판정값·학습 제품 범위가 함께 바뀐 비교이며 특정 기법의 인과 효과가 아닙니다.
 수율, 금액 이익, 작업시간 절감, 양산 효과는 측정하지 않았습니다. 재학습과 운영 감시는 추가 구현으로 보존하며 이번 발표 범위에서 제외합니다.
 회사 공통 Recall/FPR 숫자를 가정하지 않고 현장 담당자가 목적과 비용에 맞춰 정해야 합니다.
-별도 Vector DB·자율 Supervisor·혼합 가중치 탐색은 미구현입니다.
+별도 Vector DB·자율 Supervisor는 미구현입니다. 혼합 비율은 검토한 센서 분류 후보2~3개와 5% 또는10% 간격에서 탐색합니다.
 LLM-as-a-Judge는 로컬 Qwen으로 설명을 평가합니다. 수치를 변조하거나 현장 효과를 과장한 예제를 사전 라벨과 비교하고, 원래 실패 기록도 보존했습니다. 프롬프트 보완에 사용한 작은 자체 개발 예제이므로 독립적인 평가 성능으로 일반화하지 않습니다.
 '''
     script+='''질문 대비
@@ -250,6 +258,15 @@ A. 이번 실험은 사전에 정한 Recall 목표와 정상 오판 한도 충�
 Q. 6:2:2가 항상 최적인가요?
 A. 수업 기준으로 정한 사전 고정 조건입니다. 모든 데이터에서 최적이라는 뜻은 아닙니다. 같은 lot·날짜 경계를 보존하고 Test를 보고 비율을 고르지 않습니다.
 
+Q. 서로 다른 모델의 예측을 섞는 앙상블도 구현했나요?
+A. 네. 각 모델의 불량 확률을 비율대로 곱해 더합니다. 단일 모델과 균등 비율도 포함해 비교했습니다. 현재 예제에서는 CatBoost90%와LightGBM10%가 선택됐습니다. Random Forest·부스팅 내부의 앙상블을 쓰는 것에서 한 단계 더 나아가, 서로 다른 모델 사이의 비율도 비교한 것입니다.
+
+Q. 왜 F1이 가장 높은 비율을 고르지 않나요?
+A. 이번 목적은 불량을 놓치는 일을 줄이는 것입니다. 정상 오판률 한도 안에서 Recall을 먼저 높이고, Recall이 같을 때 F1으로 고릅니다. F1·Precision·오판률을 모두 함께 보여 줍니다. 실제 현장 기준은 업무 비용에 맞춰 정해야 합니다.
+
+Q. 90대10이 정말 최적인가요?
+A. 승인한 세 모델과5% 간격의 비율, Validation 데이터 안에서 정한 기준으로 가장 좋았습니다. 모든 모델과 모든 연속 비율에서의 최적이라는 뜻은 아닙니다. 선택 후 Test를 확인했지만 기존 Test의 추가 탐색이므로 새 독립 기간 검증이 필요합니다.
+
 Q. 자동화와 Agent는 어떤 차이가 있나요?
 A. 현재는 역할을 나눈 제한된 Agent 구조입니다. 근거를 검색해 설명하고 계획을 제안한 뒤 승인받은 도구로 모델을 비교합니다. 실제 수치·후보 순위·승인은 실험 엔진이 책임집니다. 자율 Supervisor나 무제한 모델 발굴을 구현했다고 주장하지 않습니다.
 
@@ -260,10 +277,10 @@ Q. 재학습이나 운영 감시도 발표하나요?
 A. 추가 구현으로 보존했지만 이번 5분 발표는 데이터 점검·모델 비교·선택 근거에 집중합니다.
 
 Q. LLM-as-a-Judge도 구현했나요?
-A. 네. 로컬 Qwen을 별도 평가자로 호출해 실험 결과 설명이 실제 수치·모델·적용 범위와 맞는지 평가했습니다. 수치 변조와 과장 설명 예제에서 사전 라벨과 일치하는지 확인했습니다. 작은 자체 개발 예제이며 평가자도 오판할 수 있어 코드 검사를 함께 사용합니다. 상세 결과는 docs/evaluation/llm_judge.json입니다.
+A. 네. 실제 결과와 설명 문장을 LLM에 함께 주고 맞는 설명인지 검사했습니다. 직접 만든 예제8개 중6개는 맞게 검사했습니다. 예를 들어27개를 찾았는데30개라고 설명한 오류를 놓치기도 했습니다. 그래서 중요한 숫자는 코드로도 검사합니다.
 
 Q. 결과 검토 Agent가 이미 Judge 아닌가요?
-A. 결과 검토 Agent는 모델 실험의 Recall·정상 오판을 읽고 설명할 사항을 정리합니다. LLM-as-a-Judge는 Agent가 생성한 답변 자체를 정답·평가 기준과 비교해 채점하는 별도 평가 기능입니다.
+A. 결과 검토 Agent는 실험 결과를 설명하는 역할입니다. Judge는 그 설명이 실제 결과와 맞는지 다시 검사하는 역할입니다. 현재 평가에서는 실제 결과를 바탕으로 직접 만든 설명 예제들을 검사했습니다.
 
 Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 http://localhost:8700을 엽니다.
 새 환경은 예제 데이터 준비 → 계획 제안 → 승인·학습 순서입니다. 발표는 기록된 화면을 설명하므로 새 학습을 기다릴 필요가 없습니다.
@@ -271,11 +288,12 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
     (DOCS/'REPORT.md').write_text(report,encoding='utf-8')
     (DOCS/'발표대본_G045.txt').write_text(script,encoding='utf-8')
     r=receipts['synthetic_process']['result'];b=r['baseline_test'];t=r['test']
+    ensemble=load('weighted_ensemble')['result'];e=ensemble['ensemble'];eb=ensemble['baseline_test'];et=ensemble['test']
     readme=f'''# 반도체 검사 모델 실험 도우미
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고 승인받아 여러 모델을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
+검사 데이터를 점검하고 승인받아 모델과 **예측 확률의 혼합 비율**을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
@@ -283,9 +301,16 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 ## 하나의 사용 흐름
 
-데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 후보 선택 → 같은 Test의 기본·후보 비교
+데이터 선택 → 점검·근거 검색 → 승인·모델 학습 → 앙상블 계획 승인 → Validation에서 비율 선택 → 같은 Test 확인
 
-![같은 Test의 기본·후보 비교](docs/assets/app-result.jpg)
+![앙상블 비율의 Validation 비교](docs/assets/app-ensemble-validation.jpg)
+
+현재 합성 센서 예제의 선택 비율은 **CatBoost90% + LightGBM10%**입니다(HistGradientBoosting0%).
+정상 오판률 한도 안에서 **Recall 최대 → 동률이면 F1** 순서로 고릅니다. F1만 최대로 고르는 방식이 아닙니다.
+세 모델의 합계100% 비율을5% 간격으로 모두 비교하고 균등 비율도 추가해 **232개 비율**과 각 판정 기준을 Validation에서 비교했습니다.
+단일 모델도 포함하며 동률이면 적은 모델을 택합니다. 항상 혼합을 강제하지 않습니다.
+이 후보·간격·데이터 안의 최선이며 전체 모델의 전역 최적이나 양산 최적을 뜻하지 않습니다.
+[실제 승인·실행 기록](docs/evaluation/weighted_ensemble.json) · [브라우저·CSV 검증](docs/evaluation/ensemble_browser.json) · [비교 방법](docs/ENSEMBLE.md)
 
 ## Windows에서 실행
 
@@ -318,25 +343,26 @@ SECOM은 날짜 블록60/20/20이라 실제 행 수는 820 / 367 / 380입니다.
 여러 모델과 불균형 설정을 비교한 뒤 상위 후보의 제품 조합을 확장합니다. 최대52조건이며 완전탐색이 아닙니다.
 후보는 Validation에서 고르고 Test로 순위를 바꾸지 않습니다.
 
-|같은 합성 센서 Test|기본 Logistic|선택 후보 CatBoost A+B+C|
+|같은 합성 센서 Test|최선 단일 CatBoost|선택 비율90:10|
 |---|---:|---:|
-|불량 발견|{b['tp']}/32|{t['tp']}/32|
-|정상 오판|{b['fp']}/224|{t['fp']}/224|
-|Recall|{pct(b['recall'])}|{pct(t['recall'])}|
+|불량 발견|{eb['tp']}/32|{et['tp']}/32|
+|정상 오판|{eb['fp']}/224|{et['fp']}/224|
+|Recall|{pct(eb['recall'])}|{pct(et['recall'])}|
+|F1|{eb['f1']:.3f}|{et['f1']:.3f}|
 
-후보 Recall이 교육용 목표90%에 못 미쳐 추가 실험이 필요합니다. 정상 오판 목표15%도 함께 확인합니다.
-AdaBoost는 F1이 더 높지만 이번 Recall 우선 선택 규칙에서는 CatBoost가 앞섰습니다.
-모델별 비교와 세 데이터의 결과는 [보고서](docs/REPORT.md)에 있습니다.
+이번 조합은 교육용 목표를 충족했습니다. 양산 승인이나 현장 성능 보장은 아닙니다.
+비율 선택에는 Test를 쓰지 않았지만, 이전 프로젝트에서 이미 확인한 Test의 추가 탐색이므로 새 독립 기간 데이터가 필요합니다.
+초기 개별 모델·제품 조합 비교의20→27개 발견 결과는 별도 [기존 기록](docs/evaluation/synthetic_process.json)에 보존합니다.
 측정은 기존 Mac 실험 기록을 보존하며 Windows의 재검증은 별도 증빙으로 구분합니다.
 
 ## 구현 범위
 
 LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 모델 탐색, MCP4도구·Resource,
-의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
+의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 서로 다른 모델의 확률 혼합 비율 탐색, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
 외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
 현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
 로컬 LLM-as-a-Judge는 [평가 기록](docs/evaluation/llm_judge.json)에 있습니다. 작은 자체 개발 예제에 대한 결과이며 독립 평가가 아닙니다. 초기 실패도 보존합니다.
-자율 Supervisor·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
+자율 Supervisor·임의 코드 생성은 미구현입니다. 확률 혼합은 현재 센서 분류 모델2~3개의 승인된 격자 탐색 범위입니다.
 
 운영 모델은 자동 교체하지 않습니다. 회사 공통 Recall 수치, 양산 수율·금액 이득·작업시간 절감은 검증하지 않았습니다.
 작은 불량 표본·반복 Validation과 추가 탐색의 Test 재사용이 한계이며 독립 기간 검증이 필요합니다.

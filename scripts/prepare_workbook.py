@@ -22,11 +22,13 @@ ws['D11']='\n'.join([
     '- 스칼라 수업·반도체 자료를 참고한 후보 모델 비교',
     '- 6:2:2 사전 고정·같은 lot/날짜 분리·Validation 후보 선택',
     '- Recall 우선·정상 오판·Precision·F1 함께 비교',
+    '- 서로 다른 모델의 확률 혼합: 5% 간격+균등 비율232개 비교',
+    '- 정상 오판 한도 안에서 Recall 최대·동률 F1, 비율·선택 근거·Test 결과 표시',
     '- 공식 문서 탐색 RAG·ExtraTrees/GaussianNB 승인 비교·목록 갱신',
     '- 재학습·기존 모델 점검은 추가 구현으로 보존, 발표 범위에서 제외',
-    '- LangGraph·MCP 4도구/Resource·DI·모듈화·33개 단위/API 테스트',
+    '- LangGraph·MCP 4도구/Resource·DI·모듈화·42개 단위/API 테스트',
     '- LangSmith APAC 실제 계획·하위 실행 API 재조회 확인',
-    '- Windows 실행 복구·5분 발표 10장 + 질문용 부록 6장',
+    '- Windows 실행 복구·5분 발표 10장 + 질문용 부록 4장',
     '- 수업과 같은 Qwen2.5-1.5B 계열 로컬 연결·역할별 응답 검증 기록',
     '- 로컬 LLM-as-a-Judge로 설명 정합성 평가·초기 실패 기록 보존',
     '- 양산 효과·자동 배포는 검증 범위 밖'])
@@ -53,7 +55,7 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['제출 절차','이 파일은 로컬 명단입니다. 지정된 공용 Google Spreadsheet 등록 여부는 별도 확인 필요.'],
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
       ['실행 모드','Windows: 로컬 Qwen2.5-1.5B 양자화 모델 + TF-IDF 검색. 역할별 검증 기록을 별도 보관.'],
-      ['발표 구성','본문 10장 발화 목표255초 + 전환20초 + 여유25초 / 질문용 부록6장. 지표 설명→입력→승인→비교→결과→RAG→구조·검증 순서. 필수 기능 실제 화면5장. 리허설 실측 아님.']]
+      ['발표 구성','본문10장 발화 목표255초+전환20초+여유25초 / 질문용 부록4장. 기준→입력→승인→앙상블 비율→Test→RAG→구조·검증. 필수 화면5장. 리허설 실측 아님.']]
 for i,row in enumerate(rows,1):
     for j,value in enumerate(row,1):
         cell=info.cell(i,j,value);cell.alignment=Alignment(vertical='top',wrap_text=True)

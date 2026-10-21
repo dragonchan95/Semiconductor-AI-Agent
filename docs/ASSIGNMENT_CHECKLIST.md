@@ -11,8 +11,8 @@ SKALA 광주 2반 · G045 김용찬 · 신규 프로젝트 · 2026-10-21 검증 
 | UID·성함·Git 주소·공개 보고서 주소 등록 (3쪽) | 원본 제출 엑셀 `2반!A11:F11` | GitHub·기존 Google Slides URL 유지. 로그인 없는 공개 접근은 확인했으나 Slides 최신본은 미반영. 공용 Google Spread 직접 제출은 미수행 |
 | 기능 구현 완성도 30점: 실제 동작 (13쪽) | [API](../app/api.py), [Workbench](../app/workbench.py), [실험 엔진](../app/experiments.py), [이미지 학습](../app/images.py), [모델 점검·재학습](../app/monitoring.py) | 센서12종·이미지3종 실제 학습, 승인 후 실행, 같은 알고리즘 재학습·후보 버전 저장. 현장 적용 실적은 아님 |
 | Before/After 보너스10점: 같은 입력 실측 (13쪽) | 발표7·11~12장, [최초 센서](evaluation/synthetic_process.json), [재학습](evaluation/model_management.json), [SECOM](evaluation/secom.json), [이미지](evaluation/images.json) | 각 비교에서 같은 Test 행·라벨 사용. 모델·전처리·판정값·학습 범위가 함께 바뀐 절차 비교이며 개별 기법의 인과 효과는 아님 |
-| 한계·Trade-off20점 (13쪽) | 발표6~10·13장, [상세 보고서](REPORT.md) | Recall 증가와 정상 오판 증가, 작은 불량 표본, 합성·공개 데이터, 반복 Validation 비교, LLM fallback 표시 |
-| PPT·발표20점: 문제→기준→시연→기술→교훈 (13쪽) | 발표1~10장, [PDF](G045_Semiconductor_Agent.pdf), [TXT 대본](발표대본_G045.txt) | 1~3장 소개·문제·지표 기준, 4~5장 입력·승인 화면, 6장 모델별 Validation 비교, 7장 같은 Test 결과, 8장 후보·문서 근거, 9장 구조·추적·평가, 10장 교훈·한계. 11~16장은 질문용 부록 |
+| 한계·Trade-off20점 (13쪽) | 발표6~10·13장, [상세 보고서](REPORT.md) | 앙상블 후보·비율 간격 한정, 작은 불량 표본, 반복 Validation·Test 재사용, LLM 오판 |
+| PPT·발표20점: 문제→기준→시연→기술→교훈 (13쪽) | 발표1~10장, [PDF](G045_Semiconductor_Agent.pdf), [TXT 대본](발표대본_G045.txt) | 1~3장 소개·문제·기준, 4~5장 입력·앙상블 계획 승인, 6장 비율별 Validation, 7장 단일·혼합의 같은 Test, 8장 문서 근거, 9장 구조·검증, 10장 교훈. 11~14장은 질문용 부록 |
 
 ## 기술 요소 30점의 세부 대응
 
@@ -24,13 +24,14 @@ SKALA 광주 2반 · G045 김용찬 · 신규 프로젝트 · 2026-10-21 검증 
 | 의존성 주입 (DI) | planner.Dependencies, workbench.Workbench.__init__, tests/test_advisors.py | Store·Knowledge·Advisor를 전달해 테스트 대체와 API/MCP 공통 엔진 재사용 |
 | LangSmith | [실제 APAC 추적 검증](evaluation/langsmith_check.json), [설정 안내](LANGSMITH_SETUP.md) | Windows에서 실제 계획 생성·하위 실행을 전송하고 API 재조회 확인. 현재 로컬 Qwen 추론은 별도 검증 기록으로 확인하며 추적 성공과 LLM 응답 성공을 구분 |
 | 모듈화 | app/data.py·catalog.py·metrics.py·experiments.py·images.py·monitoring.py·store.py·api.py | 데이터·모델·지표·학습·관리·저장·접속 역할 분리 |
-| 단위/API 테스트 | [tests/](../tests), [Windows 33개 통과 로그](evaluation/tests-windows.txt), [검증 환경](evaluation/windows_check.json) | 분할·지표·승인 hash·미승인 실행 차단·인증·SSE·CSV·재학습 버전·Validation만으로 학습 방식 선택과 Judge 실패 상태 검증. Windows DB 연결 미종료 문제 수정 |
+| 단위/API 테스트 | [tests/](../tests), [Windows 42개 통과 로그](evaluation/tests-windows.txt), [검증 환경](evaluation/windows_check.json) | 분할·지표·승인 hash·인증·SSE·CSV·재학습·앙상블 Recall 우선·F1 동률·오판 한도·단일 모델 유지·저장 모델 재현·Judge 실패 상태 검증 |
+| 모델 간 앙상블 | [확률 혼합](../app/ensemble.py), [실측](evaluation/weighted_ensemble.json), [실제 UI](evaluation/ensemble_browser.json), [방법](ENSEMBLE.md) | 승인한 상위3개 모델과5% 간격+균등 비율232개를 Validation에서 비교. 정상 오판 한도 안에서 Recall 우선·동률 F1. CatBoost90%+LightGBM10%, 같은 Test 불량발견30/32동일·정상오판21→19·F1 .723→.741. 전역 최적 주장은 아님 |
 | LLM-as-a-Judge | [로컬 평가자](../app/judge.py), [실제 평가 기록](evaluation/llm_judge.json), [초기 실패 기록](evaluation/llm_judge_initial.json) | 로컬 Qwen이 결과 설명과 실제 실험 근거를 대조해 판정. 사전 라벨을 모델에 보내지 않고 일치율을 측정. 프롬프트 보완에 사용한 작은 자체 개발 예제이며 독립 평가·일반 정확도 실적은 아님. 코드 검사를 대체하지 않음 |
 
-| 미구현 기술 | 실제 범위 표시 | 별도 Vector DB·자율 Supervisor·앙상블 혼합 가중치 탐색은 미구현 |
+| 미구현 기술 | 실제 범위 표시 | 별도 Vector DB·자율 Supervisor는 미구현. 혼합은 센서 이진 분류의 검토된2~3개 구성 모델에 한정 |
 
 발표의 범위는 데이터 점검·승인된 모델 비교·선택 근거입니다. 재학습·운영 감시는 추가 구현으로 보존하되 5분 발표에서 제외합니다. 추상적인 ‘다음 실험을 자동 제안’ 대신 ‘공식 문서에서 비교 후보를 추가’로 실제 동작을 설명합니다.
 
 평가항목의 기술을 언급했다는 사실만으로 충분한 구현으로 인정된다고 단정하지 않습니다. 실제 구현과 미확인·미구현 상태를 함께 제시했습니다. 실제 회사의 공통 Recall/FPR 합격 수치를 확인하지 못했으며 90%·15%·불량20개는 교육용 기본값입니다.
 
-목표 Train/Validation/Test=6:2:2. 본문10장·질문용 부록6장, 발화 목표255초+전환20초+여유25초로 5분을 준비합니다. 실측 리허설 시간은 아닙니다. [Windows 로컬 Qwen 포함 전체 학습](evaluation/windows_llm_synthetic.json)에서 실제 세 역할 응답과 같은 Test 결과(TP27·FP14)를 재현했습니다. 기존 Test를 재사용한 외부 후보 탐색은 독립 검증이 필요합니다. 14장은 기술 대응표, 15장은 Judge 오판 사례, 16장은 출처입니다. 본문은 ‘여러 모델 비교’로 소개하고 각 후보의 수업·반도체 자료 출처를 구분합니다. AdaBoost는 반도체 자료의 회귀 사례를 분류용으로 적용했습니다.
+목표 Train/Validation/Test=6:2:2. 본문10장·질문용 부록4장, 발화 목표255초+전환20초+여유25초로 5분을 준비합니다. 실측 리허설 시간은 아닙니다. 현재 본문은 승인한 앙상블 비율 선택과 Test 비교에 집중합니다. [Windows 로컬 Qwen 포함 초기 실험](evaluation/windows_llm_synthetic.json)의TP27·FP14는 별도 과거 기록입니다. 현재 앙상블은TP30·FP19이며 두 실험을 섞지 않습니다. 13장은 비율 선택 범위, 14장은 쉬운 Judge 예시입니다. 출처·중복 기술표는 슬라이드에서 제거하고 보고서에 보존합니다. AdaBoost는 반도체 자료의 회귀 사례를 분류용으로 적용했습니다.
