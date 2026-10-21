@@ -26,6 +26,6 @@ test_review_plans_need_approval_and_save_candidate_version (test_monitoring.Moni
 test_strategy_selection_uses_validation_and_can_abstain (test_monitoring.MonitoringTests.test_strategy_selection_uses_validation_and_can_abstain) ... ok
 
 ----------------------------------------------------------------------
-Ran 26 tests in 3.650s
+Ran 26 tests in 3.959s
 
 OK

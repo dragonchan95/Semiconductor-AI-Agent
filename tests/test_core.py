@@ -29,6 +29,8 @@ class CoreTests(unittest.TestCase):
             for j in range(i):
                 self.assertFalse(sets[i] & sets[j])
         self.assertEqual(sum(map(len, parts.values())), len(self.frame))
+        self.assertEqual({k:len(v) for k,v in parts.items()}, {"train":768,"validation":256,"test":256})
+        self.assertEqual(summary["target_ratios"], {"train":.6,"validation":.2,"test":.2})
 
     def test_chronological_date_split(self):
         frame = self.frame.drop(columns="lot_id").copy()

@@ -1,10 +1,21 @@
 {
   "date": "2026-10-21",
   "native_google_slides_export_checked": true,
-  "slides": 14,
-  "editable_tables": 10,
-  "speaker_notes": 14,
-  "requirements_mapping_slide": 14,
+  "slides": 15,
+  "main_slides": 11,
+  "appendix_slides": 4,
+  "editable_tables": 7,
+  "actual_app_screens": 5,
+  "embedded_screenshot_regions": 6,
+  "speaker_notes": 15,
+  "requirements_mapping_slide": 15,
+  "screen_first_narrative": true,
+  "target_split_ratios": [
+    0.6,
+    0.2,
+    0.2
+  ],
+  "secom_author_doi_license_visible": true,
   "financial_scenarios_removed": true,
   "company_numeric_thresholds_verified": false,
   "report_url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit"

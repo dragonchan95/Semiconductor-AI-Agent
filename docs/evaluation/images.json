@@ -1,5 +1,5 @@
 {
-  "run_id": "run-92b1f8b2c68f",
+  "run_id": "run-127e5f78d204",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-067ca2ef0efb",
@@ -38,7 +38,7 @@
       "min_test_defects": 20
     },
     "trial_budget": 6,
-    "split_hash": "50fe86c69a4797792e56f0b6895a84142831f271a366dcb1f5be705502784203",
+    "split_hash": "620f433d6f372d2277c81910a1b29f9900819fb904dabd7b0b4de6afabb677cc",
     "seed": 45,
     "selection": "Validation threshold and candidate selection; final Test once",
     "model_backend": "local_sklearn_or_pytorch",
@@ -68,32 +68,32 @@
       ],
       "preprocessing": "contrast",
       "balance": "normal_only",
-      "train_n": 333,
+      "train_n": 291,
       "train_defects": 0,
       "parameters": 1021,
       "epochs": 6,
       "validation": {
-        "n": 90,
-        "positive_count": 8,
-        "tn": 82,
+        "n": 114,
+        "positive_count": 19,
+        "tn": 95,
         "fp": 0,
         "fn": 0,
-        "tp": 8,
+        "tp": 19,
         "accuracy": 1.0,
         "recall": 1.0,
         "precision": 1.0,
+        "f1": 1.0,
         "fpr": 0.0,
         "roc_auc": 1.0,
-        "threshold": 0.06536548584699631,
+        "threshold": 0.06609585881233215,
         "recall_wilson95": [
-          0.6755843804891231,
+          0.8318156346315496,
           1.0
-        ],
-        "f1": 1.0
+        ]
       },
       "validation_feasible": true,
-      "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-      "fit_seconds": 0.2964140000003681
+      "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+      "fit_seconds": 0.3279361670010985
     },
     "trials": [
       {
@@ -108,32 +108,32 @@
         ],
         "preprocessing": "gray",
         "balance": "weighted",
-        "train_n": 396,
-        "train_defects": 63,
+        "train_n": 342,
+        "train_defects": 51,
         "parameters": 7073,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 41,
-          "fp": 41,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 82,
+          "fp": 13,
           "fn": 0,
-          "tp": 8,
-          "accuracy": 0.5444444444444444,
+          "tp": 19,
+          "accuracy": 0.8859649122807017,
           "recall": 1.0,
-          "precision": 0.16326530612244897,
-          "fpr": 0.5,
-          "roc_auc": 0.5625,
-          "threshold": 0.5012912750244141,
+          "precision": 0.59375,
+          "f1": 0.7450980392156863,
+          "fpr": 0.1368421052631579,
+          "roc_auc": 0.8991689750692521,
+          "threshold": 0.49975746870040894,
           "recall_wilson95": [
-            0.6755843804891231,
+            0.8318156346315496,
             1.0
-          ],
-          "f1": 0.2807017543859649
+          ]
         },
-        "validation_feasible": false,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.3886529999999766
+        "validation_feasible": true,
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 1.1917618339994078
       },
       {
         "id": "trial-002",
@@ -147,32 +147,32 @@
         ],
         "preprocessing": "contrast",
         "balance": "weighted",
-        "train_n": 396,
-        "train_defects": 63,
+        "train_n": 342,
+        "train_defects": 51,
         "parameters": 7073,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 82,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 95,
           "fp": 0,
           "fn": 0,
-          "tp": 8,
+          "tp": 19,
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
+          "f1": 1.0,
           "fpr": 0.0,
           "roc_auc": 1.0,
-          "threshold": 0.9998617172241211,
+          "threshold": 0.9999934434890747,
           "recall_wilson95": [
-            0.6755843804891231,
+            0.8318156346315496,
             1.0
-          ],
-          "f1": 1.0
+          ]
         },
         "validation_feasible": true,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.2510081250002258
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 1.1467076669996459
       },
       {
         "id": "trial-003",
@@ -186,32 +186,32 @@
         ],
         "preprocessing": "gray",
         "balance": "weighted",
-        "train_n": 396,
-        "train_defects": 63,
+        "train_n": 342,
+        "train_defects": 51,
         "parameters": 5177,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 82,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 95,
           "fp": 0,
-          "fn": 2,
-          "tp": 6,
-          "accuracy": 0.9777777777777777,
-          "recall": 0.75,
+          "fn": 1,
+          "tp": 18,
+          "accuracy": 0.9912280701754386,
+          "recall": 0.9473684210526315,
           "precision": 1.0,
+          "f1": 0.972972972972973,
           "fpr": 0.0,
-          "roc_auc": 0.8201219512195121,
-          "threshold": 0.5535183548927307,
+          "roc_auc": 0.9473684210526315,
+          "threshold": 0.484096497297287,
           "recall_wilson95": [
-            0.40926987910258916,
-            0.9285223111419724
-          ],
-          "f1": 0.8571428571428571
+            0.7536078466345479,
+            0.99064824750947
+          ]
         },
-        "validation_feasible": false,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.8078597500002616
+        "validation_feasible": true,
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 0.7663218340003368
       },
       {
         "id": "trial-004",
@@ -225,32 +225,32 @@
         ],
         "preprocessing": "contrast",
         "balance": "weighted",
-        "train_n": 396,
-        "train_defects": 63,
+        "train_n": 342,
+        "train_defects": 51,
         "parameters": 5177,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 82,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 95,
           "fp": 0,
           "fn": 0,
-          "tp": 8,
+          "tp": 19,
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
+          "f1": 1.0,
           "fpr": 0.0,
           "roc_auc": 1.0,
-          "threshold": 0.9997503161430359,
+          "threshold": 0.9997988343238831,
           "recall_wilson95": [
-            0.6755843804891231,
+            0.8318156346315496,
             1.0
-          ],
-          "f1": 1.0
+          ]
         },
         "validation_feasible": true,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.8024371660003453
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 0.7664742080014548
       },
       {
         "id": "trial-005",
@@ -264,32 +264,32 @@
         ],
         "preprocessing": "gray",
         "balance": "normal_only",
-        "train_n": 333,
+        "train_n": 291,
         "train_defects": 0,
         "parameters": 1021,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 59,
-          "fp": 23,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 82,
+          "fp": 13,
           "fn": 0,
-          "tp": 8,
-          "accuracy": 0.7444444444444445,
+          "tp": 19,
+          "accuracy": 0.8859649122807017,
           "recall": 1.0,
-          "precision": 0.25806451612903225,
-          "fpr": 0.2804878048780488,
-          "roc_auc": 0.7545731707317073,
-          "threshold": 0.006958551239222288,
+          "precision": 0.59375,
+          "f1": 0.7450980392156863,
+          "fpr": 0.1368421052631579,
+          "roc_auc": 0.8991689750692521,
+          "threshold": 0.007207256276160479,
           "recall_wilson95": [
-            0.6755843804891231,
+            0.8318156346315496,
             1.0
-          ],
-          "f1": 0.41025641025641024
+          ]
         },
-        "validation_feasible": false,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.30339904199990997
+        "validation_feasible": true,
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 0.3340897079997376
       },
       {
         "id": "trial-006",
@@ -303,78 +303,77 @@
         ],
         "preprocessing": "contrast",
         "balance": "normal_only",
-        "train_n": 333,
+        "train_n": 291,
         "train_defects": 0,
         "parameters": 1021,
         "epochs": 6,
         "validation": {
-          "n": 90,
-          "positive_count": 8,
-          "tn": 82,
+          "n": 114,
+          "positive_count": 19,
+          "tn": 95,
           "fp": 0,
           "fn": 0,
-          "tp": 8,
+          "tp": 19,
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
+          "f1": 1.0,
           "fpr": 0.0,
           "roc_auc": 1.0,
-          "threshold": 0.06536548584699631,
+          "threshold": 0.06609585881233215,
           "recall_wilson95": [
-            0.6755843804891231,
+            0.8318156346315496,
             1.0
-          ],
-          "f1": 1.0
+          ]
         },
         "validation_feasible": true,
-        "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.2964140000003681
+        "validation_fingerprint": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339",
+        "fit_seconds": 0.3279361670010985
       }
     ],
     "test": {
-      "n": 90,
-      "positive_count": 14,
-      "tn": 76,
+      "n": 120,
+      "positive_count": 15,
+      "tn": 105,
       "fp": 0,
-      "fn": 8,
-      "tp": 6,
-      "accuracy": 0.9111111111111111,
-      "recall": 0.42857142857142855,
+      "fn": 1,
+      "tp": 14,
+      "accuracy": 0.9916666666666667,
+      "recall": 0.9333333333333333,
       "precision": 1.0,
+      "f1": 0.9655172413793104,
       "fpr": 0.0,
       "roc_auc": 1.0,
-      "threshold": 0.06536548584699631,
+      "threshold": 0.06609585881233215,
       "recall_wilson95": [
-        0.21380509930400526,
-        0.6740973309713064
-      ],
-      "f1": 0.6
+        0.7018292244757601,
+        0.9881334113938051
+      ]
     },
     "baseline_test": {
-      "n": 90,
-      "positive_count": 14,
-      "tn": 31,
-      "fp": 45,
+      "n": 120,
+      "positive_count": 15,
+      "tn": 73,
+      "fp": 32,
       "fn": 0,
-      "tp": 14,
-      "accuracy": 0.5,
+      "tp": 15,
+      "accuracy": 0.7333333333333333,
       "recall": 1.0,
-      "precision": 0.23728813559322035,
-      "fpr": 0.5921052631578947,
-      "roc_auc": 0.6842105263157895,
+      "precision": 0.3191489361702128,
+      "f1": 0.4838709677419355,
+      "fpr": 0.3047619047619048,
+      "roc_auc": 0.7765079365079365,
       "threshold": 0.5,
       "recall_wilson95": [
-        0.7846829880728186,
+        0.7961107336956521,
         1.0
-      ],
-      "f1": 0.3835616438356164
+      ]
     },
     "selection_feasible": true,
-    "test_fingerprint": "2eacbabda32168a8ce34ae3d103fbac4e6359e6005f4359f8ddaeb302ebb3726",
+    "test_fingerprint": "6fef2674c5dad78d42ba83aa91b356ca41716c6b39d3b96dd5d54c4ee8534026",
     "gate": {
       "passed": false,
       "reasons": [
-        "불량 검출률 42.9%: 데모 목표 90% 미달",
         "마지막 평가의 불량 표본 부족: 더 많은 데이터로 확인 필요"
       ],
       "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
@@ -383,19 +382,28 @@
     },
     "split": {
       "test": {
-        "rows": 90,
-        "index_hash": "2eacbabda32168a8ce34ae3d103fbac4e6359e6005f4359f8ddaeb302ebb3726"
+        "rows": 120,
+        "defects": 15,
+        "index_hash": "6fef2674c5dad78d42ba83aa91b356ca41716c6b39d3b96dd5d54c4ee8534026"
       },
       "validation": {
-        "rows": 90,
-        "index_hash": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b"
+        "rows": 114,
+        "defects": 19,
+        "index_hash": "c33fb863991faf72ac3062b829818f934b307ace2122afa20de3ac51beb75339"
       },
       "train": {
-        "rows": 396,
-        "index_hash": "64e6b41025662342ddb143238c5ad24abd975810a50480a9ef407737c962e3df"
+        "rows": 342,
+        "defects": 51,
+        "index_hash": "11c3157d991ba33486aeda7c87e13ea656d214fa6d80d2708009114e5d3ba8b3"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
       }
     },
-    "elapsed_seconds": 4.883241416000146,
+    "elapsed_seconds": 4.564505082998949,
     "seed": 45,
     "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
     "scope_note": "합성 이미지 데모. 실제 검사 이미지 성능으로 일반화할 수 없음.",

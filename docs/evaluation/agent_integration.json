@@ -4,7 +4,7 @@
       "mode": "tfidf",
       "hit_at_3": 1.0,
       "mrr_at_3": 0.9615384615384616,
-      "mean_seconds": 0.00035402238469172374,
+      "mean_seconds": 0.0003555672309840492,
       "queries": [
         {
           "query": "학습과 테스트에 같은 lot이 섞이면 어떻게 하나요?",
@@ -18,7 +18,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 0.5,
-          "seconds": 0.0004979580003237061,
+          "seconds": 0.0005101249989820644,
           "backend": "tfidf"
         },
         {
@@ -33,7 +33,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00037304200031940127,
+          "seconds": 0.0003704169994307449,
           "backend": "tfidf"
         },
         {
@@ -48,7 +48,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003457090001575125,
+          "seconds": 0.0003505420008877991,
           "backend": "tfidf"
         },
         {
@@ -63,7 +63,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003427090000513999,
+          "seconds": 0.00034254199999850243,
           "backend": "tfidf"
         },
         {
@@ -78,7 +78,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003489159998935065,
+          "seconds": 0.0003421660003368743,
           "backend": "tfidf"
         },
         {
@@ -93,7 +93,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003412920000300801,
+          "seconds": 0.0003395830008230405,
           "backend": "tfidf"
         },
         {
@@ -108,7 +108,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003505409999888798,
+          "seconds": 0.0003448330007813638,
           "backend": "tfidf"
         },
         {
@@ -123,7 +123,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003435420003370382,
+          "seconds": 0.00034012499963864684,
           "backend": "tfidf"
         },
         {
@@ -138,7 +138,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003372500000295986,
+          "seconds": 0.0003394579998712288,
           "backend": "tfidf"
         },
         {
@@ -153,7 +153,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00033374999975421815,
+          "seconds": 0.0003407080002943985,
           "backend": "tfidf"
         },
         {
@@ -168,7 +168,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0003357499999765423,
+          "seconds": 0.0003434999998717103,
           "backend": "tfidf"
         },
         {
@@ -183,7 +183,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00032629099996484,
+          "seconds": 0.0003283750011178199,
           "backend": "tfidf"
         },
         {
@@ -198,7 +198,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00032554100016568555,
+          "seconds": 0.0003300000007584458,
           "backend": "tfidf"
         }
       ]
@@ -207,7 +207,7 @@
       "mode": "dense",
       "hit_at_3": 1.0,
       "mrr_at_3": 0.9615384615384616,
-      "mean_seconds": 0.14185059923081028,
+      "mean_seconds": 0.09023300315395598,
       "queries": [
         {
           "query": "학습과 테스트에 같은 lot이 섞이면 어떻게 하나요?",
@@ -221,7 +221,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 1.5112321669998892,
+          "seconds": 0.8295792500011885,
           "backend": "dense"
         },
         {
@@ -236,7 +236,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 0.5,
-          "seconds": 0.026991500000349333,
+          "seconds": 0.030678499999339692,
           "backend": "dense"
         },
         {
@@ -251,7 +251,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.027139583000007406,
+          "seconds": 0.027263709000180825,
           "backend": "dense"
         },
         {
@@ -266,7 +266,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.02833187500027634,
+          "seconds": 0.028085416000976693,
           "backend": "dense"
         },
         {
@@ -281,7 +281,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.028722292000111338,
+          "seconds": 0.028328042000794085,
           "backend": "dense"
         },
         {
@@ -296,7 +296,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0269705409996277,
+          "seconds": 0.026973999998517684,
           "backend": "dense"
         },
         {
@@ -311,7 +311,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.027080959000159055,
+          "seconds": 0.03205399999933434,
           "backend": "dense"
         },
         {
@@ -326,7 +326,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.028536499999972875,
+          "seconds": 0.02820791699923575,
           "backend": "dense"
         },
         {
@@ -341,7 +341,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.027718832999653387,
+          "seconds": 0.028739332999975886,
           "backend": "dense"
         },
         {
@@ -356,7 +356,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.028509916000075464,
+          "seconds": 0.028074958001525374,
           "backend": "dense"
         },
         {
@@ -371,7 +371,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.026886833000389743,
+          "seconds": 0.029941374999907566,
           "backend": "dense"
         },
         {
@@ -386,7 +386,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.02648383299992929,
+          "seconds": 0.02626908300044306,
           "backend": "dense"
         },
         {
@@ -401,7 +401,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.02945295800009262,
+          "seconds": 0.02883345800000825,
           "backend": "dense"
         }
       ]
@@ -427,7 +427,7 @@
         "leakage",
         "tree"
       ],
-      "seconds": 4.258,
+      "seconds": 4.476,
       "tokens": 54,
       "numeric_claims": "engine_only",
       "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
@@ -450,7 +450,7 @@
         "ann",
         "tree"
       ],
-      "seconds": 1.429,
+      "seconds": 1.454,
       "tokens": 44,
       "numeric_claims": "engine_only",
       "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
@@ -460,14 +460,14 @@
       "status": "fallback",
       "note": "LLM 응답을 검증할 수 없어 규칙 근거를 사용",
       "error_type": "ValueError",
-      "seconds": 1.444
+      "seconds": 1.608
     }
   ],
-  "proposal_id": "proposal-5a814dc38bce",
-  "plan_hash": "5dcd1344e39ee13812bb981e719be5f5f9668d272b36feff101c375ecbe7f437",
+  "proposal_id": "proposal-7e1333271246",
+  "plan_hash": "6ee2ffac6b6cf77794f83d8b6f98fdab3b20b03b66c6288d0ac88a812cd89e20",
   "approval_status": "awaiting_approval",
   "training_started": false,
-  "workflow_seconds": 7.20131712500006,
+  "workflow_seconds": 7.60856716699891,
   "all_roles_verified": false,
   "retrieval_model": "qwen3-embedding:0.6b",
   "local_llm_model": "qwen3.5:2b",

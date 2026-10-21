@@ -7,20 +7,20 @@
     "expected_defects": 100.0,
     "expected_normals": 900.0,
     "before": {
-      "detected_defects": 68.0,
-      "missed_defects": 31.999999999999996,
-      "normal_false_positives": 5.389221556886228,
-      "normal_correct": 894.6107784431138
+      "detected_defects": 62.5,
+      "missed_defects": 37.5,
+      "normal_false_positives": 4.017857142857142,
+      "normal_correct": 895.9821428571429
     },
     "after": {
-      "detected_defects": 76.0,
-      "missed_defects": 24.0,
-      "normal_false_positives": 43.11377245508982,
-      "normal_correct": 856.8862275449102
+      "detected_defects": 84.375,
+      "missed_defects": 15.625,
+      "normal_false_positives": 56.25,
+      "normal_correct": 843.75
     },
     "delta": {
-      "additional_detected": 8.0,
-      "additional_normal_false_positives": 37.724550898203596
+      "additional_detected": 21.875,
+      "additional_normal_false_positives": 52.23214285714286
     },
     "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   },
@@ -34,18 +34,18 @@
     "before": {
       "detected_defects": 0.0,
       "missed_defects": 100.0,
-      "normal_false_positives": 3.614457831325301,
-      "normal_correct": 896.3855421686746
+      "normal_false_positives": 42.857142857142854,
+      "normal_correct": 857.1428571428571
     },
     "after": {
-      "detected_defects": 40.0,
-      "missed_defects": 60.0,
-      "normal_false_positives": 263.855421686747,
-      "normal_correct": 636.1445783132531
+      "detected_defects": 21.73913043478261,
+      "missed_defects": 78.26086956521739,
+      "normal_false_positives": 219.32773109243698,
+      "normal_correct": 680.672268907563
     },
     "delta": {
-      "additional_detected": 40.0,
-      "additional_normal_false_positives": 260.2409638554217
+      "additional_detected": 21.73913043478261,
+      "additional_normal_false_positives": 176.47058823529412
     },
     "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   },
@@ -59,18 +59,18 @@
     "before": {
       "detected_defects": 100.0,
       "missed_defects": 0.0,
-      "normal_false_positives": 532.8947368421052,
-      "normal_correct": 367.1052631578948
+      "normal_false_positives": 274.28571428571433,
+      "normal_correct": 625.7142857142857
     },
     "after": {
-      "detected_defects": 42.857142857142854,
-      "missed_defects": 57.14285714285714,
+      "detected_defects": 93.33333333333333,
+      "missed_defects": 6.666666666666665,
       "normal_false_positives": 0.0,
       "normal_correct": 900.0
     },
     "delta": {
-      "additional_detected": -57.142857142857146,
-      "additional_normal_false_positives": -532.8947368421052
+      "additional_detected": -6.666666666666671,
+      "additional_normal_false_positives": -274.28571428571433
     },
     "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   }

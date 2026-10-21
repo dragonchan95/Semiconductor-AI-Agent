@@ -116,7 +116,10 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
             raise ValueError(f"{name} 대상 제품의 정상·불량 표본이 부족합니다")
     if dataset["modality"] == "image":
         from .images import run_images
-        return run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event)
+        result = run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event)
+        result["split"] = split_summary
+        (Path(artifact_dir) / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+        return result
     features = [c for c in df if c not in META]
     x = df[features].to_numpy(dtype=float)
     y = df.label.to_numpy(dtype=int)

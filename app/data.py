@@ -95,7 +95,7 @@ def split_frame(df):
         groups = df.lot_id.astype(str)
         remaining = np.arange(len(df))
         parts = {}
-        for name, size in [("test", .15), ("validation", .15 / .85)]:
+        for name, size in [("test", .20), ("validation", .20 / .80)]:
             a, b = next(GroupShuffleSplit(n_splits=1, test_size=size, random_state=SEED).split(
                 remaining, groups=groups.iloc[remaining]))
             parts[name] = remaining[b]
@@ -110,7 +110,7 @@ def split_frame(df):
         blocks = sorted(times.dt.date.unique())
         if len(blocks) < 16:
             raise ValueError("시간 분할에는 서로 다른 날짜가 16일 이상 필요합니다")
-        cut = [int(len(blocks) * x) for x in [.70, .85]]
+        cut = [int(len(blocks) * x) for x in [.60, .80]]
         chunks = np.split(np.array(blocks, dtype=object), cut)
         parts = {name: np.flatnonzero(times.dt.date.isin(chunk).to_numpy())
                  for name, chunk in zip(["train", "validation", "test"], chunks)}
@@ -122,6 +122,7 @@ def split_frame(df):
     summary = {name: {"rows": len(idx), "defects": int(df.iloc[idx].label.sum()),
                       "index_hash": digest(sorted(map(int, idx)))} for name, idx in parts.items()}
     summary["method"] = method
+    summary["target_ratios"] = {"train": .60, "validation": .20, "test": .20}
     return parts, summary
 
 

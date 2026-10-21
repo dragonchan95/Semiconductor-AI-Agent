@@ -4,33 +4,33 @@
   "datasets": [
     {
       "dataset": "synthetic_process",
-      "run_id": "run-420e792e6c5f",
+      "run_id": "run-22e7658abfc7",
       "trials": 52,
       "winner": "catboost",
-      "baseline_recall": 0.68,
-      "test_recall": 0.76,
-      "test_precision": 0.7037037037037037,
-      "test_fpr": 0.04790419161676647,
+      "baseline_recall": 0.625,
+      "test_recall": 0.84375,
+      "test_precision": 0.6585365853658537,
+      "test_fpr": 0.0625,
       "gate": {
         "passed": false,
         "reasons": [
-          "불량 검출률 76.0%: 데모 목표 90% 미달"
+          "불량 검출률 84.4%: 데모 목표 90% 미달"
         ],
         "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
         "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
         "auto_deploy": false
       },
-      "seconds": 16.725133166999967
+      "seconds": 22.600261457999295
     },
     {
       "dataset": "secom",
-      "run_id": "run-884f6e84edca",
+      "run_id": "run-e0fba62cb484",
       "trials": 24,
-      "winner": "adaboost",
+      "winner": "xgboost",
       "baseline_recall": 0.0,
-      "test_recall": 0.4,
-      "test_precision": 0.0759493670886076,
-      "test_fpr": 0.2931726907630522,
+      "test_recall": 0.21739130434782608,
+      "test_precision": 0.05434782608695652,
+      "test_fpr": 0.24369747899159663,
       "gate": {
         "passed": false,
         "reasons": [
@@ -39,28 +39,27 @@
         "action": "후보 재검토 · 데이터와 비교 목표 확인",
         "auto_deploy": false
       },
-      "seconds": 26.07752524999978
+      "seconds": 26.961768416998893
     },
     {
       "dataset": "images",
-      "run_id": "run-92b1f8b2c68f",
+      "run_id": "run-127e5f78d204",
       "trials": 6,
       "winner": "autoencoder",
       "baseline_recall": 1.0,
-      "test_recall": 0.42857142857142855,
+      "test_recall": 0.9333333333333333,
       "test_precision": 1.0,
       "test_fpr": 0.0,
       "gate": {
         "passed": false,
         "reasons": [
-          "불량 검출률 42.9%: 데모 목표 90% 미달",
           "마지막 평가의 불량 표본 부족: 더 많은 데이터로 확인 필요"
         ],
         "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
         "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
         "auto_deploy": false
       },
-      "seconds": 4.883241416000146
+      "seconds": 4.564505082998949
     }
   ]
 }
