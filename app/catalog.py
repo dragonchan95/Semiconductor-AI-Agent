@@ -24,12 +24,12 @@ def pipeline_reason(model, prep='auto', balance='none'):
     if model in IMAGE:
         title, why, source = IMAGE[model]
         return {'model': model, 'title': title, 'input': '라벨이 있는 검사 이미지',
-                'preprocessing': prep, 'preprocessing_reason': '흑백 32×32 및 0~1 정규화로 CPU 데모 비용을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능',
+                'preprocessing': prep, 'preprocessing_reason': '흑백 32×32 및 0~1 정규화로 CPU 데모 연산량을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능',
                 'model_reason': why, 'balance_method': '정상만 학습' if model == 'autoencoder' else '가중 손실' if balance == 'weighted' else '기본 손실',
                 'source': source, 'limitation': '축소 구조를 scratch 학습. 표준 ResNet50/VGG19 사전학습 성능의 증거가 아님'}
     title, default, why, source = TABULAR[model]
     prep = default if prep == 'auto' else prep
-    reason = '센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 표준화' if prep == 'scaled' else '트리의 크기 비교 분기는 단위 표준화를 요구하지 않아 중앙값 대체 후 사용'
+    reason = '센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)' if prep == 'scaled' else '트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용'
     if model in {'knn', 'mlp'} and balance == 'weighted':
         method = '학습 표본 안에서만 불량 무작위 복제 (오버샘플링)'
     elif balance == 'weighted':
@@ -47,8 +47,8 @@ def explain_plan(audit, plan):
     return {
         'data_summary': f"{'검사 이미지' if image else '숫자 공정 센서'} {audit['rows']:,}개, 불량 {audit['defects']:,}개 ({audit['defect_ratio']:.1%}), 결측 {audit['missing_ratio']:.1%}",
         'task': '정상/불량 이진 분류. 수율 회귀 또는 시간 예측 과제가 아님',
-        'preprocessing_evidence': '이미지 크기·대비 후보를 비교합니다.' if image else f"숫자 특성 {audit['features']}개. 결측 대체·상수 제거·표준화의 적합은 train에만 수행합니다.",
-        'imbalance_reason': f"불량 {audit['defect_ratio']:.1%}. Recall, 정상 추가검사 비율, Precision을 함께 비교합니다. 복제·가중치는 train에만 적용합니다.",
+        'preprocessing_evidence': '이미지 크기·대비 후보를 비교합니다.' if image else f"숫자 특성 {audit['features']}개. 결측 대체·상수 제거·Scaling의 적합은 train에만 수행합니다.",
+        'imbalance_reason': f"불량 {audit['defect_ratio']:.1%}. Recall, 정상 오판률(정상을 불량으로 판정), Precision을 함께 비교합니다. 복제·가중치는 train에만 적용합니다.",
         'candidates': [pipeline_reason(n, plan['preprocessing'][0], plan['balance'][-1]) for n in plan['models']],
         'excluded': [
             {'models': 'LSTM / ARIMA', 'reason': '연속 관측 주기와 예측 시점·목표가 있는 시계열 입력이 필요. 현재 행 단위 불량 분류와 직접 경쟁시키지 않음'},

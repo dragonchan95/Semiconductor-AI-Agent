@@ -21,10 +21,9 @@ from .advisors import quality_choices
 
 
 class Policy(BaseModel):
-    min_precision: float = Field(default=.25, ge=.01, le=1)
+    min_recall: float = Field(default=.90, ge=.01, le=1)
     max_fpr: float = Field(default=.15, ge=0, le=1)
-    miss_cost: float = Field(default=100000, gt=0, le=1e10)
-    false_alarm_cost: float = Field(default=1000, ge=0, le=1e10)
+    min_test_defects: int = Field(default=20, ge=3, le=10000)
 
 
 class ProposalRequest(BaseModel):
@@ -157,7 +156,7 @@ def build_planner(deps):
                 "target_products": target, "models": names, "preprocessing": prep, "balance": balance,
                 "epochs": req["epochs"], "policy": req["policy"], "trial_budget": count,
                 "split_hash": digest(state["split"]), "seed": SEED,
-                "selection": "calibration threshold; validation selection; final test once",
+                "selection": "Validation threshold and candidate selection; final Test once",
                 "model_backend": "local_sklearn_or_pytorch", "auto_deploy": False,
                 "management_source_run": source_run}
         plan['search_strategy'] = 'model_then_cohort' if staged else 'grid'
@@ -165,11 +164,11 @@ def build_planner(deps):
             f"제품 학습 조합 {len(combinations)}개와 모델 {len(names)}개 등 최대 {count}개 실험입니다.",
             "모든 학습 조합은 동일한 대상 제품의 validation/test 표본으로 평가합니다.",
             "test는 모델 선택에 쓰지 않고 선택된 후보와 사전 정의 baseline만 마지막에 평가합니다.",
-            "비용은 입력한 미탐·오탐 가정에 따른 분류 손실입니다. 수율·영업이익 향상을 확정하지 않습니다.",
+            "입력값은 교육용 비교 목표입니다. 회사 양산 기준은 현장 담당자가 별도 정의해야 합니다.",
             "승인은 이 계획의 로컬 학습 실행만 허용합니다. 장비·recipe 변경과 운영 배포는 수행하지 않습니다."]
         if image:
             reasons.append("ResNetSmall/VGGSmall은 자체 축소 구조를 scratch 학습합니다. 표준 사전학습 모델 비교가 아닙니다.")
-            reasons.append("Autoencoder는 정상 학습 표본만 사용합니다. 라벨이 있는 calibration에서 threshold를 선택합니다.")
+            reasons.append("Autoencoder는 정상 학습 표본만 사용합니다. 라벨이 있는 Validation에서 판정 경계값을 선택합니다.")
         elif staged:
             reasons.append('전체 제품에서 모든 모델을 비교한 뒤 validation 상위 서로 다른 두 모델의 제품 학습 조합을 확장합니다. 완전탐색은 아니며 같은 validation의 반복 사용에 따른 선택 편향이 남습니다.')
         explanation = explain_plan(quality, plan)

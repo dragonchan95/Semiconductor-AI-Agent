@@ -32,7 +32,7 @@ QUERIES = [
  ('엔지니어 승인 없이 모델 학습을 실행해도 되나요?', ['approval']),
  ('불량 검출률이 오르면 수율과 영업이익도 확정되나요?', ['profit']),
  ('기업 클라우드에 배포할 때 필요한 연결은?', ['cloud']),
- ('의사결정나무와 랜덤포레스트도 센서 표준화가 필요한가요?', ['tree']),
+ ('의사결정나무와 랜덤포레스트도 센서 Scaling가 필요한가요?', ['tree']),
  ('센서 단위가 다를 때 KNN과 SVM의 전처리는?', ['distance']),
  ('다층 퍼셉트론 신경망에 센서를 입력할 때 주의점은?', ['ann']),
  ('로그 텍스트와 시계열에는 어떤 모델을 쓰나요?', ['modalities']),
@@ -68,7 +68,7 @@ def integration():
     return {'retrieval':retrieval, 'agent_outputs':outputs, 'proposal_id':p['id'], 'plan_hash':p['plan_hash'],
             'approval_status':p['status'], 'training_started':False,
             'workflow_seconds':time.perf_counter()-start, 'all_roles_verified':all(a['status']=='verified' for a in outputs),
-            'retrieval_model':dense.model, 'local_llm_model':wb.advisor.model, 'paid_api_cost':0,
+            'retrieval_model':dense.model, 'local_llm_model':wb.advisor.model,
             'evaluation_note':'고정 13개 프로젝트 질문의 자체 정답표. 일반 검색 성능·현장 정확도의 증거 아님. dense 첫 질의에는 문서 캐시 준비 시간이 포함될 수 있음'}
 
 

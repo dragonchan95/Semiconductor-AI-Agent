@@ -25,7 +25,7 @@ class CoreTests(unittest.TestCase):
     def test_lot_disjoint_and_all_rows(self):
         parts, summary = split_frame(self.frame)
         sets = [set(self.frame.iloc[idx].lot_id) for idx in parts.values()]
-        for i in range(4):
+        for i in range(3):
             for j in range(i):
                 self.assertFalse(sets[i] & sets[j])
         self.assertEqual(sum(map(len, parts.values())), len(self.frame))
@@ -34,7 +34,7 @@ class CoreTests(unittest.TestCase):
         frame = self.frame.drop(columns="lot_id").copy()
         parts, _ = split_frame(frame)
         previous = None
-        for name in ["train", "calibration", "validation", "test"]:
+        for name in ["train", "validation", "test"]:
             times = pd.to_datetime(frame.iloc[parts[name]].timestamp)
             if previous is not None:
                 self.assertGreater(times.min(), previous)
@@ -69,17 +69,18 @@ class CoreTests(unittest.TestCase):
         self.assertEqual([m[k] for k in ["tn", "fp", "fn", "tp"]], [1, 1, 1, 1])
         self.assertEqual(m["recall"], .5)
         self.assertEqual(m["precision"], .5)
-        self.assertEqual(m["assumed_cost_per_10000"], 275000)
+        self.assertEqual(m['f1'],.5)
+        self.assertNotIn("assumed_cost_per_10000",m)
 
     def test_threshold_infeasibility_is_visible(self):
         _, feasible = choose_threshold([0, 1, 0, 1], [.5, .5, .5, .5], {
-            "min_precision": .9, "max_fpr": .01, "miss_cost": 100, "false_alarm_cost": 10})
+            "min_recall": .9, "max_fpr": .01, "miss_cost": 100, "false_alarm_cost": 10})
         self.assertFalse(feasible)
 
     def test_sparse_gate_never_auto_deploys(self):
         m = measure([0, 0, 1, 1], [.1, .2, .8, .9], .5,
                     {"miss_cost": 100, "false_alarm_cost": 1})
-        gate = operational_gate(m, {"min_precision": .5, "max_fpr": .1})
+        gate = operational_gate(m, {"min_recall": .5, "max_fpr": .1})
         self.assertFalse(gate["passed"])
         self.assertFalse(gate["auto_deploy"])
 

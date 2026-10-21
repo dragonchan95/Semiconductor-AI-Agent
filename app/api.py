@@ -223,12 +223,12 @@ def export_csv(ident: str):
     buf = io.StringIO()
     writer = csv.writer(buf)
     writer.writerow(["trial", "model", "train_products", "preprocessing", "balance", "validation_recall",
-                     "validation_precision", "validation_AP", "fit_seconds", "status"])
+                     "validation_precision", "validation_normal_false_positive_rate", "fit_seconds", "status"])
     for row in record["result"]["trials"]:
         m = row.get("validation", {})
         writer.writerow([row["id"], row.get("model"), "+".join(row.get("products", [])),
                          row.get("preprocessing"), row.get("balance"), m.get("recall"),
-                         m.get("precision"), m.get("average_precision"), row.get("fit_seconds"), row["status"]])
+                         m.get("precision"), m.get("fpr"), row.get("fit_seconds"), row["status"]])
     return Response("\ufeff" + buf.getvalue(), media_type="text/csv",
                     headers={"Content-Disposition": f'attachment; filename="{ident}.csv"'})
 

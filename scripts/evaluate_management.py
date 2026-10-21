@@ -29,7 +29,7 @@ receipt={'comparison':comparison,'approval_actor':'자동 검증용 테스트 �
 cases={}
 for name in ['synthetic_process','secom','images']:
     d=json.loads((ROOT/f'docs/evaluation/{name}.json').read_text())
-    cases[name]=compare_impact(d['result'],{'quantity':1000,'defect_rate':.10,'repair_success':.20},d['plan']['policy'])
+    cases[name]=compare_impact(d['result'],{'quantity':1000,'defect_rate':.10},d['plan']['policy'])
 (ROOT/'docs/evaluation/presentation_cases.json').write_text(json.dumps(cases,ensure_ascii=False,indent=2))
 print(json.dumps({'review':review['verdict'],'old_recall':review['previous_recall'],
                  'new_recall':review['current']['recall'],'recommendations':[{k:r[k] for k in ['product','selected_strategy','recommendation']} for r in comparison['products']],

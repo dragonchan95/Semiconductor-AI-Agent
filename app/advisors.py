@@ -71,13 +71,13 @@ def quality_choices(audit):
     if audit['defect_ratio'] < .2:
         result['imbalance'] = '불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교'
     if len(audit['products']) > 1:
-        result['products'] = '여러 제품의 공통·전용 학습 범위를 같은 평가 표본으로 비교'
+        result['products'] = '여러 제품을 합쳐 학습할지 제품마다 따로 학습할지 같은 평가 표본으로 비교'
     return result
 
 
 def result_choices(result):
     choices = {'validation': '모델 선택에는 validation 결과를 사용. test 수치로 후보 순서를 바꾸지 않음',
-               'tradeoff': '추가 불량 검출과 정상 제품 추가 검사 부담을 함께 검토'}
+               'tradeoff': '불량을 놓친 건수와 정상을 불량으로 잘못 판정한 건수를 함께 검토'}
     choices['candidate' if result['gate']['passed'] else 'hold'] = (
         '기준 통과 후보를 엔지니어 검토 대상으로 제시. 운영 배포는 별도 절차' if result['gate']['passed'] else '현재 결과는 적용 보류. 기준 미달 원인을 먼저 검토')
     if result['test']['positive_count'] < 20:

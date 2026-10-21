@@ -25,7 +25,7 @@ async def main():
             resources = await session.read_resource("semiconductor://knowledge/leakage")
             candidates = await session.call_tool('explain_model_candidates', {'modality':'tabular'})
             assert not getattr(candidates, 'isError', False)
-            assert "train" in resources.contents[0].text
+            assert "Validation" in resources.contents[0].text
             receipt = {"transport": "stdio", "handshake": True, "tools": names,
                        "approval_or_execution_tool_exposed": False,
                        "dataset_tool_ok": True, "knowledge_resource_ok": True, 'model_explanation_tool_ok': True}

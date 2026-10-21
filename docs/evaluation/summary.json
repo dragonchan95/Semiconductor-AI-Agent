@@ -4,63 +4,63 @@
   "datasets": [
     {
       "dataset": "synthetic_process",
-      "run_id": "run-885b0eab4bb5",
+      "run_id": "run-420e792e6c5f",
       "trials": 52,
-      "winner": "svm",
-      "baseline_recall": 0.6,
-      "test_recall": 0.96,
-      "test_precision": 0.48,
-      "test_fpr": 0.15568862275449102,
-      "AP": 0.9202228597666043,
+      "winner": "catboost",
+      "baseline_recall": 0.68,
+      "test_recall": 0.76,
+      "test_precision": 0.7037037037037037,
+      "test_fpr": 0.04790419161676647,
       "gate": {
         "passed": false,
         "reasons": [
-          "오탐률 상한 초과"
+          "불량 검출률 76.0%: 데모 목표 90% 미달"
         ],
-        "action": "배포 보류·표본 보강 및 재검토",
+        "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+        "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
         "auto_deploy": false
       },
-      "seconds": 22.030614084000263
+      "seconds": 16.725133166999967
     },
     {
       "dataset": "secom",
-      "run_id": "run-efe0654ca551",
+      "run_id": "run-884f6e84edca",
       "trials": 24,
-      "winner": "svm",
-      "baseline_recall": 0.06666666666666667,
-      "test_recall": 0.9333333333333333,
-      "test_precision": 0.059574468085106386,
-      "test_fpr": 0.8875502008032129,
-      "AP": 0.07627959250488935,
+      "winner": "adaboost",
+      "baseline_recall": 0.0,
+      "test_recall": 0.4,
+      "test_precision": 0.0759493670886076,
+      "test_fpr": 0.2931726907630522,
       "gate": {
         "passed": false,
         "reasons": [
-          "calibration·validation 기준을 함께 만족한 후보 없음"
+          "Validation에서 불량 검출률·정상 오판률 데모 목표를 만족한 후보 없음"
         ],
-        "action": "배포 보류·학습 데이터와 기준 재검토",
+        "action": "후보 재검토 · 데이터와 비교 목표 확인",
         "auto_deploy": false
       },
-      "seconds": 23.050249292002263
+      "seconds": 26.07752524999978
     },
     {
       "dataset": "images",
-      "run_id": "run-106330524fbd",
+      "run_id": "run-92b1f8b2c68f",
       "trials": 6,
       "winner": "autoencoder",
-      "baseline_recall": 0.6428571428571429,
-      "test_recall": 1.0,
+      "baseline_recall": 1.0,
+      "test_recall": 0.42857142857142855,
       "test_precision": 1.0,
       "test_fpr": 0.0,
-      "AP": 1.0,
       "gate": {
         "passed": false,
         "reasons": [
-          "평가 불량 표본 20개 미만: 통계적 불확실성이 큼"
+          "불량 검출률 42.9%: 데모 목표 90% 미달",
+          "마지막 평가의 불량 표본 부족: 더 많은 데이터로 확인 필요"
         ],
-        "action": "배포 보류·표본 보강 및 재검토",
+        "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+        "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
         "auto_deploy": false
       },
-      "seconds": 4.380314875001204
+      "seconds": 4.883241416000146
     }
   ]
 }

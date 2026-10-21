@@ -1,9 +1,11 @@
 {
-  "native_google_slides_url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit",
+  "date": "2026-10-21",
+  "native_google_slides_export_checked": true,
   "slides": 14,
-  "native_tables": 11,
+  "editable_tables": 10,
   "speaker_notes": 14,
-  "all_pages_rendered": true,
-  "general_access": "anyone_with_link_viewer_verified_in_browser",
-  "external_model_discovery": "future_design_not_implemented"
+  "requirements_mapping_slide": 14,
+  "financial_scenarios_removed": true,
+  "company_numeric_thresholds_verified": false,
+  "report_url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit"
 }

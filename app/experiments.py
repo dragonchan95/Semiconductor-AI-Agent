@@ -1,4 +1,4 @@
-"""Fit on train, choose threshold on calibration, select on validation.
+"""Fit on train; tune threshold and choose candidate on Validation.
 Only the selected candidate and declared baseline access the final test.
 """
 import itertools
@@ -24,7 +24,7 @@ from threadpoolctl import threadpool_limits
 
 from .config import MAX_TRIALS, SEED
 from .data import load_frame, split_frame, META
-from .metrics import choose_threshold, measure, operational_gate
+from .metrics import choose_threshold, measure, operational_gate, meets_goals, selection_key
 from .store import digest
 from .catalog import pipeline_reason
 
@@ -99,13 +99,8 @@ def fit_estimator(name, prep, balance, x, y):
 
 def rank_trials(rows, policy):
     complete = [r for r in rows if r['status'] == 'completed']
-    feasible = [r for r in complete if r['calibration_feasible'] and
-                r['validation']['precision'] >= policy['min_precision'] and r['validation']['fpr'] <= policy['max_fpr']]
-    # Feasible candidates always rank before infeasible references.
-    ids = {r['id'] for r in feasible}
-    return sorted(complete, key=lambda r: (r['id'] in ids,
-        r['validation']['recall'] if r['id'] in ids else -r['validation']['assumed_cost_per_10000'],
-        r['validation']['average_precision'], r['id']), reverse=True), feasible
+    feasible = [r for r in complete if meets_goals(r['validation'], policy)]
+    return sorted(complete, key=lambda r:(*selection_key(r['validation'],policy),r['id']), reverse=True), feasible
 
 
 def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
@@ -116,7 +111,7 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
     targets = plan["target_products"]
     evaluation = {name: idx[np.isin(df.iloc[idx]["product"].astype(str), targets)]
                   for name, idx in parts.items()}
-    for name in ["calibration", "validation", "test"]:
+    for name in ["validation", "test"]:
         if len(evaluation[name]) == 0 or df.iloc[evaluation[name]].label.nunique() < 2:
             raise ValueError(f"{name} 대상 제품의 정상·불량 표본이 부족합니다")
     if dataset["modality"] == "image":
@@ -148,13 +143,13 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
             started = time.perf_counter()
             try:
                 fitted_model = fit_estimator(model_name, prep, balance, x[idx], y[idx])
-                cal = evaluation["calibration"]
+                cal = evaluation["validation"]
                 threshold, feasible = choose_threshold(y[cal], fitted_model.predict_proba(x[cal])[:, 1], policy)
                 val = evaluation["validation"]
                 scores = fitted_model.predict_proba(x[val])[:, 1]
                 metrics = measure(y[val], scores, threshold, policy)
                 row = {"id": name, **config, "status": "completed", "train_n": len(idx),
-                       "train_defects": int(y[idx].sum()), "calibration_feasible": feasible,
+                       "train_defects": int(y[idx].sum()), "validation_feasible": feasible,
                        "explanation": pipeline_reason(model_name, prep, balance),
                        "stage": 'model_comparison' if not staged or i < stage_one_count else 'cohort_comparison',
                        "validation": metrics, "fit_seconds": time.perf_counter() - started,
@@ -182,13 +177,8 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
         complete = [r for r in rows if r["status"] == "completed"]
         if not complete:
             raise ValueError("실행 가능한 후보가 없습니다")
-        feasible = [r for r in complete if r["calibration_feasible"] and
-                    r["validation"]["precision"] >= policy["min_precision"] and
-                    r["validation"]["fpr"] <= policy["max_fpr"]]
-        pool = feasible or complete
-        winner = max(pool, key=lambda r: (r["validation"]["recall"] if feasible else
-                                         -r["validation"]["assumed_cost_per_10000"],
-                                         r["validation"]["average_precision"], r["id"]))
+        ranked, feasible = rank_trials(rows, policy)
+        winner = ranked[0]
         test = evaluation["test"]
         best_model, threshold = fitted[winner["id"]]
         test_metrics = measure(y[test], best_model.predict_proba(x[test])[:, 1], threshold, policy)
@@ -205,17 +195,17 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
               "test_fingerprint": digest(sorted(map(int, test))), "test_predictions": prediction,
               "selection_feasible": bool(feasible), "gate": operational_gate(test_metrics, policy),
               "elapsed_seconds": time.perf_counter() - start_all,
-              "economic_note": "사용자 비용 가정에 따른 시나리오 계산. 실현 수율·영업이익 증가의 증거가 아닙니다.",
+              "scope_note": "불량 판정 성능 비교이며 제조 수율 개선 실측이 아닙니다.",
               "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
-              "seed": SEED, "actual_llm_api_cost": 0}
+              "seed": SEED}
     result['explanation'] = {
         **winner['explanation'],
-        'selection_reason': f"동일 validation에서 기준을 만족한 {len(feasible)}개 후보 중 Recall과 AP 순으로 선택" if feasible else '기준을 만족한 후보가 없어 가정 분류 비용이 가장 작은 참고 후보를 표시하고 적용 보류',
+        'selection_reason': f"같은 Validation에서 데모 목표를 만족한 {len(feasible)}개 후보 중 불량 검출률이 높고 정상 오판률이 낮은 순서로 선택" if feasible else '두 데모 목표를 만족한 후보 없음. 목표와의 차이가 가장 작은 참고 후보이며 적용 추천이 아님',
         'evaluated_models': sorted({r['model'] for r in complete}),
         'search_note': '전체 제품으로 모든 모델·불균형 정책 비교 후 validation 상위 서로 다른 두 모델의 최선 정책을 제품 조합으로 확장. 완전탐색이 아니며 같은 validation의 반복 사용에 따른 선택 편향 가능' if staged else '승인한 후보들의 같은 분할 비교',
     }
     if not feasible:
-        result["gate"] = {"passed": False, "reasons": ["calibration·validation 기준을 함께 만족한 후보 없음"],
-                          "action": "배포 보류·학습 데이터와 기준 재검토", "auto_deploy": False}
+        result["gate"] = {"passed": False, "reasons": ["Validation에서 불량 검출률·정상 오판률 데모 목표를 만족한 후보 없음"],
+                          "action": "후보 재검토 · 데이터와 비교 목표 확인", "auto_deploy": False}
     (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
     return result

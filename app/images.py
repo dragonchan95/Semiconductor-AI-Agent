@@ -13,7 +13,7 @@ from PIL import Image
 from torch import nn
 
 from .config import MAX_TRIALS, SEED
-from .metrics import choose_threshold, measure, operational_gate
+from .metrics import choose_threshold, measure, operational_gate, meets_goals, selection_key
 from .store import digest
 
 
@@ -162,7 +162,7 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
                     output, torch.tensor(y[batch], dtype=torch.float32))
                 loss.backward()
                 optimizer.step()
-        cal = evaluation["calibration"]
+        cal = evaluation["validation"]
         threshold, feasible = choose_threshold(y[cal], predict(model, x[cal], model_name), policy)
         val = evaluation["validation"]
         metrics = measure(y[val], predict(model, x[val], model_name), threshold, policy)
@@ -170,7 +170,7 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
                "preprocessing": prep, "balance": "normal_only" if model_name == "autoencoder" else balance,
                "train_n": len(train_idx), "train_defects": 0 if model_name == "autoencoder" else int(y[idx].sum()),
                "parameters": sum(p.numel() for p in model.parameters()), "epochs": plan["epochs"],
-               "validation": metrics, "calibration_feasible": feasible,
+               "validation": metrics, "validation_feasible": feasible,
                "validation_fingerprint": digest(sorted(map(int, val))), "fit_seconds": time.perf_counter() - started}
         rows.append(row)
         fitted[ident] = (model, threshold, prep)
@@ -179,11 +179,8 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
     complete = [r for r in rows if r["status"] == "completed"]
     if not complete:
         raise ValueError("이미지 후보 학습 불가")
-    feasible = [r for r in complete if r["calibration_feasible"] and
-                r["validation"]["precision"] >= policy["min_precision"] and r["validation"]["fpr"] <= policy["max_fpr"]]
-    winner = max(feasible or complete, key=lambda r: (
-        r["validation"]["recall"] if feasible else -r["validation"]["assumed_cost_per_10000"],
-        r["validation"]["average_precision"], r["id"]))
+    feasible = [r for r in complete if meets_goals(r['validation'],policy)]
+    winner = max(complete,key=lambda r:(*selection_key(r['validation'],policy),r['id']))
     best, threshold, prep = fitted[winner["id"]]
     test = evaluation["test"]
     metrics = measure(y[test], predict(best, tensors[prep][test], winner["model"]), threshold, policy)
@@ -200,13 +197,13 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
               "split": {name: {"rows": len(idx), "index_hash": digest(sorted(map(int, idx)))} for name, idx in parts.items()},
               "elapsed_seconds": time.perf_counter() - started_all, "seed": SEED,
               "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
-              "economic_note": "합성 이미지 데모 결과. 실제 검사 이미지·영업이익 개선으로 일반화할 수 없음.",
-              "actual_llm_api_cost": 0}
+              "scope_note": "합성 이미지 데모. 실제 검사 이미지 성능으로 일반화할 수 없음.",
+}
     result['explanation'] = {**pipeline_reason(winner['model'], winner['preprocessing'], winner['balance']),
-        'selection_reason': '같은 validation에서 기준 충족 후보를 Recall·AP 순으로 선택. 동률이면 trial ID로 결정',
+        'selection_reason': '같은 Validation에서 데모 목표 충족 여부, 불량 검출률, 정상 오판률 순으로 비교. 완전 동률은 trial ID로 결정',
         'search_note': '같은 이미지 평가 표본에서 승인한 전처리·모델 후보를 비교. 단순한 합성 패턴 결과를 현장 성능으로 일반화하지 않음'}
     if not feasible:
-        result["gate"] = {"passed": False, "reasons": ["calibration·validation 기준을 함께 만족한 후보 없음"],
+        result["gate"] = {"passed": False, "reasons": ["Validation에서 두 데모 목표를 만족한 후보 없음"],
                           "action": "배포 보류·학습 데이터와 기준 재검토", "auto_deploy": False}
     (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
     return result

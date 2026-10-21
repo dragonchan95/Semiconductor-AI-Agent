@@ -88,14 +88,14 @@ def audit_frame(df, modality="tabular"):
 
 
 def split_frame(df):
-    """Four partitions. One lot never crosses a boundary. Timestamp-only uses
+    """Train / Validation / Test. One lot never crosses a boundary. Timestamp-only uses
     date blocks, preventing equal-time records from crossing a boundary.
     """
     if "lot_id" in df:
         groups = df.lot_id.astype(str)
         remaining = np.arange(len(df))
         parts = {}
-        for name, size in [("test", .15), ("validation", .15 / .85), ("calibration", .15 / .70)]:
+        for name, size in [("test", .15), ("validation", .15 / .85)]:
             a, b = next(GroupShuffleSplit(n_splits=1, test_size=size, random_state=SEED).split(
                 remaining, groups=groups.iloc[remaining]))
             parts[name] = remaining[b]
@@ -110,10 +110,10 @@ def split_frame(df):
         blocks = sorted(times.dt.date.unique())
         if len(blocks) < 16:
             raise ValueError("시간 분할에는 서로 다른 날짜가 16일 이상 필요합니다")
-        cut = [int(len(blocks) * x) for x in [.55, .70, .85]]
+        cut = [int(len(blocks) * x) for x in [.70, .85]]
         chunks = np.split(np.array(blocks, dtype=object), cut)
         parts = {name: np.flatnonzero(times.dt.date.isin(chunk).to_numpy())
-                 for name, chunk in zip(["train", "calibration", "validation", "test"], chunks)}
+                 for name, chunk in zip(["train", "validation", "test"], chunks)}
         method = "chronological_date_holdout"
     for name, idx in parts.items():
         labels = df.iloc[idx].label

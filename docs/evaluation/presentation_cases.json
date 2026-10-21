@@ -2,163 +2,76 @@
   "synthetic_process": {
     "scenario": {
       "quantity": 1000,
-      "defect_rate": 0.1,
-      "repair_success": 0.2
+      "defect_rate": 0.1
     },
     "expected_defects": 100.0,
     "expected_normals": 900.0,
-    "intrinsic_good_fraction": 0.9,
     "before": {
-      "detected_defects": 60.0,
-      "missed_defects": 40.0,
-      "normal_extra_checks": 5.389221556886228,
-      "normal_pass": 894.6107784431138,
-      "flagged_total": 65.38922155688623,
-      "assumed_loss": 4005389.221556886,
-      "recovered_by_repair": 12.0,
-      "good_fraction_after_repair": 0.912,
-      "recall": 0.6,
-      "normal_extra_check_rate": 0.005988023952095809
+      "detected_defects": 68.0,
+      "missed_defects": 31.999999999999996,
+      "normal_false_positives": 5.389221556886228,
+      "normal_correct": 894.6107784431138
     },
     "after": {
-      "detected_defects": 96.0,
-      "missed_defects": 4.0,
-      "normal_extra_checks": 140.11976047904193,
-      "normal_pass": 759.8802395209581,
-      "flagged_total": 236.11976047904193,
-      "assumed_loss": 540119.760479042,
-      "recovered_by_repair": 19.200000000000003,
-      "good_fraction_after_repair": 0.9192,
-      "recall": 0.96,
-      "normal_extra_check_rate": 0.15568862275449102
+      "detected_defects": 76.0,
+      "missed_defects": 24.0,
+      "normal_false_positives": 43.11377245508982,
+      "normal_correct": 856.8862275449102
     },
     "delta": {
-      "additional_detected": 36.0,
-      "additional_normal_checks": 134.7305389221557,
-      "assumed_loss_reduction": 3465269.4610778443,
-      "additional_recovered": 7.200000000000003,
-      "good_fraction_change": 0.007199999999999984
+      "additional_detected": 8.0,
+      "additional_normal_false_positives": 37.724550898203596
     },
-    "cost_assumptions": {
-      "missed_defect": 100000,
-      "normal_extra_check": 1000
-    },
-    "repair_scenario_enabled": true,
-    "measured_source": {
-      "synthetic": true,
-      "test_n": 192,
-      "test_defects": 25
-    },
-    "interpretation": "검증 데이터의 검출률·오탐률이 유지된다고 가정한 기대 건수. 생산 실측이 아님.",
-    "repair_note": "양쪽 모델의 검출 불량에 같은 재작업 정상화 비율 적용. 재작업 후 양품률 가정이며 최초 제조 수율 실측이 아님.",
-    "economic_note": "미검출·정상 추가검사 손실 가정만 포함. 재작업비·설비·처리량·매출 효과는 제외."
+    "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   },
   "secom": {
     "scenario": {
       "quantity": 1000,
-      "defect_rate": 0.1,
-      "repair_success": 0.2
+      "defect_rate": 0.1
     },
     "expected_defects": 100.0,
     "expected_normals": 900.0,
-    "intrinsic_good_fraction": 0.9,
     "before": {
-      "detected_defects": 6.666666666666667,
-      "missed_defects": 93.33333333333333,
-      "normal_extra_checks": 39.75903614457832,
-      "normal_pass": 860.2409638554217,
-      "flagged_total": 46.42570281124498,
-      "assumed_loss": 9373092.36947791,
-      "recovered_by_repair": 1.3333333333333335,
-      "good_fraction_after_repair": 0.9013333333333333,
-      "recall": 0.06666666666666667,
-      "normal_extra_check_rate": 0.04417670682730924
+      "detected_defects": 0.0,
+      "missed_defects": 100.0,
+      "normal_false_positives": 3.614457831325301,
+      "normal_correct": 896.3855421686746
     },
     "after": {
-      "detected_defects": 93.33333333333333,
-      "missed_defects": 6.666666666666671,
-      "normal_extra_checks": 798.7951807228916,
-      "normal_pass": 101.20481927710841,
-      "flagged_total": 892.128514056225,
-      "assumed_loss": 1465461.8473895588,
-      "recovered_by_repair": 18.666666666666668,
-      "good_fraction_after_repair": 0.9186666666666666,
-      "recall": 0.9333333333333333,
-      "normal_extra_check_rate": 0.8875502008032129
+      "detected_defects": 40.0,
+      "missed_defects": 60.0,
+      "normal_false_positives": 263.855421686747,
+      "normal_correct": 636.1445783132531
     },
     "delta": {
-      "additional_detected": 86.66666666666666,
-      "additional_normal_checks": 759.0361445783133,
-      "assumed_loss_reduction": 7907630.522088353,
-      "additional_recovered": 17.333333333333336,
-      "good_fraction_change": 0.01733333333333331
+      "additional_detected": 40.0,
+      "additional_normal_false_positives": 260.2409638554217
     },
-    "cost_assumptions": {
-      "missed_defect": 100000,
-      "normal_extra_check": 1000
-    },
-    "repair_scenario_enabled": true,
-    "measured_source": {
-      "synthetic": false,
-      "test_n": 264,
-      "test_defects": 15
-    },
-    "interpretation": "검증 데이터의 검출률·오탐률이 유지된다고 가정한 기대 건수. 생산 실측이 아님.",
-    "repair_note": "양쪽 모델의 검출 불량에 같은 재작업 정상화 비율 적용. 재작업 후 양품률 가정이며 최초 제조 수율 실측이 아님.",
-    "economic_note": "미검출·정상 추가검사 손실 가정만 포함. 재작업비·설비·처리량·매출 효과는 제외."
+    "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   },
   "images": {
     "scenario": {
       "quantity": 1000,
-      "defect_rate": 0.1,
-      "repair_success": 0.2
+      "defect_rate": 0.1
     },
     "expected_defects": 100.0,
     "expected_normals": 900.0,
-    "intrinsic_good_fraction": 0.9,
     "before": {
-      "detected_defects": 64.28571428571429,
-      "missed_defects": 35.71428571428571,
-      "normal_extra_checks": 532.8947368421052,
-      "normal_pass": 367.1052631578948,
-      "flagged_total": 597.1804511278195,
-      "assumed_loss": 4104323.308270676,
-      "recovered_by_repair": 12.85714285714286,
-      "good_fraction_after_repair": 0.9128571428571429,
-      "recall": 0.6428571428571429,
-      "normal_extra_check_rate": 0.5921052631578947
-    },
-    "after": {
       "detected_defects": 100.0,
       "missed_defects": 0.0,
-      "normal_extra_checks": 0.0,
-      "normal_pass": 900.0,
-      "flagged_total": 100.0,
-      "assumed_loss": 0.0,
-      "recovered_by_repair": 20.0,
-      "good_fraction_after_repair": 0.92,
-      "recall": 1.0,
-      "normal_extra_check_rate": 0.0
+      "normal_false_positives": 532.8947368421052,
+      "normal_correct": 367.1052631578948
+    },
+    "after": {
+      "detected_defects": 42.857142857142854,
+      "missed_defects": 57.14285714285714,
+      "normal_false_positives": 0.0,
+      "normal_correct": 900.0
     },
     "delta": {
-      "additional_detected": 35.71428571428571,
-      "additional_normal_checks": -532.8947368421052,
-      "assumed_loss_reduction": 4104323.308270676,
-      "additional_recovered": 7.142857142857141,
-      "good_fraction_change": 0.0071428571428571175
+      "additional_detected": -57.142857142857146,
+      "additional_normal_false_positives": -532.8947368421052
     },
-    "cost_assumptions": {
-      "missed_defect": 100000,
-      "normal_extra_check": 1000
-    },
-    "repair_scenario_enabled": true,
-    "measured_source": {
-      "synthetic": true,
-      "test_n": 90,
-      "test_defects": 14
-    },
-    "interpretation": "검증 데이터의 검출률·오탐률이 유지된다고 가정한 기대 건수. 생산 실측이 아님.",
-    "repair_note": "양쪽 모델의 검출 불량에 같은 재작업 정상화 비율 적용. 재작업 후 양품률 가정이며 최초 제조 수율 실측이 아님.",
-    "economic_note": "미검출·정상 추가검사 손실 가정만 포함. 재작업비·설비·처리량·매출 효과는 제외."
+    "interpretation": "Test 비율이 유지된다고 가정한 건수 예시. 생산 실측이 아님. 정상 오판은 재검사·폐기를 뜻하지 않음."
   }
 }

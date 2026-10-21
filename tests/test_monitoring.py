@@ -36,11 +36,14 @@ class MonitoringTests(unittest.TestCase):
             versions = wb.store.versions()
             self.assertEqual(len(versions), 1)
             self.assertEqual(versions[0]['run_id'], trained)
+            self.assertEqual(result['winner']['model'],'random_forest')
+            self.assertEqual(len(review['same_product']),4)
+            self.assertEqual(review['new_products'],[])
             self.assertFalse(versions[0]['auto_deployed'])
             self.assertTrue((wb.directory/result['model_version']['artifact']).is_file())
 
     def test_strategy_selection_uses_validation_and_can_abstain(self):
-        policy={'min_precision':.25,'max_fpr':.15}
+        policy={'min_recall':.75,'max_fpr':.15}
         a={'strategy':'shared','selection_feasible':True,'validation':{'recall':.8,'precision':.5,'fpr':.1,'average_precision':.7,'assumed_cost_per_10000':100},'test':{'recall':0}}
         b={'strategy':'separate','selection_feasible':True,'validation':{'recall':.9,'precision':.4,'fpr':.1,'average_precision':.7,'assumed_cost_per_10000':90},'test':{'recall':1}}
         self.assertEqual(select_strategy([a,b],policy),('separate',True))

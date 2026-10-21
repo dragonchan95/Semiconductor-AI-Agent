@@ -3,8 +3,8 @@
     {
       "mode": "tfidf",
       "hit_at_3": 1.0,
-      "mrr_at_3": 0.9102564102564101,
-      "mean_seconds": 0.00047937800039877544,
+      "mrr_at_3": 0.9615384615384616,
+      "mean_seconds": 0.00035402238469172374,
       "queries": [
         {
           "query": "학습과 테스트에 같은 lot이 섞이면 어떻게 하나요?",
@@ -13,12 +13,12 @@
           ],
           "actual": [
             "retraining",
-            "distance",
-            "leakage"
+            "leakage",
+            "distance"
           ],
           "hit_at_3": true,
-          "reciprocal_rank": 0.3333333333333333,
-          "seconds": 0.0008760830023675226,
+          "reciprocal_rank": 0.5,
+          "seconds": 0.0004979580003237061,
           "backend": "tfidf"
         },
         {
@@ -28,12 +28,12 @@
           ],
           "actual": [
             "imbalance",
-            "modalities",
-            "image"
+            "profit",
+            "modalities"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0005051250009273645,
+          "seconds": 0.00037304200031940127,
           "backend": "tfidf"
         },
         {
@@ -42,13 +42,13 @@
             "product"
           ],
           "actual": [
-            "retraining",
             "product",
-            "secom"
+            "retraining",
+            "profit"
           ],
           "hit_at_3": true,
-          "reciprocal_rank": 0.5,
-          "seconds": 0.00046816599933663383,
+          "reciprocal_rank": 1.0,
+          "seconds": 0.0003457090001575125,
           "backend": "tfidf"
         },
         {
@@ -59,11 +59,11 @@
           "actual": [
             "image",
             "modalities",
-            "distance"
+            "profit"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004686249994847458,
+          "seconds": 0.0003427090000513999,
           "backend": "tfidf"
         },
         {
@@ -74,11 +74,11 @@
           "actual": [
             "secom",
             "retraining",
-            "imbalance"
+            "product"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004408749991853256,
+          "seconds": 0.0003489159998935065,
           "backend": "tfidf"
         },
         {
@@ -93,7 +93,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00046916700011934154,
+          "seconds": 0.0003412920000300801,
           "backend": "tfidf"
         },
         {
@@ -104,11 +104,11 @@
           "actual": [
             "profit",
             "imbalance",
-            "product"
+            "retraining"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004669170011766255,
+          "seconds": 0.0003505409999888798,
           "backend": "tfidf"
         },
         {
@@ -118,27 +118,27 @@
           ],
           "actual": [
             "cloud",
-            "retraining",
+            "company",
             "modalities"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004539159999694675,
+          "seconds": 0.0003435420003370382,
           "backend": "tfidf"
         },
         {
-          "query": "의사결정나무와 랜덤포레스트도 센서 표준화가 필요한가요?",
+          "query": "의사결정나무와 랜덤포레스트도 센서 Scaling가 필요한가요?",
           "expected": [
             "tree"
           ],
           "actual": [
             "tree",
             "distance",
-            "modalities"
+            "leakage"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00042229100290569477,
+          "seconds": 0.0003372500000295986,
           "backend": "tfidf"
         },
         {
@@ -148,12 +148,12 @@
           ],
           "actual": [
             "distance",
-            "modalities",
-            "tree"
+            "tree",
+            "modalities"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.00042566599950077944,
+          "seconds": 0.00033374999975421815,
           "backend": "tfidf"
         },
         {
@@ -164,11 +164,11 @@
           "actual": [
             "ann",
             "modalities",
-            "profit"
+            "distance"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004107080021640286,
+          "seconds": 0.0003357499999765423,
           "backend": "tfidf"
         },
         {
@@ -183,7 +183,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.0004151249995629769,
+          "seconds": 0.00032629099996484,
           "backend": "tfidf"
         },
         {
@@ -194,11 +194,11 @@
           "actual": [
             "retraining",
             "product",
-            "image"
+            "company"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.000409249998483574,
+          "seconds": 0.00032554100016568555,
           "backend": "tfidf"
         }
       ]
@@ -207,7 +207,7 @@
       "mode": "dense",
       "hit_at_3": 1.0,
       "mrr_at_3": 0.9615384615384616,
-      "mean_seconds": 0.6466470001536296,
+      "mean_seconds": 0.14185059923081028,
       "queries": [
         {
           "query": "학습과 테스트에 같은 lot이 섞이면 어떻게 하나요?",
@@ -215,13 +215,13 @@
             "leakage"
           ],
           "actual": [
-            "product",
             "leakage",
+            "product",
             "retraining"
           ],
           "hit_at_3": true,
-          "reciprocal_rank": 0.5,
-          "seconds": 7.9474267910009075,
+          "reciprocal_rank": 1.0,
+          "seconds": 1.5112321669998892,
           "backend": "dense"
         },
         {
@@ -230,13 +230,13 @@
             "imbalance"
           ],
           "actual": [
+            "profit",
             "imbalance",
-            "image",
-            "profit"
+            "image"
           ],
           "hit_at_3": true,
-          "reciprocal_rank": 1.0,
-          "seconds": 0.07971499999985099,
+          "reciprocal_rank": 0.5,
+          "seconds": 0.026991500000349333,
           "backend": "dense"
         },
         {
@@ -247,11 +247,11 @@
           "actual": [
             "product",
             "leakage",
-            "retraining"
+            "tree"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.06792829199912376,
+          "seconds": 0.027139583000007406,
           "backend": "dense"
         },
         {
@@ -261,12 +261,12 @@
           ],
           "actual": [
             "image",
-            "imbalance",
-            "modalities"
+            "profit",
+            "imbalance"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.029223834000731586,
+          "seconds": 0.02833187500027634,
           "backend": "dense"
         },
         {
@@ -276,12 +276,12 @@
           ],
           "actual": [
             "secom",
-            "retraining",
+            "profit",
             "product"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.03130112500002724,
+          "seconds": 0.028722292000111338,
           "backend": "dense"
         },
         {
@@ -296,7 +296,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.028566000000864733,
+          "seconds": 0.0269705409996277,
           "backend": "dense"
         },
         {
@@ -307,11 +307,11 @@
           "actual": [
             "profit",
             "imbalance",
-            "retraining"
+            "company"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.027693166997778462,
+          "seconds": 0.027080959000159055,
           "backend": "dense"
         },
         {
@@ -326,22 +326,22 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.02898395900047035,
+          "seconds": 0.028536499999972875,
           "backend": "dense"
         },
         {
-          "query": "의사결정나무와 랜덤포레스트도 센서 표준화가 필요한가요?",
+          "query": "의사결정나무와 랜덤포레스트도 센서 Scaling가 필요한가요?",
           "expected": [
             "tree"
           ],
           "actual": [
             "tree",
             "distance",
-            "secom"
+            "ann"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.029203999998571817,
+          "seconds": 0.027718832999653387,
           "backend": "dense"
         },
         {
@@ -356,7 +356,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.02889304199925391,
+          "seconds": 0.028509916000075464,
           "backend": "dense"
         },
         {
@@ -371,7 +371,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.028066374998161336,
+          "seconds": 0.026886833000389743,
           "backend": "dense"
         },
         {
@@ -381,12 +381,12 @@
           ],
           "actual": [
             "modalities",
-            "leakage",
-            "tree"
+            "tree",
+            "leakage"
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.026930916999845067,
+          "seconds": 0.02648383299992929,
           "backend": "dense"
         },
         {
@@ -401,7 +401,7 @@
           ],
           "hit_at_3": true,
           "reciprocal_rank": 1.0,
-          "seconds": 0.05247850000159815,
+          "seconds": 0.02945295800009262,
           "backend": "dense"
         }
       ]
@@ -413,22 +413,22 @@
       "status": "verified",
       "model": "qwen3.5:2b",
       "priority_codes": [
+        "imbalance",
         "split",
-        "missing",
-        "imbalance"
+        "missing"
       ],
       "recommendations": [
+        "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교",
         "같은 lot 또는 날짜가 학습·평가에 걸치지 않도록 분할을 확인",
-        "관측한 센서 결측을 학습 중앙값으로 대체",
-        "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교"
+        "관측한 센서 결측을 학습 중앙값으로 대체"
       ],
       "evidence_ids": [
+        "imbalance",
         "leakage",
-        "leakage",
-        "imbalance"
+        "tree"
       ],
-      "seconds": 1.62,
-      "tokens": 56,
+      "seconds": 4.258,
+      "tokens": 54,
       "numeric_claims": "engine_only",
       "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
     },
@@ -438,18 +438,20 @@
       "model": "qwen3.5:2b",
       "priority_codes": [
         "logistic",
-        "svm"
+        "decision_tree",
+        "random_forest"
       ],
       "recommendations": [
         "선형 결정 경계를 비교하는 기준 모델",
-        "커널로 비선형 경계를 비교"
+        "조건 분기로 센서의 비선형 관계를 비교",
+        "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보"
       ],
       "evidence_ids": [
         "ann",
-        "distance"
+        "tree"
       ],
-      "seconds": 1.42,
-      "tokens": 48,
+      "seconds": 1.429,
+      "tokens": 44,
       "numeric_claims": "engine_only",
       "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
     },
@@ -458,21 +460,19 @@
       "status": "fallback",
       "note": "LLM 응답을 검증할 수 없어 규칙 근거를 사용",
       "error_type": "ValueError",
-      "seconds": 1.555
+      "seconds": 1.444
     }
   ],
-  "proposal_id": "proposal-14749a7fdccc",
-  "plan_hash": "0a56e0a44fd6af3bc7d46f7b380e6bc429bf96fcdf56ae9133285654d81f0ae6",
+  "proposal_id": "proposal-5a814dc38bce",
+  "plan_hash": "5dcd1344e39ee13812bb981e719be5f5f9668d272b36feff101c375ecbe7f437",
   "approval_status": "awaiting_approval",
   "training_started": false,
-  "workflow_seconds": 4.659535334001703,
+  "workflow_seconds": 7.20131712500006,
   "all_roles_verified": false,
   "retrieval_model": "qwen3-embedding:0.6b",
   "local_llm_model": "qwen3.5:2b",
-  "paid_api_cost": 0,
   "evaluation_note": "고정 13개 프로젝트 질문의 자체 정답표. 일반 검색 성능·현장 정확도의 증거 아님. dense 첫 질의에는 문서 캐시 준비 시간이 포함될 수 있음",
   "langsmith": {
-    "verified": false,
-    "error_type": "LangSmithError"
+    "verified": false
   }
 }

@@ -41,7 +41,7 @@ def main():
         receipts.append({"dataset": name, "run_id": run_id, "trials": len(result["trials"]),
                          "winner": result["winner"]["model"], "baseline_recall": result["baseline_test"]["recall"],
                          "test_recall": result["test"]["recall"], "test_precision": result["test"]["precision"],
-                         "test_fpr": result["test"]["fpr"], "AP": result["test"]["average_precision"],
+                         "test_fpr": result["test"]["fpr"],
                          "gate": result["gate"], "seconds": result["elapsed_seconds"]})
     if "--images-only" in sys.argv or '--tabular-only' in sys.argv:
         receipts = []
@@ -51,7 +51,7 @@ def main():
             receipts.append({"dataset": name, "run_id": saved["run_id"], "trials": len(result["trials"]),
                 "winner": result["winner"]["model"], "baseline_recall": result["baseline_test"]["recall"],
                 "test_recall": result["test"]["recall"], "test_precision": result["test"]["precision"],
-                "test_fpr": result["test"]["fpr"], "AP": result["test"]["average_precision"],
+                "test_fpr": result["test"]["fpr"],
                 "gate": result["gate"], "seconds": result["elapsed_seconds"]})
     (ROOT / "docs/evaluation/summary.json").write_text(json.dumps({"python": platform.python_version(),
         "platform": platform.platform(), "datasets": receipts}, ensure_ascii=False, indent=2))

@@ -1,5 +1,5 @@
 {
-  "run_id": "run-106330524fbd",
+  "run_id": "run-92b1f8b2c68f",
   "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
   "plan": {
     "dataset_id": "ds-067ca2ef0efb",
@@ -33,15 +33,14 @@
     ],
     "epochs": 6,
     "policy": {
-      "min_precision": 0.25,
+      "min_recall": 0.9,
       "max_fpr": 0.15,
-      "miss_cost": 100000,
-      "false_alarm_cost": 1000
+      "min_test_defects": 20
     },
     "trial_budget": 6,
-    "split_hash": "e6720d25c2790f3fedf7fefa29df92a1adabd8376fc2aac554ce9f836fbab97d",
+    "split_hash": "50fe86c69a4797792e56f0b6895a84142831f271a366dcb1f5be705502784203",
     "seed": 45,
-    "selection": "calibration threshold; validation selection; final test once",
+    "selection": "Validation threshold and candidate selection; final Test once",
     "model_backend": "local_sklearn_or_pytorch",
     "auto_deploy": false,
     "management_source_run": null,
@@ -69,7 +68,7 @@
       ],
       "preprocessing": "contrast",
       "balance": "normal_only",
-      "train_n": 262,
+      "train_n": 333,
       "train_defects": 0,
       "parameters": 1021,
       "epochs": 6,
@@ -83,21 +82,18 @@
         "accuracy": 1.0,
         "recall": 1.0,
         "precision": 1.0,
-        "f2": 1.0,
         "fpr": 0.0,
-        "average_precision": 1.0,
         "roc_auc": 1.0,
-        "threshold": 0.07132469117641449,
+        "threshold": 0.06536548584699631,
         "recall_wilson95": [
           0.6755843804891231,
           1.0
         ],
-        "assumed_cost_per_10000": 0.0,
-        "assumed_saving_vs_all_pass_per_10000": 88888888.88888888
+        "f1": 1.0
       },
-      "calibration_feasible": true,
+      "validation_feasible": true,
       "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-      "fit_seconds": 0.3014395419995708
+      "fit_seconds": 0.2964140000003681
     },
     "trials": [
       {
@@ -112,35 +108,32 @@
         ],
         "preprocessing": "gray",
         "balance": "weighted",
-        "train_n": 306,
-        "train_defects": 44,
+        "train_n": 396,
+        "train_defects": 63,
         "parameters": 7073,
         "epochs": 6,
         "validation": {
           "n": 90,
           "positive_count": 8,
-          "tn": 59,
-          "fp": 23,
-          "fn": 7,
-          "tp": 1,
-          "accuracy": 0.6666666666666666,
-          "recall": 0.125,
-          "precision": 0.041666666666666664,
-          "f2": 0.08928571428571429,
-          "fpr": 0.2804878048780488,
-          "average_precision": 0.218629525134433,
+          "tn": 41,
+          "fp": 41,
+          "fn": 0,
+          "tp": 8,
+          "accuracy": 0.5444444444444444,
+          "recall": 1.0,
+          "precision": 0.16326530612244897,
+          "fpr": 0.5,
           "roc_auc": 0.5625,
-          "threshold": 0.5130957961082458,
+          "threshold": 0.5012912750244141,
           "recall_wilson95": [
-            0.02241690886329617,
-            0.4708948057698615
+            0.6755843804891231,
+            1.0
           ],
-          "assumed_cost_per_10000": 80333333.33333333,
-          "assumed_saving_vs_all_pass_per_10000": 8555555.555555556
+          "f1": 0.2807017543859649
         },
-        "calibration_feasible": true,
+        "validation_feasible": false,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.1449308750015916
+        "fit_seconds": 1.3886529999999766
       },
       {
         "id": "trial-002",
@@ -154,8 +147,8 @@
         ],
         "preprocessing": "contrast",
         "balance": "weighted",
-        "train_n": 306,
-        "train_defects": 44,
+        "train_n": 396,
+        "train_defects": 63,
         "parameters": 7073,
         "epochs": 6,
         "validation": {
@@ -168,21 +161,18 @@
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
-          "f2": 1.0,
           "fpr": 0.0,
-          "average_precision": 1.0,
           "roc_auc": 1.0,
-          "threshold": 0.9999529123306274,
+          "threshold": 0.9998617172241211,
           "recall_wilson95": [
             0.6755843804891231,
             1.0
           ],
-          "assumed_cost_per_10000": 0.0,
-          "assumed_saving_vs_all_pass_per_10000": 88888888.88888888
+          "f1": 1.0
         },
-        "calibration_feasible": true,
+        "validation_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 1.1540990829998918
+        "fit_seconds": 1.2510081250002258
       },
       {
         "id": "trial-003",
@@ -196,8 +186,8 @@
         ],
         "preprocessing": "gray",
         "balance": "weighted",
-        "train_n": 306,
-        "train_defects": 44,
+        "train_n": 396,
+        "train_defects": 63,
         "parameters": 5177,
         "epochs": 6,
         "validation": {
@@ -210,21 +200,18 @@
           "accuracy": 0.9777777777777777,
           "recall": 0.75,
           "precision": 1.0,
-          "f2": 0.7894736842105263,
           "fpr": 0.0,
-          "average_precision": 0.9094827586206897,
-          "roc_auc": 0.9679878048780488,
-          "threshold": 0.44013819098472595,
+          "roc_auc": 0.8201219512195121,
+          "threshold": 0.5535183548927307,
           "recall_wilson95": [
             0.40926987910258916,
             0.9285223111419724
           ],
-          "assumed_cost_per_10000": 22222222.22222222,
-          "assumed_saving_vs_all_pass_per_10000": 66666666.666666664
+          "f1": 0.8571428571428571
         },
-        "calibration_feasible": true,
+        "validation_feasible": false,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.7461724170025263
+        "fit_seconds": 0.8078597500002616
       },
       {
         "id": "trial-004",
@@ -238,8 +225,8 @@
         ],
         "preprocessing": "contrast",
         "balance": "weighted",
-        "train_n": 306,
-        "train_defects": 44,
+        "train_n": 396,
+        "train_defects": 63,
         "parameters": 5177,
         "epochs": 6,
         "validation": {
@@ -252,21 +239,18 @@
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
-          "f2": 1.0,
           "fpr": 0.0,
-          "average_precision": 1.0,
           "roc_auc": 1.0,
-          "threshold": 0.9999970197677612,
+          "threshold": 0.9997503161430359,
           "recall_wilson95": [
             0.6755843804891231,
             1.0
           ],
-          "assumed_cost_per_10000": 0.0,
-          "assumed_saving_vs_all_pass_per_10000": 88888888.88888888
+          "f1": 1.0
         },
-        "calibration_feasible": true,
+        "validation_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.6825956669999869
+        "fit_seconds": 0.8024371660003453
       },
       {
         "id": "trial-005",
@@ -280,7 +264,7 @@
         ],
         "preprocessing": "gray",
         "balance": "normal_only",
-        "train_n": 262,
+        "train_n": 333,
         "train_defects": 0,
         "parameters": 1021,
         "epochs": 6,
@@ -289,26 +273,23 @@
           "positive_count": 8,
           "tn": 59,
           "fp": 23,
-          "fn": 1,
-          "tp": 7,
-          "accuracy": 0.7333333333333333,
-          "recall": 0.875,
-          "precision": 0.23333333333333334,
-          "f2": 0.5645161290322581,
+          "fn": 0,
+          "tp": 8,
+          "accuracy": 0.7444444444444445,
+          "recall": 1.0,
+          "precision": 0.25806451612903225,
           "fpr": 0.2804878048780488,
-          "average_precision": 0.27654175964520794,
-          "roc_auc": 0.7530487804878048,
-          "threshold": 0.00815517082810402,
+          "roc_auc": 0.7545731707317073,
+          "threshold": 0.006958551239222288,
           "recall_wilson95": [
-            0.5291051942301386,
-            0.9775830911367038
+            0.6755843804891231,
+            1.0
           ],
-          "assumed_cost_per_10000": 13666666.666666668,
-          "assumed_saving_vs_all_pass_per_10000": 75222222.22222222
+          "f1": 0.41025641025641024
         },
-        "calibration_feasible": true,
+        "validation_feasible": false,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.3082205829996383
+        "fit_seconds": 0.30339904199990997
       },
       {
         "id": "trial-006",
@@ -322,7 +303,7 @@
         ],
         "preprocessing": "contrast",
         "balance": "normal_only",
-        "train_n": 262,
+        "train_n": 333,
         "train_defects": 0,
         "parameters": 1021,
         "epochs": 6,
@@ -336,21 +317,18 @@
           "accuracy": 1.0,
           "recall": 1.0,
           "precision": 1.0,
-          "f2": 1.0,
           "fpr": 0.0,
-          "average_precision": 1.0,
           "roc_auc": 1.0,
-          "threshold": 0.07132469117641449,
+          "threshold": 0.06536548584699631,
           "recall_wilson95": [
             0.6755843804891231,
             1.0
           ],
-          "assumed_cost_per_10000": 0.0,
-          "assumed_saving_vs_all_pass_per_10000": 88888888.88888888
+          "f1": 1.0
         },
-        "calibration_feasible": true,
+        "validation_feasible": true,
         "validation_fingerprint": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b",
-        "fit_seconds": 0.3014395419995708
+        "fit_seconds": 0.2964140000003681
       }
     ],
     "test": {
@@ -358,53 +336,49 @@
       "positive_count": 14,
       "tn": 76,
       "fp": 0,
-      "fn": 0,
-      "tp": 14,
-      "accuracy": 1.0,
-      "recall": 1.0,
+      "fn": 8,
+      "tp": 6,
+      "accuracy": 0.9111111111111111,
+      "recall": 0.42857142857142855,
       "precision": 1.0,
-      "f2": 1.0,
       "fpr": 0.0,
-      "average_precision": 1.0,
       "roc_auc": 1.0,
-      "threshold": 0.07132469117641449,
+      "threshold": 0.06536548584699631,
       "recall_wilson95": [
-        0.7846829880728186,
-        1.0
+        0.21380509930400526,
+        0.6740973309713064
       ],
-      "assumed_cost_per_10000": 0.0,
-      "assumed_saving_vs_all_pass_per_10000": 155555555.55555555
+      "f1": 0.6
     },
     "baseline_test": {
       "n": 90,
       "positive_count": 14,
       "tn": 31,
       "fp": 45,
-      "fn": 5,
-      "tp": 9,
-      "accuracy": 0.4444444444444444,
-      "recall": 0.6428571428571429,
-      "precision": 0.16666666666666666,
-      "f2": 0.40909090909090906,
+      "fn": 0,
+      "tp": 14,
+      "accuracy": 0.5,
+      "recall": 1.0,
+      "precision": 0.23728813559322035,
       "fpr": 0.5921052631578947,
-      "average_precision": 0.43596768893969307,
-      "roc_auc": 0.6663533834586466,
+      "roc_auc": 0.6842105263157895,
       "threshold": 0.5,
       "recall_wilson95": [
-        0.3876400468214042,
-        0.8365550926279727
+        0.7846829880728186,
+        1.0
       ],
-      "assumed_cost_per_10000": 60555555.55555556,
-      "assumed_saving_vs_all_pass_per_10000": 95000000.0
+      "f1": 0.3835616438356164
     },
     "selection_feasible": true,
     "test_fingerprint": "2eacbabda32168a8ce34ae3d103fbac4e6359e6005f4359f8ddaeb302ebb3726",
     "gate": {
       "passed": false,
       "reasons": [
-        "평가 불량 표본 20개 미만: 통계적 불확실성이 큼"
+        "불량 검출률 42.9%: 데모 목표 90% 미달",
+        "마지막 평가의 불량 표본 부족: 더 많은 데이터로 확인 필요"
       ],
-      "action": "배포 보류·표본 보강 및 재검토",
+      "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+      "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
       "auto_deploy": false
     },
     "split": {
@@ -416,31 +390,26 @@
         "rows": 90,
         "index_hash": "5f46b4d6412ca5ce9fc562e7680fe75fc67b679b9fc1f0eaee58b6c751a9494b"
       },
-      "calibration": {
-        "rows": 90,
-        "index_hash": "5003bd881b48df8124d79f28f7479fb46d307207486a7ec9ac7afeb30d2a8bf3"
-      },
       "train": {
-        "rows": 306,
-        "index_hash": "108a594a219f2503a48e2dc9e0f941b59480849af6a52600658f6eaacd8f6e62"
+        "rows": 396,
+        "index_hash": "64e6b41025662342ddb143238c5ad24abd975810a50480a9ef407737c962e3df"
       }
     },
-    "elapsed_seconds": 4.380314875001204,
+    "elapsed_seconds": 4.883241416000146,
     "seed": 45,
     "architecture_note": "ResNetSmall/VGGSmall은 축소 자체 구조를 처음부터 학습. ResNet18/VGG16 사전학습 성능 비교가 아님.",
-    "economic_note": "합성 이미지 데모 결과. 실제 검사 이미지·영업이익 개선으로 일반화할 수 없음.",
-    "actual_llm_api_cost": 0,
+    "scope_note": "합성 이미지 데모. 실제 검사 이미지 성능으로 일반화할 수 없음.",
     "explanation": {
       "model": "autoencoder",
       "title": "Autoencoder",
       "input": "라벨이 있는 검사 이미지",
       "preprocessing": "contrast",
-      "preprocessing_reason": "흑백 32×32 및 0~1 정규화로 CPU 데모 비용을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능",
+      "preprocessing_reason": "흑백 32×32 및 0~1 정규화로 CPU 데모 연산량을 제한. contrast는 대비 보정 비교이며 작은 결함 정보 손실 가능",
       "model_reason": "정상 이미지를 복원하고 복원 오차로 이상을 점수화",
       "balance_method": "정상만 학습",
       "source": "반도체 커리큘럼 사진 20261017_135247, 135711",
       "limitation": "축소 구조를 scratch 학습. 표준 ResNet50/VGG19 사전학습 성능의 증거가 아님",
-      "selection_reason": "같은 validation에서 기준 충족 후보를 Recall·AP 순으로 선택. 동률이면 trial ID로 결정",
+      "selection_reason": "같은 Validation에서 데모 목표 충족 여부, 불량 검출률, 정상 오판률 순으로 비교. 완전 동률은 trial ID로 결정",
       "search_note": "같은 이미지 평가 표본에서 승인한 전처리·모델 후보를 비교. 단순한 합성 패턴 결과를 현장 성능으로 일반화하지 않음"
     },
     "agent_review": {
