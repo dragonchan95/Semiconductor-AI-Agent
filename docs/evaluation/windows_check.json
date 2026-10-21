@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-21T14:23:36.546605+00:00",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.16",
+  "tests_passed": true,
+  "test_count": 30,
+  "seconds": 104.361,
+  "scope": "Windows unit/API tests; preserved model metrics in other receipts were measured on Mac."
+}

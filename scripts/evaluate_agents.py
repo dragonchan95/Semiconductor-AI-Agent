@@ -61,7 +61,7 @@ def integration():
     ds = next(d for d in wb.store.datasets() if d['name']=='제품 A–D 합성 공정')
     start = time.perf_counter()
     p = wb.propose({'dataset_id': ds['id'], 'question':'센서 결측과 불량 부족에 맞는 전처리, 교육 모델과 제품 학습 범위를 근거로 비교해줘'})
-    saved = json.loads((ROOT/'docs/evaluation/synthetic_process.json').read_text())
+    saved = json.loads((ROOT/'docs/evaluation/synthetic_process.json').read_text(encoding='utf-8'))
     critic = wb.advisor.advise('ResultCriticAgent', {'winner':saved['result']['winner']['model'],
         'test': saved['result']['test'], 'gate': saved['result']['gate']}, result_choices(saved['result']), p['evidence'])
     outputs = p['agent_outputs']+[critic]
@@ -87,7 +87,7 @@ def main():
                                    'data_scope':'공개·합성 데이터 요약, 역할별 판단, 검색 평가. 교육 PDF·사진 원본 전송 없음'}
         except Exception as exc:
             result['langsmith'] = {'verified':False, 'error_type':type(exc).__name__}
-    (ROOT/'docs/evaluation/agent_integration.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+    (ROOT/'docs/evaluation/agent_integration.json').write_text(json.dumps(result,ensure_ascii=False,indent=2), encoding='utf-8')
     print(json.dumps({k:v for k,v in result.items() if k not in {'retrieval','plan_hash'}},ensure_ascii=False,indent=2))
 
 

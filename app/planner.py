@@ -44,7 +44,7 @@ class ProposalRequest(BaseModel):
 
 class Knowledge:
     def __init__(self, directory=None, dense=None, client=None):
-        self.docs = json.loads((ROOT / "data/knowledge.json").read_text())
+        self.docs = json.loads((ROOT / "data/knowledge.json").read_text(encoding='utf-8'))
         self.vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
         self.matrix = self.vectorizer.fit_transform([d["title"] + " " + d["text"] for d in self.docs])
         self.dense = os.getenv('SEMI_LLM_ENABLED', '0') == '1' if dense is None else dense
@@ -64,13 +64,13 @@ class Knowledge:
         if self.dense:
             try:
                 signature = digest({'docs': self.docs, 'model': self.model})
-                cached = json.loads(self.cache.read_text()) if self.cache and self.cache.exists() else {}
+                cached = json.loads(self.cache.read_text(encoding='utf-8')) if self.cache and self.cache.exists() else {}
                 if cached.get('signature') != signature:
                     vectors = self.embed([d['title']+' '+d['text'] for d in self.docs])
                     cached = {'signature': signature, 'vectors': vectors.tolist()}
                     if self.cache:
                         self.cache.parent.mkdir(parents=True, exist_ok=True)
-                        self.cache.write_text(json.dumps(cached))
+                        self.cache.write_text(json.dumps(cached), encoding='utf-8')
                 scores = cosine_similarity(self.embed([query]), np.asarray(cached['vectors']))[0]
                 self.last_status = {'mode': 'dense', 'model': self.model, 'document_count': len(self.docs)}
             except (httpx.HTTPError, ValueError, KeyError):

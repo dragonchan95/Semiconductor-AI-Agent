@@ -1,24 +1,13 @@
 {
-  "date": "2026-10-21",
-  "native_google_slides_export_checked": true,
   "slides": 16,
   "main_slides": 10,
   "appendix_slides": 6,
-  "editable_tables": 8,
-  "actual_app_screens": 6,
-  "embedded_screenshot_regions": 7,
-  "curriculum_reference_images": 0,
-  "curriculum_mapping_recreated_as_editable_table": true,
   "speaker_notes": 16,
-  "requirements_mapping_slide": 16,
-  "screen_first_narrative": true,
-  "target_split_ratios": [
-    0.6,
-    0.2,
-    0.2
-  ],
-  "secom_author_doi_license_visible": true,
-  "financial_scenarios_removed": true,
-  "company_numeric_thresholds_verified": false,
-  "report_url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit"
+  "planned_speech_seconds": 280,
+  "conversion": "Microsoft PowerPoint PDF export",
+  "shape_bounds_ok": true,
+  "no_replacement_characters": true,
+  "source_metrics": "Preserved Mac 6:2:2 receipts; Windows verification stored separately",
+  "google_slides_updated_this_session": false,
+  "contact_sheet": "var/presentation-preview/contact-sheet.jpg"
 }

@@ -1,0 +1,64 @@
+{
+  "verified_at": "2026-10-21T14:10:20.758974+00:00",
+  "endpoint": "https://apac.api.smith.langchain.com",
+  "project": "Semiconductor-AI-Agent-G045",
+  "root_run_id": "15462174-e7e6-431d-bbdf-d3b8ae5a7c3d",
+  "root_name": "experiment.propose",
+  "readback_verified": true,
+  "child_runs": [
+    {
+      "name": "LangGraph",
+      "error": false
+    },
+    {
+      "name": "data_quality",
+      "error": false
+    },
+    {
+      "name": "DataQualityAgent",
+      "error": false
+    },
+    {
+      "name": "knowledge",
+      "error": false
+    },
+    {
+      "name": "KnowledgeAgent",
+      "error": false
+    },
+    {
+      "name": "knowledge.retrieve",
+      "error": false
+    },
+    {
+      "name": "LocalLLMAgent",
+      "error": false
+    },
+    {
+      "name": "experiment_plan",
+      "error": false
+    },
+    {
+      "name": "ExperimentPlannerAgent",
+      "error": false
+    },
+    {
+      "name": "LocalLLMAgent",
+      "error": false
+    }
+  ],
+  "llm_enabled": false,
+  "agent_outputs": [
+    {
+      "role": "DataQualityAgent",
+      "status": "disabled",
+      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+    },
+    {
+      "role": "ExperimentPlannerAgent",
+      "status": "disabled",
+      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+    }
+  ],
+  "scope": "Actual proposal and child runs; no training, deployment or LLM-as-a-Judge claim."
+}

@@ -4,6 +4,7 @@ import json
 import sqlite3
 import threading
 import uuid
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -40,10 +41,15 @@ class Store:
               product TEXT NOT NULL, payload TEXT NOT NULL);
             """)
 
+    @contextmanager
     def connect(self):
         c = sqlite3.connect(self.path, timeout=30)
         c.row_factory = sqlite3.Row
-        return c
+        try:
+            with c:
+                yield c
+        finally:
+            c.close()
 
     def event(self, entity, kind, payload):
         with self.connect() as c:

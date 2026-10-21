@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 root = Path(__file__).resolve().parent.parent
 p = root/'data/knowledge.json'
-docs = json.loads(p.read_text())
+docs = json.loads(p.read_text(encoding='utf-8'))
 more = [
  ('tree', '트리 계열과 Scaling', 'Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost는 숫자 특성의 순서에 따른 분기를 학습한다. 트리에는 단위 Scaling가 필수는 아니다. 이번 비교에서는 일관된 결측 처리를 위해 학습 중앙값으로 대체한다. SKALA Day1 PDF 51, 62~73쪽 확인.', 'scikit-learn Decision Trees', 'https://scikit-learn.org/stable/modules/tree.html'),
  ('distance', 'KNN·SVM과 센서 단위', 'KNN의 거리와 RBF SVM의 커널은 특성 스케일에 영향을 받는다. 학습 중앙값으로 결측을 대체한 뒤 학습 평균·분산으로 Scaling하고 같은 변환을 평가 표본에 적용한다. SKALA Day2 PDF 21~42쪽의 모델을 실제 분류기로 비교한다.', 'scikit-learn Preprocessing', 'https://scikit-learn.org/stable/modules/preprocessing.html'),
@@ -14,4 +14,4 @@ known = {d['id'] for d in docs}
 for id, title, text, source, url in more:
     if id not in known:
         docs.append(dict(id=id, title=title, text=text, source=source, url=url))
-p.write_text(json.dumps(docs, ensure_ascii=False, indent=2)+'\n')
+p.write_text(json.dumps(docs, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')

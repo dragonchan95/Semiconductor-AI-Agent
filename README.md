@@ -1,56 +1,81 @@
 # 반도체 검사 모델 실험 도우미
 
-G045 김용찬 · SK AI Leader Academy · 과제2
+**SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-데이터를 점검해 전처리·모델·제품 학습 범위를 제안하고, 엔지니어 승인 후 실제 학습합니다. Recall을 우선 확인하고 Precision·F1·정상 오판도 설명합니다. 새 데이터로 같은 제품의 기존 모델을 점검하고 승인받아 재학습을 비교합니다.
+검사 데이터를 점검하고, 승인받아 모델을 비교한 뒤, 결과에 따라 다음 실험을 제안합니다.
 
-[최종 제출 Slides](https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit) · [5분 대본](docs/발표대본_G045.txt) · [보고서](docs/REPORT.md) · [교육 모델](docs/CURRICULUM_MODELS.md) · [요구사항 대응표](docs/ASSIGNMENT_CHECKLIST.md)
+[최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
-![같은 Test의 비교 결과](docs/assets/app-result.jpg)
+기존 [Google Slides](https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit) 주소를 보존했습니다. 이번 수정의 원본은 이 저장소의 보고서와 PPTX입니다. Slides의 온라인 갱신 상태는 별도로 확인해야 합니다.
 
-## Mac에서 앱 켜기
+## 하나의 사용 흐름
 
-1. Finder에서 Semiconductor-AI-Agent 폴더를 엽니다.
-2. **start.command를 더블클릭**합니다.
-3. 글자가 나오는 터미널 창을 열어 둔 채 **http://localhost:8700**을 엽니다.
+데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 비교 → 고정 Test 확인 → 새 모델 탐색 / 기존 모델 점검
 
-localhost는 내 컴퓨터의 앱 주소입니다. 재부팅하면 앱도 꺼지므로 다시 켭니다. 터미널을 닫으면 앱이 종료됩니다. 터미널 명령은 `bash start.sh`입니다. Python3.11 이상이 필요하고 최초 실행에 의존성을 설치합니다. macOS XGBoost·LightGBM은 `brew install libomp`가 필요합니다.
+![같은 Test의 기본·후보 비교](docs/assets/app-result.jpg)
 
-start.command는 설치된 Ollama를 연결합니다. qwen3.5:2b·qwen3-embedding:0.6b가 있으면 로컬 LLM·임베딩을 사용할 수 있습니다. bash start.sh 기본은 규칙·TF-IDF이며 `SEMI_LLM_ENABLED=1 bash start.sh`로 LLM을 켭니다. 실제 모드는 /health와 화면에 표시합니다.
+## Windows에서 실행
 
-## 6:2:2로 다시 확인한 결과
+`start.cmd`를 더블클릭하고 **http://localhost:8700**을 엽니다. 실행 창은 열어 둡니다.
+새 설치는 PowerShell에서 `./start.ps1`로 Python 환경과 의존성을 준비합니다. Python 3.11 이상이 필요합니다.
+이 작업 폴더에서는 상위 폴더의 `.venv`도 인식합니다. 처음에는 **예제 데이터 준비**를 누릅니다.
+새 환경에는 과거 모델 파일과 DB가 없으므로 계획 승인 후 학습해야 새 실행 이력이 생깁니다.
+저장된 실측 결과는 `docs/evaluation/`에서 확인할 수 있습니다.
 
-합성 센서는 **Train768 / Validation256 / Test256개**입니다. 같은 생산 묶음(lot)은 구간을 넘지 않습니다. SECOM은 날짜 블록60/20/20이므로 행 수는 **820 / 367 / 380개**입니다. 비율을 점수에 맞춰 자동 조정하지 않습니다. 이전 분할의 이력은 보존하지만 현재 화면의 예시 결과는6:2:2 버전만 선택합니다.
+macOS/Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·LightGBM은 OpenMP 설치가 필요할 수 있습니다.
 
-|자료|Test 불량 발견|정상 오판|Recall|Precision|F1|
-|---|---:|---:|---:|---:|---:|
-|합성 센서|27/32|14/224|84.4%|65.9%|74.0%|
-|UCI 공개 센서 SECOM|5/23|87/357|21.7%|5.4%|8.7%|
-|합성 이미지|14/15|0/105|93.3%|100.0%|96.6%|
+## 현재 모드와 LangSmith
 
-최초 센서 후보 **CatBoost · A+B+C 학습**: 불량20/32개에서27/32개 발견, 정상 오판1개에서14개. 시연 목표 미달·추가 실험 필요. 선택 후보는 전체 Train768개 중 해당 제품의 **544개**를 학습했습니다.
+`.env.example`을 참고해 로컬 `.env`를 설정합니다. 키는 Git에서 제외합니다.
+APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재조회**를 확인했습니다.
+[추적 증빙](docs/evaluation/langsmith_check.json) · [설정 안내](docs/LANGSMITH_SETUP.md)
 
-재학습은 새 합성 배치의 같은 Test에서 불량43/167개에서153/167개, 정상 오판96개에서79개. Recall·정상 오판 시연 목표 충족. 회사 적용은 별도 검증. 운영 모델은 자동 교체하지 않습니다.
+현재 Windows 모드는 LLM 미사용·TF-IDF 검색·규칙 설명입니다. Ollama와 Qwen 모델을 설치하고
+`SEMI_LLM_ENABLED=1`로 설정하면 로컬 LLM·임베딩을 사용합니다.
+기존 Mac의 LLM 검증 기록은 [agent_integration.json](docs/evaluation/agent_integration.json)에 보존합니다.
+LangSmith 연결과 LLM 응답 성공은 별개이며 UI에 verified/fallback/disabled 상태를 표시합니다.
 
-90% Recall·15% 정상 오판·Test 불량20개는 시연 목표이며 회사 양산 기준이 아닙니다. 정상 오판은 FP이며 재검사·폐기를 의미하지 않습니다. 제조 수율과 금액 이득, 실제 작업 시간 절감은 측정하지 않았습니다.
+## 고정한 조건과 결과
 
-## 데이터와 모델
+6:2:2를 사전에 고정했습니다. 합성 센서는 Train768 / Validation256 / Test256이며 같은 lot을 섞지 않습니다.
+SECOM은 날짜 블록60/20/20이라 실제 행 수는 820 / 367 / 380입니다.
+여러 모델과 불균형 설정을 비교한 뒤 상위 후보의 제품 조합을 확장합니다. 최대52조건이며 완전탐색이 아닙니다.
+후보는 Validation에서 고르고 Test로 순위를 바꾸지 않습니다.
 
-A·B·C·D는 합성 데이터의 가상 제품명입니다. UCI SECOM은 반도체 공정 센서와 합격/불합격 기록1,567건·불합격104건입니다. 제조사명은 원자료에 제공하지 않으며 같은 이름의 경비회사와 연결할 근거는 확인하지 못했습니다. McCann & Johnston(2008), [UCI 원본](https://archive.ics.uci.edu/dataset/179/secom), [DOI10.24432/C54305](https://doi.org/10.24432/C54305), CC BY4.0. 숫자 센서 원파일590열과 공식 메타데이터591 features 표기를 구분합니다.
+|같은 합성 센서 Test|기본 Logistic|선택 후보 CatBoost A+B+C|
+|---|---:|---:|
+|불량 발견|20/32|27/32|
+|정상 오판|1/224|14/224|
+|Recall|62.5%|84.4%|
 
-센서12종: Logistic, Decision Tree, RF, GB, XGBoost, LightGBM, CatBoost, KNN, SVM, MLP, AdaBoost, HistGB. 전체 제품12종×불균형2조건을 비교한 뒤 상위2알고리즘의 제품 조합을 확장해 최대52조건입니다. 완전탐색이 아닙니다. 이미지3종은 축소 ResNet·VGGNet·Autoencoder를 처음부터 학습하며 실제 SEM 이미지가 아닙니다.
+후보 Recall이 교육용 목표90%에 못 미쳐 추가 실험이 필요합니다. 정상 오판 목표15%도 함께 확인합니다.
+AdaBoost는 F1이 더 높지만 이번 Recall 우선 선택 규칙에서는 CatBoost가 앞섰습니다.
+모델별 비교와 세 데이터의 결과는 [보고서](docs/REPORT.md)에 있습니다.
+측정은 기존 Mac 실험 기록을 보존하며 Windows의 재검증은 별도 증빙으로 구분합니다.
 
-## Agent와 재현
+## 구현 범위
 
-LangGraph 점검·계획·결과 검토, 로컬 Qwen,교육 근거14개와 실시간 공식 외부 문서 검색 RAG,4 MCP 도구, Store·Knowledge·Advisor 의존성 주입, 모듈화를 구현했습니다. 30개 단위/API 테스트와 MCP 실제 연결 기록은 docs/evaluation에 있습니다. LLM 수치를 신뢰하지 않고 실험 엔진이 계산합니다. 실패하면 규칙 설명을 사용합니다. 원격 추적 기능은 제출의 완성 기능에서 제외했습니다.
+LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 모델 탐색, MCP4도구·Resource,
+의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
+외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
+현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
+자율 Supervisor·LLM-as-a-Judge·3σ 트리거·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
 
-```bash
-.venv/bin/python -m unittest discover -s tests -v
-.venv/bin/python scripts/evaluate.py
-.venv/bin/python scripts/evaluate_management.py
-.venv/bin/python scripts/evaluate_agents.py
-.venv/bin/python scripts/check_mcp.py
-.venv/bin/python scripts/build_report.py
+운영 모델은 자동 교체하지 않습니다. 회사 공통 Recall 수치, 양산 수율·금액 이득·작업시간 절감은 검증하지 않았습니다.
+작은 불량 표본·반복 Validation과 추가 탐색의 Test 재사용이 한계이며 독립 기간 검증이 필요합니다.
+교육 원본·제출 명단 엑셀·비밀 값은 공개 저장소에 넣지 않습니다.
+
+## 검증과 재현
+
+```powershell
+$env:LANGSMITH_TRACING='false'
+..\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -v
+..\.venv\Scripts\python.exe -X utf8 scripts/check_mcp.py
+..\.venv\Scripts\python.exe -X utf8 scripts/check_langsmith.py
+..\.venv\Scripts\python.exe -X utf8 scripts/build_report.py
 ```
 
-평가 승인은 자동 테스트 actor이며 현장 승인 실적이 아닙니다. 계획·데이터·분할 hash와 seed45를 저장합니다. 전처리·가중치는 Train에서만 fit합니다. 반복 Validation 선택과 작은 표본이 한계입니다. 기업 클라우드는 인증·권한·학습 worker·중앙 모델 관리가 추가로 필요하고 배포 예시는 실배포 미검증입니다. 공식 외부 모델 검색·RAG 제안·승인 후 학습·후보 목록 갱신을 구현했습니다. 현재 센서 ExtraTrees·GaussianNB 연결을 지원하며 임의 코드 자동 생성과 혼합 비율 탐색은 확장 범위입니다. [구현 범위](docs/MODEL_DISCOVERY_DESIGN.md) 교육 원본 전체·제출 명단 엑셀·비밀 값은 공개 저장소에 넣지 않습니다. 사용자가 요청한 교육 사진의 데이터 유형 분류 내용을 표로 재구성했습니다.
+독립 설치에서는 `..\.venv` 대신 `.venv`를 사용합니다. 발표 생성 패키지는 `requirements-presentation.txt`에 있습니다.
+Windows에서는 SQLite 연결을 transaction 종료 후 명시적으로 닫아 DB 파일 잠금 문제를 수정했습니다.
+SECOM: McCann & Johnston(2008), [UCI 원본](https://archive.ics.uci.edu/dataset/179/secom), DOI10.24432/C54305, CC BY4.0.
+센서 원파일590열과 UCI 메타데이터591 features 표기를 구분합니다. 제조사·제품ID는 원자료에 제공되지 않습니다.

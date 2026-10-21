@@ -205,5 +205,5 @@ def run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event):
     if not feasible:
         result["gate"] = {"passed": False, "reasons": ["Validation에서 두 데모 목표를 만족한 후보 없음"],
                           "action": "배포 보류·학습 데이터와 기준 재검토", "auto_deploy": False}
-    (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+    (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
     return result

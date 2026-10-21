@@ -10,7 +10,7 @@ TABULAR = {
     'knn': ('KNN', 'scaled', '가까운 센서 패턴의 라벨로 비교', 'Day2 PDF 21~31쪽'),
     'svm': ('SVM (RBF)', 'scaled', '커널로 비선형 경계를 비교', 'Day2 PDF 32~42쪽'),
     'mlp': ('MLP / ANN', 'scaled', '다층 신경망으로 센서 간 비선형 관계를 비교', 'Day3 PDF 7~22쪽'),
-    'adaboost': ('AdaBoost', 'median', '틀린 표본에 더 집중하는 부스팅 후보', '반도체 발표 PDF 40~42쪽'),
+    'adaboost': ('AdaBoost', 'median', '교육자료의 회귀 사례와 같은 계열을 정상·불량 분류용 AdaBoostClassifier로 적용한 후보', '반도체 발표 PDF 40~42쪽: AdaBoost 회귀 사례 참고'),
     'hist_gradient': ('Hist Gradient Boosting', 'median', '히스토그램 기반 부스팅의 추가 비교 후보', '반도체 발표 PDF 40쪽'),
 }
 EXTERNAL = {

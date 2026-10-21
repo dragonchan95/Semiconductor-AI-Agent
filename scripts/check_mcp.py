@@ -29,7 +29,7 @@ async def main():
             receipt = {"transport": "stdio", "handshake": True, "tools": names,
                        "approval_or_execution_tool_exposed": False,
                        "dataset_tool_ok": True, "knowledge_resource_ok": True, 'model_explanation_tool_ok': True}
-    (ROOT / "docs/evaluation/mcp_check.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2))
+    (ROOT / "docs/evaluation/mcp_check.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')
     print(receipt)
 
 

@@ -9,7 +9,7 @@ from app.monitoring import prepare_changed_demo, assess, product_plans, compare_
 from app.impact import compare_impact
 
 wb=Workbench(ROOT/'var')
-baseline=json.loads((ROOT/'docs/evaluation/synthetic_process.json').read_text())
+baseline=json.loads((ROOT/'docs/evaluation/synthetic_process.json').read_text(encoding='utf-8'))
 dataset=prepare_changed_demo(wb)
 review=assess(wb,baseline['run_id'],dataset['id'])
 assert review['verdict']=='재학습 필요', review
@@ -25,12 +25,12 @@ for p in plans['proposals']:
 comparison=compare_strategies(wb,[r['run_id'] for r in receipts])
 receipt={'comparison':comparison,'approval_actor':'자동 검증용 테스트 승인자. 현장 승인 실적 아님.',
          'review':review,'training_started_during_planning':False,'runs':receipts,'versions':[v for v in wb.store.versions() if v['run_id'] in {r['run_id'] for r in receipts}]}
-(ROOT/'docs/evaluation/model_management.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2))
+(ROOT/'docs/evaluation/model_management.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2), encoding='utf-8')
 cases={}
 for name in ['synthetic_process','secom','images']:
-    d=json.loads((ROOT/f'docs/evaluation/{name}.json').read_text())
+    d=json.loads((ROOT/f'docs/evaluation/{name}.json').read_text(encoding='utf-8'))
     cases[name]=compare_impact(d['result'],{'quantity':1000,'defect_rate':.10},d['plan']['policy'])
-(ROOT/'docs/evaluation/presentation_cases.json').write_text(json.dumps(cases,ensure_ascii=False,indent=2))
+(ROOT/'docs/evaluation/presentation_cases.json').write_text(json.dumps(cases,ensure_ascii=False,indent=2), encoding='utf-8')
 print(json.dumps({'review':review['verdict'],'old_recall':review['previous_recall'],
                  'new_recall':review['current']['recall'],'recommendations':[{k:r[k] for k in ['product','selected_strategy','recommendation']} for r in comparison['products']],
                  'scenario':cases['synthetic_process']['delta']},ensure_ascii=False,indent=2))

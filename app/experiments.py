@@ -123,7 +123,7 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
         from .images import run_images
         result = run_images(dataset, df, parts, evaluation, plan, artifact_dir, on_event)
         result["split"] = split_summary
-        (Path(artifact_dir) / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+        (Path(artifact_dir) / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
         return result
     features = [c for c in df if c not in META]
     x = df[features].to_numpy(dtype=float)
@@ -222,5 +222,5 @@ def execute(dataset, plan, artifact_dir, on_event=lambda e: None):
     if not feasible:
         result["gate"] = {"passed": False, "reasons": ["Validation에서 불량 검출률·정상 오판률 데모 목표를 만족한 후보 없음"],
                           "action": "후보 재검토 · 데이터와 비교 목표 확인", "auto_deploy": False}
-    (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+    (artifact_dir / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
     return result

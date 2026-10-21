@@ -3,6 +3,10 @@ var/
 __pycache__/
 *.pyc
 .env
+.env.local
+.env.*.local
+.cache/
+docs/submission/
 .DS_Store
 *.log
 data/public/secom/

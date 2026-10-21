@@ -37,7 +37,7 @@ def main():
         name = "images" if image else "synthetic_process" if dataset["synthetic"] else "secom"
         (target / f"{name}.json").write_text(json.dumps({"run_id": run_id,
             "approval_actor": "자동 평가 시나리오의 테스트 승인자. 현장 엔지니어 승인 증빙이 아님.",
-            "plan": proposal["plan"], "result": result}, ensure_ascii=False, indent=2))
+            "plan": proposal["plan"], "result": result}, ensure_ascii=False, indent=2), encoding='utf-8')
         receipts.append({"dataset": name, "run_id": run_id, "trials": len(result["trials"]),
                          "winner": result["winner"]["model"], "baseline_recall": result["baseline_test"]["recall"],
                          "test_recall": result["test"]["recall"], "test_precision": result["test"]["precision"],
@@ -46,7 +46,7 @@ def main():
     if "--images-only" in sys.argv or '--tabular-only' in sys.argv:
         receipts = []
         for name in ["synthetic_process", "secom", "images"]:
-            saved = json.loads((ROOT / f"docs/evaluation/{name}.json").read_text())
+            saved = json.loads((ROOT / f"docs/evaluation/{name}.json").read_text(encoding='utf-8'))
             result = saved["result"]
             receipts.append({"dataset": name, "run_id": saved["run_id"], "trials": len(result["trials"]),
                 "winner": result["winner"]["model"], "baseline_recall": result["baseline_test"]["recall"],
@@ -54,7 +54,7 @@ def main():
                 "test_fpr": result["test"]["fpr"],
                 "gate": result["gate"], "seconds": result["elapsed_seconds"]})
     (ROOT / "docs/evaluation/summary.json").write_text(json.dumps({"python": platform.python_version(),
-        "platform": platform.platform(), "datasets": receipts}, ensure_ascii=False, indent=2))
+        "platform": platform.platform(), "datasets": receipts}, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps(receipts, ensure_ascii=False, indent=2))
 
 
