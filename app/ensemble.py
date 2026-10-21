@@ -95,7 +95,7 @@ class WeightedProbabilityModel:
 def propose_ensemble(wb,source_run,grid_percent=5):
     if grid_percent not in (5,10):raise ValueError('비율 탐색 간격은 5% 또는 10%입니다')
     source=wb.store.run(source_run)
-    if source['status']!='completed' or source['result'].get('ensemble'):
+    if source['status']!='completed' or source['result'].get('ensemble') or source['result'].get('grouping'):
         raise ValueError('완료된 개별 모델 비교 결과에서 앙상블을 제안하세요')
     result=source['result'];dataset=wb.store.dataset(result['dataset']['id'])
     if dataset['modality']!='tabular':raise ValueError('현재 확률 혼합은 센서 이진 분류를 지원합니다')

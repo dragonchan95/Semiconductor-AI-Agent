@@ -2,6 +2,8 @@
 
 Agent의 설명용 언어 모델은 **5주차 실습의 Qwen2.5-1.5B-Instruct 계열**입니다. 현재 Windows는 같은 계열의 Q4_K_M 양자화 기본 모델을 Ollama로 실행합니다. 센서의 정상·불량을 분류하는 아래 후보 모델들과 역할이 다릅니다. 실습의 인사규정용 LoRA 가중치는 이번 반도체 Agent에 적용하지 않습니다.
 
+RAG는 같은5주차의 `knowledge_asset_demo_faiss_bge_m3.ipynb`를 참고해 **BGE-M3 임베딩·정규화·FAISS IndexFlatIP·Qwen 문맥 주입**을 구현했습니다. 현재 Windows는 BGE-M3를 로컬 Ollama로 실행하며 수업의 SentenceTransformer 호출과 실행 도구가 다릅니다. [구현과 검증 범위](RAG.md)
+
 모델 명칭·위치를 확인한 교육자료의 요약이며 원본 PDF·사진은 재배포하지 않습니다. PDF 기준 쪽입니다.
 
 | 실제 센서 후보 | 기본 전처리 | 사용 이유 | 자료 위치 |

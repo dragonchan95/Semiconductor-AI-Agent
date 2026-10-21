@@ -9,9 +9,6 @@ from html.parser import HTMLParser
 from urllib.parse import urljoin
 
 import httpx
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
 from .catalog import TABULAR, EXTERNAL
 from .store import digest, now
 from .metrics import selection_key
@@ -73,14 +70,16 @@ def discover(wb, dataset_id, question='', client=None):
     if owned:client.close()
     if not found: raise ValueError('공식 목록과 모델 본문을 확인한 새 후보가 없습니다')
     query=(question[:1500]+' binary classification numerical tabular sensor non linear class imbalance random trees gaussian conditional independence')
-    chunks=[{'model':d['model'],'url':d['url'],'text':t} for d in found for t in d['chunks']]
-    vectorizer=TfidfVectorizer(analyzer='char',ngram_range=(3,5));matrix=vectorizer.fit_transform([d['text'] for d in chunks])
-    scores=cosine_similarity(vectorizer.transform([query]),matrix)[0]
+    chunks=[{'id':f'{d["model"]}-{i}','model':d['model'],'url':d['url'],'text':t}
+            for d in found for i,t in enumerate(d['chunks'])]
+    retrieved=wb.knowledge.search_documents(chunks,query,len(chunks))
+    retrieval_status=dict(wb.knowledge.last_status)
     evidence=[]
     for d in found:
-        idx=sorted([i for i,c in enumerate(chunks) if c['model']==d['model']],key=lambda i:float(scores[i]),reverse=True)[:2]
+        matches=[c for c in retrieved if c['model']==d['model']][:2]
+        if not matches: raise ValueError('모델 문서의 관련 근거를 검색하지 못했습니다')
         evidence.append({'id':'external-'+d['model'],'model':d['model'],'title':d['title'],'url':d['url'],
-                         'text':'\n'.join(chunks[i]['text'] for i in idx),'score':round(float(max(scores[i]for i in idx)),6),
+                         'text':'\n'.join(c['text'] for c in matches),'score':max(c['score'] for c in matches),
                          'document_hash':d['document_hash'],'fetched_at':d['fetched_at']})
     evidence.sort(key=lambda d:d['score'],reverse=True)
     audit=dataset['audit'];choices={e['model']:EXTERNAL[e['model']][2] for e in evidence}
@@ -95,7 +94,8 @@ def discover(wb, dataset_id, question='', client=None):
         'dataset_id':dataset_id,'dataset_sha256':dataset['sha256'],'question':question[:1500],
         'provider':'scikit-learn official API index','index_url':INDEX,'index_hash':digest(index),
         'index_api_entry_count':len(links),'models':records,'evidence':evidence,'agent':advice,'errors':errors,
-        'retrieval':'live official HTML chunks + character TF-IDF + cosine; local LLM grounded code selection or deterministic evidence template',
+        'retrieval':'official HTML chunks + '+retrieval_status['mode']+'; local LLM grounded code selection or explicit rule fallback',
+        'retrieval_status':retrieval_status,
         'scope':'공식 API 목록에서 기존 교육12종 밖의 ExtraTrees·GaussianNB를 찾고 검토된 adapter로 실험. 임의 웹 모델 코드 생성·설치는 지원하지 않음',
         'privacy':'원본 센서 행·제품명·사용자 질문을 외부 서버로 전송하지 않음. 공식 문서 GET만 수행',
         'summary':'숫자 센서 이진 분류에 연결 가능한 새 후보를 공식 문서에서 찾았습니다. 문서 근거는 실험 적합성 가설이며 성능 우위를 보장하지 않습니다.'})

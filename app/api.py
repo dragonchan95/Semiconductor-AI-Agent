@@ -69,6 +69,7 @@ def home():
 def health():
     return {"status": "ok", "mode": "authenticated" if TOKEN else "local_demo",
             "cloud_connected": False, "local_llm_enabled": os.getenv('SEMI_LLM_ENABLED', '0') == '1',
+            "retrieval_configured": os.getenv('SEMI_RETRIEVER', 'bge_m3_faiss') if os.getenv('SEMI_DENSE_ENABLED', '0') == '1' else 'tfidf',
             "paid_llm_calls": False,
             "approval_required": True, "auto_deploy": False}
 
@@ -145,6 +146,16 @@ class EnsembleRequest(BaseModel):
 def ensemble_proposal(req: EnsembleRequest):
     from .ensemble import propose_ensemble
     return propose_ensemble(app.state.workbench,req.source_run,req.grid_percent)
+
+
+class GroupingRequest(BaseModel):
+    source_run: str
+
+
+@app.post('/api/grouping/proposals', dependencies=[Depends(authorize)])
+def grouping_proposal(req: GroupingRequest):
+    from .grouping import propose_grouping
+    return propose_grouping(app.state.workbench,req.source_run)
 
 
 @app.post("/api/proposals/{ident}/decision", dependencies=[Depends(authorize)])
@@ -235,13 +246,14 @@ def export_csv(ident: str):
     writer = csv.writer(buf)
     writer.writerow(["trial", "model", "train_products", "preprocessing", "balance", "validation_recall",
                      "validation_precision", "validation_normal_false_positive_rate", "fit_seconds", "status",
-                     "validation_f1", "threshold", "weights"])
+                     "validation_f1", "threshold", "weights", "product_groups", "model_count"])
     for row in record["result"]["trials"]:
         m = row.get("validation", {})
         writer.writerow([row["id"], row.get("model"), "+".join(row.get("products", [])),
                          row.get("preprocessing"), row.get("balance"), m.get("recall"),
                       m.get("precision"), m.get("fpr"), row.get("fit_seconds"), row["status"],
-                      m.get('f1'),m.get('threshold'),json.dumps(row.get('weights'),ensure_ascii=False)])
+                      m.get('f1'),m.get('threshold'),json.dumps(row.get('weights'),ensure_ascii=False),
+                      json.dumps(row.get('groups'),ensure_ascii=False),row.get('model_count')])
     return Response("\ufeff" + buf.getvalue(), media_type="text/csv",
                     headers={"Content-Disposition": f'attachment; filename="{ident}.csv"'})
 

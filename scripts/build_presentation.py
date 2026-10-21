@@ -130,7 +130,8 @@ def build_deck(content,trace):
             text(slide,item['body'][-1],.8,6.12,11.7,.45,17,MUTED)
         elif item['kind']=='architecture':
             text(slide,'LangGraph 역할 연결 · 로컬 Qwen 설명 · MCP 조회·계획 도구',.68,2.1,12,.45,21,MUTED)
-            nodes=[('데이터 점검','행·결측·라벨'),('근거 검색','교육 근거 / 공식 문서'),('실험 계획','모델·전처리·비교 범위'),('엔지니어 승인','확인 후 실행 허용')]
+            text(slide,'RAG: 내부 근거·공식 문서 → BGE-M3 임베딩 → FAISS 검색 → Qwen에 근거 전달',.72,2.58,11.9,.25,13,TEAL)
+            nodes=[('데이터 점검','행·결측·라벨'),('근거 검색','BGE-M3 · FAISS'),('실험 계획','모델·전처리·비교 범위'),('엔지니어 승인','확인 후 실행 허용')]
             for j,(a,b) in enumerate(nodes):
                 x=.7+j*3.08;box(slide,x,2.92,2.77,1.12,PALE,rounded=True)
                 text(slide,a,x+.15,3.08,2.48,.4,21,TEAL,True);text(slide,b,x+.15,3.59,2.5,.3,13,MUTED)
@@ -139,6 +140,10 @@ def build_deck(content,trace):
             text(slide,'실험 엔진 학습·수치·순위 계산 → 결과 검토 역할이 근거 정리',.92,4.56,11.5,.45,22,INK,True)
             text(slide,'LangSmith: 실제 실행 추적 · API 재조회 확인',.8,5.56,11.7,.4,19,TEAL,True)
             text(slide,f'설명 검사(LLM-as-a-Judge): 6/8개 올바른 판단 · 코드 테스트 {load("windows_check")["test_count"]}개 통과',.8,6.16,11.7,.4,18,MUTED)
+        elif item['kind']=='grouping_screen':
+            picture(slide,DOCS/'assets'/item['image'],.8,2.2,11.72,3.82)
+            text(slide,item['body'][1],.85,6.12,11.7,.42,19,INK,True)
+            text(slide,'Validation에서는 좋았지만 Test에서는 목표 미달 · 기존 Test 재사용 탐색 · 새 독립 데이터 필요',.85,6.62,11.7,.24,12,MUTED)
         elif item['kind']=='ensemble_screen':
             picture(slide,DOCS/'assets'/item['image'],.8,2.2,11.72,3.82)
             text(slide,item['body'][0],.85,6.12,11.7,.4,20,TEAL,True)
@@ -191,64 +196,12 @@ def write_documents(content,receipts,trace):
     script='SKALA 광주 2반 · G045 김용찬 / 과제 2\n반도체 검사 모델 실험 도우미\n'
     script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 4장\n발화 목표 255초 + 화면 전환 20초 = 4분35초 / 5분까지 여유25초\n계획 시간이며 실제 리허설 측정값은 아닙니다. 부록은 읽지 않습니다.\n\n'
     elapsed=0
-    report='# 반도체 검사 모델 실험 도우미\n\nSKALA 광주 2반 · G045 김용찬 · 과제 2 · 2026-10-22 발표\n\n'
-    report+='검사 데이터에 맞는 모델과 예측 확률의 앙상블 비율을 비교하고, 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
-    report+='[발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt) · [제품 학습 범위 비교](PRODUCT_GROUPING.md)\n\n'
-    report+='원래 Mac의 실험 기록을 보존했으며 Windows 재실행에서도 합성 센서 Test 결과를 동일하게 재현했습니다. 로컬 LLM·테스트·추적 검증은 별도 기록으로 남겼습니다.\n\n'
-    for i,s in enumerate(content,1):
-        elapsed+=s['seconds'];timing=f'{s["seconds"]}초 / 누적 {elapsed//60}:{elapsed%60:02d}' if i<=10 else '질문용 부록'
-        script+=f'[{i}장 / {timing}] '+s['title'].replace('\n',' ')+'\n'+s['note']+'\n\n'
-        report+=f'## {i}. '+s['title'].replace('\n',' ')+'\n\n'+s['context']+'\n\n'
-        report+='\n\n'.join(s['body'])+'\n\n'
-        if s['table']:
-            report+='| '+' | '.join(s['table'][0])+' |\n|'+'---|'*len(s['table'][0])+'\n'
-            report+='\n'.join('| '+' | '.join(str(c).replace('\n',' / ') for c in row)+' |' for row in s['table'][1:])+'\n\n'
-        if s['image']:report+=f'![실제 앱 화면](assets/{s["image"]})\n\n'
-        report+=s['note']+'\n\n'
-        if s['sources']:report+='출처·증빙: '+' · '.join(s['sources'])+'\n\n'
-    report+='''## 아키텍처 흐름도
-
-```mermaid
-flowchart LR
-    A[센서 CSV / 이미지 manifest] --> B[데이터 점검]
-    B --> C[근거 검색 RAG]
-    C --> D[실험 계획 제안]
-    D --> E{엔지니어 승인}
-    E -->|승인| F[Train 실제 학습]
-    E -->|반려| D
-    F --> G[Validation 후보·판정값 선택]
-    G --> E2{앙상블 탐색 계획 승인}
-    E2 --> W[비율·판정 기준 Validation 탐색]
-    W --> H[고정 Test 확인]
-    H --> I[결과 검토]
-    I --> J[기준 충족 여부와 선택 근거]
-    K2[공식 문서에서 후보 추가] --> D
-    K[MCP 조회·계획 도구] --> D
-    L[LangSmith 추적] -.-> B
-    L -.-> D
-    L -.-> I
-```
-
-승인은 SQLite에 저장한 계획 hash와 데이터 hash로 검증합니다. LangGraph interrupt를 사용한 구현은 아닙니다.
-외부 모델 탐색 후 승인과 실행은 API에서 처리합니다. 운영 모델 자동 교체는 하지 않습니다.
-
-## 수행하며 배운 점
-
-LLM 설명과 실험의 수치·실행 권한을 분리해야 잘못된 수치나 무승인 학습을 막을 수 있었습니다.
-목표와 분할을 사전에 정하지 않으면 높은 F1, 높은 Recall 중 어떤 결론을 택할지 임의로 바뀝니다.
-Mac에서 통과하던 SQLite 코드도 Windows에서는 연결이 닫히지 않아 파일을 잠글 수 있었습니다.
-환경 이동에서는 소스 코드뿐 아니라 설정, 모델 설치 여부, 실행 이력을 구분해 복원해야 합니다.
-
-## 한계와 후속 평가
-
-단일 seed·동일 Validation의 반복 선택·작은 불량 표본이 한계입니다.
-새 모델 탐색에 이미 확인한 Test를 재사용했으므로 독립 기간의 새 Test가 필요합니다.
-전처리·모델·판정값·학습 제품 범위가 함께 바뀐 비교이며 특정 기법의 인과 효과가 아닙니다.
-수율, 금액 이익, 작업시간 절감, 양산 효과는 측정하지 않았습니다. 재학습과 운영 감시는 추가 구현으로 보존하며 이번 발표 범위에서 제외합니다.
-회사 공통 Recall/FPR 숫자를 가정하지 않고 현장 담당자가 목적과 비용에 맞춰 정해야 합니다.
-별도 Vector DB·자율 Supervisor는 미구현입니다. 혼합 비율은 검토한 센서 분류 후보2~3개와 5% 또는10% 간격에서 탐색합니다.
-LLM-as-a-Judge는 로컬 Qwen으로 설명을 평가합니다. 수치를 변조하거나 현장 효과를 과장한 예제를 사전 라벨과 비교하고, 원래 실패 기록도 보존했습니다. 프롬프트 보완에 사용한 작은 자체 개발 예제이므로 독립적인 평가 성능으로 일반화하지 않습니다.
-'''
+    for i,item in enumerate(content,1):
+        elapsed+=item['seconds']
+        timing=f"{item['seconds']}초 / 누적 {elapsed//60}:{elapsed%60:02d}" if i<=10 else '질문용 부록'
+        script+=f"[{i}장 / {timing}] "+item['title'].replace('\n',' ')+'\n'+item['note']+'\n\n'
+    from report_content import build_final_report
+    report=build_final_report(content,receipts,trace)
     script+='''질문 대비
 Q. AdaBoost는 어디서 나온 모델인가요?
 A. 15주차 반도체 발표자료 40~42쪽의 Adaboost Regression / Ada Boost 회귀 사례를 참고해 분류용 AdaBoostClassifier로 적용했습니다. 새 모델 탐색 RAG가 추가한 모델은 ExtraTrees와 GaussianNB입니다.
@@ -266,7 +219,7 @@ Q. 제품별로 따로 학습하는 것이 당연히 좋지 않나요?
 A. 꼭 그렇지는 않습니다. 제품별로 나누면 특성은 맞추기 쉽지만 학습 데이터와 불량 표본도 줄어듭니다. 별도 합성 실험에서는 A는 전체 제품을 합친 모델이, C는 전용 모델이 Validation에서 더 높은 검출률을 보였습니다. 같은 제품의 같은 평가 행으로 비교해야 합니다.
 
 Q. ABC용 모델과D용 모델로 나누는 것도 자동으로 비교하나요?
-A. 현재는 학습할 제품 부분집합15개를 탐색하고, 별도 실험에서 전체 공통 모델과 제품별 전용 모델을 비교합니다. ABC용 모델과D용 모델 같은 그룹 구성을 모두 자동 비교해 고르는 기능은 별도 확장입니다. 한 모델의 학습 범위와 여러 모델의 담당 제품 구성을 구분합니다.
+A. 네. 네 제품을 중복·누락 없이 나누는15개 구성을 모두 비교합니다. 같은 알고리즘과 설정을 고정하고 각 그룹의 모델을 Train으로 학습하며, 같은 Validation에서 구성을 고릅니다. 이번에는 ABC와D가 선택됐지만 Test에서는 목표 미달이라 적용을 보류했습니다. 앙상블 비율까지 동시에 최적화한 실험은 아닙니다.
 
 Q. 왜 F1이 가장 높은 비율을 고르지 않나요?
 A. 이번 목적은 불량을 놓치는 일을 줄이는 것입니다. 정상 오판률 한도 안에서 Recall을 먼저 높이고, Recall이 같을 때 F1으로 고릅니다. F1·Precision·오판률을 모두 함께 보여 줍니다. 실제 현장 기준은 업무 비용에 맞춰 정해야 합니다.
@@ -300,7 +253,7 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고 승인받아 모델과 **예측 확률의 혼합 비율**을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
+검사 데이터를 점검하고 승인받아 **학습할 제품 묶음**과 **예측 확률의 혼합 비율**을 각각 비교한 뒤, 선택 근거와 검증 결과를 보여 줍니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
@@ -308,7 +261,7 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 ## 하나의 사용 흐름
 
-데이터 선택 → 점검·근거 검색 → 승인·모델 학습 → 앙상블 계획 승인 → Validation에서 비율 선택 → 같은 Test 확인
+데이터 선택 → 점검·근거 검색 → 승인·모델 학습 → 그룹 또는 앙상블 비교 계획 승인 → Validation 선택 → 같은 Test 확인
 
 ![앙상블 비율의 Validation 비교](docs/assets/app-ensemble-validation.jpg)
 
@@ -319,7 +272,7 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 이 후보·간격·데이터 안의 최선이며 전체 모델의 전역 최적이나 양산 최적을 뜻하지 않습니다.
 [실제 승인·실행 기록](docs/evaluation/weighted_ensemble.json) · [브라우저·CSV 검증](docs/evaluation/ensemble_browser.json) · [비교 방법](docs/ENSEMBLE.md)
 
-학습할 제품 범위도 비교합니다. A·AB·ABC·ABCD 등15개 학습 부분집합 탐색과, 별도 배치의 전체 공통 모델 대 제품별 전용 모델 비교가 구현돼 있습니다. 제품별 전용이 항상 우수하다고 가정하지 않습니다. ABC용 모델+D용 모델 같은 그룹 구성의 자동 전수 선택은 별도 확장입니다. [실제 범위와 제품별 비교](docs/PRODUCT_GROUPING.md)
+학습할 제품 범위도 비교합니다. **ABCD 하나 / ABC와D / AB와CD / 각각4개**를 포함해 네 제품의 담당 그룹15개 구성을 모두 비교합니다. 알고리즘을 고정한 실제 실험에서ABC와D가 Validation에서 선택됐지만 Test Recall78.1%로 목표 미달이라 적용을 보류했습니다. 제품별 전용이 항상 우수하다고 가정하지 않으며 앙상블 비율 실험과 별도로 조건을 통제합니다. [그룹 비교 방법·실측](docs/PRODUCT_GROUPING.md) · [실제15개 구성](docs/evaluation/product_partitions.json)
 
 ## Windows에서 실행
 
@@ -339,8 +292,9 @@ APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재�
 
 현재 Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
 실제 역할별 응답 검증은 [기록](docs/evaluation/local_llm_check.json)을 기준으로 확인합니다.
-검색은 TF-IDF이며 LLM 추론과 임베딩 사용 여부를 각각 설정합니다.
-`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=0`이 현재 설정입니다.
+5주차 실습을 참고해 **BGE-M3 임베딩 + FAISS 로컬 벡터 저장·검색**을 내부 근거와 외부 모델 문서에 연결했습니다.
+`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=1`, `SEMI_EMBED_MODEL=bge-m3`이 현재 설정입니다.
+[실제 검색·Qwen 근거 연결 검증](docs/evaluation/vector_rag.json) · [설정·구현 범위](docs/RAG.md)
 첫 준비는 `scripts/setup_local_qwen.py`, 이후 Windows 실행 파일은 로컬 Ollama도 함께 시작합니다.
 기존 Mac의 LLM 검증 기록은 [agent_integration.json](docs/evaluation/agent_integration.json)에 보존합니다.
 LangSmith 연결과 LLM 응답 성공은 별개이며 UI에 verified/fallback/disabled 상태를 표시합니다.
@@ -369,7 +323,7 @@ SECOM은 날짜 블록60/20/20이라 실제 행 수는 820 / 367 / 380입니다.
 LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 모델 탐색, MCP4도구·Resource,
 의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 서로 다른 모델의 확률 혼합 비율 탐색, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
 외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
-현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
+현재 RAG는 BGE-M3 의미 임베딩과 FAISS IndexFlatIP·출처 JSON 저장을 사용합니다. 별도 서버형 Vector DB는 아니며, 검색 실패 시 TF-IDF 대체 상태를 표시합니다.
 로컬 LLM-as-a-Judge는 [평가 기록](docs/evaluation/llm_judge.json)에 있습니다. 작은 자체 개발 예제에 대한 결과이며 독립 평가가 아닙니다. 초기 실패도 보존합니다.
 자율 Supervisor·임의 코드 생성은 미구현입니다. 확률 혼합은 현재 센서 분류 모델2~3개의 승인된 격자 탐색 범위입니다.
 

@@ -1,9 +1,9 @@
 {
-  "verified_at": "2026-10-21T17:05:23.307130+00:00",
+  "verified_at": "2026-10-21T18:07:23.055750+00:00",
   "platform": "Windows-10-10.0.26200-SP0",
   "python": "3.11.16",
   "tests_passed": true,
-  "test_count": 42,
-  "seconds": 119.598,
-  "scope": "Windows unit/API tests including approved ensemble search; original Mac receipts and later Windows experiment receipts are stored separately."
+  "test_count": 51,
+  "seconds": 143.064,
+  "scope": "Windows unit/API tests including approved ensemble, product partitions and FAISS retrieval/cache/fallback; real model and external-document integration receipts are separate."
 }

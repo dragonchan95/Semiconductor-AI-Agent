@@ -6,8 +6,8 @@
     "app-validation-proof.jpg": "Actual UI ranking, first four rows; full ranking in appendix",
     "app-rag-proof.jpg": "Retrieved candidate models and first official document evidence; see rag_capture_mode"
   },
-  "rag_capture_mode": "Current UI replay of preserved actual retrieval receipt; not a new live search",
-  "rag_source": "docs/evaluation/model_discovery.json",
-  "rag_original_created_at": "2026-10-21T06:19:22.202077+00:00",
+  "rag_capture_mode": "Current UI replay of actual local BGE-M3/FAISS + official GET + Qwen receipt",
+  "rag_source": "docs/evaluation/vector_rag.json",
+  "rag_original_created_at": "2026-10-21T18:10:37.262760+00:00",
   "run_id": "run-1fd7bfdad621"
 }

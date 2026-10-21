@@ -27,9 +27,10 @@ for i,page in enumerate(pdf):
     assert '\ufffd' not in page.get_text()
 assert not overflow,overflow
 assert content[2]['kind']=='criteria'
-assert content[5]['kind']=='ensemble_screen'
-assert content[6]['kind']=='result_screen'
-assert '제품별 전용 모델' in content[11]['title']
+assert content[5]['kind']=='grouping_screen'
+assert content[6]['kind']=='ensemble_screen'
+assert content[7]['kind']=='result_screen'
+assert '공식 문서' in content[11]['title']
 assert sum(x['seconds'] for x in content)==255
 for i in [3,4,5,6,7]:
     assert any(s.shape_type==13 for s in prs.slides[i].shapes),f'Missing screenshot on slide {i+1}'
@@ -42,7 +43,7 @@ receipt={'slides':14,'main_slides':10,'appendix_slides':4,'speaker_notes':14,
          'criteria_before_results':True,'essential_ui_screens_slides':[4,5,6,7,8],
          'conversion':'Microsoft PowerPoint PDF export',
          'shape_bounds_ok':True,'no_replacement_characters':True,
-         'source_metrics':'Preserved Mac 6:2:2 receipts; Windows verification stored separately',
+         'source_metrics':'Windows product partitions and weighted ensemble are separate controlled experiments; prior Mac and Windows receipts are preserved separately',
          'google_slides_updated_this_session':False,'contact_sheet':'var/presentation-preview/contact-sheet.jpg'}
 (docs/'evaluation/presentation_check.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(receipt,ensure_ascii=False))

@@ -107,13 +107,14 @@ def main():
             'messages':[{'role':'user','content':'Reply with exactly: LOCAL_QWEN_OK'}]})
         result.raise_for_status()
         print('Local Qwen reply:',result.json()['message']['content'],flush=True)
-        from dotenv import set_key
+        from dotenv import set_key, dotenv_values
         settings=ROOT/'.env'
         set_key(settings,'SEMI_LLM_ENABLED','1')
         set_key(settings,'SEMI_LLM_MODEL',MODEL)
-        set_key(settings,'SEMI_DENSE_ENABLED','0')
+        if 'SEMI_DENSE_ENABLED' not in dotenv_values(settings):
+            set_key(settings,'SEMI_DENSE_ENABLED','0')
         set_key(settings,'SEMI_LLM_TIMEOUT','150')
-        print('Configured local Qwen. Retrieval remains TF-IDF; no paid inference API.',flush=True)
+        print('Configured local Qwen; existing retrieval settings preserved. No paid inference API.',flush=True)
 
 
 if __name__=='__main__':main()

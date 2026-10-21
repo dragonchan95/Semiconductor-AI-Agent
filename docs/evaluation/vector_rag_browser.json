@@ -1,0 +1,10 @@
+{
+  "source": "Current UI replay of actual local BGE-M3/FAISS + official GET + Qwen receipt",
+  "fresh_browser_search": false,
+  "actual_retrieval_source": "docs/evaluation/vector_rag.json",
+  "original_created_at": "2026-10-21T18:10:37.262760+00:00",
+  "discovery_id": "discovery-d3e1a02c1d25",
+  "retrieval_mode_visible": true,
+  "llm_status": "verified",
+  "console_errors": []
+}

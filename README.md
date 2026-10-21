@@ -2,7 +2,7 @@
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고 승인받아 모델과 **예측 확률의 혼합 비율**을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
+검사 데이터를 점검하고 승인받아 **학습할 제품 묶음**과 **예측 확률의 혼합 비율**을 각각 비교한 뒤, 선택 근거와 검증 결과를 보여 줍니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
@@ -10,7 +10,7 @@
 
 ## 하나의 사용 흐름
 
-데이터 선택 → 점검·근거 검색 → 승인·모델 학습 → 앙상블 계획 승인 → Validation에서 비율 선택 → 같은 Test 확인
+데이터 선택 → 점검·근거 검색 → 승인·모델 학습 → 그룹 또는 앙상블 비교 계획 승인 → Validation 선택 → 같은 Test 확인
 
 ![앙상블 비율의 Validation 비교](docs/assets/app-ensemble-validation.jpg)
 
@@ -21,7 +21,7 @@
 이 후보·간격·데이터 안의 최선이며 전체 모델의 전역 최적이나 양산 최적을 뜻하지 않습니다.
 [실제 승인·실행 기록](docs/evaluation/weighted_ensemble.json) · [브라우저·CSV 검증](docs/evaluation/ensemble_browser.json) · [비교 방법](docs/ENSEMBLE.md)
 
-학습할 제품 범위도 비교합니다. A·AB·ABC·ABCD 등15개 학습 부분집합 탐색과, 별도 배치의 전체 공통 모델 대 제품별 전용 모델 비교가 구현돼 있습니다. 제품별 전용이 항상 우수하다고 가정하지 않습니다. ABC용 모델+D용 모델 같은 그룹 구성의 자동 전수 선택은 별도 확장입니다. [실제 범위와 제품별 비교](docs/PRODUCT_GROUPING.md)
+학습할 제품 범위도 비교합니다. **ABCD 하나 / ABC와D / AB와CD / 각각4개**를 포함해 네 제품의 담당 그룹15개 구성을 모두 비교합니다. 알고리즘을 고정한 실제 실험에서ABC와D가 Validation에서 선택됐지만 Test Recall78.1%로 목표 미달이라 적용을 보류했습니다. 제품별 전용이 항상 우수하다고 가정하지 않으며 앙상블 비율 실험과 별도로 조건을 통제합니다. [그룹 비교 방법·실측](docs/PRODUCT_GROUPING.md) · [실제15개 구성](docs/evaluation/product_partitions.json)
 
 ## Windows에서 실행
 
@@ -41,8 +41,9 @@ APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재�
 
 현재 Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
 실제 역할별 응답 검증은 [기록](docs/evaluation/local_llm_check.json)을 기준으로 확인합니다.
-검색은 TF-IDF이며 LLM 추론과 임베딩 사용 여부를 각각 설정합니다.
-`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=0`이 현재 설정입니다.
+5주차 실습을 참고해 **BGE-M3 임베딩 + FAISS 로컬 벡터 저장·검색**을 내부 근거와 외부 모델 문서에 연결했습니다.
+`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=1`, `SEMI_EMBED_MODEL=bge-m3`이 현재 설정입니다.
+[실제 검색·Qwen 근거 연결 검증](docs/evaluation/vector_rag.json) · [설정·구현 범위](docs/RAG.md)
 첫 준비는 `scripts/setup_local_qwen.py`, 이후 Windows 실행 파일은 로컬 Ollama도 함께 시작합니다.
 기존 Mac의 LLM 검증 기록은 [agent_integration.json](docs/evaluation/agent_integration.json)에 보존합니다.
 LangSmith 연결과 LLM 응답 성공은 별개이며 UI에 verified/fallback/disabled 상태를 표시합니다.
@@ -71,7 +72,7 @@ SECOM은 날짜 블록60/20/20이라 실제 행 수는 820 / 367 / 380입니다.
 LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 모델 탐색, MCP4도구·Resource,
 의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 서로 다른 모델의 확률 혼합 비율 탐색, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
 외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
-현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
+현재 RAG는 BGE-M3 의미 임베딩과 FAISS IndexFlatIP·출처 JSON 저장을 사용합니다. 별도 서버형 Vector DB는 아니며, 검색 실패 시 TF-IDF 대체 상태를 표시합니다.
 로컬 LLM-as-a-Judge는 [평가 기록](docs/evaluation/llm_judge.json)에 있습니다. 작은 자체 개발 예제에 대한 결과이며 독립 평가가 아닙니다. 초기 실패도 보존합니다.
 자율 Supervisor·임의 코드 생성은 미구현입니다. 확률 혼합은 현재 센서 분류 모델2~3개의 승인된 격자 탐색 범위입니다.
 

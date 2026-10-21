@@ -7,6 +7,8 @@
 | Agent 출력 검사 | 허용한 코드와 제공한 근거를 사용했는가 | 코드·출처 연결을 프로그램으로 검사 |
 | LLM-as-a-Judge | 결과 설명의 주장이 실제 실험 기록과 맞는가 | 로컬 Qwen을 별도 평가자 역할로 호출 |
 | LangSmith | 어떤 역할과 도구가 어떤 순서로 실행됐는가 | root/child 실행 전송·API 재조회 |
+| 제품 그룹 선택 | 어떤 제품을 함께 학습해 담당할 것인가 | 고정 알고리즘의15개 구성, 제품별 FPR·Recall 조건과 전체 점수, 선택 후 Test 실패·보류 포함 |
+| RAG | 실제 의미 임베딩·벡터 검색·근거 주입이 실행되는가 | BGE-M3·FAISS 내부13질의, 공식 문서4개 청크와 Qwen 응답. 독립 검색 평가 아님 |
 
 결과 검토 Agent는 분류 모델의 실험 결과를 읽고 설명할 사항을 정리합니다.
 Judge는 그와 달리 **설명 문장 자체를 평가**합니다. 같은 Qwen을 서로 다른 프롬프트로 호출하므로 별도 학습된 독립 모델은 아닙니다.
@@ -35,3 +37,5 @@ LLM 호출이나 응답 구조가 실패하면 평가 성공으로 대체하지 
 따라서 LLM 평가는 보조적으로 사용하고 정확한 수치 계산·승인·출처 검사는 프로그램에서 유지합니다.
 
 [현재 평가 원본](evaluation/llm_judge.json) · [초기 실패 원본](evaluation/llm_judge_initial.json) · [전체 로컬 Qwen 실험](evaluation/windows_llm_synthetic.json)
+
+[제품 그룹 원본](evaluation/product_partitions.json), [BGE-M3·FAISS 원본](evaluation/vector_rag.json), [RAG 방법과 작은 개발 평가의 한계](RAG.md)를 별도로 보관합니다. RAG는 고정13질의 Hit@3=1.0, MRR@3=.923이며 과거TF-IDF의.9615보다 개선됐다는 근거는 없습니다. 의미 검색·근거 연결의 실제 실행과 검색 품질 우위는 구분합니다.

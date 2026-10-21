@@ -39,6 +39,8 @@ def assess(wb, source_run, dataset_id):
     if run['status'] != 'completed':
         raise ValueError('완료된 공정 모델을 선택하세요')
     result = run['result']
+    if result.get('grouping'):
+        raise ValueError('제품 라우팅 모델의 새 배치 점검은 별도 제품별 검증이 필요합니다')
     old_ds = wb.store.dataset(result['dataset']['id'])
     new_ds = wb.store.dataset(dataset_id)
     if old_ds['modality'] != 'tabular' or new_ds['modality'] != 'tabular':

@@ -1,0 +1,9 @@
+{
+  "run_id": "run-bc6225231212",
+  "selected": "A+B+C / D",
+  "partitions": 15,
+  "csv_rows": 15,
+  "console_errors": [],
+  "duplicate_approval_blocked": true,
+  "test_recall": 0.78125
+}

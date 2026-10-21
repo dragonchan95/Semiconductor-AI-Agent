@@ -7,5 +7,6 @@
   "retraining_outside_main_flow": true,
   "change_goal": true,
   "main_wording_uses_generic_model_comparison": true,
-  "saved_ensemble_loaded_and_returned_to_source": true
+  "saved_ensemble_loaded_and_returned_to_source": true,
+  "saved_product_grouping_loaded_and_returned_to_source": true
 }

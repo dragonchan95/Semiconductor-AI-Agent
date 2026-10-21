@@ -32,11 +32,18 @@ with sync_playwright() as p:
     assert '90.0%' in page.locator('.ensemble-weights').inner_text()
     page.locator('#back-to-models').click()
     page.locator('#ensemble-proposal').wait_for(state='visible',timeout=30000)
+    page.locator('#view-grouping').click()
+    page.locator('#grouping-summary').wait_for(state='visible',timeout=30000)
+    assert 'A+B+C / D' in page.locator('#grouping-summary').inner_text()
+    assert '적용 보류' in page.locator('#grouping-test').inner_text()
+    page.locator('#back-to-models').click()
+    page.locator('#grouping-proposal').wait_for(state='visible',timeout=30000)
     assert not errors,errors
     receipt={'browser':'Chrome headless','console_errors':errors,'result_loaded':True,
              'validation_ranking_visible':True,'next_discovery':True,'retraining_outside_main_flow':True,
              'change_goal':True,'main_wording_uses_generic_model_comparison':True,
-             'saved_ensemble_loaded_and_returned_to_source':True}
+             'saved_ensemble_loaded_and_returned_to_source':True,
+             'saved_product_grouping_loaded_and_returned_to_source':True}
     (ROOT/'docs/evaluation/browser_check.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(receipt,ensure_ascii=False))
     browser.close()

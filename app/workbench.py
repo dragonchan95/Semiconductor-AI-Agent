@@ -67,7 +67,10 @@ class Workbench:
         if dataset["sha256"] != proposal["plan"]["dataset_sha256"] or dataset.get("image_digest") != proposal["plan"].get("image_digest"):
             raise ValueError("승인한 데이터 버전과 등록 데이터 버전이 다릅니다")
         try:
-            if proposal['plan'].get('ensemble'):
+            if proposal['plan'].get('grouping'):
+                from .grouping import execute_grouping
+                result = execute_grouping(self,dataset,proposal['plan'],self.directory/'runs'/run_id,on_event)
+            elif proposal['plan'].get('ensemble'):
                 from .ensemble import execute_ensemble
                 result = execute_ensemble(self,dataset,proposal['plan'],self.directory/'runs'/run_id,on_event)
             else:

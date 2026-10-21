@@ -1,0 +1,303 @@
+{
+  "verified_at": "2026-10-21T18:10:37.480096+00:00",
+  "model": "bge-m3",
+  "course_reference": "5주차/sllm-main-std/knowledge_asset_demo_faiss_bge_m3.ipynb",
+  "course_pattern": "normalized BGE-M3 embeddings + FAISS IndexFlatIP + retrieved context to Qwen",
+  "runtime_difference": "Course SentenceTransformer; this Windows laptop uses local Ollama BGE-M3 F16",
+  "knowledge_index": {
+    "mode": "bge_m3_faiss",
+    "model": "bge-m3",
+    "embedding_provider": "local_ollama",
+    "dimension": 1024,
+    "document_count": 14,
+    "index_type": "IndexFlatIP",
+    "metric": "cosine (normalized inner product)",
+    "index_signature": "0f88b084d25870fe1474afa618c2d47f64da74257d857aa846d40e135616a02a",
+    "persistent": true,
+    "index_cache_hit": true
+  },
+  "query_count": 13,
+  "hit_at_3": 1.0,
+  "mrr_at_3": 0.9230769230769231,
+  "queries": [
+    {
+      "query": "학습과 테스트에 같은 lot이 섞이면 어떻게 하나요?",
+      "expected": [
+        "leakage"
+      ],
+      "actual": [
+        "leakage",
+        "product",
+        "retraining"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 14.766
+    },
+    {
+      "query": "정상은 많고 불량이 적을 때 정확도를 믿어도 되나요?",
+      "expected": [
+        "imbalance"
+      ],
+      "actual": [
+        "profit",
+        "imbalance",
+        "company"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 0.5,
+      "seconds": 9.905
+    },
+    {
+      "query": "A B 제품을 각각 훈련할지 합칠지 비교하려면?",
+      "expected": [
+        "product"
+      ],
+      "actual": [
+        "product",
+        "retraining",
+        "leakage"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 7.644
+    },
+    {
+      "query": "정상 이미지만으로 결함을 찾는 모델은?",
+      "expected": [
+        "image"
+      ],
+      "actual": [
+        "image",
+        "imbalance",
+        "secom"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 7.221
+    },
+    {
+      "query": "SECOM pass fail과 제품 구분은 어떻게 되어 있나요?",
+      "expected": [
+        "secom"
+      ],
+      "actual": [
+        "secom",
+        "company",
+        "retraining"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 7.039
+    },
+    {
+      "query": "엔지니어 승인 없이 모델 학습을 실행해도 되나요?",
+      "expected": [
+        "approval"
+      ],
+      "actual": [
+        "approval",
+        "retraining",
+        "company"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 6.717
+    },
+    {
+      "query": "불량 검출률이 오르면 수율과 영업이익도 확정되나요?",
+      "expected": [
+        "profit"
+      ],
+      "actual": [
+        "imbalance",
+        "profit",
+        "company"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 0.5,
+      "seconds": 6.428
+    },
+    {
+      "query": "기업 클라우드에 배포할 때 필요한 연결은?",
+      "expected": [
+        "cloud"
+      ],
+      "actual": [
+        "cloud",
+        "company",
+        "tree"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 6.667
+    },
+    {
+      "query": "의사결정나무와 랜덤포레스트도 센서 Scaling가 필요한가요?",
+      "expected": [
+        "tree"
+      ],
+      "actual": [
+        "tree",
+        "ann",
+        "distance"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 6.152
+    },
+    {
+      "query": "센서 단위가 다를 때 KNN과 SVM의 전처리는?",
+      "expected": [
+        "distance"
+      ],
+      "actual": [
+        "distance",
+        "secom",
+        "modalities"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 6.16
+    },
+    {
+      "query": "다층 퍼셉트론 신경망에 센서를 입력할 때 주의점은?",
+      "expected": [
+        "ann"
+      ],
+      "actual": [
+        "ann",
+        "modalities",
+        "secom"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 6.137
+    },
+    {
+      "query": "로그 텍스트와 시계열에는 어떤 모델을 쓰나요?",
+      "expected": [
+        "modalities"
+      ],
+      "actual": [
+        "modalities",
+        "ann",
+        "tree"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 5.743
+    },
+    {
+      "query": "새 제품 데이터에서 성능이 하락하면 언제 재학습하나요?",
+      "expected": [
+        "retraining"
+      ],
+      "actual": [
+        "retraining",
+        "product",
+        "company"
+      ],
+      "hit_at_3": true,
+      "reciprocal_rank": 1.0,
+      "seconds": 5.805
+    }
+  ],
+  "external_discovery": {
+    "id": "discovery-d3e1a02c1d25",
+    "created_at": "2026-10-21T18:10:37.262760+00:00",
+    "dataset_id": "ds-1622cd48f252",
+    "dataset_sha256": "ecaa9bcbb64d0827a015307f62e1e2f94e82fe520b1011d0e3d265a1f635135f",
+    "question": "센서 결측과 불량 분류에 적용할 새로운 모델 후보와 문서 근거",
+    "provider": "scikit-learn official API index",
+    "index_url": "https://scikit-learn.org/stable/api/index.html",
+    "index_hash": "4bfb73c3ec1c5961d00199fdeb2e3cc6ead3598c37cccbb1910803259202abbd",
+    "index_api_entry_count": 582,
+    "models": [
+      {
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "status": "발굴됨 · 승인 전",
+        "reason": "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+        "preprocessing": "Train 중앙값 결측 대체·상수 제거",
+        "evidence_id": "external-extra_trees",
+        "retrieval_score": 0.577985,
+        "adapter": "reviewed_local"
+      },
+      {
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "source": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "status": "발굴됨 · 승인 전",
+        "reason": "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다.",
+        "preprocessing": "Train 중앙값 결측 대체·상수 제거·Scaling",
+        "evidence_id": "external-gaussian_nb",
+        "retrieval_score": 0.544149,
+        "adapter": "reviewed_local"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "external-extra_trees",
+        "model": "extra_trees",
+        "title": "ExtraTrees",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html",
+        "text": "ExtraTreesClassifier#\n\n\n\nclass sklearn.ensemble.ExtraTreesClassifier(n_estimators=100, *, criterion='gini', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='sqrt', max_leaf_nodes=None, min_impurity_decrease=0.0, bootstrap=False, oob_score=False, n_jobs=None, random_state=None, verbose=0, warm_start=False, class_weight=None, ccp_alpha=0.0, max_samples=None, monotonic_cst=None)[source]#\n\n\nAn extra-trees classifier.\n\nThis class implements a meta estimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the \nstimator that fits a number of\nrandomized decision trees (a.k.a. extra-trees) on various sub-samples\nof the dataset and uses averaging to improve the predictive accuracy\nand control over-fitting.\n\nThis estimator has native support for missing values (NaNs) for\nrandom splits. During training, a random threshold will be chosen\nto split the non-missing values on. Then the non-missing values will be sent\nto the left and right child based on the randomly selected threshold, while\nthe missing values will also be randomly sent to the left or right child.\nThis is repeated for every feature considered at each split. The best split\namong these is chose",
+        "score": 0.577985,
+        "document_hash": "4bd1b023e4c41f97eddcc316d36f6eba8a744608724a7aa7886f584abdb9a101",
+        "fetched_at": "2026-10-21T18:09:59.673769+00:00"
+      },
+      {
+        "id": "external-gaussian_nb",
+        "model": "gaussian_nb",
+        "title": "Gaussian Naive Bayes",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html",
+        "text": "GaussianNB#\n\n\n\nclass sklearn.naive_bayes.GaussianNB(*, priors=None, var_smoothing=1e-09)[source]#\n\n\nGaussian Naive Bayes (GaussianNB).\n\nCan perform online updates to model parameters via partial_fit.\nFor details on algorithm used to update feature means and variance online,\nsee Stanford CS tech report STAN-CS-79-773 by Chan, Golub, and LeVeque.\n\nRead more in the User Guide.\n\n\n",
+        "score": 0.544149,
+        "document_hash": "825c8966b691e5e3670df33ebac1f964aad7b9b751fb2a1ad06b8015d4cbdf85",
+        "fetched_at": "2026-10-21T18:09:59.953007+00:00"
+      }
+    ],
+    "agent": {
+      "role": "ModelDiscoveryAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "extra_trees",
+        "gaussian_nb"
+      ],
+      "recommendations": [
+        "무작위 분할을 사용하는 여러 트리의 평균으로 센서의 비선형 관계를 비교합니다. 기존 Random Forest와 다른 분할 방식을 실험할 후보입니다.",
+        "특성의 조건부 독립과 클래스별 정규분포를 가정하는 단순한 확률 분류 후보입니다. 센서 상관과 분포 가정이 맞지 않으면 성능이 낮을 수 있습니다."
+      ],
+      "evidence_ids": [
+        "external-extra_trees",
+        "external-gaussian_nb"
+      ],
+      "seconds": 18.238,
+      "tokens": 35,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    },
+    "errors": [],
+    "retrieval": "official HTML chunks + bge_m3_faiss; local LLM grounded code selection or explicit rule fallback",
+    "retrieval_status": {
+      "mode": "bge_m3_faiss",
+      "model": "bge-m3",
+      "embedding_provider": "local_ollama",
+      "dimension": 1024,
+      "document_count": 4,
+      "index_type": "IndexFlatIP",
+      "metric": "cosine (normalized inner product)",
+      "index_signature": "4639d0521eada6860992cc64bd60583ab6df910465bcb68fdb37e0998cd5546f",
+      "persistent": true,
+      "index_cache_hit": false
+    },
+    "scope": "공식 API 목록에서 기존 교육12종 밖의 ExtraTrees·GaussianNB를 찾고 검토된 adapter로 실험. 임의 웹 모델 코드 생성·설치는 지원하지 않음",
+    "privacy": "원본 센서 행·제품명·사용자 질문을 외부 서버로 전송하지 않음. 공식 문서 GET만 수행",
+    "summary": "숫자 센서 이진 분류에 연결 가능한 새 후보를 공식 문서에서 찾았습니다. 문서 근거는 실험 적합성 가설이며 성능 우위를 보장하지 않습니다."
+  },
+  "training_started": false,
+  "scope": "Small fixed development queries, not an independent benchmark. FAISS local vector index + JSON source metadata, not a server vector database."
+}

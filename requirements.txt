@@ -16,3 +16,4 @@ xgboost>=3,<4
 lightgbm>=4,<5
 catboost>=1.2,<2
 python-dotenv>=1,<2
+faiss-cpu>=1.11,<2

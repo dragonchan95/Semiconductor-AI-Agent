@@ -1,0 +1,6716 @@
+{
+  "run_id": "run-bc6225231212",
+  "plan": {
+    "dataset_id": "ds-1622cd48f252",
+    "dataset_sha256": "ecaa9bcbb64d0827a015307f62e1e2f94e82fe520b1011d0e3d265a1f635135f",
+    "image_digest": null,
+    "cohorts": [
+      [
+        "A"
+      ],
+      [
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "D"
+      ],
+      [
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ],
+      [
+        "A",
+        "D"
+      ],
+      [
+        "B",
+        "C"
+      ],
+      [
+        "B",
+        "D"
+      ],
+      [
+        "C",
+        "D"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "A",
+        "B",
+        "D"
+      ],
+      [
+        "A",
+        "C",
+        "D"
+      ],
+      [
+        "B",
+        "C",
+        "D"
+      ],
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    "target_products": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "models": [
+      "catboost"
+    ],
+    "preprocessing": [
+      "auto"
+    ],
+    "balance": [
+      "none",
+      "weighted"
+    ],
+    "epochs": 6,
+    "policy": {
+      "min_recall": 0.9,
+      "max_fpr": 0.15,
+      "min_test_defects": 20
+    },
+    "trial_budget": 15,
+    "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b",
+    "seed": 45,
+    "selection": "Validation threshold and candidate selection; final Test once",
+    "model_backend": "local_sklearn_or_pytorch",
+    "auto_deploy": false,
+    "search_strategy": "product_partitions",
+    "llm_priorities": [
+      "mlp"
+    ],
+    "grouping": {
+      "source_run": "run-1fd7bfdad621",
+      "source_result_hash": "616b36daa87bb7f2008560d4c3c16d8f82c26bacee98154b955a5a47db22f999",
+      "products": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "partitions": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C",
+            "D"
+          ],
+          [
+            "B"
+          ]
+        ],
+        [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B",
+            "C"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ]
+      ],
+      "training_groups": [
+        [
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ],
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "C"
+        ],
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "B",
+          "D"
+        ],
+        [
+          "C",
+          "D"
+        ],
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        [
+          "A",
+          "B",
+          "D"
+        ],
+        [
+          "A",
+          "C",
+          "D"
+        ],
+        [
+          "B",
+          "C",
+          "D"
+        ],
+        [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      ],
+      "algorithm": "catboost",
+      "preprocessing": "auto",
+      "balance": "none",
+      "objective": "per_product_fpr_limit_then_all_product_recall_goal_then_aggregate_recall_f1_model_count",
+      "selection_rule": "제품별 정상 오판 한도 준수 → 모든 제품 검출 목표 충족 → 전체 Recall·F1 → 동률이면 적은 모델",
+      "declared_test_baselines": [
+        "all_shared",
+        "all_separate"
+      ]
+    }
+  },
+  "result": {
+    "dataset": {
+      "id": "ds-1622cd48f252",
+      "name": "제품 A–D 합성 공정",
+      "source": "자체 생성 합성 데이터, 실제 반도체 측정값 아님",
+      "synthetic": true,
+      "sha256": "ecaa9bcbb64d0827a015307f62e1e2f94e82fe520b1011d0e3d265a1f635135f"
+    },
+    "split": {
+      "test": {
+        "rows": 256,
+        "defects": 32,
+        "index_hash": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1"
+      },
+      "validation": {
+        "rows": 256,
+        "defects": 42,
+        "index_hash": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      "train": {
+        "rows": 768,
+        "defects": 127,
+        "index_hash": "4e93dd124431922bb190ebadf53f1efa09d387e0d4d453bb9cd6421d79bd37c5"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      }
+    },
+    "winner": {
+      "id": "partition-004",
+      "name": "A+B+C / D",
+      "groups": [
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "model_count": 2,
+      "validation": {
+        "n": 256,
+        "positive_count": 42,
+        "tn": 198,
+        "fp": 16,
+        "fn": 0,
+        "tp": 42,
+        "accuracy": 0.9375,
+        "recall": 1,
+        "precision": 0.7241379310344828,
+        "f1": 0.84,
+        "fpr": 0.07476635514018691,
+        "roc_auc": null,
+        "threshold": null,
+        "recall_wilson95": [
+          0.9161983874908382,
+          1
+        ]
+      },
+      "per_product": {
+        "A": {
+          "n": 72,
+          "positive_count": 12,
+          "tn": 57,
+          "fp": 3,
+          "fn": 0,
+          "tp": 12,
+          "accuracy": 0.9583333333333334,
+          "recall": 1,
+          "precision": 0.8,
+          "f1": 0.8888888888888888,
+          "fpr": 0.05,
+          "roc_auc": 0.9916666666666666,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.7574992425007574,
+            1
+          ]
+        },
+        "B": {
+          "n": 96,
+          "positive_count": 10,
+          "tn": 79,
+          "fp": 7,
+          "fn": 0,
+          "tp": 10,
+          "accuracy": 0.9270833333333334,
+          "recall": 1,
+          "precision": 0.5882352941176471,
+          "f1": 0.7407407407407407,
+          "fpr": 0.08139534883720931,
+          "roc_auc": 0.9883720930232558,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.7224598312333834,
+            1
+          ]
+        },
+        "C": {
+          "n": 56,
+          "positive_count": 11,
+          "tn": 39,
+          "fp": 6,
+          "fn": 0,
+          "tp": 11,
+          "accuracy": 0.8928571428571429,
+          "recall": 1,
+          "precision": 0.6470588235294118,
+          "f1": 0.7857142857142857,
+          "fpr": 0.13333333333333333,
+          "roc_auc": 0.9575757575757576,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.7411599827511859,
+            1
+          ]
+        },
+        "D": {
+          "n": 32,
+          "positive_count": 9,
+          "tn": 23,
+          "fp": 0,
+          "fn": 0,
+          "tp": 9,
+          "accuracy": 1,
+          "recall": 1,
+          "precision": 1,
+          "f1": 1,
+          "fpr": 0,
+          "roc_auc": 1,
+          "threshold": 0.2967695838570222,
+          "recall_wilson95": [
+            0.7008472464490407,
+            1
+          ]
+        }
+      },
+      "validation_feasible": true,
+      "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+      "model": "product_routing",
+      "products": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "status": "completed",
+      "preprocessing": "auto",
+      "balance": "none",
+      "train_n": 768
+    },
+    "winner_id": "partition-004",
+    "trials": [
+      {
+        "id": "partition-001",
+        "name": "A+B+C+D",
+        "groups": [
+          [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        "model_count": 1,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 194,
+          "fp": 20,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.921875,
+          "recall": 1,
+          "precision": 0.6774193548387096,
+          "f1": 0.8076923076923077,
+          "fpr": 0.09345794392523364,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 55,
+            "fp": 5,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9305555555555556,
+            "recall": 1,
+            "precision": 0.7058823529411765,
+            "f1": 0.8275862068965517,
+            "fpr": 0.08333333333333333,
+            "roc_auc": 0.9916666666666666,
+            "threshold": 0.1677648333138146,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 77,
+            "fp": 9,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.90625,
+            "recall": 1,
+            "precision": 0.5263157894736842,
+            "f1": 0.6896551724137931,
+            "fpr": 0.10465116279069768,
+            "roc_auc": 0.994186046511628,
+            "threshold": 0.1677648333138146,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 39,
+            "fp": 6,
+            "fn": 0,
+            "tp": 11,
+            "accuracy": 0.8928571428571429,
+            "recall": 1,
+            "precision": 0.6470588235294118,
+            "f1": 0.7857142857142857,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9616161616161616,
+            "threshold": 0.1677648333138146,
+            "recall_wilson95": [
+              0.7411599827511859,
+              1
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.1677648333138146,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-002",
+        "name": "A / B+C+D",
+        "groups": [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 197,
+          "fp": 17,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9296875,
+          "recall": 0.9761904761904762,
+          "precision": 0.7068965517241379,
+          "f1": 0.82,
+          "fpr": 0.0794392523364486,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 52,
+            "fp": 8,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.8888888888888888,
+            "recall": 1,
+            "precision": 0.6,
+            "f1": 0.75,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.15095054129272378,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 80,
+            "fp": 6,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9375,
+            "recall": 1,
+            "precision": 0.625,
+            "f1": 0.7692307692307693,
+            "fpr": 0.06976744186046512,
+            "roc_auc": 0.9941860465116279,
+            "threshold": 0.24244541945153167,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 42,
+            "fp": 3,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.9090909090909091,
+            "precision": 0.7692307692307693,
+            "f1": 0.8333333333333334,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9676767676767677,
+            "threshold": 0.24244541945153167,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.24244541945153167,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-003",
+        "name": "A+B / C+D",
+        "groups": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.93359375,
+          "recall": 0.9761904761904762,
+          "precision": 0.7192982456140351,
+          "f1": 0.8282828282828283,
+          "fpr": 0.07476635514018691,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 56,
+            "fp": 4,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9444444444444444,
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9888888888888889,
+            "threshold": 0.1810654792996795,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 77,
+            "fp": 9,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.90625,
+            "recall": 1,
+            "precision": 0.5263157894736842,
+            "f1": 0.6896551724137931,
+            "fpr": 0.10465116279069768,
+            "roc_auc": 0.9813953488372094,
+            "threshold": 0.1810654792996795,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 42,
+            "fp": 3,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.9090909090909091,
+            "precision": 0.7692307692307693,
+            "f1": 0.8333333333333334,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9676767676767677,
+            "threshold": 0.264367094478606,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.264367094478606,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-004",
+        "name": "A+B+C / D",
+        "groups": [
+          [
+            "A",
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9375,
+          "recall": 1,
+          "precision": 0.7241379310344828,
+          "f1": 0.84,
+          "fpr": 0.07476635514018691,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 57,
+            "fp": 3,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9583333333333334,
+            "recall": 1,
+            "precision": 0.8,
+            "f1": 0.8888888888888888,
+            "fpr": 0.05,
+            "roc_auc": 0.9916666666666666,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 79,
+            "fp": 7,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9270833333333334,
+            "recall": 1,
+            "precision": 0.5882352941176471,
+            "f1": 0.7407407407407407,
+            "fpr": 0.08139534883720931,
+            "roc_auc": 0.9883720930232558,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 39,
+            "fp": 6,
+            "fn": 0,
+            "tp": 11,
+            "accuracy": 0.8928571428571429,
+            "recall": 1,
+            "precision": 0.6470588235294118,
+            "f1": 0.7857142857142857,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9575757575757576,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7411599827511859,
+              1
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none",
+        "train_n": 768
+      },
+      {
+        "id": "partition-005",
+        "name": "A+B+D / C",
+        "groups": [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 197,
+          "fp": 17,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.92578125,
+          "recall": 0.9523809523809523,
+          "precision": 0.7017543859649122,
+          "f1": 0.8080808080808081,
+          "fpr": 0.0794392523364486,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 55,
+            "fp": 5,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9305555555555556,
+            "recall": 1,
+            "precision": 0.7058823529411765,
+            "f1": 0.8275862068965517,
+            "fpr": 0.08333333333333333,
+            "roc_auc": 0.9888888888888888,
+            "threshold": 0.18125529691603287,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 79,
+            "fp": 7,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9270833333333334,
+            "recall": 1,
+            "precision": 0.5882352941176471,
+            "f1": 0.7407407407407407,
+            "fpr": 0.08139534883720931,
+            "roc_auc": 0.9930232558139536,
+            "threshold": 0.18125529691603287,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 40,
+            "fp": 5,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.875,
+            "recall": 0.8181818181818182,
+            "precision": 0.6428571428571429,
+            "f1": 0.72,
+            "fpr": 0.1111111111111111,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.22730425710753047,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.18125529691603287,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-006",
+        "name": "A+C / B+D",
+        "groups": [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "D"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 202,
+          "fp": 12,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.9453125,
+          "recall": 0.9523809523809523,
+          "precision": 0.7692307692307693,
+          "f1": 0.851063829787234,
+          "fpr": 0.056074766355140186,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 59,
+            "fp": 1,
+            "fn": 1,
+            "tp": 11,
+            "accuracy": 0.9722222222222222,
+            "recall": 0.9166666666666666,
+            "precision": 0.9166666666666666,
+            "f1": 0.9166666666666666,
+            "fpr": 0.016666666666666666,
+            "roc_auc": 0.9958333333333333,
+            "threshold": 0.23096053844237302,
+            "recall_wilson95": [
+              0.6461140782014047,
+              0.9851352905492264
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 81,
+            "fp": 5,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9479166666666666,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "f1": 0.8,
+            "fpr": 0.05813953488372093,
+            "roc_auc": 0.9872093023255815,
+            "threshold": 0.2241114435114395,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 39,
+            "fp": 6,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.875,
+            "recall": 0.9090909090909091,
+            "precision": 0.625,
+            "f1": 0.7407407407407407,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.23096053844237302,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2241114435114395,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-007",
+        "name": "A+C+D / B",
+        "groups": [
+          [
+            "A",
+            "C",
+            "D"
+          ],
+          [
+            "B"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 200,
+          "fp": 14,
+          "fn": 5,
+          "tp": 37,
+          "accuracy": 0.92578125,
+          "recall": 0.8809523809523809,
+          "precision": 0.7254901960784313,
+          "f1": 0.7956989247311828,
+          "fpr": 0.06542056074766354,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.7499931819289246,
+            0.9480627323498091
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 59,
+            "fp": 1,
+            "fn": 1,
+            "tp": 11,
+            "accuracy": 0.9722222222222222,
+            "recall": 0.9166666666666666,
+            "precision": 0.9166666666666666,
+            "f1": 0.9166666666666666,
+            "fpr": 0.016666666666666666,
+            "roc_auc": 0.986111111111111,
+            "threshold": 0.2625017956921882,
+            "recall_wilson95": [
+              0.6461140782014047,
+              0.9851352905492264
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 75,
+            "fp": 11,
+            "fn": 2,
+            "tp": 8,
+            "accuracy": 0.8645833333333334,
+            "recall": 0.8,
+            "precision": 0.42105263157894735,
+            "f1": 0.5517241379310345,
+            "fpr": 0.12790697674418605,
+            "roc_auc": 0.922093023255814,
+            "threshold": 0.22381953680015954,
+            "recall_wilson95": [
+              0.49015684672072335,
+              0.9433190520193067
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 43,
+            "fp": 2,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.8181818181818182,
+            "precision": 0.8181818181818182,
+            "f1": 0.8181818181818182,
+            "fpr": 0.044444444444444446,
+            "roc_auc": 0.9555555555555556,
+            "threshold": 0.2625017956921882,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2625017956921882,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-008",
+        "name": "A+D / B+C",
+        "groups": [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B",
+            "C"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 205,
+          "fp": 9,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.95703125,
+          "recall": 0.9523809523809523,
+          "precision": 0.8163265306122449,
+          "f1": 0.8791208791208791,
+          "fpr": 0.04205607476635514,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 58,
+            "fp": 2,
+            "fn": 1,
+            "tp": 11,
+            "accuracy": 0.9583333333333334,
+            "recall": 0.9166666666666666,
+            "precision": 0.8461538461538461,
+            "f1": 0.88,
+            "fpr": 0.03333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.25441997779654,
+            "recall_wilson95": [
+              0.6461140782014047,
+              0.9851352905492264
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 82,
+            "fp": 4,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9583333333333334,
+            "recall": 1,
+            "precision": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "fpr": 0.046511627906976744,
+            "roc_auc": 0.9906976744186047,
+            "threshold": 0.23893174428865346,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 42,
+            "fp": 3,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.9090909090909091,
+            "precision": 0.7692307692307693,
+            "f1": 0.8333333333333334,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9676767676767677,
+            "threshold": 0.23893174428865346,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.25441997779654,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-009",
+        "name": "A / B / C+D",
+        "groups": [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 192,
+          "fp": 22,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.90234375,
+          "recall": 0.9285714285714286,
+          "precision": 0.639344262295082,
+          "f1": 0.7572815533980582,
+          "fpr": 0.102803738317757,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 52,
+            "fp": 8,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.8888888888888888,
+            "recall": 1,
+            "precision": 0.6,
+            "f1": 0.75,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.15095054129272378,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 75,
+            "fp": 11,
+            "fn": 2,
+            "tp": 8,
+            "accuracy": 0.8645833333333334,
+            "recall": 0.8,
+            "precision": 0.42105263157894735,
+            "f1": 0.5517241379310345,
+            "fpr": 0.12790697674418605,
+            "roc_auc": 0.922093023255814,
+            "threshold": 0.22381953680015954,
+            "recall_wilson95": [
+              0.49015684672072335,
+              0.9433190520193067
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 42,
+            "fp": 3,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.9090909090909091,
+            "precision": 0.7692307692307693,
+            "f1": 0.8333333333333334,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9676767676767677,
+            "threshold": 0.264367094478606,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.264367094478606,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-010",
+        "name": "A / B+C / D",
+        "groups": [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 199,
+          "fp": 15,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9375,
+          "recall": 0.9761904761904762,
+          "precision": 0.7321428571428571,
+          "f1": 0.8367346938775511,
+          "fpr": 0.07009345794392523,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 52,
+            "fp": 8,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.8888888888888888,
+            "recall": 1,
+            "precision": 0.6,
+            "f1": 0.75,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.15095054129272378,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 82,
+            "fp": 4,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9583333333333334,
+            "recall": 1,
+            "precision": 0.7142857142857143,
+            "f1": 0.8333333333333334,
+            "fpr": 0.046511627906976744,
+            "roc_auc": 0.9906976744186047,
+            "threshold": 0.23893174428865346,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 42,
+            "fp": 3,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.9285714285714286,
+            "recall": 0.9090909090909091,
+            "precision": 0.7692307692307693,
+            "f1": 0.8333333333333334,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9676767676767677,
+            "threshold": 0.23893174428865346,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-011",
+        "name": "A / B+D / C",
+        "groups": [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.921875,
+          "recall": 0.9523809523809523,
+          "precision": 0.6896551724137931,
+          "f1": 0.8,
+          "fpr": 0.08411214953271028,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 52,
+            "fp": 8,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.8888888888888888,
+            "recall": 1,
+            "precision": 0.6,
+            "f1": 0.75,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.15095054129272378,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 81,
+            "fp": 5,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9479166666666666,
+            "recall": 1,
+            "precision": 0.6666666666666666,
+            "f1": 0.8,
+            "fpr": 0.05813953488372093,
+            "roc_auc": 0.9872093023255815,
+            "threshold": 0.2241114435114395,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 40,
+            "fp": 5,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.875,
+            "recall": 0.8181818181818182,
+            "precision": 0.6428571428571429,
+            "f1": 0.72,
+            "fpr": 0.1111111111111111,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.22730425710753047,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2241114435114395,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-012",
+        "name": "A+B / C / D",
+        "groups": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.921875,
+          "recall": 0.9523809523809523,
+          "precision": 0.6896551724137931,
+          "f1": 0.8,
+          "fpr": 0.08411214953271028,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 56,
+            "fp": 4,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9444444444444444,
+            "recall": 1,
+            "precision": 0.75,
+            "f1": 0.8571428571428571,
+            "fpr": 0.06666666666666667,
+            "roc_auc": 0.9888888888888889,
+            "threshold": 0.1810654792996795,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 77,
+            "fp": 9,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.90625,
+            "recall": 1,
+            "precision": 0.5263157894736842,
+            "f1": 0.6896551724137931,
+            "fpr": 0.10465116279069768,
+            "roc_auc": 0.9813953488372094,
+            "threshold": 0.1810654792996795,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 40,
+            "fp": 5,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.875,
+            "recall": 0.8181818181818182,
+            "precision": 0.6428571428571429,
+            "f1": 0.72,
+            "fpr": 0.1111111111111111,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.22730425710753047,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-013",
+        "name": "A+C / B / D",
+        "groups": [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.9140625,
+          "recall": 0.9047619047619048,
+          "precision": 0.6785714285714286,
+          "f1": 0.7755102040816326,
+          "fpr": 0.08411214953271028,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 59,
+            "fp": 1,
+            "fn": 1,
+            "tp": 11,
+            "accuracy": 0.9722222222222222,
+            "recall": 0.9166666666666666,
+            "precision": 0.9166666666666666,
+            "f1": 0.9166666666666666,
+            "fpr": 0.016666666666666666,
+            "roc_auc": 0.9958333333333333,
+            "threshold": 0.23096053844237302,
+            "recall_wilson95": [
+              0.6461140782014047,
+              0.9851352905492264
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 75,
+            "fp": 11,
+            "fn": 2,
+            "tp": 8,
+            "accuracy": 0.8645833333333334,
+            "recall": 0.8,
+            "precision": 0.42105263157894735,
+            "f1": 0.5517241379310345,
+            "fpr": 0.12790697674418605,
+            "roc_auc": 0.922093023255814,
+            "threshold": 0.22381953680015954,
+            "recall_wilson95": [
+              0.49015684672072335,
+              0.9433190520193067
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 39,
+            "fp": 6,
+            "fn": 1,
+            "tp": 10,
+            "accuracy": 0.875,
+            "recall": 0.9090909090909091,
+            "precision": 0.625,
+            "f1": 0.7407407407407407,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.23096053844237302,
+            "recall_wilson95": [
+              0.6226353745137962,
+              0.9837682477371741
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-014",
+        "name": "A+D / B / C",
+        "groups": [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ]
+        ],
+        "model_count": 3,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 5,
+          "tp": 37,
+          "accuracy": 0.91015625,
+          "recall": 0.8809523809523809,
+          "precision": 0.6727272727272727,
+          "f1": 0.7628865979381443,
+          "fpr": 0.08411214953271028,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.7499931819289246,
+            0.9480627323498091
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 58,
+            "fp": 2,
+            "fn": 1,
+            "tp": 11,
+            "accuracy": 0.9583333333333334,
+            "recall": 0.9166666666666666,
+            "precision": 0.8461538461538461,
+            "f1": 0.88,
+            "fpr": 0.03333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.25441997779654,
+            "recall_wilson95": [
+              0.6461140782014047,
+              0.9851352905492264
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 75,
+            "fp": 11,
+            "fn": 2,
+            "tp": 8,
+            "accuracy": 0.8645833333333334,
+            "recall": 0.8,
+            "precision": 0.42105263157894735,
+            "f1": 0.5517241379310345,
+            "fpr": 0.12790697674418605,
+            "roc_auc": 0.922093023255814,
+            "threshold": 0.22381953680015954,
+            "recall_wilson95": [
+              0.49015684672072335,
+              0.9433190520193067
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 40,
+            "fp": 5,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.875,
+            "recall": 0.8181818181818182,
+            "precision": 0.6428571428571429,
+            "f1": 0.72,
+            "fpr": 0.1111111111111111,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.22730425710753047,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.25441997779654,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      },
+      {
+        "id": "partition-015",
+        "name": "A / B / C / D",
+        "groups": [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 4,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 190,
+          "fp": 24,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.890625,
+          "recall": 0.9047619047619048,
+          "precision": 0.6129032258064516,
+          "f1": 0.7307692307692307,
+          "fpr": 0.11214953271028037,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 52,
+            "fp": 8,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.8888888888888888,
+            "recall": 1,
+            "precision": 0.6,
+            "f1": 0.75,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9833333333333334,
+            "threshold": 0.15095054129272378,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 75,
+            "fp": 11,
+            "fn": 2,
+            "tp": 8,
+            "accuracy": 0.8645833333333334,
+            "recall": 0.8,
+            "precision": 0.42105263157894735,
+            "f1": 0.5517241379310345,
+            "fpr": 0.12790697674418605,
+            "roc_auc": 0.922093023255814,
+            "threshold": 0.22381953680015954,
+            "recall_wilson95": [
+              0.49015684672072335,
+              0.9433190520193067
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 40,
+            "fp": 5,
+            "fn": 2,
+            "tp": 9,
+            "accuracy": 0.875,
+            "recall": 0.8181818181818182,
+            "precision": 0.6428571428571429,
+            "f1": 0.72,
+            "fpr": 0.1111111111111111,
+            "roc_auc": 0.9232323232323232,
+            "threshold": 0.22730425710753047,
+            "recall_wilson95": [
+              0.5230138624217553,
+              0.9486333993289995
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": false,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28",
+        "model": "product_routing",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "status": "completed",
+        "preprocessing": "auto",
+        "balance": "none"
+      }
+    ],
+    "test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 210,
+      "fp": 14,
+      "fn": 7,
+      "tp": 25,
+      "accuracy": 0.91796875,
+      "recall": 0.78125,
+      "precision": 0.6410256410256411,
+      "f1": 0.704225352112676,
+      "fpr": 0.0625,
+      "roc_auc": null,
+      "threshold": null,
+      "recall_wilson95": [
+        0.6124466920955516,
+        0.8897630306846815
+      ]
+    },
+    "baseline_test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 203,
+      "fp": 21,
+      "fn": 2,
+      "tp": 30,
+      "accuracy": 0.91015625,
+      "recall": 0.9375,
+      "precision": 0.5882352941176471,
+      "f1": 0.7228915662650602,
+      "fpr": 0.09375,
+      "roc_auc": null,
+      "threshold": null,
+      "recall_wilson95": [
+        0.7985253275199642,
+        0.9826897968048427
+      ]
+    },
+    "selection_feasible": true,
+    "gate": {
+      "passed": false,
+      "reasons": [
+        "불량 검출률 78.1%: 데모 목표 90% 미달",
+        "일부 제품의 Test 검출률 또는 정상 오판률이 목표 미달",
+        "제품별 Test 불량 표본이 작아 추가 검증 필요"
+      ],
+      "action": "제품별 목표·표본 재검증 전 적용 보류",
+      "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+      "auto_deploy": false
+    },
+    "test_fingerprint": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1",
+    "grouping": {
+      "source_run": "run-1fd7bfdad621",
+      "source_result_hash": "616b36daa87bb7f2008560d4c3c16d8f82c26bacee98154b955a5a47db22f999",
+      "products": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "partitions": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C",
+            "D"
+          ],
+          [
+            "B"
+          ]
+        ],
+        [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B",
+            "C"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C",
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B",
+            "D"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "C"
+          ],
+          [
+            "B"
+          ],
+          [
+            "D"
+          ]
+        ],
+        [
+          [
+            "A",
+            "D"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ]
+        ],
+        [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ]
+      ],
+      "training_groups": [
+        [
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ],
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "C"
+        ],
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ],
+        [
+          "B",
+          "D"
+        ],
+        [
+          "C",
+          "D"
+        ],
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        [
+          "A",
+          "B",
+          "D"
+        ],
+        [
+          "A",
+          "C",
+          "D"
+        ],
+        [
+          "B",
+          "C",
+          "D"
+        ],
+        [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      ],
+      "algorithm": "catboost",
+      "preprocessing": "auto",
+      "balance": "none",
+      "objective": "per_product_fpr_limit_then_all_product_recall_goal_then_aggregate_recall_f1_model_count",
+      "selection_rule": "제품별 정상 오판 한도 준수 → 모든 제품 검출 목표 충족 → 전체 Recall·F1 → 동률이면 적은 모델",
+      "declared_test_baselines": [
+        "all_shared",
+        "all_separate"
+      ],
+      "selected": {
+        "id": "partition-004",
+        "name": "A+B+C / D",
+        "groups": [
+          [
+            "A",
+            "B",
+            "C"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "model_count": 2,
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9375,
+          "recall": 1,
+          "precision": 0.7241379310344828,
+          "f1": 0.84,
+          "fpr": 0.07476635514018691,
+          "roc_auc": null,
+          "threshold": null,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1
+          ]
+        },
+        "per_product": {
+          "A": {
+            "n": 72,
+            "positive_count": 12,
+            "tn": 57,
+            "fp": 3,
+            "fn": 0,
+            "tp": 12,
+            "accuracy": 0.9583333333333334,
+            "recall": 1,
+            "precision": 0.8,
+            "f1": 0.8888888888888888,
+            "fpr": 0.05,
+            "roc_auc": 0.9916666666666666,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7574992425007574,
+              1
+            ]
+          },
+          "B": {
+            "n": 96,
+            "positive_count": 10,
+            "tn": 79,
+            "fp": 7,
+            "fn": 0,
+            "tp": 10,
+            "accuracy": 0.9270833333333334,
+            "recall": 1,
+            "precision": 0.5882352941176471,
+            "f1": 0.7407407407407407,
+            "fpr": 0.08139534883720931,
+            "roc_auc": 0.9883720930232558,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7224598312333834,
+              1
+            ]
+          },
+          "C": {
+            "n": 56,
+            "positive_count": 11,
+            "tn": 39,
+            "fp": 6,
+            "fn": 0,
+            "tp": 11,
+            "accuracy": 0.8928571428571429,
+            "recall": 1,
+            "precision": 0.6470588235294118,
+            "f1": 0.7857142857142857,
+            "fpr": 0.13333333333333333,
+            "roc_auc": 0.9575757575757576,
+            "threshold": 0.18696192285673094,
+            "recall_wilson95": [
+              0.7411599827511859,
+              1
+            ]
+          },
+          "D": {
+            "n": 32,
+            "positive_count": 9,
+            "tn": 23,
+            "fp": 0,
+            "fn": 0,
+            "tp": 9,
+            "accuracy": 1,
+            "recall": 1,
+            "precision": 1,
+            "f1": 1,
+            "fpr": 0,
+            "roc_auc": 1,
+            "threshold": 0.2967695838570222,
+            "recall_wilson95": [
+              0.7008472464490407,
+              1
+            ]
+          }
+        },
+        "validation_feasible": true,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      "strategies": [
+        {
+          "id": "partition-001",
+          "name": "A+B+C+D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 1,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 194,
+            "fp": 20,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.921875,
+            "recall": 1,
+            "precision": 0.6774193548387096,
+            "f1": 0.8076923076923077,
+            "fpr": 0.09345794392523364,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 55,
+              "fp": 5,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9305555555555556,
+              "recall": 1,
+              "precision": 0.7058823529411765,
+              "f1": 0.8275862068965517,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9916666666666666,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.994186046511628,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 0,
+              "tp": 11,
+              "accuracy": 0.8928571428571429,
+              "recall": 1,
+              "precision": 0.6470588235294118,
+              "f1": 0.7857142857142857,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9616161616161616,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7411599827511859,
+                1
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-002",
+          "name": "A / B+C+D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 197,
+            "fp": 17,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.9296875,
+            "recall": 0.9761904761904762,
+            "precision": 0.7068965517241379,
+            "f1": 0.82,
+            "fpr": 0.0794392523364486,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 80,
+              "fp": 6,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9375,
+              "recall": 1,
+              "precision": 0.625,
+              "f1": 0.7692307692307693,
+              "fpr": 0.06976744186046512,
+              "roc_auc": 0.9941860465116279,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-003",
+          "name": "A+B / C+D",
+          "groups": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 198,
+            "fp": 16,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.93359375,
+            "recall": 0.9761904761904762,
+            "precision": 0.7192982456140351,
+            "f1": 0.8282828282828283,
+            "fpr": 0.07476635514018691,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 56,
+              "fp": 4,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9444444444444444,
+              "recall": 1,
+              "precision": 0.75,
+              "f1": 0.8571428571428571,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9888888888888889,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.9813953488372094,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-004",
+          "name": "A+B+C / D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 198,
+            "fp": 16,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.9375,
+            "recall": 1,
+            "precision": 0.7241379310344828,
+            "f1": 0.84,
+            "fpr": 0.07476635514018691,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 57,
+              "fp": 3,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.8,
+              "f1": 0.8888888888888888,
+              "fpr": 0.05,
+              "roc_auc": 0.9916666666666666,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 79,
+              "fp": 7,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9270833333333334,
+              "recall": 1,
+              "precision": 0.5882352941176471,
+              "f1": 0.7407407407407407,
+              "fpr": 0.08139534883720931,
+              "roc_auc": 0.9883720930232558,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 0,
+              "tp": 11,
+              "accuracy": 0.8928571428571429,
+              "recall": 1,
+              "precision": 0.6470588235294118,
+              "f1": 0.7857142857142857,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9575757575757576,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7411599827511859,
+                1
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-005",
+          "name": "A+B+D / C",
+          "groups": [
+            [
+              "A",
+              "B",
+              "D"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 197,
+            "fp": 17,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.92578125,
+            "recall": 0.9523809523809523,
+            "precision": 0.7017543859649122,
+            "f1": 0.8080808080808081,
+            "fpr": 0.0794392523364486,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 55,
+              "fp": 5,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9305555555555556,
+              "recall": 1,
+              "precision": 0.7058823529411765,
+              "f1": 0.8275862068965517,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9888888888888888,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 79,
+              "fp": 7,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9270833333333334,
+              "recall": 1,
+              "precision": 0.5882352941176471,
+              "f1": 0.7407407407407407,
+              "fpr": 0.08139534883720931,
+              "roc_auc": 0.9930232558139536,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-006",
+          "name": "A+C / B+D",
+          "groups": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 202,
+            "fp": 12,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.9453125,
+            "recall": 0.9523809523809523,
+            "precision": 0.7692307692307693,
+            "f1": 0.851063829787234,
+            "fpr": 0.056074766355140186,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.9958333333333333,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 81,
+              "fp": 5,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9479166666666666,
+              "recall": 1,
+              "precision": 0.6666666666666666,
+              "f1": 0.8,
+              "fpr": 0.05813953488372093,
+              "roc_auc": 0.9872093023255815,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.875,
+              "recall": 0.9090909090909091,
+              "precision": 0.625,
+              "f1": 0.7407407407407407,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-007",
+          "name": "A+C+D / B",
+          "groups": [
+            [
+              "A",
+              "C",
+              "D"
+            ],
+            [
+              "B"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 200,
+            "fp": 14,
+            "fn": 5,
+            "tp": 37,
+            "accuracy": 0.92578125,
+            "recall": 0.8809523809523809,
+            "precision": 0.7254901960784313,
+            "f1": 0.7956989247311828,
+            "fpr": 0.06542056074766354,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7499931819289246,
+              0.9480627323498091
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.986111111111111,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 43,
+              "fp": 2,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.8181818181818182,
+              "precision": 0.8181818181818182,
+              "f1": 0.8181818181818182,
+              "fpr": 0.044444444444444446,
+              "roc_auc": 0.9555555555555556,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-008",
+          "name": "A+D / B+C",
+          "groups": [
+            [
+              "A",
+              "D"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 205,
+            "fp": 9,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.95703125,
+            "recall": 0.9523809523809523,
+            "precision": 0.8163265306122449,
+            "f1": 0.8791208791208791,
+            "fpr": 0.04205607476635514,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 58,
+              "fp": 2,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9583333333333334,
+              "recall": 0.9166666666666666,
+              "precision": 0.8461538461538461,
+              "f1": 0.88,
+              "fpr": 0.03333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 82,
+              "fp": 4,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "fpr": 0.046511627906976744,
+              "roc_auc": 0.9906976744186047,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-009",
+          "name": "A / B / C+D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 192,
+            "fp": 22,
+            "fn": 3,
+            "tp": 39,
+            "accuracy": 0.90234375,
+            "recall": 0.9285714285714286,
+            "precision": 0.639344262295082,
+            "f1": 0.7572815533980582,
+            "fpr": 0.102803738317757,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8099028671147483,
+              0.9754100364488272
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-010",
+          "name": "A / B+C / D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 199,
+            "fp": 15,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.9375,
+            "recall": 0.9761904761904762,
+            "precision": 0.7321428571428571,
+            "f1": 0.8367346938775511,
+            "fpr": 0.07009345794392523,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 82,
+              "fp": 4,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "fpr": 0.046511627906976744,
+              "roc_auc": 0.9906976744186047,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-011",
+          "name": "A / B+D / C",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "D"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.921875,
+            "recall": 0.9523809523809523,
+            "precision": 0.6896551724137931,
+            "f1": 0.8,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 81,
+              "fp": 5,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9479166666666666,
+              "recall": 1,
+              "precision": 0.6666666666666666,
+              "f1": 0.8,
+              "fpr": 0.05813953488372093,
+              "roc_auc": 0.9872093023255815,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-012",
+          "name": "A+B / C / D",
+          "groups": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.921875,
+            "recall": 0.9523809523809523,
+            "precision": 0.6896551724137931,
+            "f1": 0.8,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 56,
+              "fp": 4,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9444444444444444,
+              "recall": 1,
+              "precision": 0.75,
+              "f1": 0.8571428571428571,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9888888888888889,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.9813953488372094,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-013",
+          "name": "A+C / B / D",
+          "groups": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 4,
+            "tp": 38,
+            "accuracy": 0.9140625,
+            "recall": 0.9047619047619048,
+            "precision": 0.6785714285714286,
+            "f1": 0.7755102040816326,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7793460477494668,
+              0.9623383611716879
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.9958333333333333,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.875,
+              "recall": 0.9090909090909091,
+              "precision": 0.625,
+              "f1": 0.7407407407407407,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-014",
+          "name": "A+D / B / C",
+          "groups": [
+            [
+              "A",
+              "D"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 5,
+            "tp": 37,
+            "accuracy": 0.91015625,
+            "recall": 0.8809523809523809,
+            "precision": 0.6727272727272727,
+            "f1": 0.7628865979381443,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7499931819289246,
+              0.9480627323498091
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 58,
+              "fp": 2,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9583333333333334,
+              "recall": 0.9166666666666666,
+              "precision": 0.8461538461538461,
+              "f1": 0.88,
+              "fpr": 0.03333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-015",
+          "name": "A / B / C / D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 4,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 190,
+            "fp": 24,
+            "fn": 4,
+            "tp": 38,
+            "accuracy": 0.890625,
+            "recall": 0.9047619047619048,
+            "precision": 0.6129032258064516,
+            "f1": 0.7307692307692307,
+            "fpr": 0.11214953271028037,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7793460477494668,
+              0.9623383611716879
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        }
+      ],
+      "ranked": [
+        {
+          "id": "partition-004",
+          "name": "A+B+C / D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 198,
+            "fp": 16,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.9375,
+            "recall": 1,
+            "precision": 0.7241379310344828,
+            "f1": 0.84,
+            "fpr": 0.07476635514018691,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 57,
+              "fp": 3,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.8,
+              "f1": 0.8888888888888888,
+              "fpr": 0.05,
+              "roc_auc": 0.9916666666666666,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 79,
+              "fp": 7,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9270833333333334,
+              "recall": 1,
+              "precision": 0.5882352941176471,
+              "f1": 0.7407407407407407,
+              "fpr": 0.08139534883720931,
+              "roc_auc": 0.9883720930232558,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 0,
+              "tp": 11,
+              "accuracy": 0.8928571428571429,
+              "recall": 1,
+              "precision": 0.6470588235294118,
+              "f1": 0.7857142857142857,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9575757575757576,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.7411599827511859,
+                1
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-001",
+          "name": "A+B+C+D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 1,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 194,
+            "fp": 20,
+            "fn": 0,
+            "tp": 42,
+            "accuracy": 0.921875,
+            "recall": 1,
+            "precision": 0.6774193548387096,
+            "f1": 0.8076923076923077,
+            "fpr": 0.09345794392523364,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.9161983874908382,
+              1
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 55,
+              "fp": 5,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9305555555555556,
+              "recall": 1,
+              "precision": 0.7058823529411765,
+              "f1": 0.8275862068965517,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9916666666666666,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.994186046511628,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 0,
+              "tp": 11,
+              "accuracy": 0.8928571428571429,
+              "recall": 1,
+              "precision": 0.6470588235294118,
+              "f1": 0.7857142857142857,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9616161616161616,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7411599827511859,
+                1
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-010",
+          "name": "A / B+C / D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 199,
+            "fp": 15,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.9375,
+            "recall": 0.9761904761904762,
+            "precision": 0.7321428571428571,
+            "f1": 0.8367346938775511,
+            "fpr": 0.07009345794392523,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 82,
+              "fp": 4,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "fpr": 0.046511627906976744,
+              "roc_auc": 0.9906976744186047,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-003",
+          "name": "A+B / C+D",
+          "groups": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 198,
+            "fp": 16,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.93359375,
+            "recall": 0.9761904761904762,
+            "precision": 0.7192982456140351,
+            "f1": 0.8282828282828283,
+            "fpr": 0.07476635514018691,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 56,
+              "fp": 4,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9444444444444444,
+              "recall": 1,
+              "precision": 0.75,
+              "f1": 0.8571428571428571,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9888888888888889,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.9813953488372094,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-002",
+          "name": "A / B+C+D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 197,
+            "fp": 17,
+            "fn": 1,
+            "tp": 41,
+            "accuracy": 0.9296875,
+            "recall": 0.9761904761904762,
+            "precision": 0.7068965517241379,
+            "f1": 0.82,
+            "fpr": 0.0794392523364486,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8767851883475174,
+              0.9957847045008997
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 80,
+              "fp": 6,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9375,
+              "recall": 1,
+              "precision": 0.625,
+              "f1": 0.7692307692307693,
+              "fpr": 0.06976744186046512,
+              "roc_auc": 0.9941860465116279,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.24244541945153167,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-008",
+          "name": "A+D / B+C",
+          "groups": [
+            [
+              "A",
+              "D"
+            ],
+            [
+              "B",
+              "C"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 205,
+            "fp": 9,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.95703125,
+            "recall": 0.9523809523809523,
+            "precision": 0.8163265306122449,
+            "f1": 0.8791208791208791,
+            "fpr": 0.04205607476635514,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 58,
+              "fp": 2,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9583333333333334,
+              "recall": 0.9166666666666666,
+              "precision": 0.8461538461538461,
+              "f1": 0.88,
+              "fpr": 0.03333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 82,
+              "fp": 4,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9583333333333334,
+              "recall": 1,
+              "precision": 0.7142857142857143,
+              "f1": 0.8333333333333334,
+              "fpr": 0.046511627906976744,
+              "roc_auc": 0.9906976744186047,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.23893174428865346,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-006",
+          "name": "A+C / B+D",
+          "groups": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B",
+              "D"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 202,
+            "fp": 12,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.9453125,
+            "recall": 0.9523809523809523,
+            "precision": 0.7692307692307693,
+            "f1": 0.851063829787234,
+            "fpr": 0.056074766355140186,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.9958333333333333,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 81,
+              "fp": 5,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9479166666666666,
+              "recall": 1,
+              "precision": 0.6666666666666666,
+              "f1": 0.8,
+              "fpr": 0.05813953488372093,
+              "roc_auc": 0.9872093023255815,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.875,
+              "recall": 0.9090909090909091,
+              "precision": 0.625,
+              "f1": 0.7407407407407407,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": true,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-005",
+          "name": "A+B+D / C",
+          "groups": [
+            [
+              "A",
+              "B",
+              "D"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 197,
+            "fp": 17,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.92578125,
+            "recall": 0.9523809523809523,
+            "precision": 0.7017543859649122,
+            "f1": 0.8080808080808081,
+            "fpr": 0.0794392523364486,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 55,
+              "fp": 5,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9305555555555556,
+              "recall": 1,
+              "precision": 0.7058823529411765,
+              "f1": 0.8275862068965517,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9888888888888888,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 79,
+              "fp": 7,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9270833333333334,
+              "recall": 1,
+              "precision": 0.5882352941176471,
+              "f1": 0.7407407407407407,
+              "fpr": 0.08139534883720931,
+              "roc_auc": 0.9930232558139536,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.18125529691603287,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-012",
+          "name": "A+B / C / D",
+          "groups": [
+            [
+              "A",
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.921875,
+            "recall": 0.9523809523809523,
+            "precision": 0.6896551724137931,
+            "f1": 0.8,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 56,
+              "fp": 4,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.9444444444444444,
+              "recall": 1,
+              "precision": 0.75,
+              "f1": 0.8571428571428571,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9888888888888889,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 77,
+              "fp": 9,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.90625,
+              "recall": 1,
+              "precision": 0.5263157894736842,
+              "f1": 0.6896551724137931,
+              "fpr": 0.10465116279069768,
+              "roc_auc": 0.9813953488372094,
+              "threshold": 0.1810654792996795,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-011",
+          "name": "A / B+D / C",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B",
+              "D"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 2,
+            "tp": 40,
+            "accuracy": 0.921875,
+            "recall": 0.9523809523809523,
+            "precision": 0.6896551724137931,
+            "f1": 0.8,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8420986468452026,
+              0.9868427513607937
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 81,
+              "fp": 5,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.9479166666666666,
+              "recall": 1,
+              "precision": 0.6666666666666666,
+              "f1": 0.8,
+              "fpr": 0.05813953488372093,
+              "roc_auc": 0.9872093023255815,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2241114435114395,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-009",
+          "name": "A / B / C+D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C",
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 192,
+            "fp": 22,
+            "fn": 3,
+            "tp": 39,
+            "accuracy": 0.90234375,
+            "recall": 0.9285714285714286,
+            "precision": 0.639344262295082,
+            "f1": 0.7572815533980582,
+            "fpr": 0.102803738317757,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.8099028671147483,
+              0.9754100364488272
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 42,
+              "fp": 3,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.9090909090909091,
+              "precision": 0.7692307692307693,
+              "f1": 0.8333333333333334,
+              "fpr": 0.06666666666666667,
+              "roc_auc": 0.9676767676767677,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.264367094478606,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-013",
+          "name": "A+C / B / D",
+          "groups": [
+            [
+              "A",
+              "C"
+            ],
+            [
+              "B"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 4,
+            "tp": 38,
+            "accuracy": 0.9140625,
+            "recall": 0.9047619047619048,
+            "precision": 0.6785714285714286,
+            "f1": 0.7755102040816326,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7793460477494668,
+              0.9623383611716879
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.9958333333333333,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 39,
+              "fp": 6,
+              "fn": 1,
+              "tp": 10,
+              "accuracy": 0.875,
+              "recall": 0.9090909090909091,
+              "precision": 0.625,
+              "f1": 0.7407407407407407,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.23096053844237302,
+              "recall_wilson95": [
+                0.6226353745137962,
+                0.9837682477371741
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-015",
+          "name": "A / B / C / D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "model_count": 4,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 190,
+            "fp": 24,
+            "fn": 4,
+            "tp": 38,
+            "accuracy": 0.890625,
+            "recall": 0.9047619047619048,
+            "precision": 0.6129032258064516,
+            "f1": 0.7307692307692307,
+            "fpr": 0.11214953271028037,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7793460477494668,
+              0.9623383611716879
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 52,
+              "fp": 8,
+              "fn": 0,
+              "tp": 12,
+              "accuracy": 0.8888888888888888,
+              "recall": 1,
+              "precision": 0.6,
+              "f1": 0.75,
+              "fpr": 0.13333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.7574992425007574,
+                1
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-007",
+          "name": "A+C+D / B",
+          "groups": [
+            [
+              "A",
+              "C",
+              "D"
+            ],
+            [
+              "B"
+            ]
+          ],
+          "model_count": 2,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 200,
+            "fp": 14,
+            "fn": 5,
+            "tp": 37,
+            "accuracy": 0.92578125,
+            "recall": 0.8809523809523809,
+            "precision": 0.7254901960784313,
+            "f1": 0.7956989247311828,
+            "fpr": 0.06542056074766354,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7499931819289246,
+              0.9480627323498091
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 59,
+              "fp": 1,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9722222222222222,
+              "recall": 0.9166666666666666,
+              "precision": 0.9166666666666666,
+              "f1": 0.9166666666666666,
+              "fpr": 0.016666666666666666,
+              "roc_auc": 0.986111111111111,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 43,
+              "fp": 2,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.9285714285714286,
+              "recall": 0.8181818181818182,
+              "precision": 0.8181818181818182,
+              "f1": 0.8181818181818182,
+              "fpr": 0.044444444444444446,
+              "roc_auc": 0.9555555555555556,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.2625017956921882,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        },
+        {
+          "id": "partition-014",
+          "name": "A+D / B / C",
+          "groups": [
+            [
+              "A",
+              "D"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C"
+            ]
+          ],
+          "model_count": 3,
+          "validation": {
+            "n": 256,
+            "positive_count": 42,
+            "tn": 196,
+            "fp": 18,
+            "fn": 5,
+            "tp": 37,
+            "accuracy": 0.91015625,
+            "recall": 0.8809523809523809,
+            "precision": 0.6727272727272727,
+            "f1": 0.7628865979381443,
+            "fpr": 0.08411214953271028,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7499931819289246,
+              0.9480627323498091
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 72,
+              "positive_count": 12,
+              "tn": 58,
+              "fp": 2,
+              "fn": 1,
+              "tp": 11,
+              "accuracy": 0.9583333333333334,
+              "recall": 0.9166666666666666,
+              "precision": 0.8461538461538461,
+              "f1": 0.88,
+              "fpr": 0.03333333333333333,
+              "roc_auc": 0.9833333333333334,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.6461140782014047,
+                0.9851352905492264
+              ]
+            },
+            "B": {
+              "n": 96,
+              "positive_count": 10,
+              "tn": 75,
+              "fp": 11,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.8645833333333334,
+              "recall": 0.8,
+              "precision": 0.42105263157894735,
+              "f1": 0.5517241379310345,
+              "fpr": 0.12790697674418605,
+              "roc_auc": 0.922093023255814,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            },
+            "C": {
+              "n": 56,
+              "positive_count": 11,
+              "tn": 40,
+              "fp": 5,
+              "fn": 2,
+              "tp": 9,
+              "accuracy": 0.875,
+              "recall": 0.8181818181818182,
+              "precision": 0.6428571428571429,
+              "f1": 0.72,
+              "fpr": 0.1111111111111111,
+              "roc_auc": 0.9232323232323232,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.5230138624217553,
+                0.9486333993289995
+              ]
+            },
+            "D": {
+              "n": 32,
+              "positive_count": 9,
+              "tn": 23,
+              "fp": 0,
+              "fn": 0,
+              "tp": 9,
+              "accuracy": 1,
+              "recall": 1,
+              "precision": 1,
+              "f1": 1,
+              "fpr": 0,
+              "roc_auc": 1,
+              "threshold": 0.25441997779654,
+              "recall_wilson95": [
+                0.7008472464490407,
+                1
+              ]
+            }
+          },
+          "validation_feasible": false,
+          "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+        }
+      ],
+      "tested_baselines": [
+        {
+          "name": "A+B+C / D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "test": {
+            "n": 256,
+            "positive_count": 32,
+            "tn": 210,
+            "fp": 14,
+            "fn": 7,
+            "tp": 25,
+            "accuracy": 0.91796875,
+            "recall": 0.78125,
+            "precision": 0.6410256410256411,
+            "f1": 0.704225352112676,
+            "fpr": 0.0625,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.6124466920955516,
+              0.8897630306846815
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 80,
+              "positive_count": 4,
+              "tn": 72,
+              "fp": 4,
+              "fn": 0,
+              "tp": 4,
+              "accuracy": 0.95,
+              "recall": 1,
+              "precision": 0.5,
+              "f1": 0.6666666666666666,
+              "fpr": 0.05263157894736842,
+              "roc_auc": 0.993421052631579,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.5100999795960008,
+                1
+              ]
+            },
+            "B": {
+              "n": 40,
+              "positive_count": 4,
+              "tn": 30,
+              "fp": 6,
+              "fn": 1,
+              "tp": 3,
+              "accuracy": 0.825,
+              "recall": 0.75,
+              "precision": 0.3333333333333333,
+              "f1": 0.46153846153846156,
+              "fpr": 0.16666666666666666,
+              "roc_auc": 0.951388888888889,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.3006360524426366,
+                0.9544139373553637
+              ]
+            },
+            "C": {
+              "n": 72,
+              "positive_count": 14,
+              "tn": 54,
+              "fp": 4,
+              "fn": 4,
+              "tp": 10,
+              "accuracy": 0.8888888888888888,
+              "recall": 0.7142857142857143,
+              "precision": 0.7142857142857143,
+              "f1": 0.7142857142857143,
+              "fpr": 0.06896551724137931,
+              "roc_auc": 0.9532019704433498,
+              "threshold": 0.18696192285673094,
+              "recall_wilson95": [
+                0.4535045882751561,
+                0.882788120898909
+              ]
+            },
+            "D": {
+              "n": 64,
+              "positive_count": 10,
+              "tn": 54,
+              "fp": 0,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.96875,
+              "recall": 0.8,
+              "precision": 1,
+              "f1": 0.8888888888888888,
+              "fpr": 0,
+              "roc_auc": 0.9870370370370369,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            }
+          },
+          "model_count": 2
+        },
+        {
+          "name": "A+B+C+D",
+          "groups": [
+            [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          ],
+          "test": {
+            "n": 256,
+            "positive_count": 32,
+            "tn": 203,
+            "fp": 21,
+            "fn": 2,
+            "tp": 30,
+            "accuracy": 0.91015625,
+            "recall": 0.9375,
+            "precision": 0.5882352941176471,
+            "f1": 0.7228915662650602,
+            "fpr": 0.09375,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.7985253275199642,
+              0.9826897968048427
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 80,
+              "positive_count": 4,
+              "tn": 70,
+              "fp": 6,
+              "fn": 0,
+              "tp": 4,
+              "accuracy": 0.925,
+              "recall": 1,
+              "precision": 0.4,
+              "f1": 0.5714285714285714,
+              "fpr": 0.07894736842105263,
+              "roc_auc": 0.9901315789473684,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.5100999795960008,
+                1
+              ]
+            },
+            "B": {
+              "n": 40,
+              "positive_count": 4,
+              "tn": 31,
+              "fp": 5,
+              "fn": 0,
+              "tp": 4,
+              "accuracy": 0.875,
+              "recall": 1,
+              "precision": 0.4444444444444444,
+              "f1": 0.6153846153846154,
+              "fpr": 0.1388888888888889,
+              "roc_auc": 0.9722222222222222,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.5100999795960008,
+                1
+              ]
+            },
+            "C": {
+              "n": 72,
+              "positive_count": 14,
+              "tn": 50,
+              "fp": 8,
+              "fn": 2,
+              "tp": 12,
+              "accuracy": 0.8611111111111112,
+              "recall": 0.8571428571428571,
+              "precision": 0.6,
+              "f1": 0.7058823529411765,
+              "fpr": 0.13793103448275862,
+              "roc_auc": 0.958128078817734,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.600580922361363,
+                0.9599069262620787
+              ]
+            },
+            "D": {
+              "n": 64,
+              "positive_count": 10,
+              "tn": 52,
+              "fp": 2,
+              "fn": 0,
+              "tp": 10,
+              "accuracy": 0.96875,
+              "recall": 1,
+              "precision": 0.8333333333333334,
+              "f1": 0.9090909090909091,
+              "fpr": 0.037037037037037035,
+              "roc_auc": 1,
+              "threshold": 0.1677648333138146,
+              "recall_wilson95": [
+                0.7224598312333834,
+                1
+              ]
+            }
+          },
+          "model_count": 1
+        },
+        {
+          "name": "A / B / C / D",
+          "groups": [
+            [
+              "A"
+            ],
+            [
+              "B"
+            ],
+            [
+              "C"
+            ],
+            [
+              "D"
+            ]
+          ],
+          "test": {
+            "n": 256,
+            "positive_count": 32,
+            "tn": 212,
+            "fp": 12,
+            "fn": 7,
+            "tp": 25,
+            "accuracy": 0.92578125,
+            "recall": 0.78125,
+            "precision": 0.6756756756756757,
+            "f1": 0.7246376811594203,
+            "fpr": 0.05357142857142857,
+            "roc_auc": null,
+            "threshold": null,
+            "recall_wilson95": [
+              0.6124466920955516,
+              0.8897630306846815
+            ]
+          },
+          "per_product": {
+            "A": {
+              "n": 80,
+              "positive_count": 4,
+              "tn": 70,
+              "fp": 6,
+              "fn": 0,
+              "tp": 4,
+              "accuracy": 0.925,
+              "recall": 1,
+              "precision": 0.4,
+              "f1": 0.5714285714285714,
+              "fpr": 0.07894736842105263,
+              "roc_auc": 1,
+              "threshold": 0.15095054129272378,
+              "recall_wilson95": [
+                0.5100999795960008,
+                1
+              ]
+            },
+            "B": {
+              "n": 40,
+              "positive_count": 4,
+              "tn": 33,
+              "fp": 3,
+              "fn": 1,
+              "tp": 3,
+              "accuracy": 0.9,
+              "recall": 0.75,
+              "precision": 0.5,
+              "f1": 0.6,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9583333333333333,
+              "threshold": 0.22381953680015954,
+              "recall_wilson95": [
+                0.3006360524426366,
+                0.9544139373553637
+              ]
+            },
+            "C": {
+              "n": 72,
+              "positive_count": 14,
+              "tn": 55,
+              "fp": 3,
+              "fn": 4,
+              "tp": 10,
+              "accuracy": 0.9027777777777778,
+              "recall": 0.7142857142857143,
+              "precision": 0.7692307692307693,
+              "f1": 0.7407407407407407,
+              "fpr": 0.05172413793103448,
+              "roc_auc": 0.9236453201970444,
+              "threshold": 0.22730425710753047,
+              "recall_wilson95": [
+                0.4535045882751561,
+                0.882788120898909
+              ]
+            },
+            "D": {
+              "n": 64,
+              "positive_count": 10,
+              "tn": 54,
+              "fp": 0,
+              "fn": 2,
+              "tp": 8,
+              "accuracy": 0.96875,
+              "recall": 0.8,
+              "precision": 1,
+              "f1": 0.8888888888888888,
+              "fpr": 0,
+              "roc_auc": 0.9870370370370369,
+              "threshold": 0.2967695838570222,
+              "recall_wilson95": [
+                0.49015684672072335,
+                0.9433190520193067
+              ]
+            }
+          },
+          "model_count": 4
+        }
+      ],
+      "per_product_test": {
+        "A": {
+          "n": 80,
+          "positive_count": 4,
+          "tn": 72,
+          "fp": 4,
+          "fn": 0,
+          "tp": 4,
+          "accuracy": 0.95,
+          "recall": 1,
+          "precision": 0.5,
+          "f1": 0.6666666666666666,
+          "fpr": 0.05263157894736842,
+          "roc_auc": 0.993421052631579,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.5100999795960008,
+            1
+          ]
+        },
+        "B": {
+          "n": 40,
+          "positive_count": 4,
+          "tn": 30,
+          "fp": 6,
+          "fn": 1,
+          "tp": 3,
+          "accuracy": 0.825,
+          "recall": 0.75,
+          "precision": 0.3333333333333333,
+          "f1": 0.46153846153846156,
+          "fpr": 0.16666666666666666,
+          "roc_auc": 0.951388888888889,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.3006360524426366,
+            0.9544139373553637
+          ]
+        },
+        "C": {
+          "n": 72,
+          "positive_count": 14,
+          "tn": 54,
+          "fp": 4,
+          "fn": 4,
+          "tp": 10,
+          "accuracy": 0.8888888888888888,
+          "recall": 0.7142857142857143,
+          "precision": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "fpr": 0.06896551724137931,
+          "roc_auc": 0.9532019704433498,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.4535045882751561,
+            0.882788120898909
+          ]
+        },
+        "D": {
+          "n": 64,
+          "positive_count": 10,
+          "tn": 54,
+          "fp": 0,
+          "fn": 2,
+          "tp": 8,
+          "accuracy": 0.96875,
+          "recall": 0.8,
+          "precision": 1,
+          "f1": 0.8888888888888888,
+          "fpr": 0,
+          "roc_auc": 0.9870370370370369,
+          "threshold": 0.2967695838570222,
+          "recall_wilson95": [
+            0.49015684672072335,
+            0.9433190520193067
+          ]
+        }
+      },
+      "fitted_group_count": 15,
+      "failed_groups": [],
+      "evaluated_partition_count": 15,
+      "selection_reason": "15/15개 구성을 같은 제품 Validation에서 비교. 제품별 정상 오판 한도 준수 → 모든 제품 검출 목표 충족 → 전체 Recall·F1 → 동률이면 적은 모델. 선택: A+B+C / D (2개 모델).",
+      "selection_uses_test": false,
+      "thresholds": {
+        "A+B+C": 0.18696192285673094,
+        "D": 0.2967695838570222
+      },
+      "limitations": [
+        "Fixed algorithm and settings; not joint optimization of algorithms, groupings and ensemble weights.",
+        "Repeated Validation and previously inspected project Test; new independent-period validation required.",
+        "Product-level small defect counts; no production approval or performance guarantee."
+      ]
+    },
+    "explanation": {
+      "selection_reason": "15/15개 구성을 같은 제품 Validation에서 비교. 제품별 정상 오판 한도 준수 → 모든 제품 검출 목표 충족 → 전체 Recall·F1 → 동률이면 적은 모델. 선택: A+B+C / D (2개 모델).",
+      "preprocessing_reason": "동일 전처리·알고리즘을 각 그룹 Train에만 적합",
+      "balance_method": "none",
+      "search_note": "제품을 중복·누락 없이 나누는 모든 구성 비교",
+      "source": "제품 그룹 구성 실측"
+    },
+    "test_note": "Validation에서 그룹과 판정 기준 고정 후, 선택 구성·사전 선언한 공통/전용 기준만 Test 확인",
+    "agent_review": {
+      "role": "ResultCriticAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "validation",
+        "tradeoff",
+        "hold"
+      ],
+      "recommendations": [
+        "모델 선택에는 validation 결과를 사용. test 수치로 후보 순서를 바꾸지 않음",
+        "불량을 놓친 건수와 정상을 불량으로 잘못 판정한 건수를 함께 검토",
+        "현재 결과는 적용 보류. 기준 미달 원인을 먼저 검토"
+      ],
+      "evidence_ids": [
+        "leakage",
+        "approval",
+        "profit"
+      ],
+      "seconds": 28.577,
+      "tokens": 48,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    }
+  },
+  "scope": "Real local UI execution; automatic validation actor, not factory approval"
+}

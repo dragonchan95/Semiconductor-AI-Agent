@@ -14,15 +14,15 @@ def compose_content(load,names,pct,ranking):
                             table=table,image=image,kind=kind,sources=sources or []))
 
     add('반도체 검사 모델\n실험 도우미','01 · 무엇을 만드는 프로젝트인가요?',[
-        '모델과 앙상블 비율을 비교하고, 선택 이유를 보여 주는 Agent',
+        '학습 제품 묶음과 앙상블 비율을 비교하고, 선택 근거를 보여 주는 Agent',
         'SKALA 광주 2반 · G045 김용찬 · 2026.10.22'],15,
-        '안녕하세요. 김용찬입니다. 검사 데이터를 넣으면 모델과 앙상블 비율을 비교하고, 왜 그 비율을 선택했는지 결과와 함께 보여 주는 Agent를 만들었습니다.',kind='cover')
-    add('반복하던 모델·비율 비교를 한 흐름으로','02 · 사용자와 해결할 문제',[
+        '안녕하세요. 김용찬입니다. 검사 데이터를 넣으면 학습할 제품 묶음과 모델 예측의 혼합 비율을 비교하고, 선택 근거와 검증 결과를 보여 주는 Agent를 만들었습니다.',kind='cover')
+    add('모델 실험의 계획·비교·기록을 연결합니다','02 · 신규 구현 | 프로젝트에서 설정한 업무 문제',[
         '사용자: 검사 데이터로 정상·불량 분류 모델을 만드는 엔지니어',
-        '반복 업무: 학습할 제품 묶음 선택 → 모델·혼합 비율 비교 → 근거 기록',
+        '해결할 업무: 학습할 제품 묶음 선택 → 모델·혼합 비율 비교 → 근거 기록',
         'Agent가 근거와 계획을 제시하고, 엔지니어가 승인하면 실행',
         '센서 사례 하나로 입력부터 선택 결과까지 보여 드립니다.'],20,
-        '대상은 검사 모델을 만드는 엔지니어입니다. 어떤 제품 데이터를 함께 학습할지, 어떤 모델과 혼합 비율을 쓸지 비교해야 합니다. 이 반복 작업을 연결했습니다. 스칼라에서 배운 모델과 반도체 자료의 후보를 함께 넣었고, 센서 사례 하나로 설명하겠습니다.')
+        '이 프로젝트에서 설정한 문제는 엔지니어가 학습할 제품 묶음과 모델, 혼합 비율을 직접 비교하고 근거를 정리해야 한다는 점입니다. 이를 계획부터 승인, 실행, 기록까지 연결했습니다. 스칼라에서 배운 모델도 후보에 넣었고 센서 사례로 설명하겠습니다.')
     add('불량을 놓치지 않되, 정상 오판도 제한합니다','03 · 결과를 읽기 위한 기준',[
         '불량 검출률(Recall): 실제 불량 중 찾아낸 비율',
         '정상 오판률: 정상을 불량으로 잘못 판정한 비율',
@@ -105,5 +105,46 @@ def compose_content(load,names,pct,ranking):
         ['“실제 공장 수율 증가가 입증됐다”','근거 없는 설명','틀리다 · 올바른 검사'],
         ['“불량30개를 발견했다”','실제는27개 → 틀림','맞다 · 검사가 틀림']],
         note='LLM-as-a-Judge는 설명이 맞는지 LLM에게 검사시키는 기능입니다. 실제로27개를 찾았는데30개라고 설명하면 틀렸다고 알려줘야 합니다. 실제 결과와 문장을 함께 주고 검사했고, 직접 만든 예제8개 중6개는 맞게 판단했습니다. 하지만30개라는 오류는 놓쳤습니다. 그래서 보조 검사로 쓰고 중요한 숫자는 코드로 확인합니다. 이 예시는 앙상블 추가 전의 실험 기록을 기준으로 검사했습니다.',sources=['docs/evaluation/llm_judge.json','docs/EVALUATION.md'])
+    # Two controlled experiments, not a claim of joint global optimization.
+    gr=load('product_partitions')['result'];g=gr['grouping'];gs=g['selected']
+    add('③ 제품 묶음 선택: ABC 공통 모델 + D 전용 모델','06 · 실험1 | CatBoost 설정 고정 · 그룹 구성15개 비교',[
+        f'Validation: Recall {pct(gs["validation"]["recall"])} · F1 {gs["validation"]["f1"]:.3f}',
+        f'Test: Recall {pct(gr["test"]["recall"])} ({gr["test"]["tp"]}/32) · 목표 미달 → 적용 보류',
+        '제품별 정상 오판 한도와 검출 목표를 확인하고 전체 Recall·F1으로 선택',
+        'Test 점수를 보고 그룹을 다시 고르지 않습니다.'],35,
+        '첫 실험은 학습 제품 묶음입니다. CatBoost 설정을 고정하고 제품을 나누는 열다섯 구성을 비교했습니다. Validation에서는 ABC 공통 모델과 D 전용 모델이 선택됐습니다. 하지만 Test 검출률은 칠십팔 점 일 퍼센트로 목표에 못 미쳐 적용을 보류합니다. Validation에서 좋다고 마지막 검증까지 좋지는 않았습니다.',image='app-grouping-validation.jpg',kind='grouping_screen',sources=['app/grouping.py','docs/evaluation/product_partitions.json','docs/evaluation/grouping_browser.json'])
+    group_slide=content[-1]
+    approval=content[4]
+    approval.update(title='② 비교 범위를 확인하고 승인합니다',context='05 · 실제 화면 | 제품 묶음과 혼합 비율을 각각 비교',
+        body=['학습60% / 후보 선택20% / 마지막 확인20%',
+              '실험1: 알고리즘 고정 → 제품 그룹 구성15개 비교',
+              '실험2: 학습 제품ABCD 고정 → 혼합 비율232개 비교',
+              '계획·데이터 확인 → 엔지니어 승인 → 실제 실행'],
+        note='먼저 개별 모델을 비교한 뒤 제품 묶음과 혼합 비율을 각각 검토합니다. 화면은 CatBoost 설정을 고정하고 열다섯 그룹 구성을 비교하는 계획입니다. 학습과 평가 데이터를 분리하고, 엔지니어가 비교 범위를 승인한 뒤에만 실행합니다.',image='app-grouping-plan.jpg')
+    content[5]['context']='07 · 실험2 | 학습 제품ABCD 고정 · Validation에서 비율 선택'
+    content[5]['title']='④ 선택 비율: CatBoost 90% + LightGBM 10%'
+    content[5]['note']='다음은 학습 제품ABCD로 고정한 별도 비율 실험입니다. 다섯 퍼센트 간격과 균등 비율을 포함한 이백서른두 조합 중 CatBoost 구십, LightGBM 십 퍼센트가 선택됐습니다. 단일 모델과 검출률 백 퍼센트는 같지만 정상 오판이 스무 건에서 열아홉 건으로 줄고 F1도 개선됐습니다. 이 탐색 범위 안의 최선이라는 뜻입니다.'
+    content[6]['context']='08 · 실험2의 Test 확인 | 불량32개 · 정상224개'
+    content[6]['title']='⑤ 같은 검출률을 유지하며 정상 오판을 줄였습니다'
+    content[8]['note']='LangGraph로 점검, 검색, 계획 역할을 연결하고 로컬 Qwen이 설명을 돕습니다. 수업에서 배운 BGE-M3로 문서를 벡터로 바꾸고 FAISS에서 관련 근거를 찾아 전달하는 RAG와 MCP 도구를 적용했습니다. 실험 엔진이 실제 학습과 지표를 계산합니다. LangSmith로 실행 경로를 확인했고 LLM으로 설명도 검사했습니다. 예제 여덟 개 중 여섯 개는 맞게 검사했지만 오판이 있어 숫자는 코드로 확인합니다.'
+    content[9]['title']='선택 근거와 검증 실패를 함께 남깁니다'
+    content[9]['body'][1]='교훈: Validation에서 좋은 선택이 Test에서도 좋다는 보장은 없습니다.'
+    content[9]['note']='성과는 제품 묶음과 혼합 비율의 선택 근거, 검증 실패까지 한 흐름에서 보여 준 점입니다. Validation에서 좋았던 그룹도 Test에서 실패할 수 있어 보류 판단이 필요했습니다. 합성 데이터와 작은 표본이 한계이며, 다음에는 현장 기준과 독립 데이터로 검증하겠습니다. 감사합니다.'
+    rag=content[7];rag['context']='부록 B · 공식 문서 근거 | 저장된 실제 검색 기록의 UI 재현'
+    rag['title']='공식 문서에서 비교 후보를 추가할 수 있습니다';rag['seconds']=0
+    rag['sources']=['app/discovery.py','app/retrieval.py','docs/evaluation/vector_rag.json']
+    rag['body']=['공식 문서 검색 → 근거를 Qwen에 전달',
+        'BGE-M3 임베딩 + FAISS 벡터 저장·검색',
+        '실제 학습 연결: ExtraTrees·GaussianNB 두 후보 · 계획 승인 후 비교']
+    rag['note']='외부 모델 탐색에는 공식 문서를 BGE-M3로 임베딩하고 FAISS에서 관련 문장을 찾아 로컬 Qwen에 전달하는 RAG를 씁니다. 5주차 실습과 같은 검색 구조이며 이 Windows에서는 Ollama로 임베딩을 실행합니다. FAISS 벡터와 출처를 로컬에 저장하며 별도 서버형 DB는 아닙니다. 학습 연결은 검토한 ExtraTrees와 GaussianNB 두 후보이고 임의 모델 코드를 자동 설치하지 않습니다.'
+    scope=content[12];scope['title']='선택이 최적이라는 말은 어디까지인가요?'
+    scope['body']=['실험1: 알고리즘·설정 고정 → 제품 그룹15개 구성 비교',
+        '실험2: 학습 제품ABCD 고정 → 세 모델의 혼합 비율232개 비교',
+        '두 실험은 각각 조건을 통제했습니다. 그룹과 비율의 공동 전역 최적화가 아닙니다.',
+        '선택은 Validation에서, 선택 후 확인은 Test에서 수행했습니다.',
+        '기존 Test 재사용·작은 제품별 불량 표본 → 새 독립 기간 검증 필요']
+    scope['note']='최선이라는 말은 승인한 후보와 조건, Validation 범위 안에서의 선택을 뜻합니다. 제품 그룹 구성과 앙상블 비율은 별도 실험으로 비교했습니다. 둘을 모두 동시에 최적화했다고 주장하지 않습니다. 그룹 구성은 Test에서 목표 미달이었고 적용을 보류했습니다.'
+    content=content[:5]+[group_slide,content[5],content[6],content[8],content[9],content[10],rag,scope,content[13]]
+    for item,seconds in zip(content[:10],[15,20,25,15,20,35,30,30,40,25]):item['seconds']=seconds
     assert len(content)==14 and sum(x['seconds'] for x in content)==255
     return content,receipts,trace

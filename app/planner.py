@@ -18,6 +18,7 @@ from .experiments import cohorts
 from .store import digest
 from .catalog import TABULAR, IMAGE, EXTERNAL, explain_plan
 from .advisors import quality_choices
+from .retrieval import FaissRetriever
 
 
 class Policy(BaseModel):
@@ -48,9 +49,11 @@ class Knowledge:
         self.vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
         self.matrix = self.vectorizer.fit_transform([d["title"] + " " + d["text"] for d in self.docs])
         self.dense = os.getenv('SEMI_DENSE_ENABLED', os.getenv('SEMI_LLM_ENABLED', '0')) == '1' if dense is None else dense
-        self.client = client or httpx.Client(timeout=45)
+        self.client = client or httpx.Client(timeout=120)
         self.cache = Path(directory) / 'knowledge-vectors.json' if directory else None
-        self.model = os.getenv('SEMI_EMBED_MODEL', 'qwen3-embedding:0.6b')
+        self.backend = os.getenv('SEMI_RETRIEVER', 'bge_m3_faiss')
+        self.model = os.getenv('SEMI_EMBED_MODEL', 'bge-m3' if self.backend == 'bge_m3_faiss' else 'qwen3-embedding:0.6b')
+        self.retriever = FaissRetriever(directory, self.client, self.model)
         self.last_status = {'mode': 'tfidf', 'model': None}
 
     def embed(self, texts):
@@ -63,6 +66,10 @@ class Knowledge:
     def search(self, query, k=4):
         if self.dense:
             try:
+                if self.backend == 'bge_m3_faiss':
+                    found = self.retriever.search(self.docs, query, k)
+                    self.last_status = dict(self.retriever.last_status)
+                    return found
                 signature = digest({'docs': self.docs, 'model': self.model})
                 cached = json.loads(self.cache.read_text(encoding='utf-8')) if self.cache and self.cache.exists() else {}
                 if cached.get('signature') != signature:
@@ -73,13 +80,31 @@ class Knowledge:
                         self.cache.write_text(json.dumps(cached), encoding='utf-8')
                 scores = cosine_similarity(self.embed([query]), np.asarray(cached['vectors']))[0]
                 self.last_status = {'mode': 'dense', 'model': self.model, 'document_count': len(self.docs)}
-            except (httpx.HTTPError, ValueError, KeyError):
+            except (httpx.HTTPError, ValueError, KeyError, TypeError, ImportError, RuntimeError, OSError):
                 scores = cosine_similarity(self.vectorizer.transform([query]), self.matrix)[0]
                 self.last_status = {'mode': 'tfidf_fallback', 'note': '임베딩 연결 실패'}
         else:
+            self.last_status = {'mode': 'tfidf', 'model': None}
             scores = cosine_similarity(self.vectorizer.transform([query]), self.matrix)[0]
         return [{**self.docs[i], "score": round(float(scores[i]), 6)}
                 for i in np.argsort(-scores)[:k] if scores[i] > 0]
+
+    def search_documents(self, docs, query, k=None):
+        """Use the same configured retriever for freshly fetched official chunks."""
+        if self.dense and self.backend == 'bge_m3_faiss':
+            try:
+                found = self.retriever.search(docs, query, k or len(docs))
+                self.last_status = dict(self.retriever.last_status)
+                return found
+            except (httpx.HTTPError, ValueError, KeyError, TypeError, ImportError, RuntimeError, OSError) as exc:
+                self.last_status = {'mode': 'tfidf_fallback', 'note': '벡터 검색 실패', 'error_type': type(exc).__name__}
+        else:
+            self.last_status = {'mode': 'tfidf', 'model': None}
+        vectorizer = TfidfVectorizer(analyzer='char', ngram_range=(3, 5))
+        matrix = vectorizer.fit_transform([d['text'] for d in docs])
+        scores = cosine_similarity(vectorizer.transform([query]), matrix)[0]
+        return [{**docs[i], 'score': round(float(scores[i]), 6)}
+                for i in np.argsort(-scores)[:k or len(docs)]]
 
 
 @dataclass
