@@ -29,7 +29,8 @@ LangSmith 설정은 Git에서 제외된 `.env`에 복원했습니다. 키를 출
 기존 Google Slides는 아래 주소입니다. 이 노트북에서 온라인 원본을 수정한 것으로 간주하면 안 됩니다.
 https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit
 
-Google Drive 연결 후 최신 PPTX 내용을 기존 Slides에 반영하고 ‘링크가 있는 모든 사용자: 뷰어’로 접근을 확인해야 합니다.
+로그인 없는 공개 열람은 PPTX export로 확인했습니다. 온라인의 16장은 이전 버전이며 이번 최신 내용은 미반영입니다.
+Google Drive 연결 후 최신 PPTX 내용을 기존 Slides에 반영해야 합니다.
 연결이 어려우면 Slides에서 파일 → 슬라이드 가져오기 → 업로드로 최신 PPTX의 전체 슬라이드를 가져온 뒤 기존 장을 정리합니다.
 가져온 뒤 16장·발표자 노트·한글·표·이미지를 확인합니다.
 원본 주소를 유지하므로 엑셀의 F11 링크를 바꿀 필요가 없습니다.

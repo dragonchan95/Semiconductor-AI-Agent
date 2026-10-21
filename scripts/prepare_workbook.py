@@ -37,7 +37,7 @@ ws['F11']=slides
 for addr in ['E11','F11']:
     ws[addr].hyperlink=ws[addr].value
     font=copy(ws[addr].font);font.color='0563C1';font.underline='single';ws[addr].font=font
-ws['F11'].comment=Comment('요청한 기존 Google Slides 주소를 유지합니다. 최신 PPTX는 준비되었으며 온라인 원본 반영·링크 전체 공유는 별도 확인이 필요합니다. 최신 로컬 내용의 보고서: '+report,'G045')
+ws['F11'].comment=Comment('요청한 기존 Google Slides 주소를 유지합니다. 로그인 없는 공개 열람은 확인했습니다. 최신 PPTX 내용의 온라인 원본 반영은 Google Drive 연결 후 진행해야 합니다. 최신 로컬 내용의 보고서: '+report,'G045')
 name='G045 제출 안내'
 if name in wb.sheetnames:
     info=wb[name]
@@ -47,7 +47,7 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['최신 발표 PPTX',repo+'/blob/main/docs/G045_Semiconductor_Agent.pptx'],
       ['최신 발표 PDF',repo+'/blob/main/docs/G045_Semiconductor_Agent.pdf'],
       ['5분 대본',repo+'/blob/main/docs/발표대본_G045.txt'],
-      ['온라인 Slides 상태','이 세션에서 온라인 갱신 미확인. 최신 로컬 PPTX/PDF와 GitHub 보고서를 사용.'],
+      ['온라인 Slides 상태','로그인 없는 공개 열람 확인. 최신 내용은 아직 미반영이며 Google Drive 연결 후 갱신 필요.'],
       ['제출 일정','2026-10-22(목) 13:00 마감 / 13:10 발표 시작 / 개인 5분'],
       ['제출 절차','이 파일은 로컬 명단입니다. 지정된 공용 Google Spreadsheet 등록 여부는 별도 확인 필요.'],
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
@@ -68,5 +68,5 @@ changed=[]
 for key,value in before.items():
     sheet,coordinate=key
     if after[sheet][coordinate].value!=value:changed.append(key)
-assert set(changed)<={('2반',x) for x in ['C11','D11','E11','F11']},changed
+assert all(sheet==name or (sheet,coordinate) in {('2반',x) for x in ['C11','D11','E11','F11']} for sheet,coordinate in changed),changed
 print(json.dumps({'staged_workbook':str(TARGET),'changed_existing_cells':changed,'added_sheet':name},ensure_ascii=False))

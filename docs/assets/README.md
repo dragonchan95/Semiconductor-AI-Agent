@@ -1,5 +1,7 @@
 # 실제 앱 화면
 
+Windows 이관 후 `app-data.jpg`와 `app-plan.jpg`는 ‘여러 모델 비교’ 표현으로 바뀐 현재 UI에서 다시 캡처했습니다. 나머지 이미지는 기존 Mac의 실제 실행 화면을 보존합니다. Windows 합성 센서 재실험에서도 기존 Test의 TP27·FP14·FN5·TN210을 동일하게 재현했습니다.
+
 `app-data.jpg`, `app-plan.jpg`, `app-approve.jpg`, `app-result.jpg`, `app-retrain.jpg`, `app-products.jpg`는 2026-10-21 localhost:8700에서 촬영한 6:2:2 분할로 다시 실행한 실제 화면입니다. 발표에서는 중요한 부분을 확대해 보여 줍니다. 계획 화면은 상단의 데이터·전처리 설명과 하단 승인 영역을 같은 슬라이드에 배치했습니다.
 
 화면의 제품 A–D는 합성 데이터입니다. 정상·불량 수치는 실제 실험 결과와 연결합니다. `docs/evaluation/`에 실행 기록을 보관합니다. 화면의 기본 목표90%·15%는 교육 시연 값이며 회사 기준이 아닙니다.
