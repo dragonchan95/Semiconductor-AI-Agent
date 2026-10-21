@@ -1,0 +1,13 @@
+{
+  "artifact": "docs/G045_Final_Report.pptx",
+  "slides": 8,
+  "source_pdf": "docs/G045_Final_Report.pdf",
+  "source_sha256": "65c6e5df7e0a01ed7025fc992e83fdee70c53858ae38aeda8ac6be2bcb8468a0",
+  "all_report_pages_included": true,
+  "required_sections": 5,
+  "render_dpi": 180,
+  "page_size": "A4 portrait",
+  "content_format": "High-resolution page images; extracted text in notes; clickable PDF links preserved",
+  "purpose": "Upload this detailed report to Google Slides for the instructor; presentation deck is separate",
+  "google_slides_online_update": false
+}

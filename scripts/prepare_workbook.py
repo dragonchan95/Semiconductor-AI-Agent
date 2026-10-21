@@ -43,7 +43,7 @@ ws['F11']=slides
 for addr in ['E11','F11']:
     ws[addr].hyperlink=ws[addr].value
     font=copy(ws[addr].font);font.color='0563C1';font.underline='single';ws[addr].font=font
-ws['F11'].comment=Comment('요청한 기존 Google Slides 주소를 유지합니다. 로그인 없는 공개 열람은 확인했습니다. 최신 PPTX 내용의 온라인 원본 반영은 Google Drive 연결 후 진행해야 합니다. 최신 로컬 내용의 보고서: '+report,'G045')
+ws['F11'].comment=Comment('기존 주소를 유지했으나 현재 예전16장입니다. 교수님 제출용은 G045_최종보고서.pptx의 상세 보고서8장입니다. 이를 Google Slides에 반영하고 새 문서를 만들면 F11을 새 보고서 주소로 바꿉니다. 최신 공개 보고서: '+report,'G045')
 name='G045 제출 안내'
 if name in wb.sheetnames:
     info=wb[name]
@@ -59,8 +59,9 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
       ['실행 모드','Windows: 로컬 Qwen2.5-1.5B + BGE-M3 임베딩·FAISS 벡터 저장/검색. 실제 검색·근거 전달 검증 기록을 별도 보관.'],
       ['발표 구성','본문10장 발화 목표255초+전환20초+여유25초 / 질문용 부록4장. 기준→입력→승인→제품 그룹→별도 앙상블→구조·검증→교훈. RAG 화면은 부록12장. 필수 화면5장. 리허설 실측 아님.'],
-      ['자료 구분','발표 PPTX·PDF는5분 요약본, 최종 보고서는 같은 프로젝트의5개 필수 항목 상세 문서. 모두15주차 폴더에 배치. Google Slides를 보고서용으로 따로 남겨둔 것은 아님.'],
-      ['상세 보고서 PDF',repo+'/blob/main/docs/G045_Final_Report.pdf']]
+      ['자료 구분','교수님께 공유할 Google Slides에는 G045_최종보고서.pptx(8장 상세 보고서)를 업로드. G045_최종발표.pptx는 별도5분 요약본. 새 Slides 주소를 만들면2반!F11도 갱신. 모두15주차 폴더에 배치.'],
+      ['상세 보고서 PDF',repo+'/blob/main/docs/G045_Final_Report.pdf'],
+      ['Google Slides 제출용 보고서 PPTX',repo+'/blob/main/docs/G045_Final_Report.pptx']]
 for i,row in enumerate(rows,1):
     for j,value in enumerate(row,1):
         cell=info.cell(i,j,value);cell.alignment=Alignment(vertical='top',wrap_text=True)
