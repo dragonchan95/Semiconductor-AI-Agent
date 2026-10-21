@@ -55,12 +55,11 @@ async function renderResult(){
  const complete=x.trials.filter(t=>t.status==='completed'&&t.validation), maxProducts=Math.max(...complete.map(t=>t.products.length));
  const best=new Map();for(const t of complete.filter(t=>t.products.length===maxProducts)){if(!best.has(t.model)||compare(t,best.get(t.model))<0)best.set(t.model,t)}
  const ranking=[...best.values()].sort(compare);
- $('#result').insertAdjacentHTML('beforeend',`<details><summary>왜 이 모델인가요? 모델별 Validation 비교</summary><p class="hint">같은 전체 제품 학습 범위에서 모델마다 가장 좋은 불균형 설정을 표시합니다. 목표 충족을 먼저 확인하고 Recall, 정상 오판률 순으로 비교합니다. 모두 미달이면 목표 부족분 합계가 작은 참고 후보를 표시합니다. 이후 상위 두 알고리즘의 제품 조합을 확장합니다. Test로 순위를 정하지 않습니다.</p>${table(['모델','Validation Recall','정상 오판률','F1'],ranking.map(t=>[esc(name(t.model)),pct(t.validation.recall),pct(t.validation.fpr),pct(t.validation.f1)]))}</details><div class="next-actions"><h3>다음 실험</h3><p>${x.gate.passed?'목표를 충족했습니다. 독립 데이터와 현장 기준으로 재확인하세요.':'목표 미달 이유를 확인했습니다. 아래에서 이어갈 실험을 선택하세요.'}</p><div class="toolbar"><button id="next-discovery" class="primary">새 모델 비교하기</button><button id="next-review">기존 모델 점검하기</button><button id="next-plan">비교 목표 바꾸기</button></div></div>`);
+ $('#result').insertAdjacentHTML('beforeend',`<details><summary>왜 이 모델인가요? 모델별 Validation 비교</summary><p class="hint">같은 전체 제품 학습 범위에서 모델마다 가장 좋은 불균형 설정을 표시합니다. 목표 충족을 먼저 확인하고 Recall, 정상 오판률 순으로 비교합니다. 모두 미달이면 목표 부족분 합계가 작은 참고 후보를 표시합니다. 이후 상위 두 알고리즘의 제품 조합을 확장합니다. Test로 순위를 정하지 않습니다.</p>${table(['모델','Validation Recall','정상 오판률','F1'],ranking.map(t=>[esc(name(t.model)),pct(t.validation.recall),pct(t.validation.fpr),pct(t.validation.f1)]))}</details><div class="next-actions"><h3>모델 비교 계속하기</h3><p>${x.gate.passed?'목표를 충족했습니다. 독립 데이터와 현장 기준으로 재확인하세요.':'목표 미달 이유를 확인했습니다. 비교 후보를 추가하거나 목표를 검토할 수 있습니다.'}</p><div class="toolbar"><button id="next-discovery" class="primary">공식 문서에서 비교 후보 추가</button><button id="next-plan">비교 목표 바꾸기</button></div></div>`);
  $('#next-plan').onclick=()=>{$('#plan-section').scrollIntoView({behavior:'smooth'});$('#proposal-form details').open=true};
  const tabular=datasets.find(d=>d.id===x.dataset.id)?.modality==='tabular';
- $('#next-discovery').hidden=!tabular;$('#next-review').hidden=!tabular;
+ $('#next-discovery').hidden=!tabular;
  $('#next-discovery').onclick=()=>{$('#discovery-features').open=true;$('#discovery-features').scrollIntoView({behavior:'smooth'})};
- $('#next-review').onclick=()=>{$('#management-features').open=true;$('#management-features').scrollIntoView({behavior:'smooth'})};
  $('#management-section').hidden=datasets.find(d=>d.id===x.dataset.id)?.modality!=='tabular';$('#management-features').hidden=$('#management-section').hidden;$('#management-features').open=false;
  $('#model-review').innerHTML='';$('#product-plans').innerHTML='';$('#strategy-comparison').innerHTML='';$('#versions').innerHTML='';review=null;plans=[];updateBatch();
  $('#discovery-features').hidden=$('#management-section').hidden;$('#discovery-features').open=false;

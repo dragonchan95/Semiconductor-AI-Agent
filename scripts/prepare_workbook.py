@@ -18,17 +18,18 @@ ws=wb['2반']
 ws['C11']=2
 ws['D11']='\n'.join([
     '반도체 검사 모델 실험 도우미 (신규 AI Agent · 과제 2)',
-    '- 데이터 점검 → 근거 검색 → 계획 승인 → 실제 학습 → 결과·다음 실험',
+    '- 데이터 점검 → 근거 검색 → 계획 승인 → 모델 비교 → 선택 근거·지표',
     '- 스칼라 수업·반도체 자료를 참고한 후보 모델 비교',
     '- 6:2:2 사전 고정·같은 lot/날짜 분리·Validation 후보 선택',
     '- Recall 우선·정상 오판·Precision·F1 함께 비교',
     '- 공식 문서 탐색 RAG·ExtraTrees/GaussianNB 승인 비교·목록 갱신',
-    '- 기존 모델 점검·같은 알고리즘 재학습·제품별 학습 비교',
-    '- LangGraph·MCP 4도구/Resource·DI·모듈화·30개 단위/API 테스트',
+    '- 재학습·기존 모델 점검은 추가 구현으로 보존, 발표 범위에서 제외',
+    '- LangGraph·MCP 4도구/Resource·DI·모듈화·33개 단위/API 테스트',
     '- LangSmith APAC 실제 계획·하위 실행 API 재조회 확인',
     '- Windows 실행 복구·5분 발표 10장 + 질문용 부록 6장',
-    '- 현재 Windows LLM 미사용·기존 Mac의 LLM 검증 기록 별도 보존',
-    '- 양산 효과·자동 배포·LLM-as-a-Judge 미구현'])
+    '- 수업과 같은 Qwen2.5-1.5B 계열 로컬 연결·역할별 응답 검증 기록',
+    '- 로컬 LLM-as-a-Judge로 설명 정합성 평가·초기 실패 기록 보존',
+    '- 양산 효과·자동 배포는 검증 범위 밖'])
 repo='https://github.com/dragonchan95/Semiconductor-AI-Agent'
 report=repo+'/blob/main/docs/REPORT.md'
 slides='https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit'
@@ -51,7 +52,7 @@ rows=[['항목','내용'],['소속','SKALA 광주 2반 · G045 김용찬 · 과�
       ['제출 일정','2026-10-22(목) 13:00 마감 / 13:10 발표 시작 / 개인 5분'],
       ['제출 절차','이 파일은 로컬 명단입니다. 지정된 공용 Google Spreadsheet 등록 여부는 별도 확인 필요.'],
       ['LangSmith','APAC에서 실제 계획 생성·하위 실행 API 재조회 성공. 키는 로컬 .env에만 저장.'],
-      ['실행 모드','현재 Windows는 LLM 미사용. 기존 Mac LLM verified/fallback 기록과 구분.'],
+      ['실행 모드','Windows: 로컬 Qwen2.5-1.5B 양자화 모델 + TF-IDF 검색. 역할별 검증 기록을 별도 보관.'],
       ['발표 구성','본문 10장 280초 + 전환 20초 / 질문용 부록 6장']]
 for i,row in enumerate(rows,1):
     for j,value in enumerate(row,1):

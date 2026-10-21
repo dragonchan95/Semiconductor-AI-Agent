@@ -52,16 +52,21 @@ def make_content():
     policy=receipts['synthetic_process']['plan']['policy']; ranks=ranking(r['trials'],policy)
     mg=load('model_management')['comparison']; retrain=mg['same_model_retraining']
     trace=load('langsmith_check') if (DOCS/'evaluation/langsmith_check.json').exists() else None
+    local=load('local_llm_check') if (DOCS/'evaluation/local_llm_check.json').exists() else None
+    local_verified=bool(local and local.get('all_roles_verified'))
+    judge=load('llm_judge') if (DOCS/'evaluation/llm_judge.json').exists() else None
+    judge_summary=(f'자체 예제 {judge["label_match_count"]}/{judge["case_count"]}개에서 사전 라벨과 일치' if judge else '별도 로컬 LLM 평가 기록 확인')
     windows=load('windows_check') if (DOCS/'evaluation/windows_check.json').exists() else None
-    test_state='30개 테스트 통과' if windows and windows.get('tests_passed') else '기존 30개 테스트 · Windows 재검증 기록 별도'
+    test_count=windows.get('test_count',30) if windows else 30
+    test_state=f'{test_count}개 테스트 통과' if windows and windows.get('tests_passed') else 'Windows 테스트 검증 기록 확인'
     content=[]
     def add(title,context,body,seconds=0,note='',table=None,image=None,kind=None,sources=None):
         content.append(dict(title=title,context=context,body=body,seconds=seconds,note=note,
                             table=table,image=image,kind=kind,sources=sources or []))
     add('반도체 검사 모델\n실험 도우미','AI AGENT MINI PROJECT · 과제 2',[
-        '데이터를 점검하고, 승인받아 실험하고, 다음 비교를 제안합니다.',
+        '데이터를 점검하고, 승인받아 모델을 비교하고, 선택 근거를 보여 줍니다.',
         'SKALA 광주 2반 · G045 김용찬 · 2026.10.22'],15,
-        '안녕하세요. SKALA 광주 2반 G045 김용찬입니다. 반도체 검사 데이터를 넣으면 모델을 비교하고, 결과에 따라 다음 실험을 제안하는 Agent를 만들었습니다.',kind='cover')
+        '안녕하세요. SKALA 광주 2반 G045 김용찬입니다. 반도체 검사 데이터를 넣으면 여러 모델을 비교하고, 어떤 후보를 선택했는지 근거를 보여 주는 Agent를 만들었습니다.',kind='cover')
     add('데이터가 다르면 비교할 모델도 달라집니다','문제 · 반복 실험을 연결하는 도구가 필요합니다',[
         '사용자: 새 검사 데이터로 정상·불량 분류 모델을 만드는 엔지니어',
         '전처리 → 모델 비교 → 근거 정리 → 추가 실험을 매번 반복합니다.'],25,
@@ -73,8 +78,8 @@ def make_content():
         sources=['docs/CURRICULUM_MODELS.md','반도체 교육 사진의 분류를 표로 재구성'])
     add('Agent는 계획과 근거, 엔지니어는 승인을 맡습니다','아키텍처 · 실제 실행 순서',[
         'LangGraph로 점검·검색·계획 역할을 연결하고, 승인된 계획만 실행합니다.',
-        '목표 미달이면 새 모델 탐색 / 기존 모델 점검으로 이어갑니다.'],35,
-        '구조입니다. 데이터 점검, 근거 검색, 실험 계획을 LangGraph로 연결했습니다. 계획과 데이터의 해시를 저장하고 엔지니어가 승인한 뒤에만 학습합니다. 결과 검토에서는 부족한 지표를 보여 주고 새 모델 비교나 기존 모델 점검으로 이어집니다. 학습과 수치는 실험 엔진이 계산하고, LLM은 제한된 근거와 설명을 보조합니다. 자율 Supervisor나 자동 배포까지 구현한 것은 아닙니다.',kind='architecture',
+        'Validation으로 후보를 고르고, 같은 Test에서 기본 모델과 비교합니다.'],35,
+        '구조입니다. 데이터 점검, 근거 검색, 실험 계획을 LangGraph로 연결했습니다. 계획과 데이터의 해시를 저장하고 엔지니어가 승인한 뒤에만 학습합니다. 결과에서는 선택 근거와 불량 발견·정상 오판을 함께 보여 줍니다. 학습과 수치는 실험 엔진이 계산하고, LLM은 제한된 근거와 설명을 보조합니다.',kind='architecture',
         sources=['app/planner.py','app/workbench.py','app/store.py','mcp_server.py'])
     add('① 데이터를 선택하고 비교 계획을 요청합니다','같은 합성 센서 사례를 끝까지 따라갑니다',[
         '제품 A–D · 1,280건 · 불량 201건',
@@ -101,33 +106,33 @@ def make_content():
     add('④ 더 찾았지만, 목표에는 못 미쳤습니다','같은 Test 256건 · 불량 32건 / 정상 224건',[
         f'기본: Logistic Regression / 선택 후보: {NAMES[w["model"]]} · {"+".join(w["products"])}',
         f'후보 Recall {pct(t["recall"])} < 목표 90% → 추가 실험 필요'],35,
-        f'마지막 Test입니다. 같은 불량 {t["positive_count"]}개 중 기본 Logistic은 {b["tp"]}개, 후보 CatBoost는 {t["tp"]}개를 찾았습니다. 대신 정상을 불량으로 오판한 수는 {b["fp"]}개에서 {t["fp"]}개로 늘었습니다. 후보 Recall {pct(t["recall"])}는 목표 90퍼센트에 못 미쳤습니다. 선택 후보와 현장 적용 확정은 다른 단계이며, 이 결과를 보고 다음 실험으로 이어갑니다.',
+        f'마지막 Test입니다. 같은 불량 {t["positive_count"]}개 중 기본 Logistic은 {b["tp"]}개, 후보 CatBoost는 {t["tp"]}개를 찾았습니다. 대신 정상을 불량으로 오판한 수는 {b["fp"]}개에서 {t["fp"]}개로 늘었습니다. 후보 Recall {pct(t["recall"])}는 목표 90퍼센트에 못 미쳤습니다. 그래서 이 후보를 바로 현장 적용 모델로 확정하지 않고 추가 검증이 필요하다고 설명합니다.',
         table=[['같은 Test에서 비교','기본 모델','선택 후보'],
                ['불량 발견',f'{b["tp"]} / 32개',f'{t["tp"]} / 32개'],
                ['놓친 불량',f'{b["fn"]}개',f'{t["fn"]}개'],
                ['정상 오판',f'{b["fp"]} / 224개',f'{t["fp"]} / 224개'],
                ['Recall',pct(b['recall']),pct(t['recall'])]],
         sources=['docs/evaluation/synthetic_process.json'])
-    add('⑤ 공식 문서에서 새 후보를 찾아 다시 비교합니다','다음 실험 · 모델 탐색 RAG',[
+    add('공식 문서에서 비교할 후보를 추가할 수 있습니다','모델 비교의 확장 · 후보 탐색 RAG',[
         '공식 모델 목록·문서 조회 → 근거 검색 → 새 비교 계획 → 승인·학습',
         'ExtraTrees · GaussianNB를 기존 후보와 비교하고 목록을 갱신',
         '기록된 추가 실험에서는 CatBoost 유지',
-        '현재는 검토된 두 adapter 범위 · 임의 코드 자동 실행은 미구현'],35,
-        '다음 행동은 새 모델 비교입니다. 공식 모델 목록과 문서를 조회하고, RAG로 근거를 연결해 ExtraTrees와 Gaussian Naive Bayes를 제안합니다. 승인받아 기존 후보와 같은 조건으로 학습하고 후보 목록에 기록했습니다. 이 추가 실험에서는 CatBoost를 유지했습니다. 현재는 검토된 두 모델 연결을 지원합니다. 기존 Test를 재사용한 탐색 비교여서 최종 적용에는 새로운 독립 데이터가 필요합니다.',image='app-discovery.jpg',
+        '현재 실행 가능한 범위: 검토된 두 모델 adapter'],35,
+        '기존 비교 목록에 없는 후보를 추가하는 기능입니다. 공식 모델 목록과 문서를 조회하고, RAG로 근거를 연결해 ExtraTrees와 Gaussian Naive Bayes를 제안합니다. 승인받아 기존 후보와 같은 조건으로 학습하고 후보 목록에 기록했습니다. 이 추가 실험에서는 CatBoost를 유지했습니다. 현재는 검토된 두 모델 연결을 지원합니다. 기존 Test를 재사용한 탐색 비교여서 최종 적용에는 새로운 독립 데이터가 필요합니다.',image='app-discovery.jpg',
         sources=['app/discovery.py','docs/evaluation/model_discovery.json'])
     add('실험 경로와 실패 상태를 기록합니다','적용 기술 · 관측 가능성 및 평가',[
         'LangGraph 역할 분리 · MCP 4도구와 지식 Resource · 의존성 주입',
-        'RAG: 교육 근거 14개 + 공식 외부 문서 검색',
+        '로컬 Qwen2.5 · RAG 근거 검색 · 공식 문서에서 비교 후보 추가',
         ('LangSmith APAC: 실제 계획 생성과 하위 실행 API 재조회 성공' if trace else 'LangSmith: 연결 검증 결과 별도 확인'),
-        f'{test_state} · LLM 응답 실패/미사용은 규칙 설명으로 표시'],30,
-        '기술은 LangGraph 역할 분리, MCP 네 도구와 지식 리소스, RAG와 의존성 주입을 적용했습니다. LangSmith에는 이 노트북에서 실제 계획 생성과 하위 실행 기록을 보내고 다시 조회했습니다. 다만 이 노트북의 현재 모드는 로컬 LLM 미사용입니다. 기존 노트북의 LLM 실행 기록과 구분하고, 응답 실패는 규칙 설명으로 표시합니다. LLM-as-a-Judge는 미구현입니다.',kind='trace',
-        sources=['docs/evaluation/langsmith_check.json','docs/evaluation/agent_integration.json','docs/evaluation/tests-windows.txt'])
-    add('성과는 모델 이름보다, 다음 판단까지 연결한 흐름입니다','교훈 · 트레이드오프 · 다음 개선',[
-        '구현: 데이터 점검 → 계획 승인 → 실제 비교 → 다음 실험 제안',
+        (f'LLM 평가 {judge["label_match_count"]}/{judge["case_count"]} 예제 일치 · 테스트 {test_count}개 통과' if judge else test_state)],30,
+        'LangGraph로 역할을 연결하고 MCP와 RAG를 적용했습니다. 설명에는 수업에서 사용한 Qwen2.5를 로컬로 연결했습니다. LangSmith로 실제 실행 경로를 확인했고, 별도의 LLM 평가자가 설명과 실제 결과를 비교하도록 했습니다. '+judge_summary+'했습니다. 작은 자체 개발 예제의 결과이며 LLM 평가도 틀릴 수 있어 코드 검사와 함께 사용합니다.',kind='trace',
+        sources=['docs/evaluation/langsmith_check.json','docs/evaluation/local_llm_check.json','docs/evaluation/llm_judge.json','docs/evaluation/tests-windows.txt'])
+    add('선택한 모델과 선택 이유를 함께 보여 줍니다','교훈 · 트레이드오프 · 다음 개선',[
+        '구현: 데이터 점검 → 계획 승인 → 모델 비교 → 선택 근거·지표 확인',
         '교훈: Recall을 높이면 정상 오판도 늘 수 있고, 선택 규칙이 결론을 바꿉니다.',
         '한계: 합성 데이터·작은 불량 표본·반복 Validation·Test 재사용 탐색',
         '다음: 현장 기준 합의 → 독립 기간 검증 → 엔지니어 작업시간 측정'],25,
-        '핵심 성과는 가장 좋은 모델 이름을 말하는 것보다, 계획 승인부터 비교 결과와 다음 실험까지 연결했다는 점입니다. Recall을 높이면 정상 오판이 늘 수 있고, 선택 기준이 결과를 바꾼다는 것을 배웠습니다. 합성 데이터와 작은 표본, 반복 비교가 한계입니다. 다음에는 현장 기준과 독립 기간 데이터로 검증하고 실제 작업시간 절감도 측정하겠습니다. 감사합니다.')
+        '핵심 성과는 데이터 점검부터 승인된 모델 비교, 선택 근거와 결과 확인까지 한 흐름으로 연결했다는 점입니다. Recall을 높이면 정상 오판이 늘 수 있고, 선택 기준이 결과를 바꾼다는 것을 배웠습니다. 합성 데이터와 작은 표본, 반복 비교가 한계입니다. 다음에는 현장 기준과 독립 기간 데이터로 검증하고 실제 작업시간 절감도 측정하겠습니다. 감사합니다.')
     full=[['모델 · 전체 제품 학습','불균형 설정','Recall','정상 오판률','F1']]+[
         [NAMES[x['model']],x['balance'],pct(x['validation']['recall']),pct(x['validation']['fpr']),pct(x['validation']['f1'])] for x in ranks]
     add('모델별 Validation 비교','부록 · 알고리즘마다 최선 불균형 설정 1개 표시',[
@@ -145,14 +150,13 @@ def make_content():
         '각 데이터의 Test는 서로 다릅니다. 모델의 종합 순위로 해석하지 않습니다.'],table=other,
         note='SECOM은 1,567건 중 불합격104건이고 제조사·제품ID는 제공되지 않습니다. 이미지 Test의 불량15건은 작은 표본이어서 목표 통과를 확정하기 어렵습니다.',
         sources=['https://archive.ics.uci.edu/dataset/179/secom','https://doi.org/10.24432/C54305','docs/evaluation/summary.json'])
-    before,after=retrain['before'],retrain['after']
-    add('3σ는 변화 감지, Recall 목표는 판정 성능입니다','부록 · 재학습 판단과 기존 모델 관리',[
-        '3σ: 공정 값·오차가 평소와 다른가? 안정성·분포·관리도 가정을 먼저 확인',
-        'Recall/FPR: 정답이 있는 새 데이터에서 검사 모델이 목표를 만족하는가?',
-        '현재 구현은 교육용 Recall 90%·정상 오판 15% 점검 · 3σ 트리거 미구현',
-        f'새 합성 배치의 동일 Test: 불량 발견 {before["tp"]} → {after["tp"]} / {after["positive_count"]}개',
-        f'정상 오판 {before["fp"]} → {after["fp"]}개 · 승인 후 같은 알고리즘 재학습'],
-        note='정답이 없으면 Recall을 직접 계산할 수 없습니다. 향후 드리프트 감지를 검토할 수 있지만 변화 감지만으로 재학습 효과를 확정하지 않습니다. 현재는 새 정답 데이터의 Train 구간으로 점검하고 승인 후 후보를 비교합니다. 운영 모델을 자동 교체하지 않습니다.',sources=['app/monitoring.py','docs/evaluation/model_management.json'])
+    add('Recall만 높으면 좋은 모델인가요?','부록 · 검사 목적과 판단 기준',[
+        'Recall: 실제 불량 중 찾아낸 비율 / 정상 오판률: 정상을 불량으로 잘못 본 비율',
+        '전부 불량이라고 판단하면 Recall은 높지만 정상 오판도 커집니다.',
+        '먼저 담당자와 불량 미검출·정상 오판의 허용 범위를 정합니다.',
+        '이번 90%·15%는 교육용 목표이며 회사의 공통 양산 기준이 아닙니다.',
+        'Precision·F1도 함께 보고, 작은 불량 표본의 불확실성을 확인합니다.'],
+        note='같은 Test에서 후보가 불량을 더 찾았지만 정상 오판도 늘었습니다. 목표는 검사 단계와 업무 비용에 따라 정해야 합니다. 이번 실험에서는 두 목표 충족 여부, Recall 우선, 동률 시 정상 오판률 순서로 후보를 비교했습니다.',sources=['app/metrics.py','docs/evaluation/synthetic_process.json'])
     add('6:2:2는 사전 고정, 혼합 비율은 별도 실험입니다','부록 · 데이터 분할과 앙상블',[
         'Train: 모델 학습 / Validation: 모델·제품 조합·판정값 선택 / Test: 선택 결과 확인',
         '합성 센서 768 / 256 / 256 · 후보 A+B+C는 Train 중 544건 학습',
@@ -169,7 +173,7 @@ def make_content():
         ['MCP','stdio 4도구 + 지식 Resource','승인·학습 실행은 API에서만'],
         ['코드 품질','모듈화·DI·단위/API 테스트','배포·동시 다중 사용자 미검증'],
         ['LangSmith','실제 root/child trace API 재조회','LLM 응답 성공과 별도'],
-        ['LLM-as-a-Judge','미구현','허용 코드·출처 검사를 대신 사용']],
+        ['LLM-as-a-Judge','로컬 Qwen으로 설명과 실제 결과 비교',judge_summary+' · 독립 평가 아님']],
         note='기존 dense/TF-IDF 검색 평가는 고정13질의에서 Hit@3 양쪽100%, MRR@3 양쪽0.9615였습니다. 일반적인 검색 성능 우위를 주장하지 않습니다. LLM을 꺼도 규칙 실험 모드는 동작하며 실행 상태를 UI와 보고서에 표시합니다.',sources=['docs/ASSIGNMENT_CHECKLIST.md','docs/evaluation/agent_integration.json'])
     add('출처와 재현 자료','부록 · 질문 대비와 제출 링크',[
         '모델 참고: 스칼라 9주차 수업 + 15주차 반도체 발표자료',
@@ -246,7 +250,7 @@ def build_deck(content,trace):
         if item['kind']=='cover':
             text(slide,item['body'][0],.72,2.75,11.5,.8,23,MUTED)
             text(slide,item['body'][1],.72,3.77,11.5,.5,20,INK)
-            for j,(a,b) in enumerate([('01','데이터 점검'),('02','계획 승인'),('03','실제 비교'),('04','다음 실험')]):
+            for j,(a,b) in enumerate([('01','데이터 점검'),('02','계획 승인'),('03','실제 비교'),('04','선택 근거')]):
                 x=.72+j*3.08;box(slide,x,5.15,2.78,1.05,PALE,rounded=True)
                 text(slide,a,x+.2,5.27,.5,.32,14,TEAL,True);text(slide,b,x+.2,5.68,2.4,.4,19,INK,True)
         elif item['kind']=='architecture':
@@ -260,8 +264,8 @@ def build_deck(content,trace):
             text(slide,'승인 후 학습·평가',.95,5,5.15,.4,22,TEAL,True)
             text(slide,'Train 학습 → Validation 선택 → 고정 Test 확인',.95,5.57,5.15,.35,15,MUTED)
             box(slide,6.85,4.8,5.7,1.35,ORANGE,rounded=True)
-            text(slide,'결과 검토 → 다음 실험',7.1,5,5.15,.4,22,INK,True)
-            text(slide,'새 후보 탐색 / 기존 모델 점검 → 새 승인',7.1,5.57,5.15,.35,16,MUTED)
+            text(slide,'기본 모델과 후보 결과 비교',7.1,5,5.15,.4,22,INK,True)
+            text(slide,'불량 발견·정상 오판 → 기준 충족 여부 확인',7.1,5.57,5.15,.35,16,MUTED)
             text(slide,'MCP는 조회·계획 도구를 제공하고, LangSmith는 실행 경로를 추적합니다.',.75,6.4,11.8,.3,13,MUTED)
         elif item['image']:
             for j,line in enumerate(item['body']):
@@ -272,14 +276,14 @@ def build_deck(content,trace):
             box(slide,.72,4.93,11.9,1.42,'FFFFFF',LINE,True)
             text(slide,'experiment.propose → LangGraph → 점검 · 검색 · 계획',.97,5.1,11.3,.5,23,TEAL,True)
             if trace:text(slide,'API 재조회 성공 · child run '+str(len(trace['child_runs']))+'개 · '+trace['root_run_id'],.97,5.86,11.1,.3,13,MUTED)
-            text(slide,'현재 Windows: LLM 미사용 / 기존 Mac: 역할별 verified·fallback 기록 보존 · LLM-as-a-Judge 미구현',.75,6.5,11.8,.3,12,MUTED)
+            text(slide,'LLM은 근거와 설명을 보조하고, 모델 학습·지표 계산·후보 순위는 실험 엔진이 담당합니다.',.75,6.5,11.8,.3,12,MUTED)
         elif item['table']:
             body_size=18 if i!=11 else 15
             for j,line in enumerate(item['body']):text(slide,line,.7,2.02+j*.46,12,.44,body_size,MUTED)
             y=2.12+len(item['body'])*.46+.16
             height=6.64-y
             font=16 if i<=10 else 13
-            if i==11:font=12
+            if i in [11,15]:font=12
             widths=None
             if i in [6,11]:widths=[5.43]+([2.2]*3) if i==6 else [4.43,1.9,1.9,1.9,1.9]
             if i==7:widths=[5.23,3.4,3.4]
@@ -301,9 +305,9 @@ def write_documents(content,receipts,trace):
     script+='2026-10-22 발표 · 본문 10장 + 질문용 부록 6장\n발화 280초 + 화면 전환 20초 = 5분 계획\n\n'
     elapsed=0
     report='# 반도체 검사 모델 실험 도우미\n\nSKALA 광주 2반 · G045 김용찬 · 과제 2 · 2026-10-22 발표\n\n'
-    report+='새 검사 데이터에 맞는 모델을 비교하고 결과에 따라 다음 실험을 제안하는 Agent입니다.\n\n'
+    report+='검사 데이터에 맞는 모델을 비교하고 선택 근거와 판정 성능을 보여 주는 Agent입니다.\n\n'
     report+='[발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt)\n\n'
-    report+='원래 Mac에서 측정한 모델 실험 기록을 보존하고, Windows의 테스트·추적 검증을 별도로 남겼습니다.\n\n'
+    report+='원래 Mac의 실험 기록을 보존했으며 Windows 재실행에서도 합성 센서 Test 결과를 동일하게 재현했습니다. 로컬 LLM·테스트·추적 검증은 별도 기록으로 남겼습니다.\n\n'
     for i,s in enumerate(content,1):
         elapsed+=s['seconds'];timing=f'{s["seconds"]}초 / 누적 {elapsed//60}:{elapsed%60:02d}' if i<=10 else '질문용 부록'
         script+=f'[{i}장 / {timing}] '+s['title'].replace('\n',' ')+'\n'+s['note']+'\n\n'
@@ -328,8 +332,8 @@ flowchart LR
     F --> G[Validation 후보·판정값 선택]
     G --> H[고정 Test 확인]
     H --> I[결과 검토]
-    I --> J[새 모델 탐색 / 기존 모델 점검]
-    J --> D
+    I --> J[기준 충족 여부와 선택 근거]
+    K2[공식 문서에서 후보 추가] --> D
     K[MCP 조회·계획 도구] --> D
     L[LangSmith 추적] -.-> B
     L -.-> D
@@ -351,9 +355,10 @@ Mac에서 통과하던 SQLite 코드도 Windows에서는 연결이 닫히지 않
 단일 seed·동일 Validation의 반복 선택·작은 불량 표본이 한계입니다.
 새 모델 탐색에 이미 확인한 Test를 재사용했으므로 독립 기간의 새 Test가 필요합니다.
 전처리·모델·판정값·학습 제품 범위가 함께 바뀐 비교이며 특정 기법의 인과 효과가 아닙니다.
-수율, 금액 이익, 작업시간 절감, 양산 효과는 측정하지 않았습니다.
+수율, 금액 이익, 작업시간 절감, 양산 효과는 측정하지 않았습니다. 재학습과 운영 감시는 추가 구현으로 보존하며 이번 발표 범위에서 제외합니다.
 회사 공통 Recall/FPR 숫자를 가정하지 않고 현장 담당자가 목적과 비용에 맞춰 정해야 합니다.
-LLM-as-a-Judge·별도 Vector DB·자율 Supervisor·3σ 재학습 트리거·혼합 가중치 탐색은 미구현입니다.
+별도 Vector DB·자율 Supervisor·혼합 가중치 탐색은 미구현입니다.
+LLM-as-a-Judge는 로컬 Qwen으로 설명을 평가합니다. 수치를 변조하거나 현장 효과를 과장한 예제를 사전 라벨과 비교하고, 원래 실패 기록도 보존했습니다. 프롬프트 보완에 사용한 작은 자체 개발 예제이므로 독립적인 평가 성능으로 일반화하지 않습니다.
 '''
     script+='''질문 대비
 Q. AdaBoost는 어디서 나온 모델인가요?
@@ -366,10 +371,19 @@ Q. 6:2:2가 항상 최적인가요?
 A. 수업 기준으로 정한 사전 고정 조건입니다. 모든 데이터에서 최적이라는 뜻은 아닙니다. 같은 lot·날짜 경계를 보존하고 Test를 보고 비율을 고르지 않습니다.
 
 Q. 자동화와 Agent는 어떤 차이가 있나요?
-A. 현재는 역할을 나눈 제한된 Agent 구조입니다. 근거를 검색해 설명하고 계획을 제안하며 도구를 실행한 결과로 다음 실험을 연결합니다. 실제 수치·후보 순위·승인은 규칙 엔진이 책임집니다. 자율 Supervisor나 무제한 모델 발굴을 구현했다고 주장하지 않습니다.
+A. 현재는 역할을 나눈 제한된 Agent 구조입니다. 근거를 검색해 설명하고 계획을 제안한 뒤 승인받은 도구로 모델을 비교합니다. 실제 수치·후보 순위·승인은 실험 엔진이 책임집니다. 자율 Supervisor나 무제한 모델 발굴을 구현했다고 주장하지 않습니다.
 
-Q. LangSmith가 연결되면 LLM도 작동하나요?
-A. 추적 서버와 LLM 추론 서버는 별도입니다. 현재 Windows에서는 추적을 확인했고 로컬 LLM은 미사용입니다. 기존 Mac의 LLM verified/fallback 기록을 따로 보존했습니다.
+Q. LangSmith와 로컬 Qwen은 어떤 차이인가요?
+A. Qwen은 노트북에서 설명용 응답을 만들고, LangSmith는 별도로 실행 경로를 기록합니다. Qwen을 로컬에서 돌려도 LangSmith 추적을 켜면 설정한 실행 기록은 외부로 전송됩니다. 지금은 공개·합성 데이터로 검증했습니다.
+
+Q. 재학습이나 운영 감시도 발표하나요?
+A. 추가 구현으로 보존했지만 이번 5분 발표는 데이터 점검·모델 비교·선택 근거에 집중합니다.
+
+Q. LLM-as-a-Judge도 구현했나요?
+A. 네. 로컬 Qwen을 별도 평가자로 호출해 실험 결과 설명이 실제 수치·모델·적용 범위와 맞는지 평가했습니다. 수치 변조와 과장 설명 예제에서 사전 라벨과 일치하는지 확인했습니다. 작은 자체 개발 예제이며 평가자도 오판할 수 있어 코드 검사를 함께 사용합니다. 상세 결과는 docs/evaluation/llm_judge.json입니다.
+
+Q. 결과 검토 Agent가 이미 Judge 아닌가요?
+A. 결과 검토 Agent는 모델 실험의 Recall·정상 오판을 읽고 설명할 사항을 정리합니다. LLM-as-a-Judge는 Agent가 생성한 답변 자체를 정답·평가 기준과 비교해 채점하는 별도 평가 기능입니다.
 
 Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 http://localhost:8700을 엽니다.
 새 환경은 예제 데이터 준비 → 계획 제안 → 승인·학습 순서입니다. 발표는 기록된 화면을 설명하므로 새 학습을 기다릴 필요가 없습니다.
@@ -381,7 +395,7 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고, 승인받아 모델을 비교한 뒤, 결과에 따라 다음 실험을 제안합니다.
+검사 데이터를 점검하고 승인받아 여러 모델을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
@@ -389,7 +403,7 @@ Windows 앱 실행: continued-project 폴더의 start.cmd를 더블클릭하고 
 
 ## 하나의 사용 흐름
 
-데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 비교 → 고정 Test 확인 → 새 모델 탐색 / 기존 모델 점검
+데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 후보 선택 → 같은 Test의 기본·후보 비교
 
 ![같은 Test의 기본·후보 비교](docs/assets/app-result.jpg)
 
@@ -409,8 +423,11 @@ macOS/Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·Light
 APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재조회**를 확인했습니다.
 [추적 증빙](docs/evaluation/langsmith_check.json) · [설정 안내](docs/LANGSMITH_SETUP.md)
 
-현재 Windows 모드는 LLM 미사용·TF-IDF 검색·규칙 설명입니다. Ollama와 Qwen 모델을 설치하고
-`SEMI_LLM_ENABLED=1`로 설정하면 로컬 LLM·임베딩을 사용합니다.
+현재 Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
+실제 역할별 응답 검증은 [기록](docs/evaluation/local_llm_check.json)을 기준으로 확인합니다.
+검색은 TF-IDF이며 LLM 추론과 임베딩 사용 여부를 각각 설정합니다.
+`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=0`이 현재 설정입니다.
+첫 준비는 `scripts/setup_local_qwen.py`, 이후 Windows 실행 파일은 로컬 Ollama도 함께 시작합니다.
 기존 Mac의 LLM 검증 기록은 [agent_integration.json](docs/evaluation/agent_integration.json)에 보존합니다.
 LangSmith 연결과 LLM 응답 성공은 별개이며 UI에 verified/fallback/disabled 상태를 표시합니다.
 
@@ -438,7 +455,8 @@ LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 �
 의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
 외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
 현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
-자율 Supervisor·LLM-as-a-Judge·3σ 트리거·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
+로컬 LLM-as-a-Judge는 [평가 기록](docs/evaluation/llm_judge.json)에 있습니다. 작은 자체 개발 예제에 대한 결과이며 독립 평가가 아닙니다. 초기 실패도 보존합니다.
+자율 Supervisor·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
 
 운영 모델은 자동 교체하지 않습니다. 회사 공통 Recall 수치, 양산 수율·금액 이득·작업시간 절감은 검증하지 않았습니다.
 작은 불량 표본·반복 Validation과 추가 탐색의 Test 재사용이 한계이며 독립 기간 검증이 필요합니다.

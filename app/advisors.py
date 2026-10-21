@@ -12,7 +12,7 @@ class LocalAdvisor:
         self.enabled = os.getenv('SEMI_LLM_ENABLED', '0') == '1' if enabled is None else enabled
         self.url = os.getenv('OLLAMA_URL', 'http://127.0.0.1:11434').rstrip('/')
         self.model = os.getenv('SEMI_LLM_MODEL', 'qwen3.5:2b')
-        self.client = client or httpx.Client(timeout=45)
+        self.client = client or httpx.Client(timeout=float(os.getenv('SEMI_LLM_TIMEOUT', '45')))
 
     @traceable(name='LocalLLMAgent', run_type='chain')
     def advise(self, role, facts, choices, evidence):
@@ -30,9 +30,10 @@ class LocalAdvisor:
             source_map.update({c:'external-'+c for c in choices if c in {'extra_trees','gaussian_nb'}})
         choices = {c:v for c,v in choices.items() if source_map.get(c) in ids}
         required = {c:source_map[c] for c in choices}
+        relevant_ids = sorted(set(required.values()))
         schema = {'type': 'object', 'properties': {
             'priority_codes': {'type': 'array', 'items': {'type': 'string', 'enum': list(choices)}, 'minItems': 1, 'maxItems': min(3, len(choices))},
-            'evidence_ids': {'type': 'array', 'items': {'type': 'string', 'enum': ids}, 'minItems': 1, 'maxItems': min(3, len(ids))}},
+            'evidence_ids': {'type': 'array', 'items': {'type': 'string', 'enum': relevant_ids}, 'minItems': 1, 'maxItems': min(3, len(relevant_ids))}},
             'required': ['priority_codes', 'evidence_ids'], 'additionalProperties': False}
         if not choices or not ids:
             return {'role': role, 'status': 'fallback', 'note': '선택 가능한 근거 부족'}
@@ -40,10 +41,10 @@ class LocalAdvisor:
             response = self.client.post(self.url+'/api/chat', json={
                 'model': self.model, 'stream': False, 'think': False, 'format': schema,
                 'options': {'temperature': 0, 'num_predict': 220, 'num_ctx': 4096},
-                'messages': [{'role': 'system', 'content': 'You are '+role+'. Rank only the provided applicable codes using the measured facts and retrieved evidence. Cite only supplied evidence ids. Return JSON only. Never approve training, deploy, or invent a metric.'},
+                'messages': [{'role': 'system', 'content': 'You are '+role+'. Rank only the provided applicable codes using the measured facts and retrieved evidence. For EVERY selected priority_code, copy its required_evidence_for_each_code value into evidence_ids. Include all required IDs for your selected codes, with no unrelated citations. Return JSON only. Never approve training, deploy, or invent a metric.'},
                              {'role': 'user', 'content': json.dumps({'facts': facts, 'applicable_choices': choices,
                                 'required_evidence_for_each_code': required,
-                                'retrieved_evidence': [{'id': d['id'], 'text': d['text']} for d in evidence]}, ensure_ascii=False)}]})
+                                'retrieved_evidence': [{'id': d['id'], 'text': d['text']} for d in evidence if d['id'] in relevant_ids]}, ensure_ascii=False)}]})
             response.raise_for_status()
             payload = response.json()
             output = json.loads(payload['message']['content'])

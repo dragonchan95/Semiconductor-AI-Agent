@@ -1,0 +1,84 @@
+{
+  "verified_at": "2026-10-21T15:03:49.672603+00:00",
+  "model": "qwen2.5:1.5b",
+  "backend": "Ollama on localhost",
+  "course_reference": "Week 5 Qwen/Qwen2.5-1.5B-Instruct; Q4 quantized base without HR LoRA",
+  "agent_outputs": [
+    {
+      "role": "DataQualityAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "imbalance",
+        "missing",
+        "split"
+      ],
+      "recommendations": [
+        "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교",
+        "관측한 센서 결측을 학습 중앙값으로 대체",
+        "같은 lot 또는 날짜가 학습·평가에 걸치지 않도록 분할을 확인"
+      ],
+      "evidence_ids": [
+        "imbalance",
+        "leakage",
+        "leakage"
+      ],
+      "seconds": 13.103,
+      "tokens": 38,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    },
+    {
+      "role": "ExperimentPlannerAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "svm",
+        "mlp"
+      ],
+      "recommendations": [
+        "커널로 비선형 경계를 비교",
+        "다층 신경망으로 센서 간 비선형 관계를 비교"
+      ],
+      "evidence_ids": [
+        "ann",
+        "distance"
+      ],
+      "seconds": 10.7,
+      "tokens": 27,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    },
+    {
+      "role": "ResultCriticAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "validation",
+        "tradeoff",
+        "hold"
+      ],
+      "recommendations": [
+        "모델 선택에는 validation 결과를 사용. test 수치로 후보 순서를 바꾸지 않음",
+        "불량을 놓친 건수와 정상을 불량으로 잘못 판정한 건수를 함께 검토",
+        "현재 결과는 적용 보류. 기준 미달 원인을 먼저 검토"
+      ],
+      "evidence_ids": [
+        "leakage",
+        "profit",
+        "approval"
+      ],
+      "seconds": 14.599,
+      "tokens": 48,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    }
+  ],
+  "all_roles_verified": true,
+  "retrieval": {
+    "mode": "tfidf",
+    "model": null
+  },
+  "training_started": false,
+  "scope": "Real local inference and allowed code/source validation, not an LLM-as-a-Judge evaluation."
+}

@@ -18,4 +18,5 @@ if (-not (Test-Path -LiteralPath $semiPython)) {
     if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed.' }
 }
 Write-Host 'Open http://localhost:8700 in your browser. Keep this window open.'
+& (Join-Path $PSScriptRoot 'scripts\start_local_qwen.ps1')
 & $semiPython -m uvicorn app.api:app --host 127.0.0.1 --port 8700

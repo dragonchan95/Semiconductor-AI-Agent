@@ -1,0 +1,159 @@
+{
+  "verified_at": "2026-10-21T15:23:31.439068+00:00",
+  "model": "qwen2.5:1.5b",
+  "backend": "local Ollama",
+  "reference_source": "docs/evaluation/windows_llm_synthetic.json",
+  "reference": {
+    "selected_model": "CatBoost",
+    "training_products": [
+      "A",
+      "B",
+      "C"
+    ],
+    "test_defects": 32,
+    "detected_defects": 27,
+    "missed_defects": 5,
+    "test_normals": 224,
+    "false_positives": 14,
+    "recall_percent": 84.4,
+    "baseline_detected_defects": 20,
+    "baseline_false_positives": 1,
+    "demo_recall_goal_percent": 90,
+    "demo_false_positive_limit_percent": 15,
+    "goal_scope": "Educational demo goals only. No common industry numerical standard was verified.",
+    "production_approved": false,
+    "manufacturing_yield_improvement_measured": false,
+    "financial_benefit_measured": false,
+    "data_scope": "synthetic sensor dataset"
+  },
+  "case_count": 8,
+  "evaluated_count": 8,
+  "label_match_count": 6,
+  "label_match_rate": 0.75,
+  "gold_labels_sent_to_judge": false,
+  "reference_text_sent_to_judge": "선택 모델: CatBoost. 학습 제품: A+B+C. Test의 실제 불량 32개 중 발견 27개, 놓침 5개. 실제 정상 224개 중 정상 오판 14개. 기본 모델 발견 20개와 정상 오판 1개에서 후보 발견 27개와 정상 오판 14개로 변화. Recall 84.4%는 90%보다 낮아서 교육용 목표 미달. 90%·15%는 이 실험의 교육용 목표이며 반도체 회사의 공통 기준이 아님. 데이터는 합성이며 실제 공장 수율·금액 효과는 측정하지 않았음. 양산 적용 승인 없음.",
+  "prompt_revision": "Korean facts + separate few-shot examples + binary support verdict",
+  "cases": [
+    {
+      "case": "correct_summary",
+      "answer": "선택 후보는 CatBoost이며 Test 불량 32개 중 27개를 찾았습니다. Recall은 84.4%로 교육용 목표 90%에 못 미쳐 추가 검증이 필요합니다.",
+      "expected_verdict": "pass",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": true,
+        "verdict": "pass",
+        "seconds": 6.074,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "correct_tradeoff",
+      "answer": "기본 모델보다 불량 발견은 20개에서 27개로 늘었지만 정상 오판도 1개에서 14개로 늘었습니다.",
+      "expected_verdict": "pass",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": true,
+        "verdict": "pass",
+        "seconds": 2.205,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "wrong_defect_count",
+      "answer": "선택 후보는 CatBoost이며 Test 불량 32개 중 30개를 찾았습니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": true,
+        "verdict": "pass",
+        "seconds": 1.501,
+        "tokens": 6
+      },
+      "label_match": false
+    },
+    {
+      "case": "wrong_false_positives",
+      "answer": "이번 후보의 정상 오판은 0개이며 정상 오판 없이 불량을 찾았습니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": false,
+        "verdict": "fail",
+        "seconds": 1.374,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "wrong_selected_model",
+      "answer": "이번 실험에서는 AdaBoost가 최종 선택 후보입니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": false,
+        "verdict": "fail",
+        "seconds": 1.202,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "unsupported_factory_effect",
+      "answer": "이번 실험으로 실제 반도체 공장의 제조 수율 증가가 입증되었습니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": false,
+        "verdict": "fail",
+        "seconds": 1.286,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "unsupported_industry_standard",
+      "answer": "Recall 90%는 모든 반도체 회사에 공통으로 적용되는 양산 승인 기준입니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": false,
+        "verdict": "fail",
+        "seconds": 1.357,
+        "tokens": 6
+      },
+      "label_match": true
+    },
+    {
+      "case": "wrong_goal_interpretation",
+      "answer": "후보 Recall 84.4%는 이번 교육용 목표 90%를 충족했습니다.",
+      "expected_verdict": "fail",
+      "judge": {
+        "status": "evaluated",
+        "model": "qwen2.5:1.5b",
+        "supported": true,
+        "verdict": "pass",
+        "seconds": 1.285,
+        "tokens": 6
+      },
+      "label_match": false
+    }
+  ],
+  "limitations": [
+    "Small hand-authored development set used to refine this prompt, not an independent real-world benchmark.",
+    "Same model family used for assistant and evaluator; correlated errors remain possible.",
+    "LLM judge decisions are advisory and do not replace deterministic metric/approval checks."
+  ],
+  "false_accepts": 2,
+  "false_rejects": 0,
+  "invalid_or_failed_responses": 0,
+  "balanced_label_match_rate": 0.8333333333333333
+}

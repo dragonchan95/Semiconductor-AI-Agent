@@ -25,7 +25,7 @@ def main():
     run_id = uuid4()
     with tracing_context(enabled=True, client=client, project_name=project):
         proposal = wb.propose({'dataset_id': dataset['id'], 'cohort_mode': 'all',
-                               'models': ['logistic'], 'balance': ['none']},
+                               'question':'센서 결측과 불량 불균형을 점검하고 선형·트리 모델의 비교 계획과 근거를 설명해줘'},
                               langsmith_extra={'run_id': run_id})
     client.flush()
     root = None
@@ -45,7 +45,8 @@ def main():
     receipt = {'verified_at': root.start_time.isoformat(), 'endpoint': client.api_url,
                'project': project, 'root_run_id': str(run_id), 'root_name': root.name,
                'readback_verified': True, 'child_runs': flatten(root)[1:],
-               'llm_enabled': wb.advisor.enabled, 'agent_outputs': proposal.get('agent_outputs', []),
+               'llm_enabled': wb.advisor.enabled, 'llm_model': wb.advisor.model,
+               'agent_outputs': proposal.get('agent_outputs', []),
                'scope': 'Actual proposal and child runs; no training, deployment or LLM-as-a-Judge claim.'}
     target = ROOT / 'docs/evaluation/langsmith_check.json'
     target.write_text(json.dumps(receipt, ensure_ascii=False, indent=2), encoding='utf-8')

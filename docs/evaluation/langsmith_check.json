@@ -1,8 +1,8 @@
 {
-  "verified_at": "2026-10-21T14:10:20.758974+00:00",
+  "verified_at": "2026-10-21T15:10:30.058609+00:00",
   "endpoint": "https://apac.api.smith.langchain.com",
   "project": "Semiconductor-AI-Agent-G045",
-  "root_run_id": "15462174-e7e6-431d-bbdf-d3b8ae5a7c3d",
+  "root_run_id": "78b9a699-ccfe-4533-a4f8-f0cbc021894b",
   "root_name": "experiment.propose",
   "readback_verified": true,
   "child_runs": [
@@ -47,17 +47,53 @@
       "error": false
     }
   ],
-  "llm_enabled": false,
+  "llm_enabled": true,
+  "llm_model": "qwen2.5:1.5b",
   "agent_outputs": [
     {
       "role": "DataQualityAgent",
-      "status": "disabled",
-      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "imbalance",
+        "missing",
+        "split"
+      ],
+      "recommendations": [
+        "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교",
+        "관측한 센서 결측을 학습 중앙값으로 대체",
+        "같은 lot 또는 날짜가 학습·평가에 걸치지 않도록 분할을 확인"
+      ],
+      "evidence_ids": [
+        "imbalance",
+        "leakage",
+        "product"
+      ],
+      "seconds": 7.424,
+      "tokens": 36,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
     },
     {
       "role": "ExperimentPlannerAgent",
-      "status": "disabled",
-      "note": "로컬 LLM 미사용. 수치·계획은 규칙 엔진으로 생성"
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "svm",
+        "mlp"
+      ],
+      "recommendations": [
+        "커널로 비선형 경계를 비교",
+        "다층 신경망으로 센서 간 비선형 관계를 비교"
+      ],
+      "evidence_ids": [
+        "ann",
+        "distance"
+      ],
+      "seconds": 6.894,
+      "tokens": 27,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
     }
   ],
   "scope": "Actual proposal and child runs; no training, deployment or LLM-as-a-Judge claim."

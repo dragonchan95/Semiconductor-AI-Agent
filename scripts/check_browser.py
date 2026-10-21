@@ -19,15 +19,15 @@ with sync_playwright() as p:
     assert ranking.get_by_text('AdaBoost',exact=True).count()==1
     page.locator('#next-discovery').click()
     assert page.locator('#discovery-features').evaluate('(el)=>el.open')
-    page.locator('#next-review').click()
-    assert page.locator('#management-features').evaluate('(el)=>el.open')
+    assert page.locator('#next-review').count()==0
+    assert not page.locator('#management-features').evaluate('(el)=>el.open')
     page.locator('#next-plan').click()
     assert page.locator('#proposal-form details').first.evaluate('(el)=>el.open')
     assert not errors,errors
     out=ROOT/'var/browser-check';out.mkdir(exist_ok=True)
     page.locator('#result-section').screenshot(path=str(out/'windows-result.png'))
     receipt={'browser':'Chrome headless','console_errors':errors,'result_loaded':True,
-             'validation_ranking_visible':True,'next_discovery':True,'next_review':True,
+             'validation_ranking_visible':True,'next_discovery':True,'retraining_outside_main_flow':True,
              'change_goal':True,'main_wording_uses_generic_model_comparison':True}
     (ROOT/'docs/evaluation/browser_check.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(receipt,ensure_ascii=False))

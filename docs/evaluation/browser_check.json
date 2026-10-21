@@ -4,7 +4,7 @@
   "result_loaded": true,
   "validation_ranking_visible": true,
   "next_discovery": true,
-  "next_review": true,
+  "retraining_outside_main_flow": true,
   "change_goal": true,
   "main_wording_uses_generic_model_comparison": true
 }

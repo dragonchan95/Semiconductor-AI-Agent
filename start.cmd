@@ -13,5 +13,6 @@ if not exist "..\.venv\Scripts\python.exe" (
   set "SEMI_PYTHON=..\.venv\Scripts\python.exe"
 )
 echo Open http://localhost:8700 in your browser. Keep this window open.
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\start_local_qwen.ps1
 "%SEMI_PYTHON%" -m uvicorn app.api:app --host 127.0.0.1 --port 8700
 pause

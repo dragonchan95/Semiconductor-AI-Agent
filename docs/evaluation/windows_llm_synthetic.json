@@ -1,0 +1,4124 @@
+{
+  "run_id": "run-1fd7bfdad621",
+  "plan": {
+    "dataset_id": "ds-1622cd48f252",
+    "dataset_sha256": "ecaa9bcbb64d0827a015307f62e1e2f94e82fe520b1011d0e3d265a1f635135f",
+    "image_digest": null,
+    "cohorts": [
+      [
+        "A"
+      ],
+      [
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "D"
+      ],
+      [
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ],
+      [
+        "A",
+        "D"
+      ],
+      [
+        "B",
+        "C"
+      ],
+      [
+        "B",
+        "D"
+      ],
+      [
+        "C",
+        "D"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "A",
+        "B",
+        "D"
+      ],
+      [
+        "A",
+        "C",
+        "D"
+      ],
+      [
+        "B",
+        "C",
+        "D"
+      ],
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    "target_products": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "models": [
+      "logistic",
+      "decision_tree",
+      "random_forest",
+      "gradient_boosting",
+      "xgboost",
+      "lightgbm",
+      "catboost",
+      "knn",
+      "svm",
+      "mlp",
+      "adaboost",
+      "hist_gradient"
+    ],
+    "preprocessing": [
+      "auto"
+    ],
+    "balance": [
+      "none",
+      "weighted"
+    ],
+    "epochs": 6,
+    "policy": {
+      "min_recall": 0.9,
+      "max_fpr": 0.15,
+      "min_test_defects": 20
+    },
+    "trial_budget": 52,
+    "split_hash": "55ed8b0587250789f5bd0f7807ff15bd1af5e7e735f2fcc7c65ce005024e3a7b",
+    "seed": 45,
+    "selection": "Validation threshold and candidate selection; final Test once",
+    "model_backend": "local_sklearn_or_pytorch",
+    "auto_deploy": false,
+    "management_source_run": null,
+    "discovery_id": null,
+    "discovery_source_run": null,
+    "search_strategy": "model_then_cohort",
+    "llm_priorities": [
+      "mlp"
+    ]
+  },
+  "result": {
+    "dataset": {
+      "id": "ds-1622cd48f252",
+      "name": "제품 A–D 합성 공정",
+      "source": "자체 생성 합성 데이터, 실제 반도체 측정값 아님",
+      "synthetic": true,
+      "sha256": "ecaa9bcbb64d0827a015307f62e1e2f94e82fe520b1011d0e3d265a1f635135f"
+    },
+    "split": {
+      "test": {
+        "rows": 256,
+        "defects": 32,
+        "index_hash": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1"
+      },
+      "validation": {
+        "rows": 256,
+        "defects": 42,
+        "index_hash": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      "train": {
+        "rows": 768,
+        "defects": 127,
+        "index_hash": "4e93dd124431922bb190ebadf53f1efa09d387e0d4d453bb9cd6421d79bd37c5"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      }
+    },
+    "trials": [
+      {
+        "id": "trial-001",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "logistic",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": false,
+        "explanation": {
+          "model": "logistic",
+          "title": "Logistic Regression",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day3 PDF 68쪽 이진 확률 예시",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 174,
+          "fp": 40,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.828125,
+          "recall": 0.9047619047619048,
+          "precision": 0.48717948717948717,
+          "f1": 0.6333333333333333,
+          "fpr": 0.18691588785046728,
+          "roc_auc": 0.931241655540721,
+          "threshold": 0.13045382355693905,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "fit_seconds": 4.699666000000434,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-002",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "logistic",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": false,
+        "explanation": {
+          "model": "logistic",
+          "title": "Logistic Regression",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "선형 결정 경계를 비교하는 기준 모델",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day3 PDF 68쪽 이진 확률 예시",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 174,
+          "fp": 40,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.828125,
+          "recall": 0.9047619047619048,
+          "precision": 0.48717948717948717,
+          "f1": 0.6333333333333333,
+          "fpr": 0.18691588785046728,
+          "roc_auc": 0.9313529149977748,
+          "threshold": 0.398009695159923,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "fit_seconds": 3.7682080999984464,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-003",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "decision_tree",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "decision_tree",
+          "title": "Decision Tree",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "조건 분기로 센서의 비선형 관계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 33~55쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.91796875,
+          "recall": 0.9285714285714286,
+          "precision": 0.6842105263157895,
+          "f1": 0.7878787878787878,
+          "fpr": 0.08411214953271028,
+          "roc_auc": 0.9358589230084556,
+          "threshold": 0.23529411764705882,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 0.4057573999998567,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-004",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "decision_tree",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": false,
+        "explanation": {
+          "model": "decision_tree",
+          "title": "Decision Tree",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "조건 분기로 센서의 비선형 관계를 비교",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 33~55쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 190,
+          "fp": 24,
+          "fn": 6,
+          "tp": 36,
+          "accuracy": 0.8828125,
+          "recall": 0.8571428571428571,
+          "precision": 0.6,
+          "f1": 0.7058823529411765,
+          "fpr": 0.11214953271028037,
+          "roc_auc": 0.8968068535825545,
+          "threshold": 0.31452404317958776,
+          "recall_wilson95": [
+            0.7215861764782122,
+            0.9328412431581007
+          ]
+        },
+        "fit_seconds": 0.29661139999916486,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-005",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "random_forest",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 186,
+          "fp": 28,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.890625,
+          "recall": 1.0,
+          "precision": 0.6,
+          "f1": 0.75,
+          "fpr": 0.1308411214953271,
+          "roc_auc": 0.9854250111259457,
+          "threshold": 0.15301443034928494,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.985419200000251,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-006",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "random_forest",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "random_forest",
+          "title": "Random Forest",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "여러 트리의 평균으로 단일 트리의 변동을 줄이는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 59, 62~64쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 182,
+          "fp": 32,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.87109375,
+          "recall": 0.9761904761904762,
+          "precision": 0.5616438356164384,
+          "f1": 0.7130434782608696,
+          "fpr": 0.14953271028037382,
+          "roc_auc": 0.9847574543836227,
+          "threshold": 0.3056713351766883,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 5.110308700001042,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-007",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "gradient_boosting",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "gradient_boosting",
+          "title": "Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "앞선 트리의 오차를 순차 보완하는 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 60~61쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.8984375,
+          "recall": 0.9761904761904762,
+          "precision": 0.6212121212121212,
+          "f1": 0.7592592592592593,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.983032932799288,
+          "threshold": 0.1339347275142404,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 2.215632100000221,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-008",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "gradient_boosting",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "gradient_boosting",
+          "title": "Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "앞선 트리의 오차를 순차 보완하는 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 60~61쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 182,
+          "fp": 32,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.87109375,
+          "recall": 0.9761904761904762,
+          "precision": 0.5616438356164384,
+          "f1": 0.7130434782608696,
+          "fpr": 0.14953271028037382,
+          "roc_auc": 0.9796395193591455,
+          "threshold": 0.30827344758181147,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 2.796143100000336,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-009",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "xgboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "xgboost",
+          "title": "XGBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "규제를 적용한 트리 부스팅 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 65~67, 71, 74~75쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 190,
+          "fp": 24,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.90625,
+          "recall": 1.0,
+          "precision": 0.6363636363636364,
+          "f1": 0.7777777777777778,
+          "fpr": 0.11214953271028037,
+          "roc_auc": 0.9840898976412995,
+          "threshold": 0.15066950023174286,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 3.4806636000012077,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-010",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "xgboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "xgboost",
+          "title": "XGBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "규제를 적용한 트리 부스팅 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 65~67, 71, 74~75쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.90234375,
+          "recall": 1.0,
+          "precision": 0.6268656716417911,
+          "f1": 0.7706422018348624,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.9842011570983533,
+          "threshold": 0.2835429310798645,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 2.9854207999997016,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-011",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "lightgbm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "lightgbm",
+          "title": "LightGBM",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 트리 부스팅 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 68~69, 72쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.91015625,
+          "recall": 1.0,
+          "precision": 0.6461538461538462,
+          "f1": 0.7850467289719626,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9868713840676457,
+          "threshold": 0.13091608564531643,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 3.1842351000013878,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-012",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "lightgbm",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "lightgbm",
+          "title": "LightGBM",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 트리 부스팅 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 68~69, 72쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 184,
+          "fp": 30,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.8828125,
+          "recall": 1.0,
+          "precision": 0.5833333333333334,
+          "f1": 0.7368421052631579,
+          "fpr": 0.14018691588785046,
+          "roc_auc": 0.9847574543836227,
+          "threshold": 0.25189513593583307,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.239887100000487,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-013",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 194,
+          "fp": 20,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.921875,
+          "recall": 1.0,
+          "precision": 0.6774193548387096,
+          "f1": 0.8076923076923077,
+          "fpr": 0.09345794392523364,
+          "roc_auc": 0.9880952380952381,
+          "threshold": 0.1677648333138146,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 6.108457600001202,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-014",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 206,
+          "fp": 8,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.96484375,
+          "recall": 0.9761904761904762,
+          "precision": 0.8367346938775511,
+          "f1": 0.9010989010989011,
+          "fpr": 0.037383177570093455,
+          "roc_auc": 0.9887627948375612,
+          "threshold": 0.5884390882278951,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.727638399999705,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-015",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "knn",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "knn",
+          "title": "KNN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "가까운 센서 패턴의 라벨로 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 21~31쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 190,
+          "fp": 24,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.89453125,
+          "recall": 0.9285714285714286,
+          "precision": 0.6190476190476191,
+          "f1": 0.7428571428571429,
+          "fpr": 0.11214953271028037,
+          "roc_auc": 0.9562750333778371,
+          "threshold": 0.1510280285375592,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 1.872648599999593,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-016",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "knn",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "knn",
+          "title": "KNN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "가까운 센서 패턴의 라벨로 비교",
+          "balance_method": "학습 표본 안에서만 불량 무작위 복제 (오버샘플링)",
+          "source": "Day2 PDF 21~31쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.890625,
+          "recall": 0.9285714285714286,
+          "precision": 0.609375,
+          "f1": 0.7358490566037735,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.9397530040053406,
+          "threshold": 0.42529782621812917,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 1.3939438999987033,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-017",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.90625,
+          "recall": 0.9761904761904762,
+          "precision": 0.640625,
+          "f1": 0.7735849056603774,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9825322652425456,
+          "threshold": 0.1486454041754624,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.4489326999992045,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-018",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "svm",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "svm",
+          "title": "SVM (RBF)",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "커널로 비선형 경계를 비교",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "Day2 PDF 32~42쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.90625,
+          "recall": 0.9761904761904762,
+          "precision": 0.640625,
+          "f1": 0.7735849056603774,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9839786381842457,
+          "threshold": 0.20597780511916672,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 3.492237999998906,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-019",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "mlp",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "mlp",
+          "title": "MLP / ANN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "다층 신경망으로 센서 간 비선형 관계를 비교",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day3 PDF 7~22쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 183,
+          "fp": 31,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.875,
+          "recall": 0.9761904761904762,
+          "precision": 0.5694444444444444,
+          "f1": 0.7192982456140351,
+          "fpr": 0.14485981308411214,
+          "roc_auc": 0.9787494437027147,
+          "threshold": 0.05664254474111758,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.612510699998893,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-020",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "mlp",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "mlp",
+          "title": "MLP / ANN",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "scaled",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 센서 단위 차이가 거리·마진·가중치 학습에 영향을 주므로 학습 표본 기준 Scaling(StandardScaler)",
+          "model_reason": "다층 신경망으로 센서 간 비선형 관계를 비교",
+          "balance_method": "학습 표본 안에서만 불량 무작위 복제 (오버샘플링)",
+          "source": "Day3 PDF 7~22쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 196,
+          "fp": 18,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.91796875,
+          "recall": 0.9285714285714286,
+          "precision": 0.6842105263157895,
+          "f1": 0.7878787878787878,
+          "fpr": 0.08411214953271028,
+          "roc_auc": 0.9779706275033379,
+          "threshold": 0.18683471645736618,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 4.227122700000109,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-021",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "adaboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "adaboost",
+          "title": "AdaBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 회귀 사례와 같은 계열을 정상·불량 분류용 AdaBoostClassifier로 적용한 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40~42쪽: AdaBoost 회귀 사례 참고",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 201,
+          "fp": 13,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9453125,
+          "recall": 0.9761904761904762,
+          "precision": 0.7592592592592593,
+          "f1": 0.8541666666666666,
+          "fpr": 0.06074766355140187,
+          "roc_auc": 0.9820872274143302,
+          "threshold": 0.43139707279292033,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 3.0508633999997983,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-022",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "adaboost",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "adaboost",
+          "title": "AdaBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 회귀 사례와 같은 계열을 정상·불량 분류용 AdaBoostClassifier로 적용한 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "반도체 발표 PDF 40~42쪽: AdaBoost 회귀 사례 참고",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 199,
+          "fp": 15,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9375,
+          "recall": 0.9761904761904762,
+          "precision": 0.7321428571428571,
+          "f1": 0.8367346938775511,
+          "fpr": 0.07009345794392523,
+          "roc_auc": 0.9774699599465955,
+          "threshold": 0.491152485429052,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 2.4966611999989254,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-023",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 192,
+          "fp": 22,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9140625,
+          "recall": 1.0,
+          "precision": 0.65625,
+          "f1": 0.7924528301886793,
+          "fpr": 0.102803738317757,
+          "roc_auc": 0.9839786381842457,
+          "threshold": 0.13648287626690483,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.627318599999853,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-024",
+        "products": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "weighted",
+        "status": "completed",
+        "train_n": 768,
+        "train_defects": 127,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "학습 클래스 빈도의 역수에 비례한 가중치",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "model_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.91015625,
+          "recall": 1.0,
+          "precision": 0.6461538461538462,
+          "f1": 0.7850467289719626,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9862038273253226,
+          "threshold": 0.25045414752584416,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 5.233771100000013,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-025",
+        "products": [
+          "A"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 168,
+        "train_defects": 24,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 183,
+          "fp": 31,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.875,
+          "recall": 0.9761904761904762,
+          "precision": 0.5694444444444444,
+          "f1": 0.7192982456140351,
+          "fpr": 0.14485981308411214,
+          "roc_auc": 0.9806408544726302,
+          "threshold": 0.15095054129272378,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 3.6386818000009953,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-026",
+        "products": [
+          "B"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 29,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 185,
+          "fp": 29,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.87109375,
+          "recall": 0.9047619047619048,
+          "precision": 0.5671641791044776,
+          "f1": 0.6972477064220184,
+          "fpr": 0.13551401869158877,
+          "roc_auc": 0.9523809523809524,
+          "threshold": 0.20444757478681505,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "fit_seconds": 3.42755120000038,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-027",
+        "products": [
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 192,
+        "train_defects": 28,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 187,
+          "fp": 27,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.88671875,
+          "recall": 0.9523809523809523,
+          "precision": 0.5970149253731343,
+          "f1": 0.7339449541284404,
+          "fpr": 0.1261682242990654,
+          "roc_auc": 0.9719626168224299,
+          "threshold": 0.16149464235491814,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "fit_seconds": 2.9967458000010083,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-028",
+        "products": [
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 224,
+        "train_defects": 46,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 183,
+          "fp": 31,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.875,
+          "recall": 0.9761904761904762,
+          "precision": 0.5694444444444444,
+          "f1": 0.7192982456140351,
+          "fpr": 0.14485981308411214,
+          "roc_auc": 0.9715175789942145,
+          "threshold": 0.1927165357752772,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 2.889754100000573,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-029",
+        "products": [
+          "A",
+          "B"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 352,
+        "train_defects": 53,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 184,
+          "fp": 30,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.8828125,
+          "recall": 1.0,
+          "precision": 0.5833333333333334,
+          "f1": 0.7368421052631579,
+          "fpr": 0.14018691588785046,
+          "roc_auc": 0.9811971517578995,
+          "threshold": 0.15602854622476867,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 3.736886400000003,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-030",
+        "products": [
+          "A",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 52,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 192,
+          "fp": 22,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9140625,
+          "recall": 1.0,
+          "precision": 0.65625,
+          "f1": 0.7924528301886793,
+          "fpr": 0.102803738317757,
+          "roc_auc": 0.9781931464174455,
+          "threshold": 0.14001480964178825,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.6221380999995745,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-031",
+        "products": [
+          "A",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 392,
+        "train_defects": 70,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 194,
+          "fp": 20,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.91796875,
+          "recall": 0.9761904761904762,
+          "precision": 0.6721311475409836,
+          "f1": 0.7961165048543689,
+          "fpr": 0.09345794392523364,
+          "roc_auc": 0.9865376056964842,
+          "threshold": 0.15725558178762658,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.671229100000346,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-032",
+        "products": [
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 376,
+        "train_defects": 57,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.90625,
+          "recall": 0.9761904761904762,
+          "precision": 0.640625,
+          "f1": 0.7735849056603774,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9850912327547842,
+          "threshold": 0.1987585651388396,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.756393300000127,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-033",
+        "products": [
+          "B",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 408,
+        "train_defects": 75,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 197,
+          "fp": 17,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9296875,
+          "recall": 0.9761904761904762,
+          "precision": 0.7068965517241379,
+          "f1": 0.82,
+          "fpr": 0.0794392523364486,
+          "roc_auc": 0.9813084112149533,
+          "threshold": 0.2241114435114395,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.9183565000003,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-034",
+        "products": [
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 416,
+        "train_defects": 74,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 185,
+          "fp": 29,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.8828125,
+          "recall": 0.9761904761904762,
+          "precision": 0.5857142857142857,
+          "f1": 0.7321428571428571,
+          "fpr": 0.13551401869158877,
+          "roc_auc": 0.9847574543836226,
+          "threshold": 0.15935005613294134,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.345898700001271,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-035",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 198,
+          "fp": 16,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9375,
+          "recall": 1.0,
+          "precision": 0.7241379310344828,
+          "f1": 0.84,
+          "fpr": 0.07476635514018691,
+          "roc_auc": 0.9855362705829995,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 3.3563230999989173,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-036",
+        "products": [
+          "A",
+          "B",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 576,
+        "train_defects": 99,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 197,
+          "fp": 17,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.93359375,
+          "recall": 1.0,
+          "precision": 0.711864406779661,
+          "f1": 0.8316831683168316,
+          "fpr": 0.0794392523364486,
+          "roc_auc": 0.9883177570093459,
+          "threshold": 0.18125529691603287,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.04601730000104,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-037",
+        "products": [
+          "A",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 584,
+        "train_defects": 98,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.90625,
+          "recall": 0.9761904761904762,
+          "precision": 0.640625,
+          "f1": 0.7735849056603774,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9866488651535381,
+          "threshold": 0.16215785979002542,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.766987099999824,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-038",
+        "products": [
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "catboost",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 600,
+        "train_defects": 103,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "catboost",
+          "title": "CatBoost",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "Day1 PDF 70, 73쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 193,
+          "fp": 21,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.9140625,
+          "recall": 0.9761904761904762,
+          "precision": 0.6612903225806451,
+          "f1": 0.7884615384615384,
+          "fpr": 0.09813084112149532,
+          "roc_auc": 0.9873164218958612,
+          "threshold": 0.18494254294988974,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.613735100001577,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-039",
+        "products": [
+          "A"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 168,
+        "train_defects": 24,
+        "validation_feasible": false,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 178,
+          "fp": 36,
+          "fn": 4,
+          "tp": 38,
+          "accuracy": 0.84375,
+          "recall": 0.9047619047619048,
+          "precision": 0.5135135135135135,
+          "f1": 0.6551724137931034,
+          "fpr": 0.16822429906542055,
+          "roc_auc": 0.9587227414330218,
+          "threshold": 0.09957050228408787,
+          "recall_wilson95": [
+            0.7793460477494668,
+            0.9623383611716879
+          ]
+        },
+        "fit_seconds": 4.466755600000397,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-040",
+        "products": [
+          "B"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 184,
+        "train_defects": 29,
+        "validation_feasible": false,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 177,
+          "fp": 37,
+          "fn": 5,
+          "tp": 37,
+          "accuracy": 0.8359375,
+          "recall": 0.8809523809523809,
+          "precision": 0.5,
+          "f1": 0.6379310344827587,
+          "fpr": 0.17289719626168223,
+          "roc_auc": 0.9255674232309746,
+          "threshold": 0.11576458474552898,
+          "recall_wilson95": [
+            0.7499931819289246,
+            0.9480627323498091
+          ]
+        },
+        "fit_seconds": 2.9942917000007583,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-041",
+        "products": [
+          "C"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 192,
+        "train_defects": 28,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 185,
+          "fp": 29,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.87890625,
+          "recall": 0.9523809523809523,
+          "precision": 0.5797101449275363,
+          "f1": 0.7207207207207207,
+          "fpr": 0.13551401869158877,
+          "roc_auc": 0.9568313306631063,
+          "threshold": 0.0859585477028427,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "fit_seconds": 3.083046400000967,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-042",
+        "products": [
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 224,
+        "train_defects": 46,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 190,
+          "fp": 24,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.90234375,
+          "recall": 0.9761904761904762,
+          "precision": 0.6307692307692307,
+          "f1": 0.7663551401869159,
+          "fpr": 0.11214953271028037,
+          "roc_auc": 0.9741878059635067,
+          "threshold": 0.22104862930169406,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 3.977977500000634,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-043",
+        "products": [
+          "A",
+          "B"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 352,
+        "train_defects": 53,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 183,
+          "fp": 31,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.87109375,
+          "recall": 0.9523809523809523,
+          "precision": 0.5633802816901409,
+          "f1": 0.7079646017699115,
+          "fpr": 0.14485981308411214,
+          "roc_auc": 0.9676234979973297,
+          "threshold": 0.10324316490563047,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "fit_seconds": 3.4037467000016477,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-044",
+        "products": [
+          "A",
+          "C"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 360,
+        "train_defects": 52,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 192,
+          "fp": 22,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9140625,
+          "recall": 1.0,
+          "precision": 0.65625,
+          "f1": 0.7924528301886793,
+          "fpr": 0.102803738317757,
+          "roc_auc": 0.9834223408989764,
+          "threshold": 0.11161881272256714,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 4.731489699999656,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-045",
+        "products": [
+          "A",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 392,
+        "train_defects": 70,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 189,
+          "fp": 25,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.8984375,
+          "recall": 0.9761904761904762,
+          "precision": 0.6212121212121212,
+          "f1": 0.7592592592592593,
+          "fpr": 0.11682242990654206,
+          "roc_auc": 0.9850356030262573,
+          "threshold": 0.14724233234862472,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 4.317257400000017,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-046",
+        "products": [
+          "B",
+          "C"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 376,
+        "train_defects": 57,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 184,
+          "fp": 30,
+          "fn": 3,
+          "tp": 39,
+          "accuracy": 0.87109375,
+          "recall": 0.9285714285714286,
+          "precision": 0.5652173913043478,
+          "f1": 0.7027027027027027,
+          "fpr": 0.14018691588785046,
+          "roc_auc": 0.9603916332888296,
+          "threshold": 0.10921274284897821,
+          "recall_wilson95": [
+            0.8099028671147483,
+            0.9754100364488272
+          ]
+        },
+        "fit_seconds": 4.282815899998241,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-047",
+        "products": [
+          "B",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 408,
+        "train_defects": 75,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 2,
+          "tp": 40,
+          "accuracy": 0.90234375,
+          "recall": 0.9523809523809523,
+          "precision": 0.6349206349206349,
+          "f1": 0.7619047619047619,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9760792167334222,
+          "threshold": 0.14349850405837078,
+          "recall_wilson95": [
+            0.8420986468452026,
+            0.9868427513607937
+          ]
+        },
+        "fit_seconds": 4.139173700001265,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-048",
+        "products": [
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 416,
+        "train_defects": 74,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 184,
+          "fp": 30,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.87890625,
+          "recall": 0.9761904761904762,
+          "precision": 0.5774647887323944,
+          "f1": 0.7256637168141593,
+          "fpr": 0.14018691588785046,
+          "roc_auc": 0.9828660436137072,
+          "threshold": 0.11801071134251527,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 3.333900599998742,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-049",
+        "products": [
+          "A",
+          "B",
+          "C"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 544,
+        "train_defects": 81,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 192,
+          "fp": 22,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.9140625,
+          "recall": 1.0,
+          "precision": 0.65625,
+          "f1": 0.7924528301886793,
+          "fpr": 0.102803738317757,
+          "roc_auc": 0.9789719626168224,
+          "threshold": 0.09466926566653867,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 3.7814221999997244,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-050",
+        "products": [
+          "A",
+          "B",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 576,
+        "train_defects": 99,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 191,
+          "fp": 23,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.91015625,
+          "recall": 1.0,
+          "precision": 0.6461538461538462,
+          "f1": 0.7850467289719626,
+          "fpr": 0.10747663551401869,
+          "roc_auc": 0.9862038273253227,
+          "threshold": 0.11619843513365417,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 2.8361843999991834,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-051",
+        "products": [
+          "A",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 584,
+        "train_defects": 98,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 195,
+          "fp": 19,
+          "fn": 0,
+          "tp": 42,
+          "accuracy": 0.92578125,
+          "recall": 1.0,
+          "precision": 0.6885245901639344,
+          "f1": 0.8155339805825242,
+          "fpr": 0.08878504672897196,
+          "roc_auc": 0.9880952380952381,
+          "threshold": 0.14787687934255753,
+          "recall_wilson95": [
+            0.9161983874908382,
+            1.0
+          ]
+        },
+        "fit_seconds": 2.974757200001477,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      },
+      {
+        "id": "trial-052",
+        "products": [
+          "B",
+          "C",
+          "D"
+        ],
+        "model": "hist_gradient",
+        "preprocessing": "auto",
+        "balance": "none",
+        "status": "completed",
+        "train_n": 600,
+        "train_defects": 103,
+        "validation_feasible": true,
+        "explanation": {
+          "model": "hist_gradient",
+          "title": "Hist Gradient Boosting",
+          "input": "숫자 센서와 정상/불량 라벨",
+          "preprocessing": "median",
+          "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+          "model_reason": "히스토그램 기반 부스팅의 추가 비교 후보",
+          "balance_method": "원래 학습 클래스 비율 유지",
+          "source": "반도체 발표 PDF 40쪽",
+          "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+        },
+        "stage": "cohort_comparison",
+        "validation": {
+          "n": 256,
+          "positive_count": 42,
+          "tn": 194,
+          "fp": 20,
+          "fn": 1,
+          "tp": 41,
+          "accuracy": 0.91796875,
+          "recall": 0.9761904761904762,
+          "precision": 0.6721311475409836,
+          "f1": 0.7961165048543689,
+          "fpr": 0.09345794392523364,
+          "roc_auc": 0.9817534490431687,
+          "threshold": 0.14162834194706034,
+          "recall_wilson95": [
+            0.8767851883475174,
+            0.9957847045008997
+          ]
+        },
+        "fit_seconds": 5.12489640000058,
+        "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+      }
+    ],
+    "winner_id": "trial-035",
+    "winner": {
+      "id": "trial-035",
+      "products": [
+        "A",
+        "B",
+        "C"
+      ],
+      "model": "catboost",
+      "preprocessing": "auto",
+      "balance": "none",
+      "status": "completed",
+      "train_n": 544,
+      "train_defects": 81,
+      "validation_feasible": true,
+      "explanation": {
+        "model": "catboost",
+        "title": "CatBoost",
+        "input": "숫자 센서와 정상/불량 라벨",
+        "preprocessing": "median",
+        "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+        "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+        "balance_method": "원래 학습 클래스 비율 유지",
+        "source": "Day1 PDF 70, 73쪽",
+        "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음"
+      },
+      "stage": "cohort_comparison",
+      "validation": {
+        "n": 256,
+        "positive_count": 42,
+        "tn": 198,
+        "fp": 16,
+        "fn": 0,
+        "tp": 42,
+        "accuracy": 0.9375,
+        "recall": 1.0,
+        "precision": 0.7241379310344828,
+        "f1": 0.84,
+        "fpr": 0.07476635514018691,
+        "roc_auc": 0.9855362705829995,
+        "threshold": 0.18696192285673094,
+        "recall_wilson95": [
+          0.9161983874908382,
+          1.0
+        ]
+      },
+      "fit_seconds": 3.3563230999989173,
+      "validation_fingerprint": "c7876fac53f40843589281b9c0ec6a411be8ecfb31c62944d95cc8cc57203e28"
+    },
+    "test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 210,
+      "fp": 14,
+      "fn": 5,
+      "tp": 27,
+      "accuracy": 0.92578125,
+      "recall": 0.84375,
+      "precision": 0.6585365853658537,
+      "f1": 0.7397260273972602,
+      "fpr": 0.0625,
+      "roc_auc": 0.9737723214285714,
+      "threshold": 0.18696192285673094,
+      "recall_wilson95": [
+        0.6824550744643347,
+        0.9313568089337279
+      ]
+    },
+    "baseline_test": {
+      "n": 256,
+      "positive_count": 32,
+      "tn": 223,
+      "fp": 1,
+      "fn": 12,
+      "tp": 20,
+      "accuracy": 0.94921875,
+      "recall": 0.625,
+      "precision": 0.9523809523809523,
+      "f1": 0.7547169811320755,
+      "fpr": 0.004464285714285714,
+      "roc_auc": 0.9468470982142857,
+      "threshold": 0.5,
+      "recall_wilson95": [
+        0.45254100589525126,
+        0.7706633153404079
+      ]
+    },
+    "test_fingerprint": "9067fbbf6b0ba20a2f45299b76ad69677d377863434bf48f028c47485c1aa8a1",
+    "test_predictions": [
+      {
+        "sample_index": 0,
+        "label": 0,
+        "score": 0.0247078493630774
+      },
+      {
+        "sample_index": 1,
+        "label": 0,
+        "score": 0.029623666162812656
+      },
+      {
+        "sample_index": 2,
+        "label": 0,
+        "score": 0.08122543916821848
+      },
+      {
+        "sample_index": 3,
+        "label": 0,
+        "score": 0.027031051174207746
+      },
+      {
+        "sample_index": 4,
+        "label": 0,
+        "score": 0.05312374878498995
+      },
+      {
+        "sample_index": 5,
+        "label": 0,
+        "score": 0.05049120857550599
+      },
+      {
+        "sample_index": 6,
+        "label": 0,
+        "score": 0.034055517210489036
+      },
+      {
+        "sample_index": 7,
+        "label": 0,
+        "score": 0.053305553711803705
+      },
+      {
+        "sample_index": 24,
+        "label": 0,
+        "score": 0.032825720128154816
+      },
+      {
+        "sample_index": 25,
+        "label": 0,
+        "score": 0.057571223138678455
+      },
+      {
+        "sample_index": 26,
+        "label": 0,
+        "score": 0.023927432227048837
+      },
+      {
+        "sample_index": 27,
+        "label": 0,
+        "score": 0.06387025954580786
+      },
+      {
+        "sample_index": 28,
+        "label": 0,
+        "score": 0.045001054111239364
+      },
+      {
+        "sample_index": 29,
+        "label": 0,
+        "score": 0.0527868730980124
+      },
+      {
+        "sample_index": 30,
+        "label": 0,
+        "score": 0.051974410554408754
+      },
+      {
+        "sample_index": 31,
+        "label": 0,
+        "score": 0.08035757459055709
+      },
+      {
+        "sample_index": 32,
+        "label": 0,
+        "score": 0.0580645588454823
+      },
+      {
+        "sample_index": 33,
+        "label": 0,
+        "score": 0.11058318102645352
+      },
+      {
+        "sample_index": 34,
+        "label": 0,
+        "score": 0.18303183774690387
+      },
+      {
+        "sample_index": 35,
+        "label": 1,
+        "score": 0.7000344232865453
+      },
+      {
+        "sample_index": 36,
+        "label": 0,
+        "score": 0.2926727543245993
+      },
+      {
+        "sample_index": 37,
+        "label": 0,
+        "score": 0.034421259064479695
+      },
+      {
+        "sample_index": 38,
+        "label": 0,
+        "score": 0.032505544732343204
+      },
+      {
+        "sample_index": 39,
+        "label": 0,
+        "score": 0.0629011173541857
+      },
+      {
+        "sample_index": 80,
+        "label": 0,
+        "score": 0.15954223242746532
+      },
+      {
+        "sample_index": 81,
+        "label": 0,
+        "score": 0.03510979713672044
+      },
+      {
+        "sample_index": 82,
+        "label": 0,
+        "score": 0.09762739237052427
+      },
+      {
+        "sample_index": 83,
+        "label": 0,
+        "score": 0.09497678563049818
+      },
+      {
+        "sample_index": 84,
+        "label": 1,
+        "score": 0.20367146032019748
+      },
+      {
+        "sample_index": 85,
+        "label": 1,
+        "score": 0.5403056988293513
+      },
+      {
+        "sample_index": 86,
+        "label": 0,
+        "score": 0.03896470569555259
+      },
+      {
+        "sample_index": 87,
+        "label": 1,
+        "score": 0.11198432580741134
+      },
+      {
+        "sample_index": 224,
+        "label": 0,
+        "score": 0.05044227952381539
+      },
+      {
+        "sample_index": 225,
+        "label": 0,
+        "score": 0.02660374336091473
+      },
+      {
+        "sample_index": 226,
+        "label": 0,
+        "score": 0.15878527471271134
+      },
+      {
+        "sample_index": 227,
+        "label": 0,
+        "score": 0.09108795441718498
+      },
+      {
+        "sample_index": 228,
+        "label": 1,
+        "score": 0.723236376836112
+      },
+      {
+        "sample_index": 229,
+        "label": 1,
+        "score": 0.27017850886228956
+      },
+      {
+        "sample_index": 230,
+        "label": 0,
+        "score": 0.07527757952093801
+      },
+      {
+        "sample_index": 231,
+        "label": 0,
+        "score": 0.0524433429766989
+      },
+      {
+        "sample_index": 272,
+        "label": 0,
+        "score": 0.03164122486001272
+      },
+      {
+        "sample_index": 273,
+        "label": 0,
+        "score": 0.028001049409383402
+      },
+      {
+        "sample_index": 274,
+        "label": 0,
+        "score": 0.03369760260402939
+      },
+      {
+        "sample_index": 275,
+        "label": 1,
+        "score": 0.77685799066412
+      },
+      {
+        "sample_index": 276,
+        "label": 0,
+        "score": 0.025196350845631564
+      },
+      {
+        "sample_index": 277,
+        "label": 0,
+        "score": 0.09269086660759562
+      },
+      {
+        "sample_index": 278,
+        "label": 1,
+        "score": 0.7328497659936258
+      },
+      {
+        "sample_index": 279,
+        "label": 0,
+        "score": 0.03291331393606318
+      },
+      {
+        "sample_index": 280,
+        "label": 1,
+        "score": 0.19312961239787668
+      },
+      {
+        "sample_index": 281,
+        "label": 0,
+        "score": 0.1150133979346103
+      },
+      {
+        "sample_index": 282,
+        "label": 0,
+        "score": 0.09421385022460017
+      },
+      {
+        "sample_index": 283,
+        "label": 0,
+        "score": 0.08589820346703099
+      },
+      {
+        "sample_index": 284,
+        "label": 0,
+        "score": 0.0965245891444521
+      },
+      {
+        "sample_index": 285,
+        "label": 0,
+        "score": 0.025741680899226252
+      },
+      {
+        "sample_index": 286,
+        "label": 0,
+        "score": 0.06833632793444734
+      },
+      {
+        "sample_index": 287,
+        "label": 0,
+        "score": 0.10599143837839387
+      },
+      {
+        "sample_index": 304,
+        "label": 0,
+        "score": 0.02823643772340538
+      },
+      {
+        "sample_index": 305,
+        "label": 0,
+        "score": 0.11575296160205352
+      },
+      {
+        "sample_index": 306,
+        "label": 0,
+        "score": 0.058321587514707264
+      },
+      {
+        "sample_index": 307,
+        "label": 1,
+        "score": 0.2293140011688608
+      },
+      {
+        "sample_index": 308,
+        "label": 1,
+        "score": 0.6434396675774676
+      },
+      {
+        "sample_index": 309,
+        "label": 0,
+        "score": 0.04965309206911468
+      },
+      {
+        "sample_index": 310,
+        "label": 0,
+        "score": 0.1446462336239537
+      },
+      {
+        "sample_index": 311,
+        "label": 0,
+        "score": 0.1047814614029525
+      },
+      {
+        "sample_index": 352,
+        "label": 0,
+        "score": 0.035823400815854424
+      },
+      {
+        "sample_index": 353,
+        "label": 0,
+        "score": 0.1024290965108816
+      },
+      {
+        "sample_index": 354,
+        "label": 0,
+        "score": 0.07014807322068133
+      },
+      {
+        "sample_index": 355,
+        "label": 0,
+        "score": 0.04307290415979414
+      },
+      {
+        "sample_index": 356,
+        "label": 0,
+        "score": 0.055368741182622756
+      },
+      {
+        "sample_index": 357,
+        "label": 0,
+        "score": 0.2751182083906515
+      },
+      {
+        "sample_index": 358,
+        "label": 0,
+        "score": 0.026036543356063764
+      },
+      {
+        "sample_index": 359,
+        "label": 0,
+        "score": 0.13654768280603574
+      },
+      {
+        "sample_index": 488,
+        "label": 0,
+        "score": 0.033638189680653754
+      },
+      {
+        "sample_index": 489,
+        "label": 0,
+        "score": 0.2930286212202585
+      },
+      {
+        "sample_index": 490,
+        "label": 1,
+        "score": 0.18418311770158874
+      },
+      {
+        "sample_index": 491,
+        "label": 0,
+        "score": 0.05906398048440261
+      },
+      {
+        "sample_index": 492,
+        "label": 0,
+        "score": 0.05960259522535607
+      },
+      {
+        "sample_index": 493,
+        "label": 0,
+        "score": 0.07732263241347796
+      },
+      {
+        "sample_index": 494,
+        "label": 0,
+        "score": 0.059636462940214345
+      },
+      {
+        "sample_index": 495,
+        "label": 0,
+        "score": 0.039555015804241304
+      },
+      {
+        "sample_index": 512,
+        "label": 0,
+        "score": 0.04957450174429456
+      },
+      {
+        "sample_index": 513,
+        "label": 0,
+        "score": 0.028506524575703535
+      },
+      {
+        "sample_index": 514,
+        "label": 0,
+        "score": 0.04286383199472278
+      },
+      {
+        "sample_index": 515,
+        "label": 0,
+        "score": 0.06404643264202277
+      },
+      {
+        "sample_index": 516,
+        "label": 0,
+        "score": 0.03157742484771585
+      },
+      {
+        "sample_index": 517,
+        "label": 0,
+        "score": 0.20055546327485183
+      },
+      {
+        "sample_index": 518,
+        "label": 0,
+        "score": 0.0981856058864266
+      },
+      {
+        "sample_index": 519,
+        "label": 0,
+        "score": 0.06261170988682772
+      },
+      {
+        "sample_index": 568,
+        "label": 1,
+        "score": 0.6771618503929885
+      },
+      {
+        "sample_index": 569,
+        "label": 0,
+        "score": 0.055741079993821045
+      },
+      {
+        "sample_index": 570,
+        "label": 1,
+        "score": 0.4771306541225653
+      },
+      {
+        "sample_index": 571,
+        "label": 1,
+        "score": 0.34821983045858035
+      },
+      {
+        "sample_index": 572,
+        "label": 0,
+        "score": 0.09081489327373202
+      },
+      {
+        "sample_index": 573,
+        "label": 0,
+        "score": 0.1575505237081057
+      },
+      {
+        "sample_index": 574,
+        "label": 1,
+        "score": 0.4814343291578355
+      },
+      {
+        "sample_index": 575,
+        "label": 0,
+        "score": 0.025229938593336238
+      },
+      {
+        "sample_index": 576,
+        "label": 0,
+        "score": 0.08859786888426885
+      },
+      {
+        "sample_index": 577,
+        "label": 0,
+        "score": 0.055330707022953576
+      },
+      {
+        "sample_index": 578,
+        "label": 0,
+        "score": 0.03359466852903981
+      },
+      {
+        "sample_index": 579,
+        "label": 0,
+        "score": 0.06532110756026151
+      },
+      {
+        "sample_index": 580,
+        "label": 0,
+        "score": 0.027793942305931577
+      },
+      {
+        "sample_index": 581,
+        "label": 0,
+        "score": 0.027511465232537894
+      },
+      {
+        "sample_index": 582,
+        "label": 0,
+        "score": 0.028539817602063196
+      },
+      {
+        "sample_index": 583,
+        "label": 0,
+        "score": 0.16049227809864397
+      },
+      {
+        "sample_index": 640,
+        "label": 0,
+        "score": 0.05413785493665758
+      },
+      {
+        "sample_index": 641,
+        "label": 0,
+        "score": 0.06055437899071811
+      },
+      {
+        "sample_index": 642,
+        "label": 0,
+        "score": 0.1053010437800136
+      },
+      {
+        "sample_index": 643,
+        "label": 0,
+        "score": 0.038250154306603626
+      },
+      {
+        "sample_index": 644,
+        "label": 0,
+        "score": 0.060837931800396844
+      },
+      {
+        "sample_index": 645,
+        "label": 0,
+        "score": 0.16683290422069952
+      },
+      {
+        "sample_index": 646,
+        "label": 0,
+        "score": 0.08236414683071672
+      },
+      {
+        "sample_index": 647,
+        "label": 0,
+        "score": 0.0656275219028109
+      },
+      {
+        "sample_index": 656,
+        "label": 1,
+        "score": 0.5175024112483327
+      },
+      {
+        "sample_index": 657,
+        "label": 0,
+        "score": 0.31891291545686984
+      },
+      {
+        "sample_index": 658,
+        "label": 0,
+        "score": 0.05431373570145452
+      },
+      {
+        "sample_index": 659,
+        "label": 1,
+        "score": 0.17138525398738658
+      },
+      {
+        "sample_index": 660,
+        "label": 0,
+        "score": 0.06471236010250969
+      },
+      {
+        "sample_index": 661,
+        "label": 0,
+        "score": 0.10644696343661293
+      },
+      {
+        "sample_index": 662,
+        "label": 0,
+        "score": 0.05279187603438189
+      },
+      {
+        "sample_index": 663,
+        "label": 0,
+        "score": 0.07109830542244472
+      },
+      {
+        "sample_index": 696,
+        "label": 0,
+        "score": 0.03241761572379794
+      },
+      {
+        "sample_index": 697,
+        "label": 0,
+        "score": 0.033561493718678524
+      },
+      {
+        "sample_index": 698,
+        "label": 0,
+        "score": 0.0267233585565163
+      },
+      {
+        "sample_index": 699,
+        "label": 0,
+        "score": 0.03808045461267464
+      },
+      {
+        "sample_index": 700,
+        "label": 0,
+        "score": 0.03550958916530666
+      },
+      {
+        "sample_index": 701,
+        "label": 0,
+        "score": 0.08660356627616833
+      },
+      {
+        "sample_index": 702,
+        "label": 0,
+        "score": 0.08785779217393395
+      },
+      {
+        "sample_index": 703,
+        "label": 0,
+        "score": 0.10762010319137474
+      },
+      {
+        "sample_index": 792,
+        "label": 0,
+        "score": 0.10002270177449656
+      },
+      {
+        "sample_index": 793,
+        "label": 0,
+        "score": 0.032568532446608345
+      },
+      {
+        "sample_index": 794,
+        "label": 0,
+        "score": 0.1522127768854003
+      },
+      {
+        "sample_index": 795,
+        "label": 0,
+        "score": 0.08202354516177647
+      },
+      {
+        "sample_index": 796,
+        "label": 0,
+        "score": 0.051213071455430165
+      },
+      {
+        "sample_index": 797,
+        "label": 0,
+        "score": 0.029362333539892947
+      },
+      {
+        "sample_index": 798,
+        "label": 0,
+        "score": 0.027944772215709394
+      },
+      {
+        "sample_index": 799,
+        "label": 0,
+        "score": 0.02476945430161472
+      },
+      {
+        "sample_index": 912,
+        "label": 0,
+        "score": 0.024648003024216804
+      },
+      {
+        "sample_index": 913,
+        "label": 0,
+        "score": 0.05033708284347833
+      },
+      {
+        "sample_index": 914,
+        "label": 0,
+        "score": 0.2423979070298458
+      },
+      {
+        "sample_index": 915,
+        "label": 0,
+        "score": 0.05332898398558662
+      },
+      {
+        "sample_index": 916,
+        "label": 0,
+        "score": 0.11356764279415336
+      },
+      {
+        "sample_index": 917,
+        "label": 0,
+        "score": 0.05536325224435289
+      },
+      {
+        "sample_index": 918,
+        "label": 0,
+        "score": 0.03266435370251706
+      },
+      {
+        "sample_index": 919,
+        "label": 1,
+        "score": 0.35893277962519754
+      },
+      {
+        "sample_index": 920,
+        "label": 0,
+        "score": 0.03284550249710109
+      },
+      {
+        "sample_index": 921,
+        "label": 0,
+        "score": 0.02427067725762038
+      },
+      {
+        "sample_index": 922,
+        "label": 0,
+        "score": 0.04043243996576738
+      },
+      {
+        "sample_index": 923,
+        "label": 0,
+        "score": 0.09847400695578218
+      },
+      {
+        "sample_index": 924,
+        "label": 0,
+        "score": 0.10117440282345802
+      },
+      {
+        "sample_index": 925,
+        "label": 1,
+        "score": 0.22152670431448673
+      },
+      {
+        "sample_index": 926,
+        "label": 1,
+        "score": 0.8082377819204286
+      },
+      {
+        "sample_index": 927,
+        "label": 1,
+        "score": 0.19750204370480473
+      },
+      {
+        "sample_index": 936,
+        "label": 0,
+        "score": 0.07069624829468729
+      },
+      {
+        "sample_index": 937,
+        "label": 1,
+        "score": 0.6211439988054137
+      },
+      {
+        "sample_index": 938,
+        "label": 0,
+        "score": 0.05982024383597495
+      },
+      {
+        "sample_index": 939,
+        "label": 0,
+        "score": 0.05245478408947989
+      },
+      {
+        "sample_index": 940,
+        "label": 0,
+        "score": 0.09041864802508603
+      },
+      {
+        "sample_index": 941,
+        "label": 0,
+        "score": 0.5551006271510309
+      },
+      {
+        "sample_index": 942,
+        "label": 0,
+        "score": 0.039513839252091856
+      },
+      {
+        "sample_index": 943,
+        "label": 0,
+        "score": 0.05909338762261979
+      },
+      {
+        "sample_index": 1024,
+        "label": 0,
+        "score": 0.03462179535454048
+      },
+      {
+        "sample_index": 1025,
+        "label": 0,
+        "score": 0.028342335668227827
+      },
+      {
+        "sample_index": 1026,
+        "label": 0,
+        "score": 0.0670752719500479
+      },
+      {
+        "sample_index": 1027,
+        "label": 0,
+        "score": 0.0877675152021066
+      },
+      {
+        "sample_index": 1028,
+        "label": 0,
+        "score": 0.16535320038225643
+      },
+      {
+        "sample_index": 1029,
+        "label": 0,
+        "score": 0.0764429826263433
+      },
+      {
+        "sample_index": 1030,
+        "label": 1,
+        "score": 0.6823347481260965
+      },
+      {
+        "sample_index": 1031,
+        "label": 0,
+        "score": 0.24203630957976532
+      },
+      {
+        "sample_index": 1040,
+        "label": 1,
+        "score": 0.16208532800333272
+      },
+      {
+        "sample_index": 1041,
+        "label": 0,
+        "score": 0.023938276703059796
+      },
+      {
+        "sample_index": 1042,
+        "label": 0,
+        "score": 0.1372817400410379
+      },
+      {
+        "sample_index": 1043,
+        "label": 0,
+        "score": 0.02943992249989941
+      },
+      {
+        "sample_index": 1044,
+        "label": 0,
+        "score": 0.03693480961601599
+      },
+      {
+        "sample_index": 1045,
+        "label": 0,
+        "score": 0.07415675991771417
+      },
+      {
+        "sample_index": 1046,
+        "label": 1,
+        "score": 0.8046862705710197
+      },
+      {
+        "sample_index": 1047,
+        "label": 0,
+        "score": 0.11193213894231156
+      },
+      {
+        "sample_index": 1064,
+        "label": 0,
+        "score": 0.057816419217802395
+      },
+      {
+        "sample_index": 1065,
+        "label": 0,
+        "score": 0.03221592070287116
+      },
+      {
+        "sample_index": 1066,
+        "label": 0,
+        "score": 0.028649767859602875
+      },
+      {
+        "sample_index": 1067,
+        "label": 0,
+        "score": 0.1958644392262471
+      },
+      {
+        "sample_index": 1068,
+        "label": 1,
+        "score": 0.4336499140046122
+      },
+      {
+        "sample_index": 1069,
+        "label": 0,
+        "score": 0.029646070915324275
+      },
+      {
+        "sample_index": 1070,
+        "label": 0,
+        "score": 0.03710239531392511
+      },
+      {
+        "sample_index": 1071,
+        "label": 0,
+        "score": 0.04675400448153844
+      },
+      {
+        "sample_index": 1072,
+        "label": 0,
+        "score": 0.025818930222001584
+      },
+      {
+        "sample_index": 1073,
+        "label": 0,
+        "score": 0.047260546031352484
+      },
+      {
+        "sample_index": 1074,
+        "label": 0,
+        "score": 0.05912710345530986
+      },
+      {
+        "sample_index": 1075,
+        "label": 0,
+        "score": 0.16769717161263367
+      },
+      {
+        "sample_index": 1076,
+        "label": 0,
+        "score": 0.025416737645548956
+      },
+      {
+        "sample_index": 1077,
+        "label": 0,
+        "score": 0.09903998842634758
+      },
+      {
+        "sample_index": 1078,
+        "label": 0,
+        "score": 0.10342456238730727
+      },
+      {
+        "sample_index": 1079,
+        "label": 1,
+        "score": 0.5087867755316879
+      },
+      {
+        "sample_index": 1088,
+        "label": 0,
+        "score": 0.13228922249549754
+      },
+      {
+        "sample_index": 1089,
+        "label": 0,
+        "score": 0.027324685319773123
+      },
+      {
+        "sample_index": 1090,
+        "label": 0,
+        "score": 0.02777392575648232
+      },
+      {
+        "sample_index": 1091,
+        "label": 0,
+        "score": 0.06654474039961299
+      },
+      {
+        "sample_index": 1092,
+        "label": 0,
+        "score": 0.02905248567105959
+      },
+      {
+        "sample_index": 1093,
+        "label": 0,
+        "score": 0.14855111902140702
+      },
+      {
+        "sample_index": 1094,
+        "label": 0,
+        "score": 0.07672476548177228
+      },
+      {
+        "sample_index": 1095,
+        "label": 0,
+        "score": 0.06377885174441773
+      },
+      {
+        "sample_index": 1096,
+        "label": 0,
+        "score": 0.04196305655627612
+      },
+      {
+        "sample_index": 1097,
+        "label": 0,
+        "score": 0.1190100906784199
+      },
+      {
+        "sample_index": 1098,
+        "label": 0,
+        "score": 0.03365488680896013
+      },
+      {
+        "sample_index": 1099,
+        "label": 0,
+        "score": 0.03953353149603703
+      },
+      {
+        "sample_index": 1100,
+        "label": 0,
+        "score": 0.04776221555033692
+      },
+      {
+        "sample_index": 1101,
+        "label": 0,
+        "score": 0.03688524413406821
+      },
+      {
+        "sample_index": 1102,
+        "label": 0,
+        "score": 0.19107967285774927
+      },
+      {
+        "sample_index": 1103,
+        "label": 0,
+        "score": 0.2786209760249695
+      },
+      {
+        "sample_index": 1104,
+        "label": 0,
+        "score": 0.053024179453831304
+      },
+      {
+        "sample_index": 1105,
+        "label": 0,
+        "score": 0.12083896604311882
+      },
+      {
+        "sample_index": 1106,
+        "label": 0,
+        "score": 0.029522961407727272
+      },
+      {
+        "sample_index": 1107,
+        "label": 0,
+        "score": 0.03237093095322909
+      },
+      {
+        "sample_index": 1108,
+        "label": 0,
+        "score": 0.07721355049232488
+      },
+      {
+        "sample_index": 1109,
+        "label": 0,
+        "score": 0.039951931341957084
+      },
+      {
+        "sample_index": 1110,
+        "label": 0,
+        "score": 0.023433743180738414
+      },
+      {
+        "sample_index": 1111,
+        "label": 0,
+        "score": 0.2420664116791132
+      },
+      {
+        "sample_index": 1144,
+        "label": 0,
+        "score": 0.060404108279086675
+      },
+      {
+        "sample_index": 1145,
+        "label": 0,
+        "score": 0.02290721344056311
+      },
+      {
+        "sample_index": 1146,
+        "label": 0,
+        "score": 0.06064522357388499
+      },
+      {
+        "sample_index": 1147,
+        "label": 0,
+        "score": 0.06551696780474386
+      },
+      {
+        "sample_index": 1148,
+        "label": 0,
+        "score": 0.0935928546330647
+      },
+      {
+        "sample_index": 1149,
+        "label": 0,
+        "score": 0.1369695501708559
+      },
+      {
+        "sample_index": 1150,
+        "label": 0,
+        "score": 0.027398615940311656
+      },
+      {
+        "sample_index": 1151,
+        "label": 0,
+        "score": 0.0827131943646908
+      },
+      {
+        "sample_index": 1160,
+        "label": 0,
+        "score": 0.09833040555158837
+      },
+      {
+        "sample_index": 1161,
+        "label": 0,
+        "score": 0.033426119994898994
+      },
+      {
+        "sample_index": 1162,
+        "label": 0,
+        "score": 0.02582202200169647
+      },
+      {
+        "sample_index": 1163,
+        "label": 0,
+        "score": 0.1972488280211468
+      },
+      {
+        "sample_index": 1164,
+        "label": 0,
+        "score": 0.03821682003986157
+      },
+      {
+        "sample_index": 1165,
+        "label": 1,
+        "score": 0.7735199963067102
+      },
+      {
+        "sample_index": 1166,
+        "label": 0,
+        "score": 0.02867305552392612
+      },
+      {
+        "sample_index": 1167,
+        "label": 0,
+        "score": 0.05955236073328158
+      },
+      {
+        "sample_index": 1184,
+        "label": 0,
+        "score": 0.088243530825831
+      },
+      {
+        "sample_index": 1185,
+        "label": 0,
+        "score": 0.02582788092265979
+      },
+      {
+        "sample_index": 1186,
+        "label": 0,
+        "score": 0.03153975939138078
+      },
+      {
+        "sample_index": 1187,
+        "label": 0,
+        "score": 0.0535911207110577
+      },
+      {
+        "sample_index": 1188,
+        "label": 0,
+        "score": 0.0922736164094763
+      },
+      {
+        "sample_index": 1189,
+        "label": 0,
+        "score": 0.037755630821365675
+      },
+      {
+        "sample_index": 1190,
+        "label": 0,
+        "score": 0.03188966355589387
+      },
+      {
+        "sample_index": 1191,
+        "label": 0,
+        "score": 0.04083628328942769
+      },
+      {
+        "sample_index": 1200,
+        "label": 0,
+        "score": 0.04704265720359506
+      },
+      {
+        "sample_index": 1201,
+        "label": 0,
+        "score": 0.06962022693993092
+      },
+      {
+        "sample_index": 1202,
+        "label": 0,
+        "score": 0.22281637046458394
+      },
+      {
+        "sample_index": 1203,
+        "label": 0,
+        "score": 0.029353699085364872
+      },
+      {
+        "sample_index": 1204,
+        "label": 0,
+        "score": 0.14816235605519734
+      },
+      {
+        "sample_index": 1205,
+        "label": 1,
+        "score": 0.11611720943191625
+      },
+      {
+        "sample_index": 1206,
+        "label": 0,
+        "score": 0.0508441195580153
+      },
+      {
+        "sample_index": 1207,
+        "label": 0,
+        "score": 0.09407127074121945
+      },
+      {
+        "sample_index": 1208,
+        "label": 0,
+        "score": 0.1642906851797985
+      },
+      {
+        "sample_index": 1209,
+        "label": 0,
+        "score": 0.028608869079737285
+      },
+      {
+        "sample_index": 1210,
+        "label": 1,
+        "score": 0.6888300102692092
+      },
+      {
+        "sample_index": 1211,
+        "label": 0,
+        "score": 0.027278464033146925
+      },
+      {
+        "sample_index": 1212,
+        "label": 0,
+        "score": 0.028356681803510073
+      },
+      {
+        "sample_index": 1213,
+        "label": 0,
+        "score": 0.06171793632431826
+      },
+      {
+        "sample_index": 1214,
+        "label": 0,
+        "score": 0.023195136925125138
+      },
+      {
+        "sample_index": 1215,
+        "label": 1,
+        "score": 0.2917626420723434
+      }
+    ],
+    "selection_feasible": true,
+    "gate": {
+      "passed": false,
+      "reasons": [
+        "불량 검출률 84.4%: 데모 목표 90% 미달"
+      ],
+      "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+      "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+      "auto_deploy": false
+    },
+    "elapsed_seconds": 195.1103793000002,
+    "scope_note": "불량 판정 성능 비교이며 제조 수율 개선 실측이 아닙니다.",
+    "test_note": "최종 test는 선택에 사용하지 않음. baseline과 validation으로 선택한 후보만 평가.",
+    "seed": 45,
+    "explanation": {
+      "model": "catboost",
+      "title": "CatBoost",
+      "input": "숫자 센서와 정상/불량 라벨",
+      "preprocessing": "median",
+      "preprocessing_reason": "결측은 학습 중앙값으로 대체하고 상수 특성을 제거. 트리 모델은 단위 차이의 영향이 작아 기본 설정에서 Scaling 없이 사용",
+      "model_reason": "교육자료의 트리 부스팅 후보. 이번 입력은 숫자 센서이므로 범주형 이점은 검증하지 않음",
+      "balance_method": "원래 학습 클래스 비율 유지",
+      "source": "Day1 PDF 70, 73쪽",
+      "limitation": "동일 분할의 validation 비교 결과로 선택. 다른 제품·공정에서의 우위를 보장하지 않음",
+      "selection_reason": "같은 Validation에서 데모 목표를 만족한 47개 후보 중 불량 검출률이 높고 정상 오판률이 낮은 순서로 선택",
+      "evaluated_models": [
+        "adaboost",
+        "catboost",
+        "decision_tree",
+        "gradient_boosting",
+        "hist_gradient",
+        "knn",
+        "lightgbm",
+        "logistic",
+        "mlp",
+        "random_forest",
+        "svm",
+        "xgboost"
+      ],
+      "search_note": "전체 제품으로 모든 모델·불균형 정책 비교 후 validation 상위 서로 다른 두 모델의 최선 정책을 제품 조합으로 확장. 완전탐색이 아니며 같은 validation의 반복 사용에 따른 선택 편향 가능"
+    },
+    "agent_review": {
+      "role": "ResultCriticAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "validation",
+        "tradeoff",
+        "hold"
+      ],
+      "recommendations": [
+        "모델 선택에는 validation 결과를 사용. test 수치로 후보 순서를 바꾸지 않음",
+        "불량을 놓친 건수와 정상을 불량으로 잘못 판정한 건수를 함께 검토",
+        "현재 결과는 적용 보류. 기준 미달 원인을 먼저 검토"
+      ],
+      "evidence_ids": [
+        "leakage",
+        "approval",
+        "profit"
+      ],
+      "seconds": 19.053,
+      "tokens": 48,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    }
+  },
+  "scope": "New Windows replay. Original Mac receipts remain unchanged.",
+  "agent_outputs": [
+    {
+      "role": "DataQualityAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "missing",
+        "imbalance",
+        "split"
+      ],
+      "recommendations": [
+        "관측한 센서 결측을 학습 중앙값으로 대체",
+        "불량이 적어 train 전용 불균형 대책과 Recall·Precision을 함께 비교",
+        "같은 lot 또는 날짜가 학습·평가에 걸치지 않도록 분할을 확인"
+      ],
+      "evidence_ids": [
+        "leakage",
+        "leakage",
+        "imbalance"
+      ],
+      "seconds": 7.393,
+      "tokens": 38,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    },
+    {
+      "role": "ExperimentPlannerAgent",
+      "status": "verified",
+      "model": "qwen2.5:1.5b",
+      "priority_codes": [
+        "mlp"
+      ],
+      "recommendations": [
+        "다층 신경망으로 센서 간 비선형 관계를 비교"
+      ],
+      "evidence_ids": [
+        "ann"
+      ],
+      "seconds": 4.922,
+      "tokens": 21,
+      "numeric_claims": "engine_only",
+      "validation_scope": "허용 코드·출처 존재·주제 연결 검사. 자유 추론의 사실성을 보증하는 평가 아님"
+    }
+  ]
+}

@@ -47,7 +47,7 @@ class Knowledge:
         self.docs = json.loads((ROOT / "data/knowledge.json").read_text(encoding='utf-8'))
         self.vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
         self.matrix = self.vectorizer.fit_transform([d["title"] + " " + d["text"] for d in self.docs])
-        self.dense = os.getenv('SEMI_LLM_ENABLED', '0') == '1' if dense is None else dense
+        self.dense = os.getenv('SEMI_DENSE_ENABLED', os.getenv('SEMI_LLM_ENABLED', '0')) == '1' if dense is None else dense
         self.client = client or httpx.Client(timeout=45)
         self.cache = Path(directory) / 'knowledge-vectors.json' if directory else None
         self.model = os.getenv('SEMI_EMBED_MODEL', 'qwen3-embedding:0.6b')

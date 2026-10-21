@@ -2,7 +2,7 @@
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고, 승인받아 모델을 비교한 뒤, 결과에 따라 다음 실험을 제안합니다.
+검사 데이터를 점검하고 승인받아 여러 모델을 비교한 뒤, 선택 근거와 판정 성능을 보여 줍니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
@@ -10,7 +10,7 @@
 
 ## 하나의 사용 흐름
 
-데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 비교 → 고정 Test 확인 → 새 모델 탐색 / 기존 모델 점검
+데이터 선택 → 점검·근거 검색 → 계획 확인·승인 → 실제 학습 → Validation 후보 선택 → 같은 Test의 기본·후보 비교
 
 ![같은 Test의 기본·후보 비교](docs/assets/app-result.jpg)
 
@@ -30,8 +30,11 @@ macOS/Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·Light
 APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재조회**를 확인했습니다.
 [추적 증빙](docs/evaluation/langsmith_check.json) · [설정 안내](docs/LANGSMITH_SETUP.md)
 
-현재 Windows 모드는 LLM 미사용·TF-IDF 검색·규칙 설명입니다. Ollama와 Qwen 모델을 설치하고
-`SEMI_LLM_ENABLED=1`로 설정하면 로컬 LLM·임베딩을 사용합니다.
+현재 Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
+실제 역할별 응답 검증은 [기록](docs/evaluation/local_llm_check.json)을 기준으로 확인합니다.
+검색은 TF-IDF이며 LLM 추론과 임베딩 사용 여부를 각각 설정합니다.
+`SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=0`이 현재 설정입니다.
+첫 준비는 `scripts/setup_local_qwen.py`, 이후 Windows 실행 파일은 로컬 Ollama도 함께 시작합니다.
 기존 Mac의 LLM 검증 기록은 [agent_integration.json](docs/evaluation/agent_integration.json)에 보존합니다.
 LangSmith 연결과 LLM 응답 성공은 별개이며 UI에 verified/fallback/disabled 상태를 표시합니다.
 
@@ -59,7 +62,8 @@ LangGraph 역할 분리, 교육 근거14개 검색과 공식 문서 기반 새 �
 의존성 주입, 승인 hash, 실제 모델 학습·파일 저장, 모델 점검·재학습, 제품별 학습 비교를 구현했습니다.
 외부 모델 탐색은 **ExtraTrees·GaussianNB의 검토된 adapter**를 지원합니다.
 현재 RAG는 TF-IDF 또는 Qwen 임베딩·cosine 검색이며 별도 Vector DB는 없습니다.
-자율 Supervisor·LLM-as-a-Judge·3σ 트리거·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
+로컬 LLM-as-a-Judge는 [평가 기록](docs/evaluation/llm_judge.json)에 있습니다. 작은 자체 개발 예제에 대한 결과이며 독립 평가가 아닙니다. 초기 실패도 보존합니다.
+자율 Supervisor·임의 코드 생성·앙상블 혼합 가중치 탐색은 미구현입니다.
 
 운영 모델은 자동 교체하지 않습니다. 회사 공통 Recall 수치, 양산 수율·금액 이득·작업시간 절감은 검증하지 않았습니다.
 작은 불량 표본·반복 Validation과 추가 탐색의 Test 재사용이 한계이며 독립 기간 검증이 필요합니다.

@@ -10,7 +10,7 @@ with sync_playwright() as p:
     page.wait_for_function("document.querySelectorAll('[data-dataset]').length > 0")
     page.locator('#data-section').screenshot(path=str(ROOT/'docs/assets/app-data.jpg'),type='jpeg',quality=94)
     page.locator('#proposal-form button[type=submit]').click()
-    page.locator('#proposal-section').wait_for(state='visible')
+    page.locator('#proposal-section').wait_for(state='visible',timeout=150000)
     assert '12종' not in page.locator('#proposal-section').inner_text()
     page.locator('#proposal-section').screenshot(path=str(ROOT/'docs/assets/app-plan.jpg'),type='jpeg',quality=94)
     browser.close()
