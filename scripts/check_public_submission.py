@@ -17,8 +17,13 @@ receipt={'verified_at':datetime.now(timezone.utc).isoformat(),'anonymous_request
 with httpx.Client(follow_redirects=True,timeout=45,headers={'User-Agent':'G045-public-submission-check'}) as client:
     for label,local,path in [('report','docs/REPORT.md','docs/REPORT.md'),('pptx','docs/G045_Semiconductor_Agent.pptx','docs/G045_Semiconductor_Agent.pptx'),('pdf','docs/G045_Semiconductor_Agent.pdf','docs/G045_Semiconductor_Agent.pdf')]:
         r=client.get(raw+path+'?verify='+receipt['commit']);r.raise_for_status()
-        matched=sha256(r.content).digest()==sha256((ROOT/local).read_bytes()).digest()
-        receipt['checks'][label]={'url':raw+path,'http_status':r.status_code,'matches_latest_local_file':matched,'sha256':sha256(r.content).hexdigest()}
+        local_bytes=(ROOT/local).read_bytes()
+        exact=r.content==local_bytes
+        # Git normalizes Markdown CRLF on Windows; binary artifacts stay exact.
+        matched=(r.content.replace(b'\r\n',b'\n')==local_bytes.replace(b'\r\n',b'\n')) if label=='report' else exact
+        receipt['checks'][label]={'url':raw+path,'http_status':r.status_code,'matches_latest_local_file':matched,
+            'byte_identical':exact,'comparison':'UTF-8 Markdown with line endings normalized' if label=='report' else 'exact bytes',
+            'sha256':sha256(r.content).hexdigest()}
         assert matched,f'{label} public file is stale'
     r=client.get(repo);r.raise_for_status()
     receipt['checks']['github_repository']={'url':repo,'http_status':r.status_code}

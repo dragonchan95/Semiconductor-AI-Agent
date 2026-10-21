@@ -1,32 +1,43 @@
 {
-  "github_report": {
-    "http_status": 200,
-    "unauthenticated_access_verified": true,
-    "content_type": "text/plain; charset=utf-8"
+  "verified_at": "2026-10-21T18:21:10.728650+00:00",
+  "anonymous_requests": true,
+  "commit": "76231dc130329b7d6ad01aae862d17c9906bfc67",
+  "checks": {
+    "report": {
+      "url": "https://raw.githubusercontent.com/dragonchan95/Semiconductor-AI-Agent/main/docs/REPORT.md",
+      "http_status": 200,
+      "matches_latest_local_file": true,
+      "byte_identical": false,
+      "comparison": "UTF-8 Markdown with line endings normalized",
+      "sha256": "a020a7cb31c8dc860a41b11fc4bf26767858a2ff7a75312f4a91b0616ca8a6d3"
+    },
+    "pptx": {
+      "url": "https://raw.githubusercontent.com/dragonchan95/Semiconductor-AI-Agent/main/docs/G045_Semiconductor_Agent.pptx",
+      "http_status": 200,
+      "matches_latest_local_file": true,
+      "byte_identical": true,
+      "comparison": "exact bytes",
+      "sha256": "d7568ecdbce111faf5511b0aa5de566a80ca8075f4c95d6ad85356bd868cdc21"
+    },
+    "pdf": {
+      "url": "https://raw.githubusercontent.com/dragonchan95/Semiconductor-AI-Agent/main/docs/G045_Semiconductor_Agent.pdf",
+      "http_status": 200,
+      "matches_latest_local_file": true,
+      "byte_identical": true,
+      "comparison": "exact bytes",
+      "sha256": "5db45ff0e17ccb21e0f8b4cd4f8fa07beea801507e6e79e18e8d881af6281377"
+    },
+    "github_repository": {
+      "url": "https://github.com/dragonchan95/Semiconductor-AI-Agent",
+      "http_status": 200
+    },
+    "google_slides": {
+      "url": "https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit",
+      "http_status": 200,
+      "slide_count": 16,
+      "matches_latest_story": false
+    }
   },
-  "google_slides_export": {
-    "http_status": 200,
-    "unauthenticated_access_verified": true,
-    "content_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-    "slides": 16,
-    "current_slide_titles": [
-      "프로젝트 소개",
-      "출발점 · 반도체 교육에서 배운 데이터와 모델",
-      "사용자 · 검사 모델을 만드는 공정·장비 엔지니어",
-      "본 실험 1/3 · 정상/불량 정답이 있는 합성 센서",
-      "본 실험 2/3 · 앞에서 선택한 같은 센서 데이터",
-      "본 실험 3/3 · 승인한 비교 실험의 결과",
-      "같은 앱의 세 가지 데이터 · 각 데이터 안에서 같은 Test로 비교",
-      "판단 기준 · 불량을 Positive로 둡니다",
-      "추가 기능 · 엔지니어가 아직 비교하지 않은 모델 찾기",
-      "결론 · 지금 사용할 수 있는 기능과 남은 검증",
-      "추가 상황 · 같은 제품에 새 정답 데이터가 들어왔습니다",
-      "추가 기능 · 제품 데이터를 합칠지 나눌지 비교합니다",
-      "부록 · 상세 지표와 검증 방식",
-      "데이터 출처 · 실측 결과와 합성 시연을 구분합니다",
-      "부록 · 앙상블 혼합 비율은 확장 설계이며 미구현",
-      "부록 · 기술 요소와 구현 위치"
-    ]
-  },
-  "google_slides_updated_this_session": false
+  "google_slides_updated_this_session": false,
+  "latest_report_and_artifacts_public": true
 }
