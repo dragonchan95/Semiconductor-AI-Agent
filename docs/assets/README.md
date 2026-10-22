@@ -9,3 +9,7 @@ Windows 이관 후 `app-data.jpg`와 `app-plan.jpg`는 ‘여러 모델 비교�
 사용자가 제공한 바탕화면 스크린샷 두 장의 Recall·정상 오판 관계를 6장 설명에 참고했습니다. 원본 화면에 포함된 금액 추정과 폐기·재검사 단정은 발표에 사용하지 않았고 원본 스크린샷도 재배포하지 않습니다.
 
 `app-discovery.jpg`는 공식 문서 검색·승인 학습 후 외부 후보 목록이 갱신된 실제 앱 화면입니다. ExtraTrees·GaussianNB를 학습했고 기존 CatBoost가 유지됐습니다. 선택한 교육 분류 사진의 내용은 사용자 요청에 따라 발표의 편집 가능한 표로 재구성했으며, 전체 교육 사진 폴더는 재배포하지 않습니다.
+
+## 2026-10-22 Mac 모델 관리 화면
+
+`app-management-review.jpg`와 `app-management-result.jpg`는 localhost:8700에서 새 정답 배치 점검, 승인 후5개 재학습 실행을 완료한 실제 UI입니다. 상세 원본은 `../evaluation/lifecycle_mac.json`입니다. 화면만 캡처했으며 인물·모니터 촬영을 사용하지 않았습니다. 전후 비교는 새 배치의 같은 Test로TP43→153/167·FP96→79/601입니다.

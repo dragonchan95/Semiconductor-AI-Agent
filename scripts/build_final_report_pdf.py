@@ -19,7 +19,7 @@ ARCHITECTURE = '''<div class="architecture">
   <div class="branches"><div class="step">실험1: 알고리즘 고정<br>제품 담당 그룹15개 비교</div>
   <div class="step">실험2: 학습 제품ABCD 고정<br>예측 혼합 비율232개 비교</div></div><div class="arrow">↓</div>
   <div class="step">Validation에서 선택 고정 → 같은 Test 확인 → 결과·실패·보류 기록</div>
-  <p>MCP: 조회·계획 도구 / Resource · LangSmith: 실행 추적 · LLM 설명 검사 + 코드 수치·승인 검사</p>
+  <div class="arrow">↓</div><div class="step">새 정답 배치로 기존 모델 점검 → 승인 재학습 → 같은 Test 전후 비교 → 후보 저장</div><p>MCP: 조회·계획 도구 / Resource · LangSmith: 실행 추적 · LLM 설명 검사 + 코드 수치·승인 검사</p>
 </div>'''
 
 
@@ -44,7 +44,7 @@ def main():
     css = '''
 @page {size:A4; margin:16mm 13mm 17mm}
 * {box-sizing:border-box}
-body {max-width:190mm;margin:auto;color:#173a49;font-family:"Malgun Gothic",sans-serif;font-size:10pt;line-height:1.65;overflow-wrap:anywhere}
+body {max-width:190mm;margin:auto;color:#173a49;font-family:"Arial Unicode MS","Malgun Gothic",sans-serif;font-size:10pt;line-height:1.65;overflow-wrap:anywhere}
 h1 {font-size:23pt;line-height:1.4;color:#173a49;border-bottom:3px solid #167d84;padding-bottom:12px}
 h2 {font-size:15pt;color:#167d84;border-bottom:1px solid #c9dadd;margin:24px 0 12px;break-after:avoid}
 h3 {font-size:12pt;margin-top:20px;break-after:avoid}
@@ -63,7 +63,7 @@ ul,ol {padding-left:23px} li {margin:6px 0} pre {white-space:pre-wrap;font-size:
 @media screen {body{padding:24px;background:white}html{background:#e6edef}}
 '''
     html = '<!doctype html><html lang="ko"><meta charset="utf-8"><title>G045 최종 보고서</title><style>'+css+'</style><body>'
-    html += '<div class="purpose"><strong>상세 제출용 최종 보고서</strong><br>5분 발표는 별도의 발표 PPTX·PDF 본문1~10장을 사용합니다. 프로젝트와 실험 결과는 같습니다.</div>'
+    html += '<div class="purpose"><strong>상세 제출용 최종 보고서</strong><br>5분 발표는 별도의 발표 PPTX·PDF 본문1~12장을 사용합니다. 프로젝트와 실험 결과는 같습니다.</div>'
     html += body+'</body></html>'
     html_path = DOCS/'G045_Final_Report.html'
     pdf_path = DOCS/'G045_Final_Report.pdf'
@@ -84,7 +84,7 @@ ul,ol {padding-left:23px} li {margin:6px 0} pre {white-space:pre-wrap;font-size:
     assert all(word in all_text for word in ['1. 표지', '2. 문제', '3. 적용', '4. 구현', '5. 교훈', 'BGE-M3', 'FAISS'])
     assert '\ufffd' not in all_text
     receipt = {'artifact': 'docs/G045_Final_Report.pdf', 'html_self_contained': True,
-               'pages': len(document), 'required_sections': 5, 'screens': 7,
+               'pages': len(document), 'required_sections': 5, 'screens': 9,
                'architecture': 'Printable flow diagram equivalent to the report Mermaid branches',
                'purpose': 'Detailed submission report; separate from the five-minute slide deck',
                'no_replacement_characters': True}

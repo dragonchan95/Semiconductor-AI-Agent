@@ -34,6 +34,15 @@ def prepare_changed_demo(wb):
     return wb.register(path,name,'독립 seed 1045, 결함 발생 규칙을 바꾼 합성 후속 배치. 실제 생산 데이터 아님.',True)
 
 
+def review_verdict(products):
+    """Never call an entire batch healthy when any product lacks defect labels."""
+    if any(row['needs_retraining'] for row in products):
+        return '재학습 필요'
+    if not products or any(row['current']['positive_count'] < 20 for row in products):
+        return '판단 보류'
+    return '현재 모델 유지'
+
+
 def assess(wb, source_run, dataset_id):
     run = wb.store.run(source_run)
     if run['status'] != 'completed':
@@ -82,7 +91,7 @@ def assess(wb, source_run, dataset_id):
     unseen = set(new['product'].astype(str))-set(target_products)
     if unseen:
         reasons.append('기존 평가 대상에 없던 새 제품: '+', '.join(sorted(unseen))+' — 새 제품 모델 검증을 별도로 진행')
-    verdict = '재학습 필요' if any(r['needs_retraining'] for r in same_product) else '판단 보류' if not same_product or all(r['current']['positive_count']<20 for r in same_product) else '현재 모델 유지'
+    verdict = review_verdict(same_product)
     return wb.store.save_review({'source_run':source_run,'dataset_id':dataset_id,
         'dataset_name':new_ds['name'],'dataset_sha256':new_ds['sha256'],
         'synthetic':new_ds['synthetic'], 'verdict':verdict,'reasons':reasons,

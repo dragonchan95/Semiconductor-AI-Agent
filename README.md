@@ -1,14 +1,12 @@
-# 반도체 검사 모델 실험 도우미
+# 반도체 검사 모델 실험·관리 Agent
 
 **SKALA 광주 2반 · G045 김용찬 · 신규 AI Agent 과제 2**
 
-검사 데이터를 점검하고 승인받아 **학습할 제품 묶음**과 **예측 확률의 혼합 비율**을 각각 비교한 뒤, 선택 근거와 검증 결과를 보여 줍니다.
+검사 데이터를 점검하고 승인받아 **학습할 제품 묶음**과 **예측 확률의 혼합 비율**을 각각 비교한 뒤, 선택 근거와 검증 결과를 보여 줍니다. **새 정답 데이터로 기존 모델 성능을 점검하고 승인 후 재학습 전후도 비교**합니다.
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
-교수님께 제출할 Google Slides에는 [최종 보고서 PPTX](docs/G045_Final_Report.pptx)를 업로드합니다. 상세 보고서8쪽을 모두 담은 제출용이며, 5분 발표용 PPTX와 구분합니다. [상세 보고서 PDF](docs/G045_Final_Report.pdf)와 인터넷 없이 읽는 [HTML 사본](docs/G045_Final_Report.html)도 제공합니다. 모두15주차 폴더에 모았습니다.
-
-**[최종 제출 보고서 Google Slides (8쪽)](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**에 상세 보고서 전체를 반영했습니다. 2026-10-22 Chrome 시크릿 창에서 로그인 없는 보기 전용 열람을 확인했습니다. 제출 엑셀의 `2반!F11`에도 이 주소를 반영했습니다. 5분 발표는 위 발표 PPTX·PDF의 본문1~10장을 사용합니다. [온라인 반영 확인](docs/evaluation/google_slides_submission.json)
+**[최종 제출 보고서 Google Slides](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**는 교수님 안내의 다섯 필수 항목을 담은 상세 보고서입니다. [보고서 PDF](docs/G045_Final_Report.pdf)·[Google Slides 업로드용 PPTX](docs/G045_Final_Report.pptx)·[HTML 사본](docs/G045_Final_Report.html)을 제공합니다. 5분 발표는 별도 발표 PPTX·PDF의 본문1~12장을 사용하고 13~17장은 질문용 부록입니다. 제출 엑셀 `2반!F11`에도 같은 공개 보고서 주소를 사용합니다. [온라인 반영 확인](docs/evaluation/google_slides_submission.json)
 
 ## 하나의 사용 흐름
 
@@ -25,6 +23,16 @@
 
 학습할 제품 범위도 비교합니다. **ABCD 하나 / ABC와D / AB와CD / 각각4개**를 포함해 네 제품의 담당 그룹15개 구성을 모두 비교합니다. 알고리즘을 고정한 실제 실험에서ABC와D가 Validation에서 선택됐지만 Test Recall78.1%로 목표 미달이라 적용을 보류했습니다. 제품별 전용이 항상 우수하다고 가정하지 않으며 앙상블 비율 실험과 별도로 조건을 통제합니다. [그룹 비교 방법·실측](docs/PRODUCT_GROUPING.md) · [실제15개 구성](docs/evaluation/product_partitions.json)
 
+## 기존 모델 점검·승인 재학습
+
+완료 결과에서 **모델 성능 점검·재학습**을 누르면 새 배치를 선택할 수 있습니다. **기존 모델 그대로 점검 → 근거·계획 확인 → 승인 → 재학습 → 같은 Test 전후 비교 → 후보 버전 저장** 순서입니다. 결과가 있으면 **저장된 재학습 결과 보기**로 바로 다시 열 수 있습니다.
+
+![실제 승인 재학습 결과](docs/assets/app-management-result.jpg)
+
+새 변화 합성 배치의 같은 Test에서 기존 CatBoost는 불량43/167개, 같은 알고리즘 재학습 모델은153/167개를 찾았습니다. 정상 오판은96/601개에서79/601개로 줄었습니다. 초기1,280건 실험과 별개인3,840건 후속 합성 배치입니다. [실제 실행](docs/evaluation/lifecycle_mac.json) · [판단 기준·제약](docs/MODEL_MANAGEMENT.md)
+
+제품별 목표 미달·Recall 하락을 확인하되 표본이 부족하면 판단을 보류합니다. 수치는 교육용 기준입니다. 점검은 새 Train 구간만 사용하고 Validation/Test는 남겨 둡니다. 상시 드리프트 감시와 자동 운영 모델 교체는 향후 범위입니다.
+
 ## Windows에서 실행
 
 `start.cmd`를 더블클릭하고 **http://localhost:8700**을 엽니다. 실행 창은 열어 둡니다.
@@ -33,7 +41,7 @@
 새 환경에는 과거 모델 파일과 DB가 없으므로 계획 승인 후 학습해야 새 실행 이력이 생깁니다.
 저장된 실측 결과는 `docs/evaluation/`에서 확인할 수 있습니다.
 
-macOS/Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·LightGBM은 OpenMP 설치가 필요할 수 있습니다.
+macOS에서는 `start.command`를 더블클릭하거나 터미널에서 `bash start.command`를 실행한 뒤 **http://localhost:8700**을 엽니다. Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·LightGBM은 OpenMP 설치가 필요할 수 있습니다.
 
 ## 현재 모드와 LangSmith
 
@@ -41,7 +49,7 @@ macOS/Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·Light
 APAC LangSmith에서 **실제 계획 생성과 하위 실행 기록의 API 재조회**를 확인했습니다.
 [추적 증빙](docs/evaluation/langsmith_check.json) · [설정 안내](docs/LANGSMITH_SETUP.md)
 
-현재 Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
+현재 Mac·Windows에는 수업과 같은 Qwen2.5-1.5B-Instruct 계열의 양자화 모델을 로컬 Ollama로 연결했습니다.
 실제 역할별 응답 검증은 [기록](docs/evaluation/local_llm_check.json)을 기준으로 확인합니다.
 5주차 실습을 참고해 **BGE-M3 임베딩 + FAISS 로컬 벡터 저장·검색**을 내부 근거와 외부 모델 문서에 연결했습니다.
 `SEMI_LLM_ENABLED=1`, `SEMI_LLM_MODEL=qwen2.5:1.5b`, `SEMI_DENSE_ENABLED=1`, `SEMI_EMBED_MODEL=bge-m3`이 현재 설정입니다.
@@ -89,10 +97,10 @@ $env:LANGSMITH_TRACING='false'
 ..\.venv\Scripts\python.exe -X utf8 -m unittest discover -s tests -v
 ..\.venv\Scripts\python.exe -X utf8 scripts/check_mcp.py
 ..\.venv\Scripts\python.exe -X utf8 scripts/check_langsmith.py
-..\.venv\Scripts\python.exe -X utf8 scripts/build_report.py
+
 ```
 
-독립 설치에서는 `..\.venv` 대신 `.venv`를 사용합니다. 발표 생성 패키지는 `requirements-presentation.txt`에 있습니다.
+독립 설치에서는 `..\.venv` 대신 `.venv`를 사용합니다. 제출 문서의 최신 내용은 `docs/REPORT.md`와 `docs/slide-content.json`입니다. 이전 `build_report.py`·`build_presentation.py`는 과거 형식의 생성기이므로 최종 제출 파일을 덮어쓰는 데 사용하지 않습니다.
 Windows에서는 SQLite 연결을 transaction 종료 후 명시적으로 닫아 DB 파일 잠금 문제를 수정했습니다.
 SECOM: McCann & Johnston(2008), [UCI 원본](https://archive.ics.uci.edu/dataset/179/secom), DOI10.24432/C54305, CC BY4.0.
 센서 원파일590열과 UCI 메타데이터591 features 표기를 구분합니다. 제조사·제품ID는 원자료에 제공되지 않습니다.

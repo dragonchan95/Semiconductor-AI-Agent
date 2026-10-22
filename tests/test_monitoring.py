@@ -3,11 +3,20 @@ import unittest
 from pathlib import Path
 
 from app.data import generate_demo
-from app.monitoring import assess, prepare_changed_demo, product_plans, select_strategy
+from app.monitoring import assess, prepare_changed_demo, product_plans, select_strategy, review_verdict
 from app.workbench import Workbench
 
 
 class MonitoringTests(unittest.TestCase):
+    def test_partial_product_samples_cannot_report_full_batch_healthy(self):
+        enough={'needs_retraining':False,'current':{'positive_count':30}}
+        sparse={'needs_retraining':False,'current':{'positive_count':19}}
+        self.assertEqual(review_verdict([enough,sparse]),'판단 보류')
+        self.assertEqual(review_verdict([enough]),'현재 모델 유지')
+        self.assertEqual(review_verdict([]),'판단 보류')
+        degraded={'needs_retraining':True,'current':{'positive_count':30}}
+        self.assertEqual(review_verdict([sparse,degraded]),'재학습 필요')
+
     def test_review_plans_need_approval_and_save_candidate_version(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

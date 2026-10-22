@@ -1,0 +1,790 @@
+{
+  "verified_at": "2026-10-22T01:07:21.061381+00:00",
+  "source": "Mac localhost:8700 actual UI, approved synthetic experiment",
+  "approval_actor": "G045 모델관리 기능 자동검증",
+  "review": {
+    "source_run": "run-41b9baee7130",
+    "dataset_id": "ds-4fadf13f5ae6",
+    "dataset_name": "새로 수집된 공정 데이터 (변화 합성 데모)",
+    "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
+    "synthetic": true,
+    "verdict": "재학습 필요",
+    "reasons": [
+      "A: 기존 모델의 새 데이터 불량 검출률 33.0%, 정상 오판률 20.5%. 데모 목표 미달 또는 검출률 10%p 하락",
+      "B: 기존 모델의 새 데이터 불량 검출률 34.6%, 정상 오판률 18.1%. 데모 목표 미달 또는 검출률 10%p 하락",
+      "C: 기존 모델의 새 데이터 불량 검출률 28.9%, 정상 오판률 20.7%. 데모 목표 미달 또는 검출률 10%p 하락",
+      "D: 기존 모델의 새 데이터 불량 검출률 30.3%, 정상 오판률 22.3%. 데모 목표 미달 또는 검출률 10%p 하락"
+    ],
+    "previous_recall": 0.84375,
+    "current": {
+      "n": 2304,
+      "positive_count": 472,
+      "tn": 1459,
+      "fp": 373,
+      "fn": 322,
+      "tp": 150,
+      "accuracy": 0.6983506944444444,
+      "recall": 0.3177966101694915,
+      "precision": 0.28680688336520077,
+      "f1": 0.3015075376884422,
+      "fpr": 0.20360262008733623,
+      "roc_auc": 0.6008634168455332,
+      "threshold": 0.18696192285673094,
+      "recall_wilson95": [
+        0.2774051313642731,
+        0.36113004504737317
+      ]
+    },
+    "split": {
+      "test": {
+        "rows": 768,
+        "defects": 167,
+        "index_hash": "92ef7fb93dd12bb09a3819c990e598f6fb255752d2a52366723a8c0b24ec6bd9"
+      },
+      "validation": {
+        "rows": 768,
+        "defects": 208,
+        "index_hash": "4ffdde27cc2696a15bac93352c8172aedcf79b215b2e8e458b42308dbe01c38a"
+      },
+      "train": {
+        "rows": 2304,
+        "defects": 472,
+        "index_hash": "90fd27b99a31fe06d6fa6090fbc5774936a903954b7e3afc83cb36116135afa7"
+      },
+      "method": "lot_group_holdout",
+      "target_ratios": {
+        "train": 0.6,
+        "validation": 0.2,
+        "test": 0.2
+      }
+    },
+    "same_product": [
+      {
+        "product": "A",
+        "previous": {
+          "n": 80,
+          "positive_count": 4,
+          "tn": 72,
+          "fp": 4,
+          "fn": 0,
+          "tp": 4,
+          "accuracy": 0.95,
+          "recall": 1.0,
+          "precision": 0.5,
+          "f1": 0.6666666666666666,
+          "fpr": 0.05263157894736842,
+          "roc_auc": 0.993421052631579,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.5100999795960008,
+            1.0
+          ]
+        },
+        "current": {
+          "n": 552,
+          "positive_count": 112,
+          "tn": 350,
+          "fp": 90,
+          "fn": 75,
+          "tp": 37,
+          "accuracy": 0.7010869565217391,
+          "recall": 0.33035714285714285,
+          "precision": 0.29133858267716534,
+          "f1": 0.30962343096234307,
+          "fpr": 0.20454545454545456,
+          "roc_auc": 0.6106939935064936,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.25014641827449424,
+            0.4218194385506877
+          ]
+        },
+        "needs_retraining": true,
+        "previous_small_sample": true,
+        "status": "재학습 비교 제안"
+      },
+      {
+        "product": "B",
+        "previous": {
+          "n": 40,
+          "positive_count": 4,
+          "tn": 30,
+          "fp": 6,
+          "fn": 1,
+          "tp": 3,
+          "accuracy": 0.825,
+          "recall": 0.75,
+          "precision": 0.3333333333333333,
+          "f1": 0.46153846153846156,
+          "fpr": 0.16666666666666666,
+          "roc_auc": 0.951388888888889,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.3006360524426366,
+            0.9544139373553637
+          ]
+        },
+        "current": {
+          "n": 600,
+          "positive_count": 130,
+          "tn": 385,
+          "fp": 85,
+          "fn": 85,
+          "tp": 45,
+          "accuracy": 0.7166666666666667,
+          "recall": 0.34615384615384615,
+          "precision": 0.34615384615384615,
+          "f1": 0.34615384615384615,
+          "fpr": 0.18085106382978725,
+          "roc_auc": 0.6257610474631752,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.26984915763859174,
+            0.4312900995131458
+          ]
+        },
+        "needs_retraining": true,
+        "previous_small_sample": true,
+        "status": "재학습 비교 제안"
+      },
+      {
+        "product": "C",
+        "previous": {
+          "n": 72,
+          "positive_count": 14,
+          "tn": 54,
+          "fp": 4,
+          "fn": 4,
+          "tp": 10,
+          "accuracy": 0.8888888888888888,
+          "recall": 0.7142857142857143,
+          "precision": 0.7142857142857143,
+          "f1": 0.7142857142857143,
+          "fpr": 0.06896551724137931,
+          "roc_auc": 0.9532019704433498,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.4535045882751561,
+            0.882788120898909
+          ]
+        },
+        "current": {
+          "n": 600,
+          "positive_count": 121,
+          "tn": 380,
+          "fp": 99,
+          "fn": 86,
+          "tp": 35,
+          "accuracy": 0.6916666666666667,
+          "recall": 0.2892561983471074,
+          "precision": 0.26119402985074625,
+          "f1": 0.27450980392156865,
+          "fpr": 0.20668058455114824,
+          "roc_auc": 0.5751652029883193,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.21593930152944865,
+            0.3755430248745705
+          ]
+        },
+        "needs_retraining": true,
+        "previous_small_sample": true,
+        "status": "재학습 비교 제안"
+      },
+      {
+        "product": "D",
+        "previous": {
+          "n": 64,
+          "positive_count": 10,
+          "tn": 54,
+          "fp": 0,
+          "fn": 0,
+          "tp": 10,
+          "accuracy": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "fpr": 0.0,
+          "roc_auc": 1.0,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "current": {
+          "n": 552,
+          "positive_count": 109,
+          "tn": 344,
+          "fp": 99,
+          "fn": 76,
+          "tp": 33,
+          "accuracy": 0.6829710144927537,
+          "recall": 0.30275229357798167,
+          "precision": 0.25,
+          "f1": 0.27385892116182575,
+          "fpr": 0.2234762979683973,
+          "roc_auc": 0.5901588419243275,
+          "threshold": 0.18696192285673094,
+          "recall_wilson95": [
+            0.22442865524526034,
+            0.3945062056571019
+          ]
+        },
+        "needs_retraining": true,
+        "previous_small_sample": true,
+        "status": "재학습 비교 제안"
+      }
+    ],
+    "source_model": "catboost",
+    "new_products": [],
+    "products": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "note": "같은 제품·같은 모델·같은 판정 경계값으로 새 배치의 학습 구간을 점검. 10%p 하락·불량 20개는 교육용 점검 규칙이며 회사 기준·통계적 확증이 아님. 과거 제품별 표본이 작으면 하락 폭도 탐색적 해석. 새 Validation/Test는 점검에 사용하지 않음.",
+    "id": "review-b82e3790a900",
+    "created_at": "2026-10-22T01:02:32.479559+00:00"
+  },
+  "comparison": {
+    "dataset_id": "ds-4fadf13f5ae6",
+    "dataset_sha256": "db23007c279809cd4c24854bde2ef411e32f333f4c6ba0fe8ae2a12637b24c70",
+    "run_ids": [
+      "run-59d07b4034ba",
+      "run-640971409a07",
+      "run-e9b0a00dc06a",
+      "run-b1f7633ff787",
+      "run-23404c29cb68"
+    ],
+    "products": [
+      {
+        "product": "A",
+        "candidates": [
+          {
+            "strategy": "shared",
+            "run_id": "run-59d07b4034ba",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 224,
+              "positive_count": 69,
+              "tn": 132,
+              "fp": 23,
+              "fn": 1,
+              "tp": 68,
+              "accuracy": 0.8928571428571429,
+              "recall": 0.9855072463768116,
+              "precision": 0.7472527472527473,
+              "f1": 0.85,
+              "fpr": 0.14838709677419354,
+              "roc_auc": 0.9695184665731651,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.9223669266494263,
+                0.9974371413556695
+              ]
+            },
+            "test": {
+              "n": 184,
+              "positive_count": 44,
+              "tn": 130,
+              "fp": 10,
+              "fn": 4,
+              "tp": 40,
+              "accuracy": 0.9239130434782609,
+              "recall": 0.9090909090909091,
+              "precision": 0.8,
+              "f1": 0.851063829787234,
+              "fpr": 0.07142857142857142,
+              "roc_auc": 0.9623376623376624,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.7884048060208251,
+                0.9640783885211635
+              ]
+            },
+            "fingerprints": {
+              "validation": "dc02a0cb45ddbff6c92b1c029f159bf1f3d5fb0827cc34a6ed2332b264416516",
+              "test": "bd55ff2dbaaf5c3ee597658ebd77155030fc82f7d9fe7dfc083111646b955418"
+            }
+          },
+          {
+            "strategy": "separate",
+            "run_id": "run-640971409a07",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 224,
+              "positive_count": 69,
+              "tn": 133,
+              "fp": 22,
+              "fn": 4,
+              "tp": 65,
+              "accuracy": 0.8839285714285714,
+              "recall": 0.9420289855072463,
+              "precision": 0.7471264367816092,
+              "f1": 0.8333333333333334,
+              "fpr": 0.14193548387096774,
+              "roc_auc": 0.9440860215053763,
+              "threshold": 0.21237537693699068,
+              "recall_wilson95": [
+                0.8602055747557683,
+                0.9772279796966324
+              ]
+            },
+            "test": {
+              "n": 184,
+              "positive_count": 44,
+              "tn": 126,
+              "fp": 14,
+              "fn": 9,
+              "tp": 35,
+              "accuracy": 0.875,
+              "recall": 0.7954545454545454,
+              "precision": 0.7142857142857143,
+              "f1": 0.7526881720430108,
+              "fpr": 0.1,
+              "roc_auc": 0.9431818181818181,
+              "threshold": 0.21237537693699068,
+              "recall_wilson95": [
+                0.6549913631816677,
+                0.888468721765324
+              ]
+            },
+            "fingerprints": {
+              "validation": "dc02a0cb45ddbff6c92b1c029f159bf1f3d5fb0827cc34a6ed2332b264416516",
+              "test": "bd55ff2dbaaf5c3ee597658ebd77155030fc82f7d9fe7dfc083111646b955418"
+            }
+          }
+        ],
+        "selected_strategy": "shared",
+        "validation_feasible": true,
+        "test_gate": {
+          "passed": true,
+          "reasons": [],
+          "action": "데모 목표 충족 · 현장 별도 검증 필요",
+          "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+          "auto_deploy": false
+        },
+        "recommendation": "여러 제품을 합쳐 학습한 후보",
+        "reason": "같은 제품 Validation에서 데모 목표 충족 여부, 불량 검출률, 정상 오판률 순으로 비교. 완전 동률은 관리할 모델 수가 적은 합친 학습을 선택. Test 데모 목표도 충족. 회사 적용 승인은 별개.",
+        "selected_run": "run-59d07b4034ba"
+      },
+      {
+        "product": "B",
+        "candidates": [
+          {
+            "strategy": "shared",
+            "run_id": "run-59d07b4034ba",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 160,
+              "positive_count": 39,
+              "tn": 105,
+              "fp": 16,
+              "fn": 4,
+              "tp": 35,
+              "accuracy": 0.875,
+              "recall": 0.8974358974358975,
+              "precision": 0.6862745098039216,
+              "f1": 0.7777777777777778,
+              "fpr": 0.1322314049586777,
+              "roc_auc": 0.9641873278236914,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.7642084129775517,
+                0.9593873444171301
+              ]
+            },
+            "test": {
+              "n": 200,
+              "positive_count": 35,
+              "tn": 142,
+              "fp": 23,
+              "fn": 3,
+              "tp": 32,
+              "accuracy": 0.87,
+              "recall": 0.9142857142857143,
+              "precision": 0.5818181818181818,
+              "f1": 0.7111111111111111,
+              "fpr": 0.1393939393939394,
+              "roc_auc": 0.979047619047619,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.7762040092883747,
+                0.970418168994703
+              ]
+            },
+            "fingerprints": {
+              "validation": "f01737abd3a4f9834833dfe93b90be60f7929ed918f73cad02da13d9a4dac7bc",
+              "test": "94413352d30d390c6cafdb48b1e5a8ed2a739df8c74c3b5582d53d4f3af938c8"
+            }
+          },
+          {
+            "strategy": "separate",
+            "run_id": "run-e9b0a00dc06a",
+            "model": "catboost",
+            "selection_feasible": false,
+            "validation": {
+              "n": 160,
+              "positive_count": 39,
+              "tn": 103,
+              "fp": 18,
+              "fn": 4,
+              "tp": 35,
+              "accuracy": 0.8625,
+              "recall": 0.8974358974358975,
+              "precision": 0.660377358490566,
+              "f1": 0.7608695652173914,
+              "fpr": 0.1487603305785124,
+              "roc_auc": 0.9444797626615808,
+              "threshold": 0.3733396709804514,
+              "recall_wilson95": [
+                0.7642084129775517,
+                0.9593873444171301
+              ]
+            },
+            "test": {
+              "n": 200,
+              "positive_count": 35,
+              "tn": 140,
+              "fp": 25,
+              "fn": 0,
+              "tp": 35,
+              "accuracy": 0.875,
+              "recall": 1.0,
+              "precision": 0.5833333333333334,
+              "f1": 0.7368421052631579,
+              "fpr": 0.15151515151515152,
+              "roc_auc": 0.984935064935065,
+              "threshold": 0.3733396709804514,
+              "recall_wilson95": [
+                0.9010957324106112,
+                1.0
+              ]
+            },
+            "fingerprints": {
+              "validation": "f01737abd3a4f9834833dfe93b90be60f7929ed918f73cad02da13d9a4dac7bc",
+              "test": "94413352d30d390c6cafdb48b1e5a8ed2a739df8c74c3b5582d53d4f3af938c8"
+            }
+          }
+        ],
+        "selected_strategy": "shared",
+        "validation_feasible": false,
+        "test_gate": {
+          "passed": true,
+          "reasons": [],
+          "action": "데모 목표 충족 · 현장 별도 검증 필요",
+          "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+          "auto_deploy": false
+        },
+        "recommendation": "추가 데이터로 재확인 필요",
+        "reason": "같은 제품 Validation에서 두 방식 모두 데모 목표 미달. 참고 후보만 표시. Test 목표 또는 표본 수 부족. 회사 적용 승인은 별개.",
+        "selected_run": "run-59d07b4034ba"
+      },
+      {
+        "product": "C",
+        "candidates": [
+          {
+            "strategy": "shared",
+            "run_id": "run-59d07b4034ba",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 184,
+              "positive_count": 44,
+              "tn": 120,
+              "fp": 20,
+              "fn": 4,
+              "tp": 40,
+              "accuracy": 0.8695652173913043,
+              "recall": 0.9090909090909091,
+              "precision": 0.6666666666666666,
+              "f1": 0.7692307692307693,
+              "fpr": 0.14285714285714285,
+              "roc_auc": 0.9581168831168831,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.7884048060208251,
+                0.9640783885211635
+              ]
+            },
+            "test": {
+              "n": 176,
+              "positive_count": 43,
+              "tn": 114,
+              "fp": 19,
+              "fn": 5,
+              "tp": 38,
+              "accuracy": 0.8636363636363636,
+              "recall": 0.8837209302325582,
+              "precision": 0.6666666666666666,
+              "f1": 0.76,
+              "fpr": 0.14285714285714285,
+              "roc_auc": 0.9536632278370345,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.755205511093586,
+                0.9492964700513791
+              ]
+            },
+            "fingerprints": {
+              "validation": "9c19205e3fcd27d7a98bf49586dde573b55930fefa8969276f10d0bd5cc282d5",
+              "test": "845ca988d5d0baa45acf616f73eb7006e1cf9209750ac2d8fdce7321fee78610"
+            }
+          },
+          {
+            "strategy": "separate",
+            "run_id": "run-b1f7633ff787",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 184,
+              "positive_count": 44,
+              "tn": 120,
+              "fp": 20,
+              "fn": 3,
+              "tp": 41,
+              "accuracy": 0.875,
+              "recall": 0.9318181818181818,
+              "precision": 0.6721311475409836,
+              "f1": 0.780952380952381,
+              "fpr": 0.14285714285714285,
+              "roc_auc": 0.9573051948051949,
+              "threshold": 0.4424778413628831,
+              "recall_wilson95": [
+                0.8177467866338279,
+                0.9765410298271597
+              ]
+            },
+            "test": {
+              "n": 176,
+              "positive_count": 43,
+              "tn": 111,
+              "fp": 22,
+              "fn": 9,
+              "tp": 34,
+              "accuracy": 0.8238636363636364,
+              "recall": 0.7906976744186046,
+              "precision": 0.6071428571428571,
+              "f1": 0.6868686868686869,
+              "fpr": 0.16541353383458646,
+              "roc_auc": 0.9305822696275574,
+              "threshold": 0.4424778413628831,
+              "recall_wilson95": [
+                0.6479406820576336,
+                0.8857729400218853
+              ]
+            },
+            "fingerprints": {
+              "validation": "9c19205e3fcd27d7a98bf49586dde573b55930fefa8969276f10d0bd5cc282d5",
+              "test": "845ca988d5d0baa45acf616f73eb7006e1cf9209750ac2d8fdce7321fee78610"
+            }
+          }
+        ],
+        "selected_strategy": "separate",
+        "validation_feasible": true,
+        "test_gate": {
+          "passed": false,
+          "reasons": [
+            "불량 검출률 79.1%: 데모 목표 90% 미달",
+            "정상 오판률 16.5%: 데모 목표 15% 초과"
+          ],
+          "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+          "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+          "auto_deploy": false
+        },
+        "recommendation": "추가 데이터로 재확인 필요",
+        "reason": "같은 제품 Validation에서 데모 목표 충족 여부, 불량 검출률, 정상 오판률 순으로 비교. 완전 동률은 관리할 모델 수가 적은 합친 학습을 선택. Test 목표 또는 표본 수 부족. 회사 적용 승인은 별개.",
+        "selected_run": "run-b1f7633ff787"
+      },
+      {
+        "product": "D",
+        "candidates": [
+          {
+            "strategy": "shared",
+            "run_id": "run-59d07b4034ba",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 200,
+              "positive_count": 56,
+              "tn": 132,
+              "fp": 12,
+              "fn": 1,
+              "tp": 55,
+              "accuracy": 0.935,
+              "recall": 0.9821428571428571,
+              "precision": 0.8208955223880597,
+              "f1": 0.8943089430894309,
+              "fpr": 0.08333333333333333,
+              "roc_auc": 0.9806547619047619,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.9055414182080672,
+                0.9968408710355361
+              ]
+            },
+            "test": {
+              "n": 208,
+              "positive_count": 45,
+              "tn": 136,
+              "fp": 27,
+              "fn": 2,
+              "tp": 43,
+              "accuracy": 0.8605769230769231,
+              "recall": 0.9555555555555556,
+              "precision": 0.6142857142857143,
+              "f1": 0.7478260869565218,
+              "fpr": 0.1656441717791411,
+              "roc_auc": 0.9719154737559645,
+              "threshold": 0.4530132002191212,
+              "recall_wilson95": [
+                0.8517222081611939,
+                0.9877261309595557
+              ]
+            },
+            "fingerprints": {
+              "validation": "2025f8d79b1a16cc31760efe856ffca46c5e5a957ef69f534ad9edec09b2ce3d",
+              "test": "f66a798be786a062b9d0288a3eb9c91280b8c2d11ce2b00b4a248b2a5f7f7ebb"
+            }
+          },
+          {
+            "strategy": "separate",
+            "run_id": "run-23404c29cb68",
+            "model": "catboost",
+            "selection_feasible": true,
+            "validation": {
+              "n": 200,
+              "positive_count": 56,
+              "tn": 124,
+              "fp": 20,
+              "fn": 1,
+              "tp": 55,
+              "accuracy": 0.895,
+              "recall": 0.9821428571428571,
+              "precision": 0.7333333333333333,
+              "f1": 0.8396946564885496,
+              "fpr": 0.1388888888888889,
+              "roc_auc": 0.9626736111111112,
+              "threshold": 0.15245078763312456,
+              "recall_wilson95": [
+                0.9055414182080672,
+                0.9968408710355361
+              ]
+            },
+            "test": {
+              "n": 208,
+              "positive_count": 45,
+              "tn": 124,
+              "fp": 39,
+              "fn": 0,
+              "tp": 45,
+              "accuracy": 0.8125,
+              "recall": 1.0,
+              "precision": 0.5357142857142857,
+              "f1": 0.6976744186046512,
+              "fpr": 0.2392638036809816,
+              "roc_auc": 0.9758691206543968,
+              "threshold": 0.15245078763312456,
+              "recall_wilson95": [
+                0.9213457380593594,
+                1.0
+              ]
+            },
+            "fingerprints": {
+              "validation": "2025f8d79b1a16cc31760efe856ffca46c5e5a957ef69f534ad9edec09b2ce3d",
+              "test": "f66a798be786a062b9d0288a3eb9c91280b8c2d11ce2b00b4a248b2a5f7f7ebb"
+            }
+          }
+        ],
+        "selected_strategy": "shared",
+        "validation_feasible": true,
+        "test_gate": {
+          "passed": false,
+          "reasons": [
+            "정상 오판률 16.6%: 데모 목표 15% 초과"
+          ],
+          "action": "데모 목표 미충족 또는 표본 부족 · 후보 재검토",
+          "criteria_scope": "교육용 비교 목표. 회사의 양산 승인 기준이 아님.",
+          "auto_deploy": false
+        },
+        "recommendation": "추가 데이터로 재확인 필요",
+        "reason": "같은 제품 Validation에서 데모 목표 충족 여부, 불량 검출률, 정상 오판률 순으로 비교. 완전 동률은 관리할 모델 수가 적은 합친 학습을 선택. Test 목표 또는 표본 수 부족. 회사 적용 승인은 별개.",
+        "selected_run": "run-59d07b4034ba"
+      }
+    ],
+    "source_run": "run-41b9baee7130",
+    "same_model_retraining": {
+      "model": "catboost",
+      "before": {
+        "n": 768,
+        "positive_count": 167,
+        "tn": 505,
+        "fp": 96,
+        "fn": 124,
+        "tp": 43,
+        "accuracy": 0.7135416666666666,
+        "recall": 0.25748502994011974,
+        "precision": 0.30935251798561153,
+        "f1": 0.28104575163398693,
+        "fpr": 0.15973377703826955,
+        "roc_auc": 0.6140663763986172,
+        "threshold": 0.18696192285673094,
+        "recall_wilson95": [
+          0.19714453214559552,
+          0.32873206933788385
+        ]
+      },
+      "after": {
+        "n": 768,
+        "positive_count": 167,
+        "tn": 522,
+        "fp": 79,
+        "fn": 14,
+        "tp": 153,
+        "accuracy": 0.87890625,
+        "recall": 0.9161676646706587,
+        "precision": 0.6594827586206896,
+        "f1": 0.7669172932330827,
+        "fpr": 0.1314475873544093,
+        "roc_auc": 0.96457002799725,
+        "threshold": 0.4530132002191212,
+        "recall_wilson95": [
+          0.864211176620331,
+          0.9494079887351797
+        ]
+      },
+      "test_fingerprint": "92ef7fb93dd12bb09a3819c990e598f6fb255752d2a52366723a8c0b24ec6bd9",
+      "note": "기존 모델과 같은 알고리즘을 새 학습 데이터로 다시 학습한 모델을 새 배치의 동일 Test에서 비교. Test는 재학습 필요 판단·후보 선택에 사용하지 않음."
+    },
+    "policy": {
+      "min_recall": 0.9,
+      "max_fpr": 0.15,
+      "min_test_defects": 20
+    },
+    "selection_basis": "같은 제품의 validation으로 방식 선택. test는 순위 선택에 사용하지 않고 최종 확인과 보류에만 사용.",
+    "training_scope": "새로 등록한 한 배치의 여러 제품을 합친 학습과 제품별 학습 비교. 과거 배치 파일을 자동 병합하지 않음.",
+    "note": "단일 합성 배치의 결과. 제품별 우월성을 일반화할 수 없고 반복 validation 비교의 낙관 편향 가능. 자동 배포 없음.",
+    "id": "comparison-96f5a578ee92",
+    "created_at": "2026-10-22T01:03:46.439743+00:00"
+  },
+  "controls_verified": [
+    "new batch selected",
+    "unchanged model checked",
+    "five plans generated without training",
+    "explicit approval required",
+    "five retraining runs completed",
+    "same Test before/after displayed",
+    "candidate versions saved; no automatic deployment"
+  ],
+  "limitations": [
+    "Labeled batch performance check, not continuous drift surveillance",
+    "Synthetic changed defect mechanism; no factory effectiveness claim",
+    "20 positive labels and 10pp recall drop are educational heuristics",
+    "Not an automatic operational model replacement"
+  ]
+}

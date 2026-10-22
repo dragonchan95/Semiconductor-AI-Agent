@@ -1,24 +1,22 @@
 {
-  "slides": 14,
-  "main_slides": 10,
-  "appendix_slides": 4,
-  "speaker_notes": 14,
-  "planned_speech_seconds": 255,
-  "planned_transition_seconds": 20,
-  "buffer_seconds": 25,
-  "timing_is_rehearsal_measurement": false,
-  "criteria_before_results": true,
-  "essential_ui_screens_slides": [
-    4,
-    5,
-    6,
-    7,
-    8
+  "date": "2026-10-22",
+  "slides": 17,
+  "main_slides": 12,
+  "appendix_slides": [
+    13,
+    14,
+    15,
+    16,
+    17
   ],
-  "conversion": "Microsoft PowerPoint PDF export",
-  "shape_bounds_ok": true,
-  "no_replacement_characters": true,
-  "source_metrics": "Windows product partitions and weighted ensemble are separate controlled experiments; prior Mac and Windows receipts are preserved separately",
-  "google_slides_updated_this_session": false,
-  "contact_sheet": "var/presentation-preview/contact-sheet.jpg"
+  "speech_target_seconds": 260,
+  "transition_seconds": 20,
+  "margin_seconds": 20,
+  "rehearsal_measured": false,
+  "tests": 52,
+  "screenshots": "actual Windows experiment UI + Mac labeled batch review and approved retraining",
+  "model_management_evidence": "lifecycle_mac.json",
+  "required_report_sections": 5,
+  "report_pages": 11,
+  "limits": "synthetic data, heuristic batch review, no continuous drift monitoring or automatic production swap"
 }

@@ -1,25 +1,59 @@
 {
-  "verified_date": "2026-10-22",
-  "timezone": "Asia/Seoul",
-  "source_commit": "b37204f",
-  "source": "docs/G045_Final_Report.pptx",
-  "report_url": "https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit",
-  "native_google_slides": true,
-  "slide_count": 8,
-  "speaker_notes_count": 8,
-  "page_orientation": "A4 portrait",
-  "page_content": "Report page images with text in notes and source hyperlinks",
-  "verification": {
-    "native_pdf_export_pages": 8,
-    "native_pptx_export_slides": 8,
-    "all_pages_visually_reviewed": true,
-    "permission": "Anyone with the link can view",
-    "anonymous_browser": "Chrome Incognito, not signed in, view-only document opened"
-  },
-  "workbooks_updated": [
-    "15주차/AI Agent Mini-Project-Semiconductor-AI-Agent.xlsx: 2반!D11,F11",
-    "15주차/G045_메일첨부/AI Agent Mini-Project-Semiconductor-AI-Agent.xlsx: 2반!D11,F11 and existing G045 submission guide"
+  "url": "https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit",
+  "updated": "2026-10-22",
+  "title": "G045 김용찬 과제2 최종 제출 보고서 (11쪽)",
+  "pages": 11,
+  "exported_pdf_and_pptx_pages_verified": true,
+  "all_page_images_compared": [
+    {
+      "page": 1,
+      "mean_pixel_difference": 1.437
+    },
+    {
+      "page": 2,
+      "mean_pixel_difference": 1.101
+    },
+    {
+      "page": 3,
+      "mean_pixel_difference": 1.357
+    },
+    {
+      "page": 4,
+      "mean_pixel_difference": 0.681
+    },
+    {
+      "page": 5,
+      "mean_pixel_difference": 0.992
+    },
+    {
+      "page": 6,
+      "mean_pixel_difference": 1.06
+    },
+    {
+      "page": 7,
+      "mean_pixel_difference": 1.147
+    },
+    {
+      "page": 8,
+      "mean_pixel_difference": 1.076
+    },
+    {
+      "page": 9,
+      "mean_pixel_difference": 0.861
+    },
+    {
+      "page": 10,
+      "mean_pixel_difference": 1.42
+    },
+    {
+      "page": 11,
+      "mean_pixel_difference": 0.715
+    }
   ],
-  "class_google_spreadsheet_submitted": false,
-  "presentation": "Separate 14-slide presentation; main slides 1-10 for five minutes"
+  "permission_observed": "Anyone with the link, sign-in not required",
+  "public_access_rechecked_this_revision": true,
+  "source_report": "REPORT.md",
+  "local_report_sha256": "63d47caa7d4083abec5d5b384539f871dcd9209977b62579a10c5737d6571e80",
+  "scope": "Detailed report includes approved labeled-batch management. Five-minute deck is separate.",
+  "anonymous_verification": "Chrome incognito: updated 11-page title, sign-in link visible, view-only and no-login-required public permission"
 }

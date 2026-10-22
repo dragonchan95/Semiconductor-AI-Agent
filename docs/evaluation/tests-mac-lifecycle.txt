@@ -1,0 +1,57 @@
+test_dense_connection_failure_is_explicit_fallback (test_advisors.AdvisorTests.test_dense_connection_failure_is_explicit_fallback) ... ok
+test_grounded_role_output (test_advisors.AdvisorTests.test_grounded_role_output) ... ok
+test_train_only_transform_and_model_support (test_advisors.AdvisorTests.test_train_only_transform_and_model_support) ... ok
+test_unknown_citation_or_metric_rejected (test_advisors.AdvisorTests.test_unknown_citation_or_metric_rejected) ... ok
+test_production_auth_does_not_block_health_or_ui (test_api.APITests.test_production_auth_does_not_block_health_or_ui) ... ok
+test_proposal_rejection_and_single_approval_http (test_api.APITests.test_proposal_rejection_and_single_approval_http) ... ok
+test_approval_hash_reject_and_single_use (test_core.CoreTests.test_approval_hash_reject_and_single_use) ... ok
+test_budget_and_unknown_product_guard (test_core.CoreTests.test_budget_and_unknown_product_guard) ... ok
+test_changed_data_invalidates_execution (test_core.CoreTests.test_changed_data_invalidates_execution) ... ok
+test_chronological_date_split (test_core.CoreTests.test_chronological_date_split) ... ok
+test_duplicate_features_rejected (test_core.CoreTests.test_duplicate_features_rejected) ... ok
+test_lot_disjoint_and_all_rows (test_core.CoreTests.test_lot_disjoint_and_all_rows) ... ok
+test_metrics_manual_confusion (test_core.CoreTests.test_metrics_manual_confusion) ... ok
+test_no_random_row_split_when_group_unknown (test_core.CoreTests.test_no_random_row_split_when_group_unknown) ... ok
+test_preserve_valid_zeros (test_core.CoreTests.test_preserve_valid_zeros) ... ok
+test_propose_does_not_train_and_restart_keeps_approval (test_core.CoreTests.test_propose_does_not_train_and_restart_keeps_approval) ... ok
+test_public_secom_label_and_quoted_timestamp (test_core.CoreTests.test_public_secom_label_and_quoted_timestamp) ... ok
+test_rejected_plan_cannot_run (test_core.CoreTests.test_rejected_plan_cannot_run) ... ok
+test_sparse_gate_never_auto_deploys (test_core.CoreTests.test_sparse_gate_never_auto_deploys) ... ok
+test_threshold_infeasibility_is_visible (test_core.CoreTests.test_threshold_infeasibility_is_visible) ... ok
+test_discovery_requires_evidence_and_engineer_approval (test_discovery.DiscoveryTests.test_discovery_requires_evidence_and_engineer_approval) ... ok
+test_external_adapters_train_and_predict (test_discovery.DiscoveryTests.test_external_adapters_train_and_predict) ... ok
+test_failed_network_never_invents_candidates (test_discovery.DiscoveryTests.test_failed_network_never_invents_candidates) ... ok
+test_live_documents_retrieved_without_dataset_transmission (test_discovery.DiscoveryTests.test_live_documents_retrieved_without_dataset_transmission) ... ok
+test_approval_training_scope_artifact_and_test_only_after_selection (test_ensemble.EnsembleTests.test_approval_training_scope_artifact_and_test_only_after_selection) ... ok
+test_complementary_predictions_can_outperform_both_single_models (test_ensemble.EnsembleTests.test_complementary_predictions_can_outperform_both_single_models) ... ok
+test_equal_performance_keeps_a_single_model_instead_of_forcing_mixing (test_ensemble.EnsembleTests.test_equal_performance_keeps_a_single_model_instead_of_forcing_mixing) ... ok
+test_false_alarm_limit_prevents_all_defective_shortcut (test_ensemble.EnsembleTests.test_false_alarm_limit_prevents_all_defective_shortcut) ... ok
+test_grid_includes_all_simplex_vertices_and_equal_weight (test_ensemble.EnsembleTests.test_grid_includes_all_simplex_vertices_and_equal_weight) ... ok
+test_invalid_probabilities_or_dimensions_are_rejected (test_ensemble.EnsembleTests.test_invalid_probabilities_or_dimensions_are_rejected) ... ok
+test_positive_class_column_is_found_by_label (test_ensemble.EnsembleTests.test_positive_class_column_is_found_by_label) ... ok
+test_recall_has_priority_over_f1_within_false_alarm_limit (test_ensemble.EnsembleTests.test_recall_has_priority_over_f1_within_false_alarm_limit) ... ok
+test_threshold_matches_independent_enumeration_of_confusion_metrics (test_ensemble.EnsembleTests.test_threshold_matches_independent_enumeration_of_confusion_metrics) ... ok
+test_all_fifteen_partitions_cover_each_product_exactly_once (test_grouping.GroupingTests.test_all_fifteen_partitions_cover_each_product_exactly_once) ... ok
+test_approved_routing_fits_each_group_once_and_roundtrips (test_grouping.GroupingTests.test_approved_routing_fits_each_group_once_and_roundtrips) ... ok
+test_group_threshold_respects_each_product_false_alarm_limit (test_grouping.GroupingTests.test_group_threshold_respects_each_product_false_alarm_limit) ... ok
+test_route_counts_are_aggregated_not_averaged_percentages (test_grouping.GroupingTests.test_route_counts_are_aggregated_not_averaged_percentages) ... ok
+test_ties_prefer_fewer_models_and_test_cannot_change_rank (test_grouping.GroupingTests.test_ties_prefer_fewer_models_and_test_cannot_change_rank) ... ok
+test_counts_keep_separate_defect_and_normal_denominators (test_impact.CountIllustrationTests.test_counts_keep_separate_defect_and_normal_denominators) ... ok
+test_no_money_or_yield_claims (test_impact.CountIllustrationTests.test_no_money_or_yield_claims) ... ok
+test_reject_removed_repair_and_invalid_inputs (test_impact.CountIllustrationTests.test_reject_removed_repair_and_invalid_inputs) ... ok
+test_zero_and_all_defects_preserve_counts (test_impact.CountIllustrationTests.test_zero_and_all_defects_preserve_counts) ... ok
+test_inconsistent_or_invented_verdict_is_not_success (test_judge.JudgeTests.test_inconsistent_or_invented_verdict_is_not_success) ... ok
+test_unavailable_llm_is_not_replaced_by_a_fake_judge (test_judge.JudgeTests.test_unavailable_llm_is_not_replaced_by_a_fake_judge) ... ok
+test_valid_judge_verdict_is_reported_as_model_evaluation (test_judge.JudgeTests.test_valid_judge_verdict_is_reported_as_model_evaluation) ... ok
+test_partial_product_samples_cannot_report_full_batch_healthy (test_monitoring.MonitoringTests.test_partial_product_samples_cannot_report_full_batch_healthy) ... ok
+test_review_plans_need_approval_and_save_candidate_version (test_monitoring.MonitoringTests.test_review_plans_need_approval_and_save_candidate_version) ... ok
+test_strategy_selection_uses_validation_and_can_abstain (test_monitoring.MonitoringTests.test_strategy_selection_uses_validation_and_can_abstain) ... ok
+test_bad_embeddings_are_explicit_fallback (test_retrieval.RetrievalTests.test_bad_embeddings_are_explicit_fallback) ... ok
+test_changed_text_rebuilds_and_corrupt_index_recovers (test_retrieval.RetrievalTests.test_changed_text_rebuilds_and_corrupt_index_recovers) ... ok
+test_cosine_and_persistent_unicode_roundtrip (test_retrieval.RetrievalTests.test_cosine_and_persistent_unicode_roundtrip) ... ok
+test_external_documents_use_configured_vector_search (test_retrieval.RetrievalTests.test_external_documents_use_configured_vector_search) ... ok
+
+----------------------------------------------------------------------
+Ran 52 tests in 10.320s
+
+OK
