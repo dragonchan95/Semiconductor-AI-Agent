@@ -1,7 +1,6 @@
 {
   "url": "https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit",
   "updated": "2026-10-22",
-  "title": "G045 김용찬 과제2 최종 제출 보고서 (11쪽)",
   "pages": 11,
   "exported_pdf_and_pptx_pages_verified": true,
   "all_page_images_compared": [
@@ -27,15 +26,15 @@
     },
     {
       "page": 6,
-      "mean_pixel_difference": 1.06
+      "mean_pixel_difference": 1.181
     },
     {
       "page": 7,
-      "mean_pixel_difference": 1.147
+      "mean_pixel_difference": 1.164
     },
     {
       "page": 8,
-      "mean_pixel_difference": 1.076
+      "mean_pixel_difference": 1.146
     },
     {
       "page": 9,
@@ -53,6 +52,6 @@
   "permission_observed": "Anyone with the link, sign-in not required",
   "public_access_rechecked_this_revision": true,
   "source_report": "REPORT.md",
-  "local_report_sha256": "614583ffab0a59c007140e7601efd452639fc0891ea690efa41a6dfea3f925da",
-  "scope": "Detailed report includes approved labeled-batch management. Five-minute deck is separate."
+  "local_report_sha256": "b01adb76f5e5124f875d9dcd22fc2f3b6b218f7bd38bbba6319f94602da3cbc1",
+  "revision": "Add CatBoost9.3 vs AdaBoost6.1 false-alarm comparison and Recall priority rationale before ensemble section; preserve submission URL."
 }

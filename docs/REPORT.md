@@ -116,6 +116,8 @@ Validation 선택은 **A+B+C / D**입니다. 하지만 Test Recall **78.1%**로 
 
 ### 실험2: 예측을 어떤 비율로 섞을까요?
 
+혼합 전 전체 제품 학습의 개별 모델 비교에서 CatBoost는 Recall100%·정상 오판률9.3%·F1 0.808, AdaBoost는 Recall97.6%·정상 오판률6.1%·F1 0.854였습니다. 두 모델 모두 교육용 정상 오판 한도15% 이내지만 이번 기준은 Recall을 우선해 CatBoost를 선택했습니다. AdaBoost는 정상 오판이 적고 F1도 높으므로, F1 최대화를 우선하는 정책이라면 선택이 달라질 수 있습니다. [개별 모델 실측](evaluation/synthetic_process.json)
+
 학습 제품ABCD를 고정하고 CatBoost·HistGradientBoosting·LightGBM을 구성 후보로 사용합니다. 합계100% 비율을5% 간격으로 모두 비교하고 균등 비율도 포함했습니다. 단일 모델도 포함하며 성능이 같으면 적은 모델을 사용합니다. **정상 오판 한도 안에서 Recall 최대 → 동률 F1** 순서로 비율과 판정 기준을 Validation에서 고릅니다.
 
 | Validation 비교 | Recall | 정상 오판률 | F1 |
