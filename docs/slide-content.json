@@ -141,7 +141,7 @@
       "CatBoost: Recall100%·F1 0.808 / AdaBoost: Recall97.6%·F1 0.854"
     ],
     "seconds": 13,
-    "note": "개별 센서 모델의 실제 비교입니다. F1은 AdaBoost가 더 높지만 Recall은 CatBoost가 높습니다. 이번에는 정상 오판 한도 안에서 Recall을 먼저 보는 기준이라 CatBoost를 골랐습니다.\n\n질문 대비: Recall90% 이상만 충족하면 그중 F1을 최대화하는 다른 정책이라면 이 표에서 AdaBoost를 고를 수 있습니다. 이번 기준은 Recall을 계속 최대화하므로 다릅니다. F1은 Precision과 Recall의 조화평균이고, 정상 오판률은 실제 정상 중 잘못 잡은 비율입니다. 점수를 더하지 않습니다.",
+    "note": "CatBoost의 정상 오판률은 9.3%로 한도 15% 이내입니다. AdaBoost는 6.1%로 오판이 적고 F1도 높지만, Recall은 CatBoost가 100%로 더 높아 이번 기준에서 선택했습니다.\n\n질문 대비: Recall90% 이상만 충족하면 그중 F1을 최대화하는 다른 정책이라면 이 표에서 AdaBoost를 고를 수 있습니다. 이번 기준은 Recall을 계속 최대화하므로 다릅니다. F1은 Precision과 Recall의 조화평균이고, 정상 오판률은 실제 정상 중 잘못 잡은 비율입니다. 점수를 더하지 않습니다.",
     "table": [
       [
         "모델 · 전체 제품 학습",
