@@ -41,7 +41,7 @@
 새 환경에는 과거 모델 파일과 DB가 없으므로 계획 승인 후 학습해야 새 실행 이력이 생깁니다.
 저장된 실측 결과는 `docs/evaluation/`에서 확인할 수 있습니다.
 
-macOS에서는 `start.command`를 더블클릭하거나 터미널에서 `bash start.command`를 실행한 뒤 **http://localhost:8700**을 엽니다. Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·LightGBM은 OpenMP 설치가 필요할 수 있습니다.
+macOS에서는 `start.command`를 더블클릭하거나 터미널에서 `bash start.command`를 실행한 뒤 **http://localhost:8700**을 엽니다. Linux에서는 `bash start.sh`를 실행합니다. macOS의 XGBoost·LightGBM은 OpenMP 설치가 필요할 수 있습니다. Apple Silicon에서 여러 ML 라이브러리의 OpenMP 충돌을 줄이기 위해 앱 import 전에 CPU 스레드 기본값을1로 제한하고 FAISS 검색 스레드에도 적용합니다. 병렬 성능보다 로컬 시연 안정성을 우선한 설정입니다. KMP_DUPLICATE_LIB_OK 우회는 추가하지 않습니다. 네이티브 라이브러리 병용 확인은 `LANGSMITH_TRACING=false .venv/bin/python -m scripts.check_native_runtime`으로 실행합니다(임베딩은 고정 테스트 데이터).
 
 ## 현재 모드와 LangSmith
 

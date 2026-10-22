@@ -39,6 +39,8 @@ class FaissRetriever:
 
     def search(self, docs, query, k=4):
         import faiss
+        # OpenMP settings are thread-local; FastAPI may call from any worker.
+        faiss.omp_set_num_threads(int(os.environ.get("OMP_NUM_THREADS", "1")))
         if not docs or k <= 0:
             return []
         # A content address prevents stale vectors being attached to changed text.

@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-22",
+  "crash_observed": "macOS diagnostic Python-2026-10-22-123031.ips, SIGSEGV in OpenMP worker, multiple libomp instances in stack",
+  "mitigation": "pre-import CPU thread defaults=1; per-search FAISS OpenMP setting",
+  "duplicate_runtime_bypass_added": false,
+  "unit_api_tests_passed": 52,
+  "unit_api_seconds": 10.341,
+  "native_smoke": {
+    "faiss_with_all12_classifiers_cycles": 3,
+    "torch_backward_and_faiss": true,
+    "normal_process_exit": true,
+    "embedding_fixture": "mocked fixed vectors, not live RAG quality proof"
+  },
+  "server_health": "ok",
+  "scope": "local mitigation validated by smoke test, not proof against every native runtime crash"
+}
