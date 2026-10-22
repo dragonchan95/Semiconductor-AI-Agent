@@ -8,7 +8,7 @@
 
 교수님께 제출할 Google Slides에는 [최종 보고서 PPTX](docs/G045_Final_Report.pptx)를 업로드합니다. 상세 보고서8쪽을 모두 담은 제출용이며, 5분 발표용 PPTX와 구분합니다. [상세 보고서 PDF](docs/G045_Final_Report.pdf)와 인터넷 없이 읽는 [HTML 사본](docs/G045_Final_Report.html)도 제공합니다. 모두15주차 폴더에 모았습니다.
 
-기존 [Google Slides](https://docs.google.com/presentation/d/1J2m_cpXyvb-5_Xabs2DsD3EnEV6B6GicF5OP2s5FohU/edit) 주소를 보존했습니다. 이번 수정의 원본은 이 저장소의 보고서와 PPTX입니다. Slides의 온라인 갱신 상태는 별도로 확인해야 합니다.
+**[최종 제출 보고서 Google Slides (8쪽)](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**에 상세 보고서 전체를 반영했습니다. 2026-10-22 Chrome 시크릿 창에서 로그인 없는 보기 전용 열람을 확인했습니다. 제출 엑셀의 `2반!F11`에도 이 주소를 반영했습니다. 5분 발표는 위 발표 PPTX·PDF의 본문1~10장을 사용합니다. [온라인 반영 확인](docs/evaluation/google_slides_submission.json)
 
 ## 하나의 사용 흐름
 

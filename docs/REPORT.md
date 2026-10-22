@@ -8,7 +8,7 @@
 
 [소스 코드](https://github.com/dragonchan95/Semiconductor-AI-Agent) · [발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt)
 
-이 문서는 최신 공개 보고서입니다. 기존 Google Slides 원본은 최신 PPTX 반영이 아직 필요합니다. [공개 접근 확인 기록](evaluation/public_links.json)을 별도로 보관합니다. 발표는 본문1~10장, 11~14장은 질문용 부록입니다.
+이 문서는 최신 공개 보고서입니다. **[최종 제출 보고서 Google Slides (8쪽)](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**에 상세 보고서 전체를 반영했습니다. 2026-10-22 Chrome 시크릿 창에서 로그인 없는 보기 전용 열람을 확인했습니다. [온라인 반영 확인](evaluation/google_slides_submission.json)을 별도로 보관합니다. 5분 발표는 본문1~10장, 11~14장은 질문용 부록입니다.
 
 ## 2. 문제 개선 및 신규 구현 사항
 

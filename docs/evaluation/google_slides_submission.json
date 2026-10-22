@@ -1,0 +1,25 @@
+{
+  "verified_date": "2026-10-22",
+  "timezone": "Asia/Seoul",
+  "source_commit": "b37204f",
+  "source": "docs/G045_Final_Report.pptx",
+  "report_url": "https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit",
+  "native_google_slides": true,
+  "slide_count": 8,
+  "speaker_notes_count": 8,
+  "page_orientation": "A4 portrait",
+  "page_content": "Report page images with text in notes and source hyperlinks",
+  "verification": {
+    "native_pdf_export_pages": 8,
+    "native_pptx_export_slides": 8,
+    "all_pages_visually_reviewed": true,
+    "permission": "Anyone with the link can view",
+    "anonymous_browser": "Chrome Incognito, not signed in, view-only document opened"
+  },
+  "workbooks_updated": [
+    "15주차/AI Agent Mini-Project-Semiconductor-AI-Agent.xlsx: 2반!D11,F11",
+    "15주차/G045_메일첨부/AI Agent Mini-Project-Semiconductor-AI-Agent.xlsx: 2반!D11,F11 and existing G045 submission guide"
+  ],
+  "class_google_spreadsheet_submitted": false,
+  "presentation": "Separate 14-slide presentation; main slides 1-10 for five minutes"
+}
