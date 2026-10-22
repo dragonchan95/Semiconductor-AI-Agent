@@ -3,3 +3,6 @@
 /* Keep the first result readable without opening technical details. */
 .ensemble-weights{display:flex;gap:18px;flex-wrap:wrap;margin:20px 0}.ensemble-weight{flex:1;min-width:180px;padding:16px;border:1px solid #c7dfe1;background:white;border-radius:8px}.ensemble-weight>span{display:block;font-size:30px;color:#147d82;font-weight:bold}.ensemble-bar{height:9px;background:#e6eef0;border-radius:9px;overflow:hidden}.ensemble-bar>i{display:block;height:100%;background:#147d82}#ensemble-recommendation td{white-space:normal;min-width:65px}#ensemble-recommendation td:nth-child(2){max-width:380px}
 #result>p{margin:10px 0;line-height:1.5}#result>h3{margin:12px 0;font-size:23px}#result>.warning,#result>.neutral{margin:12px 0;padding:12px 18px;line-height:1.6}#result>.table-wrap th,#result>.table-wrap td{padding:10px 14px}#result>.table-wrap table{margin:10px 0}#result>.explanation{font-size:15px}#discovery-result .table-wrap{white-space:normal}#discovery-result td{white-space:normal;min-width:150px;max-width:520px}
+
+/* Keep absent results and irrelevant feature panels out of the workflow. */
+[hidden] { display: none !important; }
