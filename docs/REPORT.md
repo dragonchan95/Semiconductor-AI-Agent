@@ -8,7 +8,7 @@
 
 [소스 코드](https://github.com/dragonchan95/Semiconductor-AI-Agent) · [발표 PPTX](G045_Semiconductor_Agent.pptx) · [발표 PDF](G045_Semiconductor_Agent.pdf) · [5분 대본](발표대본_G045.txt)
 
-이 문서와 같은 내용을 [최종 제출 보고서 Google Slides](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)로 제공합니다. 상세 보고서는 구현과 한계를 모두 담고, 5분 발표는 별도 발표 자료의 본문1~12장을 사용합니다. 13~17장은 질문용 부록입니다. [온라인 반영 확인](evaluation/google_slides_submission.json)
+이 문서와 같은 내용을 [최종 제출 보고서 Google Slides](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)로 제공합니다. 상세 보고서는 구현과 한계를 모두 담고, 5분 발표는 별도 발표 자료의 1~16장을 설명하고17장에서 기술 대응표 소개와 마무리를 합니다. 개별 모델 비교를 제품 묶음·앙상블보다 먼저 배치했습니다. [온라인 반영 확인](evaluation/google_slides_submission.json)
 
 ## 2. 문제 개선 및 신규 구현 사항
 
@@ -76,11 +76,13 @@ flowchart TD
 
 ### 교육 모델과 데이터 범위
 
-입력 종류에 따라 모델이 달라집니다. 교육자료의 센서 분류 모델12종(Logistic Regression, Tree·Forest·Boosting, KNN, SVM, MLP 등)과 검사 이미지용 축소 ResNet·VGGNet·Autoencoder3종을 실제 학습합니다. 이미지 학습은 교육용 축소 구조이며 원 논문의 전체 모델 성능을 재현했다고 주장하지 않습니다. GPT/BERT 로그 분류·LSTM/ARIMA 시계열은 자료에 소개된 확장 후보입니다. [수업 PDF 쪽·모델·전처리 연결표](CURRICULUM_MODELS.md)
+입력 종류에 따라 모델이 달라집니다. 교육자료의 센서 분류 모델12종(Logistic Regression, Tree·Forest·Boosting, KNN, SVM, MLP 등)과 검사 이미지용 축소 ResNet·VGGNet·Autoencoder3종을 실제 학습합니다. 이미지 학습은 교육용 축소 구조이며 원 논문의 전체 모델 성능을 재현했다고 주장하지 않습니다. EfficientNet·GAN과 GPT/BERT 로그 분류·LSTM/ARIMA 시계열은 미구현 확장 후보입니다. 시계열의 연속 입력·예측 목표와 장비 로그·정답 데이터가 준비되지 않아 현재 학습 비교에서 제외했습니다. Agent 설명용 Qwen과 장비 로그 분류 모델은 역할이 다릅니다. [수업 PDF 쪽·모델·전처리 연결표](CURRICULUM_MODELS.md)
 
 공개 예제 **SECOM은 UCI Machine Learning Repository의 반도체 제조 센서·정상/불량 데이터셋**입니다. McCann & Johnston(2008), DOI10.24432/C54305, CC BY4.0이며 일본 경비 회사 자료를 뜻하지 않습니다. 1,567개 샘플 중 불량104개이고 센서 원파일590열입니다. UCI 메타데이터의591 features 표기와 구분합니다. 제품명·회사명은 제공하지 않습니다. [UCI 원본 및 라이선스](https://archive.ics.uci.edu/dataset/179/secom)
 
-나머지 제품 A–D 센서·검사 이미지 예제는 합성 자료입니다. SECOM은 날짜 블록 기준으로60/20/20을 나누어 실제 행 수820/367/380이며, 제품 A–D 센서는 lot 단위6:2:2로 나눕니다. 본문 실험은 합성 센서 데이터입니다.
+나머지 제품 A–D 센서·검사 이미지 예제는 합성 자료입니다. SECOM은 날짜 블록 기준으로60/20/20을 나누어 실제 행 수820/367/380이며, 제품 A–D 센서는 lot 단위6:2:2로 나눕니다. 본문 그룹·앙상블과 개별 모델표의 수치는 합성 센서1,280건을 실제 학습해 측정한 값입니다. 임의로 꾸민 성능 수치가 아닙니다. 모델 관리 실험은 변화 규칙을 바꾼 별도 합성 배치3,840건이며, 이미지 실험도 별도 합성576건입니다. 서로 다른 데이터의 점수로 모델 우열을 직접 비교하지 않습니다.
+
+실제 공개 SECOM도 별도로 실행했습니다. 선택 XGBoost의 Test380건(불량23·정상357)에서 불량5개를 발견하고 정상87개를 오판해 Recall21.7%·정상 오판률24.4%로 목표에 미달했습니다. [실제 실행 원본](evaluation/secom.json). 합성 실험의 좋은 점수가 실제 제조 환경에서도 유지된다는 근거로 사용할 수 없습니다.
 
 ### 시연 시나리오와 화면
 

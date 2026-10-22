@@ -6,32 +6,72 @@
       "모델 비교부터 성능 점검·재학습까지 다음 실험을 돕습니다.",
       "SKALA 광주 2반 · G045 김용찬 · 2026.10.22"
     ],
-    "seconds": 10,
-    "note": "안녕하세요. SKALA 광주 2반 G045 김용찬입니다. 반도체 검사 모델을 비교하고, 이후 성능 점검과 재학습까지 돕는 Agent를 만들었습니다.",
+    "seconds": 8,
+    "note": "안녕하세요. SKALA 광주 2반 G045 김용찬입니다. 반도체 검사 모델을 비교하고, 성능 점검과 재학습까지 돕는 Agent를 만들었습니다.",
     "table": null,
     "image": null,
     "kind": "cover",
-    "sources": []
+    "sources": [],
+    "source_slide": 1
   },
   {
-    "title": "모델을 고를 때와 성능이 떨어졌을 때를 돕습니다",
-    "context": "02 · 신규 구현 | 프로젝트에서 설정한 업무 문제",
+    "title": "입력 데이터에 맞는 모델을 비교합니다",
+    "context": "02 · 엔지니어의 반복 실험과 성능 점검",
     "body": [
-      "사용자: 검사 모델을 만들고 점검하는 엔지니어",
-      "처음: 데이터 점검·전처리 이유·모델·제품 묶음·혼합 비율 비교",
-      "이후: 새 정답 데이터로 성능 점검·재학습 필요성 판단·전후 비교",
-      "Agent가 근거와 계획을 제시하고, 엔지니어 승인 후 학습합니다."
+      "입력에 맞는 후보·전처리 제안 후, 승인·실험·성능 점검으로 연결합니다.",
+      "오늘 본문은 센서 분류입니다. 입력 종류별로 따로 비교합니다."
     ],
     "seconds": 15,
-    "note": "검사 모델을 만드는 엔지니어는 어떤 데이터를 함께 학습할지, 어떤 모델을 쓸지 반복해서 비교합니다. 만든 뒤에도 성능을 확인해야 합니다. 이 과정을 근거 확인, 승인, 실행으로 연결했습니다.",
-    "table": null,
+    "note": "데이터 종류에 맞는 모델과 전처리를 제안하고, 승인 후 비교하는 Agent입니다. 현재 센서 열두 종류와 이미지 세 종류를 구현했습니다. 시계열과 장비 로그는 전용 데이터와 학습 연결이 필요한 확장 범위입니다.",
+    "table": [
+      [
+        "입력 데이터",
+        "모델 예",
+        "현재 구현"
+      ],
+      [
+        "센서 표",
+        "Tree·Forest·Boosting, SVM·KNN·MLP 등12종",
+        "실제 비교·제품 묶음·재학습"
+      ],
+      [
+        "검사 이미지",
+        "축소 ResNet·VGGNet, Autoencoder",
+        "실제 학습 비교"
+      ],
+      [
+        "이미지 추가 후보",
+        "EfficientNet, GAN",
+        "미실행·미구현"
+      ],
+      [
+        "연속 시계열",
+        "LSTM·ARIMA·Autoencoder",
+        "전용 데이터·예측 목표 미준비"
+      ],
+      [
+        "장비 로그 텍스트",
+        "LSTM·BERT·GPT",
+        "로그·정답 데이터 미준비"
+      ]
+    ],
     "image": null,
-    "kind": null,
-    "sources": []
+    "kind": "model_scope",
+    "sources": [
+      "app/catalog.py",
+      "app/images.py",
+      "docs/CURRICULUM_MODELS.md",
+      "15주차 반도체 ai agent 참고 사진/20261017_144839.jpg",
+      "15주차 반도체 ai agent 참고 사진 2/20261017_135247.jpg",
+      "https://pytorch.org/hub/nvidia_deeplearningexamples_efficientnet/",
+      "https://docs.pytorch.org/docs/stable/generated/torch.nn.modules.rnn.LSTM.html",
+      "https://huggingface.co/docs/transformers/model_doc/bert"
+    ],
+    "source_slide": 2
   },
   {
     "title": "불량을 놓치지 않으면서, 정상도 지킵니다",
-    "context": "03 · 모델 선택 기준 | 두 가지 실수의 영향을 함께 봅니다",
+    "context": "03 · 제품 묶음·앙상블의 선택 기준",
     "body": [
       "불량을 정상으로 놓치면 다음 공정·고객으로 넘어갈 위험",
       "Recall: 실제 불량100개 중 찾아낸 비율",
@@ -40,8 +80,8 @@
       "정상 오판을 제한한 뒤 Recall 최대, 동률이면 F1으로 비교",
       "Recall90%·정상 오판률15%는 교육용 목표이며 회사 공통 기준이 아닙니다."
     ],
-    "seconds": 40,
-    "note": "불량을 정상으로 놓치면 다음 공정이나 고객에게 넘어가 품질 문제를 일으킬 수 있습니다. 그래서 실제 불량 중 얼마나 찾았는지인 Recall을 우선 봅니다. 하지만 모두 불량이라고 하면 Recall은 백 퍼센트여도 정상 제품까지 전부 잘못 잡습니다. 정상 오판은 불필요한 확인이나 제품 제외로 이어질 수 있어 제한합니다. 이번에는 정상 오판 한도 안에서 Recall을 먼저, 같으면 F1을 비교합니다. 구십 퍼센트와 십오 퍼센트는 교육용 목표입니다.\n\n발표자 참고: 정상 오판은 FP, 불량 미검출은 FN입니다. Recall=TP/(TP+FN), 정상 오판률=FP/(FP+TN), Precision=TP/(TP+FP), F1은 Precision과 Recall의 조화평균입니다. F1은 정상 오판률 자체와 동일한 지표가 아닙니다. 검사 결과가 바로 폐기 결정이라는 뜻은 아니며 뒤의 확인·보류·제외 정책에 따라 영향이 달라집니다. 90%·15%는 회사 공통 기준이 아닙니다. 사용자 화면의 금액·수율 단정은 인용하지 않았습니다.",
+    "seconds": 20,
+    "note": "불량을 정상으로 놓치면 다음 공정이나 고객에게 넘어갈 위험이 있어 Recall을 우선 봅니다. 하지만 모두 불량이라고 하면 정상 제품까지 전부 잘못 잡습니다. 그래서 정상 오판을 제한한 안에서 Recall을 최대화하고, 같으면 F1을 비교합니다. 구십 퍼센트와 십오 퍼센트는 교육용 목표입니다.\n\n발표자 참고: 주 발표의 제품 그룹·앙상블 기준을 설명합니다. 초기 개별 모델·재학습 비교는 두 목표 충족 여부를 먼저 보고 Recall·정상 오판률 순으로 고릅니다(F1은 표시). 제품 그룹은 제품별 목표도 확인한 뒤 전체 Recall·F1을 봅니다. 앙상블은 정상 오판 한도 내 Recall 최대·동률 F1입니다. Recall 목표 후 F1 최대화로 정책을 바꾸지는 않았습니다.",
     "table": null,
     "image": null,
     "kind": "criteria",
@@ -51,24 +91,26 @@
       "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?hl=en",
       "https://www.kla.com/documents/03_ProcessWatchAutomotive_2018_08.pdf",
       "사용자 제공 바탕화면 스크린샷 2026-10-21 오전 11.08.43.png 및 11.08.48.png (AI 개요 화면으로, 지표 정의·산업 맥락은 공식 출처와 대조)"
-    ]
+    ],
+    "source_slide": 3
   },
   {
     "title": "① 검사 데이터를 선택합니다",
-    "context": "04 · 실제 화면 | 이번 시연의 입력",
+    "context": "04 · 실제 화면 | 데이터의 출처와 실측 결과를 구분",
     "body": [
-      "합성 센서 1,280건 · 불량 201건 · 제품 A–D는 가상 이름",
-      "센서 CSV와 검사 이미지 ZIP 등록도 지원합니다.",
-      "오늘은 센서 예제로 모델과 혼합 비율을 비교합니다."
+      "오늘 본문: 합성 센서1,280건 · 제품 A–D는 가상 이름",
+      "표시한 성능은 실제 학습으로 측정했습니다.",
+      "UCI SECOM은 실제 공개 자료로 별도 실험했습니다."
     ],
-    "seconds": 10,
-    "note": "여러 센서 값으로 정상과 불량을 구분하는 합성 데이터 천이백팔십 건을 선택합니다. A부터 D는 가상 제품이며, 실제 공장 데이터는 아닙니다.",
+    "seconds": 8,
+    "note": "오늘 본문은 합성 센서 데이터입니다. 퍼센트는 실제 학습해 측정한 값입니다. 실제 공개 SECOM 자료도 별도로 실험했습니다.",
     "table": null,
     "image": "app-data.jpg",
     "kind": null,
     "sources": [
       "app/data.py"
-    ]
+    ],
+    "source_slide": 4
   },
   {
     "title": "② 비교 범위를 확인하고 승인합니다",
@@ -79,8 +121,8 @@
       "제품 묶음15개와 예측 혼합 비율232개를 각각 비교",
       "계획과 데이터를 확인하고 승인한 뒤 실제 학습"
     ],
-    "seconds": 30,
-    "note": "Agent가 빈값을 어떻게 채우고 숫자 크기를 맞출지 설명합니다. SVM처럼 값의 크기에 민감한 모델에는 Scaling을 씁니다. 데이터는 육십 퍼센트로 학습하고, 이십 퍼센트로 후보를 고릅니다. 마지막 이십 퍼센트는 선택한 모델의 최종 시험용으로 남깁니다. 계획을 승인하면 실제 학습합니다.",
+    "seconds": 18,
+    "note": "빈값 처리와 Scaling처럼 학습 전 준비도 설명합니다. 데이터의 육십 퍼센트로 학습하고, 이십 퍼센트로 후보를 고릅니다. 마지막 이십 퍼센트는 최종 시험용으로 남깁니다. 엔지니어가 계획을 승인하면 실행합니다.",
     "table": null,
     "image": "app-grouping-plan.jpg",
     "kind": null,
@@ -88,145 +130,18 @@
       "app/experiments.py",
       "app/ensemble.py",
       "docs/evaluation/weighted_ensemble.json"
-    ]
+    ],
+    "source_slide": 5
   },
   {
-    "title": "③ 제품 묶음 비교: ABC는 함께, D는 따로 학습",
-    "context": "06 · 실험1 | 같은 CatBoost로 제품 묶음15개 비교",
+    "title": "③ 개별 모델 비교와 선택 근거",
+    "context": "06 · 합성 센서의 모델별 Validation 실측",
     "body": [
-      "Validation: Recall 100.0% · F1 0.840",
-      "Test: Recall 78.1% (25/32) · 목표 미달 → 적용 보류",
-      "제품별 정상 오판 한도와 검출 목표를 확인하고 전체 Recall·F1으로 선택",
-      "Test 점수를 보고 그룹을 다시 고르지 않습니다."
+      "같은 센서 후보 선택용 데이터에서 알고리즘별 최선 불균형 설정을 표시합니다.",
+      "CatBoost: Recall100%·F1 0.808 / AdaBoost: Recall97.6%·F1 0.854"
     ],
-    "seconds": 30,
-    "note": "첫 실험은 제품을 모두 합칠지 나눌지 비교합니다. 같은 CatBoost로 열다섯 구성을 시험했더니, 후보를 고르는 데이터에서는 ABC를 함께, D는 따로 학습한 구성이 좋았습니다. 하지만 마지막 시험의 검출률은 칠십팔 점 일 퍼센트로 목표 미달이었습니다. 그래서 비교 후보로 선택했어도 적용은 보류합니다.",
-    "table": null,
-    "image": "app-grouping-validation.jpg",
-    "kind": "grouping_screen",
-    "sources": [
-      "app/grouping.py",
-      "docs/evaluation/product_partitions.json",
-      "docs/evaluation/grouping_browser.json"
-    ]
-  },
-  {
-    "title": "④ 선택 비율: CatBoost 90% + LightGBM 10%",
-    "context": "07 · 실험2 | 학습 제품ABCD 고정 · 후보 선택용 데이터에서 비율 선택",
-    "body": [
-      "검출률 100.0% 유지 · F1 0.808 → 0.816",
-      "정상 오판 한도 준수 → Recall 최대 → 동률이면 F1",
-      "상위 3개 모델 · 5% 간격과 균등 비율 · 232개 비교",
-      "선택 범위 안의 최선입니다. Test로 비율을 고르지 않습니다."
-    ],
-    "seconds": 20,
-    "note": "앙상블은 여러 모델의 예측 점수를 섞는 방법입니다. 두 번째 실험에서는 제품 ABCD를 합쳐 학습한 세 모델의 비율 이백서른두 개를 비교했습니다. 후보 선택용 데이터에서 CatBoost 구십, LightGBM 십 퍼센트를 골랐습니다.",
-    "table": null,
-    "image": "app-ensemble-validation.jpg",
-    "kind": "ensemble_screen",
-    "sources": [
-      "docs/evaluation/weighted_ensemble.json",
-      "docs/evaluation/ensemble_browser.json"
-    ]
-  },
-  {
-    "title": "⑤ 같은 검출률을 유지하며 정상 오판을 줄였습니다",
-    "context": "08 · 실험2의 마지막 시험(Test) | 불량32개 · 정상224개",
-    "body": [
-      "불량 발견 30 → 30개",
-      "정상 오판 21 → 19개",
-      "Test F1 0.723 → 0.741",
-      "검출률 93.8% · 시연 목표 충족\n새 독립 데이터 검증 필요"
-    ],
-    "seconds": 20,
-    "note": "선택한 비율로 마지막 시험을 봤습니다. 단일 모델과 혼합 모델 모두 불량 서른두 개 중 서른 개를 찾았습니다. 정상 오판은 스물한 개에서 열아홉 개로 줄었습니다. 불량을 찾는 성능을 유지하면서 정상도 덜 잘못 잡은 사례입니다.",
-    "table": null,
-    "image": "app-ensemble-test.jpg",
-    "kind": "result_screen",
-    "sources": [
-      "docs/evaluation/weighted_ensemble.json"
-    ]
-  },
-  {
-    "title": "⑥ 새 정답 데이터로 기존 모델을 점검합니다",
-    "context": "09 · 모델 관리 | 다른 합성 데이터에서 기존 성능 점검",
-    "body": [
-      "기존 모델·판정값을 고정하고 같은 제품의 새 정답 데이터를 점검",
-      "목표 미달·검출률 하락이면 재학습 비교 제안",
-      "불량 표본이 부족하면 판단 보류 · 수치는 교육용 기준"
-    ],
-    "image": "app-management-review.jpg",
-    "kind": "management_review",
-    "seconds": 20,
-    "sources": [
-      "app/monitoring.py",
-      "docs/evaluation/lifecycle_mac.json"
-    ],
-    "note": "모델을 만든 뒤에는 새 데이터에서도 잘 찾는지 확인합니다. 여기서는 사람이 확인한 정답처럼 정상·불량이 표시된 별도 합성 데이터를 넣었습니다. 기존 모델을 그대로 점검하고 성능이 떨어지면 재학습 비교를 제안합니다. 표본이 부족하면 판단을 보류합니다."
-  },
-  {
-    "title": "⑦ 승인 후 재학습하고, 같은 Test에서 비교합니다",
-    "context": "10 · 재학습의 마지막 시험(Test) | 불량167개 · 정상601개",
-    "body": [
-      "CatBoost 알고리즘 유지 · 새 Train으로 재학습",
-      "불량 발견 43 → 153 / 167개",
-      "Recall 25.7% → 91.6% · 정상 오판 96 → 79개",
-      "재학습 후보 저장 · 운영 모델 자동 교체는 수행하지 않음"
-    ],
-    "image": "app-management-result.jpg",
-    "kind": "management_result",
-    "seconds": 30,
-    "sources": [
-      "app/monitoring.py",
-      "docs/evaluation/lifecycle_mac.json"
-    ],
-    "note": "엔지니어가 승인하면 같은 CatBoost로 새 데이터를 다시 학습합니다. 같은 마지막 시험에서 불량 발견이 백육십일곱 개 중 마흔세 개에서 백쉰세 개로 늘었습니다. 정상 오판은 아흔여섯 개에서 일흔아홉 개로 줄었습니다. 재학습 후보를 저장하고, 운영 모델 교체는 엔지니어가 별도로 판단합니다."
-  },
-  {
-    "title": "역할을 나누고, 실행과 답변을 검증했습니다",
-    "context": "11 · 구현 구조와 검증",
-    "body": [
-      "LangGraph: 데이터 점검·근거 검색·계획 역할 연결",
-      "로컬 Qwen: 설명 보조 / 실험 엔진: 학습·성능 점검·지표·버전 기록"
-    ],
-    "seconds": 15,
-    "note": "설명과 계획은 언어모델이 돕고, 학습과 숫자 계산은 코드가 담당합니다. 역할 분리와 근거 검색, 도구 연결, 실행 추적을 적용했습니다. 테스트 쉰두 개와 설명 검사 결과도 남겼습니다.",
-    "table": null,
-    "image": null,
-    "kind": "architecture",
-    "sources": [
-      "app/planner.py",
-      "app/ensemble.py",
-      "docs/evaluation/langsmith_check.json",
-      "docs/evaluation/llm_judge.json",
-      "docs/evaluation/tests-windows.txt"
-    ]
-  },
-  {
-    "title": "선택 근거와 검증 실패를 함께 남깁니다",
-    "context": "12 · 성과와 교훈",
-    "body": [
-      "성과: 모델 실험과 기존 모델 점검·승인 후 재학습을 연결",
-      "교훈: 후보 선택 때 좋아도, 마지막 시험에서는 실패할 수 있습니다.",
-      "한계: 합성 데이터·작은 불량 표본·반복 비교 → 현장 효과 미측정",
-      "개선: 독립 기간 검증 · 상시 데이터 감시 · 운영 버전 전환·복구"
-    ],
-    "seconds": 20,
-    "note": "이 Agent는 모델 선택뿐 아니라 성능 점검과 승인 후 재학습까지 돕습니다. 좋은 점수만 보여 주기보다 선택 이유와 실패도 기록했습니다. 합성 데이터 결과이므로 실제 적용 전에는 새 생산 데이터와 현장 기준으로 다시 검증해야 합니다. 감사합니다.",
-    "table": null,
-    "image": null,
-    "kind": null,
-    "sources": []
-  },
-  {
-    "title": "비율을 섞기 전, 개별 모델 비교",
-    "context": "부록 A · 초기 전체 제품 Validation 비교",
-    "body": [
-      "전체 제품 Train의 24조건에서 알고리즘별 최선 불균형 설정을 표시합니다.",
-      "앙상블은 같은 학습 범위의 CatBoost·HistGradientBoosting·LightGBM으로 비교했습니다."
-    ],
-    "seconds": 0,
-    "note": "초기 전체 제품 비교표입니다. AdaBoost는 F1이 더 높지만 이번에는 검출률을 먼저 보는 규칙을 따랐습니다. 초기 제품 조합 탐색의 CatBoost A+B+C와 이번 전체 제품 앙상블은 별도의 실험입니다.",
+    "seconds": 13,
+    "note": "개별 센서 모델의 실제 비교입니다. F1은 AdaBoost가 더 높지만 Recall은 CatBoost가 높습니다. 이번에는 정상 오판 한도 안에서 Recall을 먼저 보는 기준이라 CatBoost를 골랐습니다.\n\n질문 대비: Recall90% 이상만 충족하면 그중 F1을 최대화하는 다른 정책이라면 이 표에서 AdaBoost를 고를 수 있습니다. 이번 기준은 Recall을 계속 최대화하므로 다릅니다. F1은 Precision과 Recall의 조화평균이고, 정상 오판률은 실제 정상 중 잘못 잡은 비율입니다. 점수를 더하지 않습니다.",
     "table": [
       [
         "모델 · 전체 제품 학습",
@@ -240,84 +155,84 @@
         "none",
         "100.0%",
         "9.3%",
-        "80.8%"
+        "0.808"
       ],
       [
         "HistGradientBoosting",
         "none",
         "100.0%",
         "10.3%",
-        "79.2%"
+        "0.792"
       ],
       [
         "LightGBM",
         "none",
         "100.0%",
         "10.7%",
-        "78.5%"
+        "0.785"
       ],
       [
         "XGBoost",
         "none",
         "100.0%",
         "11.2%",
-        "77.8%"
+        "0.778"
       ],
       [
         "Random Forest",
         "none",
         "100.0%",
         "13.1%",
-        "75.0%"
+        "0.750"
       ],
       [
         "AdaBoost",
         "none",
         "97.6%",
         "6.1%",
-        "85.4%"
+        "0.854"
       ],
       [
         "SVM (RBF)",
         "weighted",
         "97.6%",
         "10.7%",
-        "77.4%"
+        "0.774"
       ],
       [
         "Gradient Boosting",
         "none",
         "97.6%",
         "11.7%",
-        "75.9%"
+        "0.759"
       ],
       [
         "MLP / ANN",
         "none",
         "97.6%",
         "14.5%",
-        "71.9%"
+        "0.719"
       ],
       [
         "Decision Tree",
         "none",
         "92.9%",
         "8.4%",
-        "78.8%"
+        "0.788"
       ],
       [
         "KNN",
         "none",
         "92.9%",
         "11.2%",
-        "74.3%"
+        "0.743"
       ],
       [
         "Logistic Regression",
         "weighted",
         "90.5%",
         "18.7%",
-        "63.3%"
+        "0.633"
       ]
     ],
     "image": null,
@@ -325,18 +240,171 @@
     "sources": [
       "docs/evaluation/synthetic_process.json",
       "docs/evaluation/weighted_ensemble.json"
-    ]
+    ],
+    "source_slide": 13
+  },
+  {
+    "title": "④ 제품 묶음 비교: ABC는 함께, D는 따로 학습",
+    "context": "07 · 합성 센서1,280건 | CatBoost 고정 · 제품 묶음15개 비교",
+    "body": [
+      "Validation: Recall 100.0% · F1 0.840",
+      "Test: Recall 78.1% (25/32) · 목표 미달 → 적용 보류",
+      "제품별 정상 오판 한도와 검출 목표를 확인하고 전체 Recall·F1으로 선택",
+      "Test 점수를 보고 그룹을 다시 고르지 않습니다."
+    ],
+    "seconds": 20,
+    "note": "다음은 CatBoost를 고정하고 제품을 합칠지 나눌지 비교한 별도 실험입니다. 후보 선택용 데이터에서는 ABC를 함께, D는 따로 학습한 구성이 좋았습니다. 하지만 마지막 시험의 검출률은 칠십팔 점 일 퍼센트로 목표에 미달해 적용을 보류했습니다.",
+    "table": null,
+    "image": "app-grouping-validation.jpg",
+    "kind": "grouping_screen",
+    "sources": [
+      "app/grouping.py",
+      "docs/evaluation/product_partitions.json",
+      "docs/evaluation/grouping_browser.json"
+    ],
+    "source_slide": 6
+  },
+  {
+    "title": "⑤ 선택 비율: CatBoost 90% + LightGBM 10%",
+    "context": "08 · 같은 합성 센서 | 후보 선택용 데이터에서 앙상블 비율 선택",
+    "body": [
+      "검출률 100.0% 유지 · F1 0.808 → 0.816",
+      "정상 오판 한도 준수 → Recall 최대 → 동률이면 F1",
+      "상위 3개 모델 · 5% 간격과 균등 비율 · 232개 비교",
+      "선택 범위 안의 최선입니다. Test로 비율을 고르지 않습니다."
+    ],
+    "seconds": 18,
+    "note": "이번에는 제품 ABCD를 합쳐 학습한 세 모델의 예측 점수를 섞었습니다. 비율 이백서른두 개를 비교해 후보 선택용 데이터에서 CatBoost 구십, LightGBM 십 퍼센트를 골랐습니다. 앞의 제품 그룹 실험과는 별도 비교입니다.",
+    "table": null,
+    "image": "app-ensemble-validation.jpg",
+    "kind": "ensemble_screen",
+    "sources": [
+      "docs/evaluation/weighted_ensemble.json",
+      "docs/evaluation/ensemble_browser.json"
+    ],
+    "source_slide": 7
+  },
+  {
+    "title": "⑥ 같은 검출률을 유지하며 정상 오판을 줄였습니다",
+    "context": "09 · 합성 센서의 Test | 불량32개·정상224개",
+    "body": [
+      "불량 발견 30 → 30개",
+      "정상 오판 21 → 19개",
+      "Test F1 0.723 → 0.741",
+      "검출률 93.8% · 시연 목표 충족\n새 독립 데이터 검증 필요"
+    ],
+    "seconds": 15,
+    "note": "마지막 시험에서는 단일 모델과 혼합 모델 모두 불량 서른두 개 중 서른 개를 찾았습니다. 정상 오판은 스물한 개에서 열아홉 개로 줄었습니다. 같은 검출률을 유지하면서 정상도 덜 잘못 잡았습니다.",
+    "table": null,
+    "image": "app-ensemble-test.jpg",
+    "kind": "result_screen",
+    "sources": [
+      "docs/evaluation/weighted_ensemble.json"
+    ],
+    "source_slide": 8
+  },
+  {
+    "title": "⑦ 새 정답 데이터로 기존 모델을 점검합니다",
+    "context": "10 · 새 변화 합성 배치3,840건 | 기존 모델 점검",
+    "body": [
+      "기존 모델·판정값을 고정하고 같은 제품의 새 정답 데이터를 점검",
+      "목표 미달·검출률 하락이면 재학습 비교 제안",
+      "불량 표본이 부족하면 판단 보류 · 수치는 교육용 기준"
+    ],
+    "image": "app-management-review.jpg",
+    "kind": "management_review",
+    "seconds": 15,
+    "sources": [
+      "app/monitoring.py",
+      "docs/evaluation/lifecycle_mac.json"
+    ],
+    "note": "만든 모델이 새 데이터에서도 잘 찾는지 점검합니다. 정상·불량이 표시된 별도 합성 데이터에서 성능이 떨어지자 재학습 비교를 제안했습니다. 표본이 부족하면 판단을 보류합니다.",
+    "source_slide": 9
+  },
+  {
+    "title": "⑧ 승인 후 재학습하고, 같은 Test에서 비교합니다",
+    "context": "11 · 새 합성 배치의 Test | 불량167개·정상601개",
+    "body": [
+      "CatBoost 알고리즘 유지 · 새 Train으로 재학습",
+      "불량 발견 43 → 153 / 167개",
+      "Recall 25.7% → 91.6% · 정상 오판 96 → 79개",
+      "재학습 후보 저장 · 운영 모델 자동 교체는 수행하지 않음"
+    ],
+    "image": "app-management-result.jpg",
+    "kind": "management_result",
+    "seconds": 20,
+    "sources": [
+      "app/monitoring.py",
+      "docs/evaluation/lifecycle_mac.json"
+    ],
+    "note": "승인 후 같은 CatBoost로 다시 학습했습니다. 같은 마지막 시험에서 불량 발견이 백육십일곱 개 중 마흔세 개에서 백쉰세 개로 늘었습니다. 정상 오판은 아흔여섯 개에서 일흔아홉 개로 줄었습니다. 운영 모델을 자동 교체하지는 않습니다.",
+    "source_slide": 10
+  },
+  {
+    "title": "이미지 모델도 별도로 학습해 비교했습니다",
+    "context": "12 · 합성 검사 이미지 | Validation114건·불량19개",
+    "body": [
+      "전처리2조건 중 모델별 최선. 단순 합성 패턴에서 세 모델이 같은 점수입니다.",
+      "선택 Autoencoder의 Test는14/15개 발견. 불량 표본 부족으로 적용 판단은 보류했습니다."
+    ],
+    "seconds": 15,
+    "note": "이미지는 축소 ResNet, VGGNet, Autoencoder를 실제로 비교했습니다. 단순 합성 패턴이라 후보 선택 점수는 같습니다. EfficientNet은 아직 학습하지 않은 추가 후보로 구분했습니다.\n\n조건: 같은 Validation114건(불량19·정상95), 같은lot분할, 모델별gray/contrast2조건 중 최선. 6epochs, scratch 축소 구조. Autoencoder는 정상만 학습합니다. 이미지 점수는 센서 모델과 직접 순위를 매기지 않습니다. 새 EfficientNet 실행 결과를 만든 것은 아닙니다. 기존 선택 Autoencoder의Test는14/15개·정상오판0/105개이며 불량20개 기준 미달로보류입니다.",
+    "table": [
+      [
+        "이미지 모델",
+        "현재 상태",
+        "Recall",
+        "F1",
+        "정상 오판률"
+      ],
+      [
+        "ResNet 계열 축소",
+        "실행 완료 · contrast",
+        "100.0%",
+        "1.000",
+        "0.0%"
+      ],
+      [
+        "VGGNet 계열 축소",
+        "실행 완료 · contrast",
+        "100.0%",
+        "1.000",
+        "0.0%"
+      ],
+      [
+        "Autoencoder",
+        "실행 완료 · contrast",
+        "100.0%",
+        "1.000",
+        "0.0%"
+      ],
+      [
+        "EfficientNet",
+        "추가 후보 · 미구현",
+        "미실행",
+        "미실행",
+        "미실행"
+      ]
+    ],
+    "image": null,
+    "kind": "image_model_table",
+    "sources": [
+      "app/images.py",
+      "docs/evaluation/images.json",
+      "https://pytorch.org/hub/nvidia_deeplearningexamples_efficientnet/"
+    ],
+    "source_slide": 15
   },
   {
     "title": "공식 문서에서 비교 후보를 추가할 수 있습니다",
-    "context": "부록 B · 공식 문서 근거 | 저장된 실제 검색 기록의 UI 재현",
+    "context": "13 · RAG | 저장된 실제 검색 기록의 UI 재현",
     "body": [
       "공식 문서 검색 → 근거를 Qwen에 전달",
       "BGE-M3 임베딩 + FAISS 벡터 저장·검색",
       "실제 학습 연결: ExtraTrees·GaussianNB 두 후보 · 계획 승인 후 비교"
     ],
-    "seconds": 0,
-    "note": "외부 모델 탐색에는 공식 문서를 BGE-M3로 임베딩하고 FAISS에서 관련 문장을 찾아 로컬 Qwen에 전달하는 RAG를 씁니다. 5주차 실습과 같은 검색 구조이며 이 Windows에서는 Ollama로 임베딩을 실행합니다. FAISS 벡터와 출처를 로컬에 저장하며 별도 서버형 DB는 아닙니다. 학습 연결은 검토한 ExtraTrees와 GaussianNB 두 후보이고 임의 모델 코드를 자동 설치하지 않습니다.",
+    "seconds": 15,
+    "note": "새 후보를 찾을 때는 공식 문서를 검색해 관련 내용을 언어모델에 전달하는 RAG를 사용합니다. ExtraTrees와 GaussianNB를 제안하고, 승인 후 기존 후보와 비교합니다.",
     "table": null,
     "image": "app-rag-proof.jpg",
     "kind": null,
@@ -344,38 +412,40 @@
       "app/discovery.py",
       "app/retrieval.py",
       "docs/evaluation/vector_rag.json"
-    ]
+    ],
+    "source_slide": 14
   },
   {
-    "title": "선택이 최적이라는 말은 어디까지인가요?",
-    "context": "부록 C · 앙상블 선택 근거와 범위",
+    "title": "역할을 나누고, 실행과 답변을 검증했습니다",
+    "context": "14 · 구현 구조와 검증",
     "body": [
-      "실험1: 알고리즘·설정 고정 → 제품 그룹15개 구성 비교",
-      "실험2: 학습 제품ABCD 고정 → 세 모델의 혼합 비율232개 비교",
-      "두 실험은 각각 조건을 통제했습니다. 그룹과 비율의 공동 전역 최적화가 아닙니다.",
-      "선택은 Validation에서, 선택 후 확인은 Test에서 수행했습니다.",
-      "기존 Test 재사용·작은 제품별 불량 표본 → 새 독립 기간 검증 필요"
+      "LangGraph: 데이터 점검·근거 검색·계획 역할 연결",
+      "로컬 Qwen: 설명 보조 / 실험 엔진: 학습·성능 점검·지표·버전 기록"
     ],
-    "seconds": 0,
-    "note": "최선이라는 말은 승인한 후보와 조건, Validation 범위 안에서의 선택을 뜻합니다. 제품 그룹 구성과 앙상블 비율은 별도 실험으로 비교했습니다. 둘을 모두 동시에 최적화했다고 주장하지 않습니다. 그룹 구성은 Test에서 목표 미달이었고 적용을 보류했습니다.",
+    "seconds": 12,
+    "note": "설명과 계획은 언어모델이 돕고, 학습과 숫자 계산은 코드가 담당합니다. 역할 분리, 근거 검색, 도구 연결과 실행 추적을 적용했습니다.",
     "table": null,
     "image": null,
-    "kind": null,
+    "kind": "architecture",
     "sources": [
+      "app/planner.py",
       "app/ensemble.py",
-      "docs/evaluation/weighted_ensemble.json"
-    ]
+      "docs/evaluation/langsmith_check.json",
+      "docs/evaluation/llm_judge.json",
+      "docs/evaluation/tests-windows.txt"
+    ],
+    "source_slide": 11
   },
   {
     "title": "LLM-as-a-Judge: 설명이 맞는지 LLM이 검사합니다",
-    "context": "부록 D · 실제 예시로 이해하기",
+    "context": "15 · LLM-as-a-Judge | 설명을 검사한 실제 예시",
     "body": [
       "검사용 기준: 이전 실험에서 불량27/32개 발견 · 목표90%에는 미달",
       "실제 결과와 설명 문장을 주고 “맞는 설명인가?”를 물었습니다.",
       "직접 만든 예제 8개 중 6개는 맞게 검사했고, 2개는 틀렸습니다."
     ],
-    "seconds": 0,
-    "note": "LLM-as-a-Judge는 설명이 맞는지 LLM에게 검사시키는 기능입니다. 실제로27개를 찾았는데30개라고 설명하면 틀렸다고 알려줘야 합니다. 실제 결과와 문장을 함께 주고 검사했고, 직접 만든 예제8개 중6개는 맞게 판단했습니다. 하지만30개라는 오류는 놓쳤습니다. 그래서 보조 검사로 쓰고 중요한 숫자는 코드로 확인합니다. 이 예시는 앙상블 추가 전의 실험 기록을 기준으로 검사했습니다.",
+    "seconds": 20,
+    "note": "언어모델 설명도 틀릴 수 있어 실제 결과와 함께 검사했습니다. 여덟 예제 중 여섯 개는 맞게 판단했지만 두 개는 틀렸습니다. 실제 이십칠 개를 삼십 개라고 한 오류도 놓쳐서 보조 검사로 사용합니다.",
     "table": [
       [
         "검사할 설명",
@@ -403,11 +473,33 @@
     "sources": [
       "docs/evaluation/llm_judge.json",
       "docs/EVALUATION.md"
-    ]
+    ],
+    "source_slide": 16
+  },
+  {
+    "title": "공개 데이터에서도 확인하고, 실패를 기록했습니다",
+    "context": "16 · 실제 공개 자료 | UCI 반도체 제조 센서 데이터 SECOM 1,567건",
+    "body": [
+      "합성 센서 앙상블: 불량30/32개 발견 · 정상19/224개 오판",
+      "실제 공개 SECOM: 불량5/23개 발견 · 정상87/357개 오판",
+      "공개 자료에서는 목표 미달. 합성 결과를 현장 성능으로 일반화할 수 없습니다.",
+      "개선: 현장 기준·독립 기간·충분한 불량 표본으로 다시 검증"
+    ],
+    "seconds": 12,
+    "note": "실제 공개 SECOM 데이터도 시험했지만 불량 스물세 개 중 다섯 개를 찾아 목표에 미달했습니다. 합성 데이터의 좋은 결과가 실제 생산 성능을 보장하지 않으므로, 실패도 기록하고 다시 검증해야 합니다.",
+    "table": null,
+    "image": null,
+    "kind": null,
+    "sources": [
+      "docs/evaluation/weighted_ensemble.json",
+      "docs/evaluation/secom.json",
+      "https://archive.ics.uci.edu/dataset/179/secom"
+    ],
+    "source_slide": 12
   },
   {
     "title": "과제 기술 요소와 실제 구현 위치",
-    "context": "부록 E · 기술 대응표",
+    "context": "17 · 과제 기술 요소와 실제 구현 위치",
     "body": [
       "실행한 범위를 기준으로 정리했습니다."
     ],
@@ -445,12 +537,13 @@
         "새 정답 배치 점검 / 승인 재학습 / 전후 비교·후보 저장"
       ]
     ],
-    "seconds": 0,
+    "seconds": 6,
     "image": null,
     "kind": "mapping",
-    "note": "기술은 이름만 붙이지 않고 코드와 실제 실행 기록에 연결했습니다. 고정 역할 그래프이며 자율 Supervisor는 미구현입니다. RAG는 로컬 FAISS 저장소입니다. LLM 평가는 소규모 개발 예제이며 일반 정확도 주장이 아닙니다. 상시 감시와 운영 모델 자동 교체는 향후 확장입니다.",
+    "note": "마지막은 과제 기술 요소와 실제 구현 위치입니다. 이상 발표를 마치겠습니다. 감사합니다.\n\n고정 역할 그래프이며 자율 Supervisor는 미구현입니다. 로컬FAISS 저장·검색을 사용합니다. 상시 감시·자동 운영 교체는 향후 범위입니다.",
     "sources": [
       "docs/ASSIGNMENT_CHECKLIST.md"
-    ]
+    ],
+    "source_slide": 17
   }
 ]

@@ -6,7 +6,7 @@
 
 [최종 보고서](docs/REPORT.md) · [발표 PPTX](docs/G045_Semiconductor_Agent.pptx) · [발표 PDF](docs/G045_Semiconductor_Agent.pdf) · [5분 대본](docs/발표대본_G045.txt) · [과제 대응표](docs/ASSIGNMENT_CHECKLIST.md)
 
-**[최종 제출 보고서 Google Slides](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**는 교수님 안내의 다섯 필수 항목을 담은 상세 보고서입니다. [보고서 PDF](docs/G045_Final_Report.pdf)·[Google Slides 업로드용 PPTX](docs/G045_Final_Report.pptx)·[HTML 사본](docs/G045_Final_Report.html)을 제공합니다. 5분 발표는 별도 발표 PPTX·PDF의 본문1~12장을 사용하고 13~17장은 질문용 부록입니다. 제출 엑셀 `2반!F11`에도 같은 공개 보고서 주소를 사용합니다. [온라인 반영 확인](docs/evaluation/google_slides_submission.json)
+**[최종 제출 보고서 Google Slides](https://docs.google.com/presentation/d/1Upq5XgCTom2bhOTXbTf28W2QlDKoQ5XvXIDO3Y6c2Do/edit)**는 교수님 안내의 다섯 필수 항목을 담은 상세 보고서입니다. [보고서 PDF](docs/G045_Final_Report.pdf)·[Google Slides 업로드용 PPTX](docs/G045_Final_Report.pptx)·[HTML 사본](docs/G045_Final_Report.html)을 제공합니다. 5분 발표는 별도 발표 PPTX·PDF의 1~16장을 설명하고17장에서 기술 대응표 소개와 마무리를 합니다. 개별 모델 비교를 제품 묶음·앙상블보다 앞에 배치했습니다. 제출 엑셀 `2반!F11`에도 같은 공개 보고서 주소를 사용합니다. [온라인 반영 확인](docs/evaluation/google_slides_submission.json)
 
 ## 하나의 사용 흐름
 

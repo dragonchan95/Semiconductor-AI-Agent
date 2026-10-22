@@ -5,6 +5,6 @@
   "text_verified": true,
   "model_management": "labeled batch review / approve / retrain / same test / candidate save",
   "presentation_pages": 17,
-  "main_pages": 12,
-  "presentation_speech_target_seconds": 260
+  "main_pages": 16,
+  "presentation_speech_target_seconds": 250
 }

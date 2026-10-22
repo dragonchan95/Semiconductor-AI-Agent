@@ -7,7 +7,7 @@
   "all_page_images_compared": [
     {
       "page": 1,
-      "mean_pixel_difference": 1.437
+      "mean_pixel_difference": 1.497
     },
     {
       "page": 2,
@@ -15,11 +15,11 @@
     },
     {
       "page": 3,
-      "mean_pixel_difference": 1.357
+      "mean_pixel_difference": 1.334
     },
     {
       "page": 4,
-      "mean_pixel_difference": 0.681
+      "mean_pixel_difference": 1.175
     },
     {
       "page": 5,
@@ -53,7 +53,6 @@
   "permission_observed": "Anyone with the link, sign-in not required",
   "public_access_rechecked_this_revision": true,
   "source_report": "REPORT.md",
-  "local_report_sha256": "63d47caa7d4083abec5d5b384539f871dcd9209977b62579a10c5737d6571e80",
-  "scope": "Detailed report includes approved labeled-batch management. Five-minute deck is separate.",
-  "anonymous_verification": "Chrome incognito: updated 11-page title, sign-in link visible, view-only and no-login-required public permission"
+  "local_report_sha256": "614583ffab0a59c007140e7601efd452639fc0891ea690efa41a6dfea3f925da",
+  "scope": "Detailed report includes approved labeled-batch management. Five-minute deck is separate."
 }
